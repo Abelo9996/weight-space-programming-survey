@@ -1,0 +1,43 @@
+{
+ "id": "2611.17789",
+ "url": "https://arxiv.org/abs/2611.17789",
+ "title": "Can Large Language Models Optimize Pretrained Neural Network Weights? A Multi-Phase Empirical Evaluation of Gradient-Free Editing in YOLO26 Object Detection",
+ "authors": ["Mohamed Abdallah Salem"],
+ "date": "2026-11-13",
+ "read_level": "full (v1 PDF main text, tables I-IX, limitations; appendix tables X-XI skimmed)",
+ "metadata_mismatch": "none",
+ "is_wsp": "core",
+ "why_wsp": "A local LLM (Ollama gemma4) proposes structured JSON edits (stage/channel scaling, low-rank, head edits) to pretrained YOLO26 weights, scored by forward evaluation on COCO; compared against random, DE, CMA-ES and a matched random-policy hybrid.",
+ "primary_branch": "B4",
+ "secondary_branches": ["B3", "B5"],
+ "facets": ["evaluation", "application domain"],
+ "domain": "object detection (YOLO26 on MS COCO)",
+ "editor": "local Ollama model identified in logs as gemma4:latest; plus non-LLM optimizers (random search, differential evolution, CMA-ES, TPE) and hybrid LLM-CMA-ES",
+ "target": "YOLO26n (2.409M fused params), YOLO26s (9.496M), YOLO26m (20.411M)",
+ "interface": "other (schema-validated JSON edit actions: scaling, perturbation, low-rank, head, sparsification, interpolation; or CMA-ES over LLM-chosen subspace)",
+ "loop": "closed-loop with feedback (LLM reads evaluation history and failure diagnostics; search budgets B = 8 to 250)",
+ "self_editing": "no",
+ "fraction_or_count_of_weights_changed": "Edit size bounded rather than counted: \"a 1% nominal relative norm ceiling for expanded actions\" (Sec. IV-B)",
+ "headline_results": [
+  {"claim": "Larger CMA-ES budget raises dev gain but not selection", "quote": "increasing CMA-ES evaluations from 8 to 250 improved mean development gains from +0.11 to +0.28 percentage points, while the corresponding selection changes remained negative (from -0.03 to -0.12 points)", "where": "Abstract, Table V"},
+  {"claim": "LLM hybrid vs matched random-policy hybrid", "quote": "8 (5) +0.02 [-0.09,+0.13] 0.612", "where": "Table VII (also B=25 p=0.369, B=50 p=0.694)"},
+  {"claim": "YOLO26m five-seed replication near zero", "quote": "the mean official COCO AP change was +0.004 points with a reported 95% interval [−0.026, +0.034]", "where": "Sec. X-B, Table VIII"},
+  {"claim": "Phase II TPE-selected champion on holdout", "quote": "Observed paired change +0.0580 pp Bootstrap 95% interval [-0.026, +0.123] pp", "where": "Table IV"},
+  {"claim": "Real LLM dev gains smaller than DE/CMA-ES at budget 15", "quote": "DE and CMA-ES reached approximately +0.13 and +0.12 points, while real LLM methods produced smaller positive changes (approximately +0.03 to +0.06 points)", "where": "Sec. VII-B"},
+  {"claim": "Retrospective proposal audit", "quote": "Under the final strict schema, 53 are accepted and 172 rejected.", "where": "Sec. IV-G, Table IX"}
+ ],
+ "cost": [
+  {"claim": "LLM token usage at B=8", "quote": "the real LLM-feedback method consumed 36,469 reported tokens over the experiment group", "where": "Sec. VIII-B"},
+  {"claim": "Failure-aware LLM tokens", "quote": "failure-aware LLM used 52,176 tokens", "where": "Sec. VIII-B"},
+  {"claim": "Numerical optimizer wall time", "quote": "CMA-ES ... 414.2", "where": "Table V (mean time in s, B=250 CMA-ES)"}
+ ],
+ "baselines_and_controls": "Unchanged checkpoint; deterministic scaling; random Gaussian perturbation; random search; differential evolution; CMA-ES; TPE/Bayesian; matched random-policy hybrid (same CMA-ES and bounds, no semantic context); an earlier Gaussian 'LLMGuidedOptimizer' simulator retained as a control.",
+ "runs_and_variance": "Budget-dependent seeds: \"five seeds at B = 8 and 25 for major numerical methods, three at B = 50, two at B = 100, and one at B = 250\" (Sec. IV-D); paired t-tests with 95% CI; image-level paired bootstrap; YOLO26m five seeds.",
+ "robustness_of_edits": "Transfer to disjoint selection set tested: gains largely do not transfer; cross-capacity transfer \"A transferred small-model editing policy was not reliably beneficial on larger models\" (Sec. X-A).",
+ "verification": "statistical only (paired t-tests, bootstrap CIs); schema validation of actions; immutable-checkpoint and gradient checks in software package",
+ "memorization_vs_reasoning": "Matched random-policy hybrid shows no demonstrated LLM advantage: \"interpretability of a proposal is different from predictive utility of the proposal\" (Sec. XII-B).",
+ "limitations_stated": "Fresh partition has contradictory Train2017/Val2017 lineage; selection partition reused across phases; native vs COCO API metric differences; Phase V narrative and packaged table disagree; budgets 100/250 have 2/1 seeds; retrospective schema check cannot prove historic tensor execution (Sec. XII-E).",
+ "code_or_data": "none found (paper refers to an accompanying project archive; no URL given)",
+ "cites_or_builds_on": [],
+ "notes_for_survey": "Careful negative/null-result evaluation of LLM-guided gradient-free weight editing on a vision detector, with a matched random-policy control and explicit disclosure of evaluation-set reuse and an earlier mislabeled Gaussian 'LLM' simulator. Does not cite the Takehi et al. blog explicitly, though it uses the term weight-space programming in index terms and Fig. 1."
+}

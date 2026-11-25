@@ -1,0 +1,42 @@
+{
+ "id": "2611.23875",
+ "url": "https://arxiv.org/abs/2611.23875",
+ "title": "In Situ Training of Optical Neural Networks by Coding Agents",
+ "authors": ["Ilker Oguz", "Colin Christian", "Christophe Moser", "Demetri Psaltis", "Gordon Wetzstein"],
+ "date": "2026-11-18",
+ "read_level": "full",
+ "metadata_mismatch": "none",
+ "is_wsp": "peripheral",
+ "why_wsp": "A Claude Code agent (Claude Opus 5.5) sets the trainable phase masks of a physical optical neural network on an SLM by probing the hardware, forming hypotheses and writing code, replacing per-pixel optimization with a few interpretable optical parameters; motivated explicitly by WSP but the 'weights' are physical, not a digital network's tensors.",
+ "primary_branch": "B4",
+ "secondary_branches": ["B2", "B3"],
+ "facets": ["application domain"],
+ "domain": "optical neural networks / physical hardware (MNIST 0-2 classifier, Fashion-MNIST optical encoder)",
+ "editor": "Claude Opus 5.5 via Claude Code (headless); Claude Sonnet 5 and Claude Fable 5.2 in encoder model comparison",
+ "target": "two SLM phase masks phi1, phi2 'with several hundred thousand pixels in total' (Results); four 434 x 434-pixel SLM regions",
+ "interface": "code/tensor tools (harness with probe, evaluation and validation tools; CPU-only code; numerical light-propagation models forbidden)",
+ "loop": "closed-loop with feedback (camera-image measurements, hypothesis per request, notes file as memory)",
+ "self_editing": "no",
+ "fraction_or_count_of_weights_changed": "all phase-mask pixels can change; agent reparametrizes with few parameters, e.g. 'Tuning 13 parameters improves the design' (Fig. 4f)",
+ "headline_results": [
+  {"claim": "Classifier test accuracy vs gradient-free and backprop", "quote": "our agent reached 91.1% from the task description alone, and 96.8% when it was given the notes and code of an earlier session", "where": "Results, Benchmark"},
+  {"claim": "Gradient-free baselines", "quote": "they improved the test accuracy from 35% to about 52%", "where": "Results, Benchmark"},
+  {"claim": "Backprop through calibrated model reference", "quote": "This accuracy matches that of optical weights trained by backpropagation through a calibrated model of the device, 96.3%.", "where": "Results, Benchmark"},
+  {"claim": "Encoder PSNR", "quote": "it reached 16.1 dB, against 15.0 dB for PPO and 13.8 dB for the random start", "where": "Results, Fig. 3"},
+  {"claim": "Harness ablation on calibrated model: scalar reward only still beats PPO", "quote": "scalar reward only 71.3 PPO 58.7", "where": "Fig. 4e"}
+ ],
+ "cost": [
+  {"claim": "Measurement budget", "quote": "The budget is 51,200 measurements for the classifier and 25,600 for the encoder", "where": "Methods, Agent and harness"},
+  {"claim": "Wall-clock per run", "quote": "at 0.107 s per measurement or about 1.5 h for the classifier budget, and not by the language model", "where": "Methods, Scoring"},
+  {"claim": "Calibration cost of backprop reference", "quote": "here about 67,000 camera images, and many hours of training on graphics processors", "where": "Results, Benchmark"}
+ ],
+ "baselines_and_controls": "PPO and policy gradient (settings searched over 22 configurations on calibrated model), backpropagation through calibrated model, start phase masks; harness ablations (no camera images, no probes, no hypotheses, scalar reward only); three Claude models on encoder",
+ "runs_and_variance": "'The three classifier runs that received notes or general lessons from earlier sessions reached 89.2%, 91.3% and 96.8% on the test digits (mean 92.4%, standard deviation 3.9 percentage points).' (Methods); encoder 'one run per row' (Fig. 3d); test-set standard error at most 0.9 points",
+ "robustness_of_edits": "not tested beyond scoring all methods in one interleaved block to control optical drift",
+ "verification": "statistical (sealed test set scored once); agent-measured optical quantities compared with calibrated model",
+ "memorization_vs_reasoning": "Reasoning traces show hypothesis-driven probes (tilts, phase steps) and physically interpretable designs (spot router, Fourier router); measured magnifications/astigmatism agree with calibrated model.",
+ "limitations_stated": "No explicit limitations section; notes runs depend on earlier sessions; few runs per condition; harness ablations done on calibrated model rather than hardware.",
+ "code_or_data": "none found",
+ "cites_or_builds_on": ["Takehi, Teoh, Zhang, Khattab 2026 'Sparks of weight-space programming'", "Goworek et al. 2026 Turing replication (arXiv 2611.21449 version)"],
+ "notes_for_survey": "Extends the WSP framing to physical hardware: the agent learns the device by probing and writes optical parameters, so it is closer to agentic experiment design than editing a digital weight tensor. Shows the closed-loop agent beating PPO even with scalar reward only, and that notes passed between sessions gave the largest gain."
+}

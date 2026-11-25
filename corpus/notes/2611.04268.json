@@ -1,0 +1,38 @@
+{
+ "id": "2611.04268",
+ "url": "https://arxiv.org/abs/2611.04268",
+ "title": "Weight-Space Programming for Improving Image-Restoration Diffusion Models: Technical Conjectures and a Recursive Improvement Loop",
+ "authors": ["Zhuoran Zheng", "Doubao"],
+ "date": "2026-11-03",
+ "read_level": "full",
+ "metadata_mismatch": "none (second author listed as 'Doubao' in both paper and metadata; only one email given)",
+ "is_wsp": "peripheral",
+ "why_wsp": "Position paper proposing (not running) an LLM that reads layer statistics of a diffusion restoration UNet and proposes sparse weight deltas, accepted by a PSNR-gated sandbox, in a diagnose-edit-evaluate loop.",
+ "primary_branch": "B4",
+ "secondary_branches": ["B3"],
+ "facets": ["evaluation"],
+ "domain": "image restoration diffusion models (deblurring, super-resolution, denoising, inpainting)",
+ "editor": "unspecified frontier LLM ('GPT-6-class' mentioned in Sec. 5); no experiments run",
+ "target": "diffusion restoration UNet (generic; '100M-parameter UNet' mentioned in Limitations); none actually edited",
+ "interface": "other (proposed: chunked layer statistics in, JSON edit proposal {layer, slice, delta} out; pseudocode only)",
+ "loop": "closed-loop with feedback (proposed only)",
+ "self_editing": "no; LLM edits a separate UNet. Authors call the loop 'a minimal recursive self-improvement (RSI) loop' but the editor is not the target.",
+ "fraction_or_count_of_weights_changed": "Proposed cap only: 'Edit-ratio cap: < 0.1% of total parameters modified cumulatively.' (Sec. 6.1). No measured edit.",
+ "headline_results": [
+  {"claim": "No empirical results; all numbers are conjectured targets", "quote": "The numerical conjectures in this manuscript are merely hypotheses.", "where": "Abstract"},
+  {"claim": "Conjectured gains (C2 +0.2-0.5 dB, C3 +0.5-1.5 dB total), stated as expectations not measurements", "quote": "C2: Sparse edit Improve quality via weight delta +0.2–0.5 dB PSNR", "where": "Table 2"},
+  {"claim": "Explicit falsification criterion for C2", "quote": "If the LLM cannot improve PSNR by ≥ 0.2 dB on at least half of the concentrated-defect benchmark cases, with < 0.1% parameters edited, C2 is false.", "where": "Sec. 4.2"}
+ ],
+ "cost": [
+  {"claim": "Proposed forward-pass budget only (not measured)", "quote": "Forward-pass budget: 30–50 total evaluations per WSP session.", "where": "Sec. 6.1"}
+ ],
+ "baselines_and_controls": "none run; qualitative comparison table vs LoRA and full fine-tuning (Table 3); proposed benchmark uses distributed defects as negative controls (Sec. 9.3)",
+ "runs_and_variance": "single run / not reported (no experiments); notes diffusion seed noise would require averaging, 'only 2–3 seeds per evaluation' under a 40-pass budget (Sec. 7)",
+ "robustness_of_edits": "not tested; Limitations flag OOD side effects: 'An edit that helps the feedback set may hurt out-of-distribution images.'",
+ "verification": "none",
+ "memorization_vs_reasoning": "Asserts without evidence that diagnosis/editing is 'pattern-matching + reasoning, not superintelligence' (Sec. 5).",
+ "limitations_stated": "Model too large for LLM context (works on summaries); distributed defects not fixable by sparse edits; channel permutation symmetry; OOD side effects; LLM bias toward late layers.",
+ "code_or_data": "none found (PyTorch-style pseudocode in Listings 1-2 only)",
+ "cites_or_builds_on": ["Takehi 2026 blog 'Sparks of weight-space programming' (rikiyat.github.io)", "RikiyaT Qwen3.5-0.8B-weight-space-programming (Hugging Face)", "RikiyaT lm_understand-logs (GitHub)"],
+ "notes_for_survey": "Purely conjectural position paper with falsifiable criteria and a sandbox/loop design but no experiments. Proposes a concentrated-vs-distributed defect taxonomy (Table 1) predicting which restoration failures are sparsely editable. Second listed author is 'Doubao' (an LLM product name)."
+}

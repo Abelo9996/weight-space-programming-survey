@@ -1,0 +1,32 @@
+\section{Background: Five Lines of Work That Meet in WSP}
+\label{sec:background}
+
+Weight-space programming did not appear from nowhere. The November 2026 papers inherit their tools, their failure modes and many of their evaluation habits from five older literatures. This section summarizes each one only as far as needed to read the rest of the survey. For each, we note what WSP takes from it and what WSP changes.
+
+\subsection{Weights as programs}
+
+The idea that a trained network \emph{is} a program, written in a numeric language rather than in source code, was popularized as ``Software~2.0'' \citep{karpathy2017software}. In that framing, the programmer specifies a dataset and an objective, and the optimizer writes the program. WSP keeps the framing and removes the optimizer: a language model writes or patches the program directly.
+
+Two older threads make the same move at smaller scale. \emph{Fast weight programmers} use one network to produce the weights of another at run time \citep{schmidhuber1992fastweights}, and linear Transformers have been shown to be formally equivalent to such systems \citep{ax2102_11174}. \emph{Compiled transformers} go further: RASP describes Transformer computation as a programming language \citep{ax2106_06981}, and Tracr compiles RASP programs into actual Transformer weights \citep{ax2301_05062}. Tracr is the closest pre-WSP precedent for writing weights from a specification. Its compiler is hand-built and deterministic. In WSP the compiler is a general-purpose LLM that is not guaranteed to be correct.
+
+\subsection{Weight space learning}
+
+A separate line of work treats trained weights as data. Accuracy can be predicted from weights alone \citep{ax2002_11448}. Weight spaces have large symmetry groups: permuting hidden units, and in ReLU networks rescaling them, leaves the computed function unchanged \citep{hechtnielsen1990algebraic}. These symmetries explain much of the structure in loss landscapes and model merging \citep{ax2110_06296,ax2209_04836}. Architectures that respect these symmetries can learn over weights directly \citep{ax2301_12780,ax2302_14040}, and generative models can sample new checkpoints \citep{ax2209_12892}. A recent survey organizes this field into weight-space understanding, representation and generation \citep{ax2603_10090}.
+
+Two lessons carry over. First, any method that ``reads'' weights must be judged on whether its answers stay the same across symmetric copies of the same function. \Cref{sec:eval} shows this is now being tested for LLM weight readers. Second, weight space learning has so far used trained, task-specific models over weights. WSP replaces them with a general-purpose LLM that has never been trained on the task. The question becomes how much it actually reads from the weights rather than from its priors.
+
+\subsection{Hypernetworks and parameter generators}
+
+Hypernetworks generate the weights of a target network from a conditioning input \citep{ax1609_09106}. Recent work generates whole adapters from text: Text-to-LoRA maps a natural-language task description to a LoRA adapter in a single forward pass \citep{ax2506_06105}, and Drag-and-Drop LLMs map prompts to adapter weights without per-task training \citep{ax2506_16406}. These systems write weights without running an optimizer at use time. They differ from WSP in two ways. First, the generator is itself trained by gradient descent on a distribution of tasks. Second, its outputs are confined to a fixed, low-dimensional parameterization (LoRA \citep{ax2106_09685}). A WSP editor is neither trained for the job nor restricted to a fixed set of parameters.
+
+\subsection{Model editing, weight arithmetic and interpretability}
+
+Model editing changes a small number of weights to alter a specific behavior. Knowledge neurons \citep{ax2104_08696}, ROME \citep{ax2202_05262}, MEMIT \citep{ax2210_07229} and MEND \citep{ax2110_11309} locate factual associations and rewrite them in closed form or with a learned editor. Task arithmetic adds and subtracts whole weight deltas \citep{ax2212_04089}. Ablating a single direction removes refusal behavior \citep{ax2406_11717}, and inference-time and representation-level interventions steer behavior without permanent weight changes \citep{ax2306_03341,ax2310_01405}. Circuit analysis \citep{ax2211_00593} and sparse autoencoders \citep{ax2309_08600} supply the vocabulary that many WSP editors use to justify their edits.
+
+This literature also documented the costs of editing. Edits ripple into related facts they were not meant to touch \citep{ax2307_12976}, and sequential edits at scale lead to gradual and then catastrophic forgetting \citep{ax2401_07453}. Removed concepts can be relearned \citep{ax2401_01814}. Unlearning can be undone by quantization \citep{ax2410_16454}, and quantization itself can be exploited to activate hidden behavior \citep{ax2405_18137}. Benign fine-tuning can erase safety behavior installed earlier \citep{ax2310_03693}. WSP edits are a new kind of sparse weight edit, so every one of these concerns applies to them. \Cref{sec:eval} asks which of them the WSP literature has tested.
+
+\subsection{Self-improvement}
+
+The idea of a system that improves its own design is old \citep{good1965speculations}, and the G\"odel machine gave it a formal, provably-beneficial form \citep{axcs_0309048}. Recent LLM work makes self-improvement concrete without touching weights directly. STOP recursively improves the scaffold that improves code \citep{ax2310_02304}. LLMs act as black-box optimizers over prompts \citep{ax2309_03409}. They invent model-merging algorithms that improve the model that invented them \citep{ax2410_15639}. Evolutionary coding agents improve algorithms and their own agent code \citep{ax2506_13131,ax2505_22954}. The closest weight-level precursor is SEAL, in which a model writes its own fine-tuning data and update directives \citep{ax2506_10943}, followed by work that searches over the self-edit strategies themselves \citep{ax2601_14532}.
+
+In all of these systems, the weight change, when there is one, is still made by gradient descent. Self-referential weight matrices are an exception: they learn to modify their own weights \citep{ax2202_05780}, but the modification is itself a trained function. WSP is the first setting in which a general-purpose language model chooses weight values by reasoning in text. \Cref{sec:rsi} asks what would have to be true for that to become a self-improvement loop.

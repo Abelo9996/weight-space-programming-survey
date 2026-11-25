@@ -1,0 +1,43 @@
+{
+ "id": "2611.17246",
+ "url": "https://arxiv.org/abs/2611.17246",
+ "title": "Programming Quantum Circuit Parameters with Large Language Models",
+ "authors": ["Tiago de Souza Farias", "Caio Moraes Porto", "Matheus da Silva Fonseca", "Nicolas Armando Cabrera Carpio", "Anderson de Araujo Oliveira", "Celso Jorge Villas-Boas"],
+ "date": "2026-11-12",
+ "read_level": "partial (full main text, Appendices C, E and parts of F read; Appendices A, B, D, G, H, I skimmed)",
+ "metadata_mismatch": "Paper byline gives abbreviated names (\"Farias, T.S., Porto, C.M., Fonseca, M. S., Carpio, N. A. C., De Oliveira, A. A., Villas-Boas, C. J\"); metadata spells fourth author's surname \"Carpi\", paper has \"Carpio\". Full given names taken from metadata.",
+ "is_wsp": "peripheral",
+ "why_wsp": "Frozen GPT-6 Astra writes complete parameter vectors for fixed variational quantum circuits from OpenQASM 3 and Pauli-Hamiltonian descriptions, optionally refining with energy feedback; framed as motivated by WSP but the target is a quantum circuit, not a neural network.",
+ "primary_branch": "B2",
+ "secondary_branches": ["B4", "B1"],
+ "facets": ["evaluation", "verification", "application domain"],
+ "domain": "variational quantum eigensolver (molecular H4, LiH; random and parent Hamiltonians); blind quantum circuit interpretation",
+ "editor": "GPT-6 Astra",
+ "target": "parameterized quantum circuits: UCCSD (8-qubit, 26 parameters for H4), hardware-efficient ansatz with p = 3n(L+1) parameters for n in {4,8,12}",
+ "interface": "direct values",
+ "loop": "closed-loop with feedback",
+ "self_editing": "no",
+ "fraction_or_count_of_weights_changed": "all parameters written: \"Each inference produces one complete numerical parameter vector, rather than an individual coordinate update.\" (Sec II.A)",
+ "headline_results": [
+  {"claim": "Random Hamiltonians: LMO worse than Adam", "quote": "Adam progressively reduces the energy gap through iterative optimization, whereas the LMO generally produces parameter configurations with larger gaps and shows limited improvement over subsequent rounds.", "where": "Sec III.A.2; Fig 5 (figure only for values)"},
+  {"claim": "Parent Hamiltonians first-proposal success", "quote": "the LMO reaches the target accuracy in 40 of 45 instances (88.9%) for r = 1 and 37 of 45 instances (82.2%) for r = 2.", "where": "Appendix E; Fig 9"},
+  {"claim": "With feedback, 80/90 parent instances solved", "quote": "Across both families, the best observed proposals reach the target accuracy in 80 of 90 instances (88.9%).", "where": "Appendix E"},
+  {"claim": "LiH near numerical precision", "quote": "All four LMO runs achieve energy errors near numerical precision within the first few evaluations.", "where": "Appendix C; Fig 7"},
+  {"claim": "Direct energy predictions violate spectral bound", "quote": "Direct LLM energy prediction frequently produces estimates below the true ground-state energy, violating the spectral lower bound.", "where": "Sec III.A.2; Fig 5b"},
+  {"claim": "Blind circuit interpretation: algorithm ID vs output", "quote": "Across these 30 interpretations, the model predicts the correct most-likely measurement outcome in 29 cases (96.7%).", "where": "Sec III.B; Fig 6"},
+  {"claim": "Algorithm identification drops under decomposition", "quote": "The model correctly identifies all 15 algorithms in the logical representation, compared with 11 of 15 in the native representation and 12 of 15 in the obfuscated representation.", "where": "Sec III.B"},
+  {"claim": "Continuous angles matter", "quote": "rounding the proposed angles to Clifford-compatible values causes all 90 first proposals to exceed the success threshold", "where": "Appendix E"}
+ ],
+ "cost": [
+  {"claim": "Only Hamiltonian evaluations counted; LLM inference cost not reported", "quote": "The comparison concerns Hamiltonian expectation-value evaluations rather than the total computational cost of LLM inference.", "where": "Sec III.A.1"}
+ ],
+ "baselines_and_controls": "Adam with parameter-shift gradients (LR searched over {1, 0.1, 0.01}); direct LLM energy prediction; blind vs physics-aware prompts; logical/native/obfuscated circuit representations",
+ "runs_and_variance": "3 independent runs per prompt configuration for H4 and LiH (1 blind run for LiH); 5 instances per configuration for random and parent Hamiltonians; variance shown in figures only. Quote: \"performance varies across independent runs.\" (Sec III.A.1)",
+ "robustness_of_edits": "Distorted non-planar H4 geometry tested (Appendix D): \"the quality of LMO-generated parameters varies substantially across independent runs\"; noiseless simulation only",
+ "verification": "variational principle: evaluated circuit energy is an upper bound on ground-state energy; exact diagonalization references; circuit equivalence verified numerically before interpretation",
+ "memorization_vs_reasoning": "Authors state results \"do not establish that the model performs general quantum-mechanical reasoning. Its performance may depend on patterns encountered during pretraining\"; Bernstein-Vazirani outputs predicted correctly even when algorithm not identified; LMO solutions often differ from hidden planted angles.",
+ "limitations_stated": "No general computational advantage; LLM inference cost not counted; feedback effect not isolated from extra proposals; structured Hamiltonians may admit specialized classical solutions; few instances per algorithm; explanations not shown to be faithful.",
+ "code_or_data": "https://github.com/tiago939/NeuralOptimizer",
+ "cites_or_builds_on": ["Takehi et al. 2026 Sparks of Weight-Space Programming (ref [24])", "Kundu, Ghosh, Honavar, Weight-space programming of variational quantum circuits arXiv:2611.11537 (concurrent)", "Kabra et al. Weight Oracles"],
+ "notes_for_survey": "Extends the WSP framing to VQC parameters; success depends strongly on problem structure (parent Hamiltonians near-solved, random Hamiltonians not). Contrasts unverifiable direct energy predictions with variationally verifiable parameter proposals."
+}

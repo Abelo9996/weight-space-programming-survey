@@ -1,0 +1,137 @@
+\section{Evaluation and Reliability}
+\label{sec:eval}
+
+An evidence audit asks whether papers report what they should. Türkoğlu's survey does this for 54 primary studies and proposes the WSP-12 reporting checklist \citep{turkoglu2026survey}. We take a different question: \emph{what would have to be true for a WSP edit to be trusted?} We break it into six requirements and review the evidence on each.
+\begin{enumerate}[leftmargin=*,itemsep=2pt]
+\item \textbf{Reading is reading.} The editor's account of the weights comes from the weights, not from priors, labels or training footprints.
+\item \textbf{The edit beats the cheap alternative.} A decoding change, a script, a weight statistic or a small fine-tune does not achieve the same.
+\item \textbf{The result is stable.} Independent editor sessions, decoding settings and evaluation seeds give the same conclusion.
+\item \textbf{The edit is verified,} formally where possible and statistically otherwise.
+\item \textbf{The edit persists.} It survives the operations a deployed model undergoes: change of number format, quantization, fine-tuning, merging and further edits.
+\item \textbf{The edit is contained.} It does not change behavior outside its target.
+\end{enumerate}
+The literature has made real progress on (1)--(3), some on (4) and (6), and almost none on (5).
+
+\subsection{Memorization versus reasoning in weight reading}
+\label{sec:memo}
+
+The original reading results \citep{takehi2026sparks} admit two explanations. In one, the editor traces computation through the weights. In the other, it combines local arithmetic on the weights with strong priors about which datasets, games and architectures are likely. Six kinds of control now help separate the two.
+\begin{itemize}[leftmargin=*,itemsep=2pt]
+\item \textbf{Label permutation and withheld names.} The reader finds structure at permuted indices but names the classes as the standard ones. It also calls unfamiliar datasets by familiar names (KMNIST as MNIST) \citep{ax2611_08070}.
+\item \textbf{Training-footprint decoys.} When row lengths and weight values point to different games, readers follow the row lengths \citep{zen24373915}. The cue is not the whole story: one reader still named the game correctly when row lengths were disguised \citep{zen24373915}, and diffusion-model reading survived a row-length decoy in part \citep{zen24373917}.
+\item \textbf{Randomized weights.} One frontier reader declined to name a game for randomized networks in 19 of 20 cases, while another named one every time \citep{zen24373915}.
+\item \textbf{Black-box matching.} Giving a reader a calculator with only query access matches white-box access \citep{ax2611_07847}, so the useful information is computational, not weight-specific.
+\item \textbf{Recall of published methods.} When Claude models were asked to quantize a CNN from its weights alone, the best response matched a published data-free rounding rule in 1{,}314 of 1{,}364 edits; the authors cannot tell whether the rule was derived or recalled \citep{ax2611_33031}. In few-shot head writing, agents converged on a nearest-class-mean head, while hiding or shuffling class names changed F1 by at most a few points \citep{ax2611_28105}. Recalling a known method is useful, but it is not evidence of reading.
+\item \textbf{Local evaluation.} In a preregistered genomics test, every correct detection came from sessions that evaluated parts of the network locally \citep{zen24040591}.
+\end{itemize}
+The evidence supports a middle position. Frontier readers do extract real information from weights. It is often first-layer, last-layer or unit-local, and is easily overridden by priors. Small open models read at chance \citep{zen24047726}. A trained 3B reader, by contrast, reaches near-perfect forward-pass simulation on toy Transformers \citep{ax2610_07334}. This suggests that ``reading'' is a learnable skill that frontier models have only partially acquired.
+
+\paragraph{Recommendation.} A reading claim should report, at minimum: a label-permuted control, a withheld-name control, a randomized- or shuffled-weight control, a footprint decoy, and a query-only baseline with equal compute. WSP-12 already asks for permuted-label and function-preserving controls \citep{turkoglu2026survey}. The footprint decoy and the query-only baseline are the two most often missing.
+
+\subsection{Symmetry audits}
+\label{sec:symmetry}
+
+Feed-forward networks have large symmetry groups. Permuting hidden units, and positively rescaling ReLU units, leaves the computed function unchanged \citep{hechtnielsen1990algebraic}. These symmetries organize loss landscapes and model merging \citep{ax2110_06296,ax2209_04836}, and learned weight-space models are built to respect them \citep{ax2301_12780,ax2302_14040}. A reader that changes its answer across symmetric copies is reading the coordinates, not the function.
+
+The evidence is mixed. Orbit audits of neural-field weight readers find that learned and LLM readers alike lose accuracy under function-preserving reparameterizations; one frontier reader went from 88.3\% to 81.1\%, a drop the study's exact tests do not establish as significant \citep{ax2611_05798}. The same work argues that canonicalization makes equivalent inputs identical but does not establish recognition, so agreement must be paired with correctness \citep{ax2611_05798}. In clinical networks, by contrast, permuted and sign-flipped hidden units gave the same readings \citep{ax2611_07847}. WeightBench regenerates subject models with fresh seeds, rotations and hidden-dimension permutations to limit contamination \citep{ax2611_18553}. The difference likely reflects scale and task. Small clinical MLPs can be read by computing switch points, while larger fields expose coordinate-dependent features.
+
+\paragraph{Recommendation.} Symmetry audits should become standard for B1. They should report accuracy and agreement separately over orbits of permutations and rescalings, verified numerically to be function-preserving. B3 edits deserve a symmetric test too: apply the same editing \emph{program} to a permuted copy of the target. Results of this kind already exist. Frozen editor programs have been rerun on unseen checkpoints \citep{ax2611_23615,ax2611_28105}, and WeightCode found that rerunning the program transfers across independently trained networks while copying the delta does not \citep{ax2611_25476}.
+
+\subsection{Baselines that absorb the gain}
+\label{sec:baselines}
+
+A recurring finding in the corpus is that cheap alternatives often recover most of a WSP gain. It is not universal: a no-LLM statistical edit reached 17.0\% against 49.0\% for the published Qwen edit \citep{zen24373917}, and WeightCode's programs beat the best of eight fine-tuning methods on two image-corruption types \citep{ax2611_25476}.
+\begin{itemize}[leftmargin=*,itemsep=2pt]
+\item \textbf{Decoding.} Turning thinking off reaches 42.8\% on MATH-500 for the Qwen target without any weight change \citep{zen24036186}. Türkoğlu's full-test replication found 48.7\% against 51.3\% for the edit \citep{turkoglu2026survey}. Temperature alone gives 22.1\% \citep{ax2611_20953}, and sampling settings move the published edit between 25\% and 55\% on 40 problems, measured on an 8-bit (q8\_0) copy of the model \citep{zen24058693}. At a 4{,}096-token budget, thinking off scores 41.0\%, and a 1{,}398-weight gradient edit matches it exactly \citep{ax2611_33133}. For vision-language loop repair on a 2B model, budget forcing scores 71.3 against 72.3 for the edit, although the authors find the edit significantly better than every baseline \citep{ax2611_25257}.
+\item \textbf{Scripts and solvers.} A scripted pipeline without an LLM, reported in one review, re-derived a similar edit in about five CPU minutes and reached roughly 75\% of the loop suppression \citep{zen23954378}. A post-hoc script repaired 30 of 48 known vision faults against the agent's 33, although on five fault types outside every script the agent repaired 15 of 15 against the script's 4 \citep{ax2611_28781}. Ising solvers matched or exceeded the agent's Qwen edit \citep{ax2611_14210}, and a sorting rule matched an LLM-free linear-program version of it \citep{ax2611_21432}.
+\item \textbf{Weight statistics.} A column-norm statistic identified the planted rule in all 20 confound networks \citep{ax2611_05341}. A closed-form statistic recovered backdoor triggers \citep{ax2611_19304}.
+\item \textbf{Fine-tuning.} In Türkoğlu's case study, LoRA on a larger model's solutions, a form of distillation, recovers 86\% of the Qwen gain, and LoRA on the model's own correct solutions recovers 25\% \citep{turkoglu2026survey}, while agent edits beat LoRA in another \citep{zen24208534}. A gradient baseline for the founding edit fine-tunes only the highest-gradient weights and reaches 39.0--45.5\% at a 4{,}096-token budget in minutes on one GPU, and at the size of the original edit even random positions reach 43.4\% \citep{ax2611_33133}. Its edit acts as a disguised bias: because the model has no bias terms, weights concentrated on near-constant channels add a constant vector to the residual stream, and adding three fixed vectors to the unedited model matches the accuracy of the part of the edit on those channels. The rest of the edit, 510 weights outside them, scores higher on its own and was not tested this way. The frontier edit is different in kind (other layers, a nearly orthogonal and input-dependent direction), and adding the gradient edit at half strength to it gave 62.2\% at 32k tokens, 10.1 points above the frontier edit alone. Under that 32k protocol the frontier edit on its own beats the gradient edits. That strength was the best of three chosen on MATH-500 itself, so this figure is optimistic \citep{ax2611_33133}. Fine-tuning repaired every clinical network in 0.6 seconds \citep{ax2611_05341}.
+\item \textbf{Stronger editors already exist.} Published closed-form diffusion editors matched a preregistered WSP pipeline \citep{ax2611_22228}.
+\end{itemize}
+None of this makes WSP edits uninteresting. It means a WSP result is informative only relative to the cheapest alternative, and that the alternative must be run under the same budget and access. WSP-12 items C6--C9 ask for exactly these comparisons \citep{turkoglu2026survey}. We add one point. The baseline should be chosen \emph{after} seeing what the edit does mechanically. If the edit suppresses a repetition direction, the relevant baseline is a repetition-targeted decoding change, not a generic LoRA run.
+
+\subsection{Run-to-run variance and selective reporting}
+\label{sec:variance}
+
+\begin{itemize}[leftmargin=*,itemsep=2pt]
+\item \textbf{Variance across sessions.} WSP editors are stochastic, long-horizon agents, and their results vary widely across sessions. Three independent searches on the same Qwen target gave $+29.45$, $+5.00$ and $+27.30$ points \citep{ax2611_09382}. Three runs of the same Breakout writing task scored 514, 550 and 307 \citep{ax2611_21449}. Only 31 of one editor's 60 feedback runs reached 50\% on held-out levels \citep{ax2611_16981}.
+\item \textbf{Variance in the evaluation.} The evaluation is noisy as well. In one robot study, rerunning unchanged weights flipped about a third of paired outcomes \citep{ax2611_11894}.
+\item \textbf{Refusals and unfinished runs.} Editors refuse or stop. Under a default instruction, 17 of 21 audit-and-repair runs declined \citep{ax2611_07847}. In another study, scoring every run as it was left, unfinished runs included, moved one editor below the baselines \citep{ax2611_26841}. Türkoğlu's case-study protocol notes that, according to the released results excerpt, two of the original run configurations submitted no edit \citep{turkoglu2026survey}.
+\end{itemize}
+
+\paragraph{Recommendation.} Report the distribution over sessions, not the best session, and count refusals and unfinished runs as outcomes. Separate selection from evaluation. Several B4 and B6 studies select the best of several candidates on the same gate whose accuracy they report \citep{ax2611_29513}. Held-out evaluation after selection is the cleaner number.
+
+\subsection{Verification}
+\label{sec:verify}
+
+Sampled accuracy is weak evidence for a written program. Huang's machine-checked proofs make the point directly. A hand-written multiplication Transformer with 100\% sampled accuracy answers $89984 \times 48898$ wrongly, while seven other hand-written weight-space programs of up to about 1.3M parameters were proven correct on every input in Lean~4 \citep{zen23976715}. The corpus uses four levels of verification.
+\begin{itemize}[leftmargin=*,itemsep=2pt]
+\item \textbf{Formal proof:} Lean proofs of hand-written circuits \citep{zen23976715}; probabilistic model checking of written policies against PCTL properties with Storm \citep{ax2611_11604}; proofs of non-interference and exact withdrawal for compiled rule networks \citep{ax2611_15917}.
+\item \textbf{Exhaustive checking:} exhaustive game-tree checks against independent oracles \citep{ax2611_09271}; zero disagreements on 32{,}975{,}040 inputs for a compiled rule network \citep{ax2611_15917}; decompiled programs checked against the network on 49{,}189 states \citep{ax2611_21449}.
+\item \textbf{Analytic checks:} exact linearized closed-loop stability analysis of written controllers \citep{ax2611_21958}.
+\item \textbf{Statistical:} preregistration, held-out sets and paired tests \citep{ax2611_05341,zen24040591,ax2611_24877,ax2611_21432}.
+\end{itemize}
+Formal methods reach only small or hand-structured networks. General neural-network verifiers such as Reluplex \citep{ax1702_01135} face the same scaling limits here as elsewhere. For LLM-scale edits, the practical path is narrower: verify the \emph{edit} rather than the network. For example, one can prove that a rank-one change leaves a specified input subspace untouched, or certify a bound on the output change over a region. Some edits already carry structural guarantees: LLM-written diffusion updates that are projected off a protected subspace by construction \citep{ax2611_22228}, embedding-row remaps that cannot affect instructions without the edited tokens \citep{ax2611_09376}, and formal preservation results for closed-form edits \citep{zen23933590}. No WSP study yet gives a machine-checked certificate for an LLM-authored edit to a large network.
+
+\subsection{Persistence: do edits survive fine-tuning and quantization?}
+\label{sec:persist}
+
+A trained model in deployment is cast to lower precision, quantized for serving, fine-tuned for new tasks, merged with other checkpoints and edited again. A WSP edit that does not survive these operations is a property of one checkpoint file, not of the model. This is the least-studied requirement in the corpus.
+
+\paragraph{Number formats.} Edits are fragile even to format changes.
+\begin{itemize}[leftmargin=*,itemsep=2pt]
+\item Every clinical edit that wrote weights of $10^{5}$ or more failed in 16-bit floating point, sending all requests to one class \citep{ax2611_05341}.
+\item TF32 arithmetic changed the decisions of 11 of 60 written game actors, and noise of $10^{-7}$ of each tensor's RMS removed much of their success \citep{ax2611_16981}.
+\item Faults computed in float32 on BF16 weights left low-bit traces that repair agents exploited \citep{ax2611_23615}.
+\item Casting Qwen edits to BF16 loses some edited elements to rounding \citep{ax2611_20953}.
+\item The Qwen edit's effect depends on precision and inference mode \citep{zen24373917}.
+\end{itemize}
+
+\paragraph{Quantization.} We found one direct test of post-training quantization on LLM-authored edits, and one indirect one: a replication measured the original Qwen edit only on an 8-bit (q8\_0) copy, where it still scored up to 55\% on 40 problems \citep{zen24058693}. In TrojanMaxxing, an implanted backdoor in one safety classifier survived 4-bit and 8-bit quantization with attack success unchanged. In other models, quantization removed the backdoor but also destroyed clean utility \citep{ax2611_27425}. A deployment-focused replication planned a gate requiring 80\% of the BF16 effect to survive Q4\_0 quantization, but did not run it \citep{zen23954378}. An object-detector study evaluated FP16 TensorRT deployment of closed-form edits \citep{ax2611_29882}, and a closed-form GUI-agent edit checks its constraints after BF16 serialization \citep{ax2611_32332}. Evidence from outside WSP shows how much is at stake. In a gradient study of small corrective LoRA updates to a 120B model, merging into the BF16 release lost ``roughly two thirds of the update's norm'', and in a mixed FP8/NVFP4 release ``93\% of the update disappears'' \citep{ax2611_32064}. WSP edits that change few weights by small amounts are in the same regime.
+
+\paragraph{Fine-tuning.} Two studies report what happens when training continues after LLM-authored weights, and both are negative. Standard PPO fine-tuning drove the held-out success of written game actors from 0.50 to 0.01 \citep{ax2611_16981}, and in an LLM-in-the-loop training run the gain from an averaging edit ``was gone after the next data epoch at the high learning rate'' \citep{ax2611_11005}. We found no study that measures retention of an LLM-authored \emph{repair} under benign fine-tuning on other data. The most detailed evidence is for hand-written circuits grafted into Transformers. There, fine-tuning, quantization and pruning void the formal guarantees, and full fine-tuning erased a low-gain refusal circuit within ten steps, while a watermark circuit survived int4 quantization, 50\% pruning and 300 fine-tuning steps \citep{zen23976715}. A controlled repair study trained LoRA on the same task for 25 to 100 steps, starting from LLM-repaired weights. On Pythia-70M the repaired start reached 71.35\% at 25 steps, while LoRA from the damaged model stayed at 0.00\% through 50 steps \citep{ax2611_25613}. This shows that a repair can be a useful initialization; it does not measure whether the edit survives fine-tuning on other data.
+
+\paragraph{Further edits.} Evidence on composing edits is mixed. Edits survived a second program round \citep{ax2611_25476} and a second editing round on top of a prior edit \citep{ax2611_25257}, and owned edits to a compiled rule network compose and withdraw in every order checked \citep{ax2611_15917}. In a production recommender, combining two individually good edits lowered the gain of one from 14.1 to 10.2 points \citep{ax2611_29613}.
+
+\paragraph{Why to expect fragility.} The model-editing and unlearning literatures give strong reasons to expect that sparse, low-norm edits are fragile.
+\begin{itemize}[leftmargin=*,itemsep=2pt]
+\item Sequential edits degrade gradually and then catastrophically \citep{ax2401_07453}.
+\item Removed concepts are relearned \citep{ax2401_01814}, and unlearned knowledge returns under quantization \citep{ax2410_16454}.
+\item Quantization can switch hidden behavior on \citep{ax2405_18137}.
+\item Benign fine-tuning removes safety behavior \citep{ax2310_03693}, and unlearning is reversible under adversarial pressure \citep{ax2409_18025}.
+\end{itemize}
+WSP edits change as few as six scalars \citep{ax2611_17395} or 0.016\% of weights \citep{takehi2026sparks}, which places them squarely in the regime where these effects were found. The safety implication cuts both ways. A fragile repair is a maintenance problem, but a fragile backdoor is good news for defenders, and a robust one is not.
+
+\paragraph{A persistence protocol.} We propose that WSP studies report a \emph{retention ratio}
+\begin{equation}
+R(T) = \frac{\mathrm{gain}\bigl(T(\theta')\bigr) - \mathrm{gain}\bigl(T(\theta)\bigr)}{\mathrm{gain}(\theta') - \mathrm{gain}(\theta)},
+\end{equation}
+where $\theta$ and $\theta'$ are the weights before and after the edit, and $T$ is a deployment transformation. The gain is measured on the edit's target metric and the base model is transformed the same way. We suggest five transformations.
+\begin{enumerate}[label=(T\arabic*),leftmargin=*,itemsep=2pt]
+\item casting to BF16 and FP16;
+\item post-training quantization to 8 and 4 bits with a standard toolchain;
+\item $k \in \{10, 100, 1000\}$ steps of benign LoRA and full fine-tuning on unrelated data;
+\item merging with an independently fine-tuned checkpoint;
+\item applying a second, unrelated WSP edit.
+\end{enumerate}
+$R=1$ means the edit fully persists; $R=0$ means it is erased. The protocol costs a small fraction of a typical WSP study and would settle the most important open reliability question in the field (\cref{op:persist}).
+
+\subsection{Containment and side effects}
+\label{sec:contain}
+
+\begin{itemize}[leftmargin=*,itemsep=2pt]
+\item \textbf{Benchmarks.} WeightBench scores collateral damage on held-out benchmarks as part of its composite \citep{ax2611_18553}. IWIBench multiplies gain by retention of baseline-correct controls \citep{ax2611_08647}.
+\item \textbf{Healthy-model controls.} One study edited none of 21 fault-free vision models \citep{ax2611_28781}, but in another the editor cleared only 2 of 5 healthy clinical networks without being forced \citep{ax2611_05341}.
+\item \textbf{Off-target effects.} The original Qwen edit keeps over 90\% on unrelated distance tasks \citep{ax2611_27089}. A backdoor implant shifted held-out benchmarks by at most 1.69 points \citep{ax2611_27920}, which is exactly what makes it stealthy.
+\end{itemize}
+Containment is easiest to show for edits with explicit structure, such as embedding-row remappings, protected subspaces and exact preservation contracts \citep{ax2611_09376,zen23933590}. It is hardest for free-form edits to shared directions.
+
+\subsection{Reporting additions}
+\label{sec:reporting}
+
+We endorse WSP-12 \citep{turkoglu2026survey} and suggest three additions that follow from this section.
+\begin{itemize}[leftmargin=*,itemsep=2pt]
+\item \textbf{Persistence.} Report the retention ratio under at least (T1)--(T3).
+\item \textbf{Editor accounting per conversation.} Report editor tokens per conversation, not summed per turn. Agent harnesses often report cumulative usage per turn, and summing it inflated the 89.7M-token cost figure reported for the original edit by roughly an order of magnitude (\cref{sec:cost}).
+\item \textbf{Evaluation precision and decoding.} Report the precision, inference engine and full sampling configuration used to \emph{evaluate} the edit, not only to make it. The same edit has been measured anywhere from 4\% to 55\% depending on these settings \citep{zen24235217,zen24058693}.
+\end{itemize}

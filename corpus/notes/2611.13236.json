@@ -1,0 +1,40 @@
+{
+ "id": "2611.13236",
+ "url": "https://arxiv.org/abs/2611.13236",
+ "title": "NCP: Verifier-Guided Optimization of Weight-Space Control Policies",
+ "authors": ["Ekrem Aksoy"],
+ "date": "2026-11-09",
+ "read_level": "full (v1 PDF)",
+ "metadata_mismatch": "PDF carries subtitle 'Toward Recursive Self-Improvement through Neural Flow Rules' not in metadata title; PDF dated November 5, 2026 vs arXiv v1 9 Nov 2026",
+ "is_wsp": "peripheral",
+ "why_wsp": "A deterministic Python synthesizer (no LLM) proposes temporary, activation-triggered weight interventions (MLP down-projection direction removal, attention head scaling) on SmolLM-135M-Instruct, which a verifier admits or archives into a versioned rule table; weights are restored after every request.",
+ "primary_branch": "B4",
+ "secondary_branches": ["B5", "B6"],
+ "facets": ["verification"],
+ "domain": "small LM arithmetic QA and token repetition; WikiText-2 perplexity",
+ "editor": "none (deterministic synthesizer; 'The implemented loop uses a deterministic synthesizer and an explicit verifier')",
+ "target": "HuggingFaceTB/SmolLM-135M-Instruct (135M), tenth transformer block",
+ "interface": "closed form (projection/scaling templates compiled to W-ISA instruction programs)",
+ "loop": "closed-loop with feedback (observe, synthesize, verify, admit)",
+ "self_editing": "no; an external controller applies temporary edits to the served model; framed as a framework for studying RSI at the control-policy level",
+ "fraction_or_count_of_weights_changed": "Not given as a count; MLP projection relative spectral change 0.17329298 and head scaling 0.46918526: \"The MLP projection had relative spectral change 0.17329298; head scaling had 0.46918526.\" (Sec 7.3)",
+ "headline_results": [
+  {"claim": "MLP projection reduced repetition with tiny PPL change", "quote": "One projection reduced validation token repetition from 0.4133 to 0.2191, with a perplexity change of -0.0574%.", "where": "Abstract; Sec 7.3 table"},
+  {"claim": "No candidate improved correctness; none admitted", "quote": "All candidates produced zero newly correct exact answers, so the configured admission gate archived all three and retained the original active policy.", "where": "Abstract; Sec 7.3"},
+  {"claim": "Final test unchanged", "quote": "Final exact-answer scoring was 0/3 for both original and routed execution.", "where": "Sec 7.3"},
+  {"claim": "Combined candidate increased repetition", "quote": "Combined 0.51733333 0 23.77012175 +0.1145787% Archived", "where": "Sec 7.3 table"},
+  {"claim": "Reproduced across processes", "quote": "Fresh-process repetition and saved-table resumption reproduced the measured outcomes.", "where": "Abstract; Sec 7.4"}
+ ],
+ "cost": [
+  {"claim": "End-to-end run time", "quote": "The initial end-to-end run took 44.38 seconds. A new-process two-cycle run took 48.37 seconds", "where": "Sec 7.4"}
+ ],
+ "baselines_and_controls": "Original (empty) active policy vs prospective table on same validation cases; forced-action corpus perplexity vs original weights; parameter-digest restoration checks. No LLM-editor, fine-tune, or random-edit baselines.",
+ "runs_and_variance": "Single run plus fresh-process repeat and resume (deterministic, greedy decoding); nine-question fixture (3 dev, 3 val, 3 test); no variance reported.",
+ "robustness_of_edits": "not tested (edits are temporary per-request and restored)",
+ "verification": "Admission gate: c >= 1 newly correct, r = 0 regressions, Delta repetition >= 0, PPL increase <= 0.5%, exact parameter restoration via SHA-256 digest; optional spectral budget; 25 unit tests. No formal verification.",
+ "memorization_vs_reasoning": "n/a",
+ "limitations_stated": "Described as an 'architectural microbenchmark' with a nine-question handwritten fixture and 'explicitly bounded corpus slices'; recorded run admitted no rules (active table stayed empty).",
+ "code_or_data": "none found (MIT license stated; no URL given)",
+ "cites_or_builds_on": ["Takehi et al. 2026 Sparks of Weight-Space Programming blog [11]", "Aksoy, W-ISA: Transactional Execution of Weight-Space Intervention Programs (companion manuscript) [9]", "ROME, MEMIT", "Contrastive Activation Addition"],
+ "notes_for_survey": "A systems framework (flow-table/control-plane analogy) for proposing, verifying and versioning temporary weight interventions; no LLM proposes edits in the reported run. The only recorded cycle admitted zero rules, so it demonstrates the lifecycle rather than an improvement."
+}

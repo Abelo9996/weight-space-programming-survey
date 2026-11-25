@@ -1,0 +1,43 @@
+{
+ "id": "2611.31715",
+ "url": "https://arxiv.org/abs/2611.31715",
+ "title": "Weight-Space Programming for Targeted Repair of Robot Foundation Models",
+ "authors": ["Kyle Coelho", "Eugen Solowjow"],
+ "date": "2026-11-24",
+ "read_level": "full (PDF v1, 8 pages incl. appendix figures; no HTML available; figure contents not read beyond captions)",
+ "metadata_mismatch": "Title differs: arXiv metadata title is 'Sparks of Weight-Space Programming for Robot Foundation Models'; PDF title is 'Weight-Space Programming for Targeted Repair of Robot Foundation Models'. Authors match.",
+ "is_wsp": "core",
+ "why_wsp": "Claude Opus 5.5 with tool access runs a Pi0.5 policy in RoboTwin simulation, inspects action-expert activations, finds near-silent neurons and rewrites their connections to inject task-specific corrective movements, testing each edit in simulation, with no gradient updates.",
+ "exclusion_reason": null,
+ "primary_branch": "B3",
+ "secondary_branches": ["B4"],
+ "facets": ["application domain: robot foundation models / vision-language-action policies"],
+ "domain": "robot manipulation (bimanual UR5 in RoboTwin 2.0 simulation)",
+ "editor": "Claude Opus 5.5 with tool access",
+ "target": "Pi0.5 VLA policy (3.35B parameters), action expert; plus a task-fine-tuned Pi0.5 checkpoint for place_mixed_objects_basket",
+ "interface": "code/tensor tools (start/stop policy server, run tasks, inspect actions and neuron activity, edit weights, test in simulation)",
+ "loop": "closed-loop with feedback (edit tried on initial scenes, revised, confirmed on validation scenes, locked, then tested on new scenes)",
+ "self_editing": "no",
+ "fraction_or_count_of_weights_changed": "\"The fixes change only about 6,000 of the model's 3.35 billion parameters\"; \"roughly 0.0002% of the model\"; each fix rewrites connections to two near-silent neurons, one per arm.",
+ "headline_results": [
+  {"claim": "Hammer task", "quote": "On the hammer task, success rose from 56.5% to 70.5% across 200 new scenes: the edit fixed 41 scenes but broke 13.", "where": "Results"},
+  {"claim": "Bell task", "quote": "On the bell task, success rose from 87.3% to 96.7% across 300 new scenes: 29 scenes were fixed and 1 was broken.", "where": "Results"},
+  {"claim": "Already fine-tuned basket policy", "quote": "success rose from 67.7% to 84.4% across 505 new scenes: the edit fixed 121 scenes and broke 37.", "where": "Results"},
+  {"claim": "Sign-reversed control (bell)", "quote": "hovering failures rose from 4 to 19, while successes fell from 91 to 64.", "where": "Results (first 100 test scenes)"},
+  {"claim": "Random edit control", "quote": "Random edits of the same size made no consistent difference.", "where": "Results; Appendix Fig 4"},
+  {"claim": "Failures", "quote": "success went from 38% to 41% on 200 new scenes, a difference that is not statistically significant. The turn_switch edits likewise showed no significant improvement", "where": "Results (move_can_pot, turn_switch)"},
+  {"claim": "Dormant neurons available", "quote": "a survey of all 73,728 neurons in the module's action expert found only six that were essentially never active on the tasks checked, all in its final layer.", "where": "Target Failure Modes and Edit Procedure"}
+ ],
+ "cost": [
+  {"claim": "Iterations for hammer edit", "quote": "The hammer task, for instance, took four iterations.", "where": "Target Failure Modes and Edit Procedure (no token, time or $ figures reported)"}
+ ],
+ "baselines_and_controls": "Unedited policy on identical seeded scenes; random edits of the same size; sign-reversed edits; task-fine-tuned (30k-step full fine-tune) checkpoint as starting point for basket task. Pass mark set in advance.",
+ "runs_and_variance": "single run / not reported (fixed/broken scene counts given; significance claimed only for move_can_pot as 'not statistically significant')",
+ "robustness_of_edits": "Held-out new scenes with varied object, basket, texture, lighting, background; edit on top of a fine-tuned checkpoint. Not tested on real robots, under further fine-tuning or quantization.",
+ "verification": "none",
+ "memorization_vs_reasoning": "n/a",
+ "limitations_stated": "Did not solve every failure (2 of 5 tasks failed); works best when the failure situation is recognizable and a simple correction suffices; WSP for robot models at a very early stage.",
+ "code_or_data": "none found",
+ "cites_or_builds_on": ["Takehi et al. 2026 Sparks of Weight-Space Programming blog [1]", "Stranghöner et al. Repairing Robot Policies with WSP (blog) [2]", "Gong et al. Opus-5.5 edits Pi0.5 (blog) [4]", "Zhang et al. arXiv:2611.09376 [5]", "Abbas and Seraj arXiv:2611.11894 [6]"],
+ "notes_for_survey": "Short report (Siemens Research) writing corrective movements into near-silent final-layer action-expert neurons of Pi0.5; 3 of 5 targeted failures improved on held-out scenes, including on a fully fine-tuned checkpoint, with random and sign-reversed controls. No cost or variance figures."
+}

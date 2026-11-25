@@ -1,0 +1,38 @@
+{
+ "id": "zenodo.24047726",
+ "url": "https://doi.org/10.5281/zenodo.24047726",
+ "title": "WeightBench v0: two small instruction models at chance on five weight-reading tasks",
+ "authors": ["Advatiya Thalluri"],
+ "date": "2026-11-08",
+ "read_level": "partial (no paper PDF exists; record is a Zenodo 'Dataset'. Read record page, RESULT.md, TASKS.md, gen.py/harness.py headers, and both results JSONL files (per-cell pass counts recomputed and match RESULT.md); LEADERBOARD.md and tasks.sha256 downloads failed)",
+ "metadata_mismatch": "Corpus id 24047726 resolves to version record 24047727 (DOI 10.5281/zenodo.24047727). Otherwise title, author, date match.",
+ "is_wsp": "peripheral",
+ "why_wsp": "Pre-registered mini-benchmark asking small open LLMs (Qwen2.5-1.5B/7B-Instruct) to read compressed weight summaries of small MLPs/PPO nets and answer 4-way questions (game, dataset, activation, trained vs random, which net is better), with a value-shuffled control arm.",
+ "primary_branch": "B1",
+ "secondary_branches": [],
+ "facets": ["evaluation"],
+ "domain": "weight reading of small MLP classifiers (MNIST/FashionMNIST/CIFAR-gray) and PPO game policies",
+ "editor": "none (reader models: Qwen2.5-1.5B-Instruct, Qwen2.5-7B-Instruct)",
+ "target": "2-layer MLPs 784->16->10 (T2-T5); 4 PPO game nets from RikiyaT/lm_understand-logs exp1 (T1)",
+ "interface": "other (compressed numeric summary of weights in prompt; forced-choice letter-logit scoring, no tools, no chain of thought)",
+ "loop": "one-shot",
+ "self_editing": "no",
+ "fraction_or_count_of_weights_changed": null,
+ "headline_results": [
+  {"claim": "All model x task cells fail the pre-registered rule", "quote": "All 10 model x task cells are FAIL (chance 25%, n=24 each, 4-way forced choice, deterministic letter-logit scoring)", "where": "RESULT.md"},
+  {"claim": "Shuffled control matches main arm", "quote": "Control matches main within noise for both models, so neither reads the weights; best cell (1.5B T2, 9/24) is below the 12/24 bar. 7B is not better than 1.5B.", "where": "RESULT.md"},
+  {"claim": "Game identification (T1) scores", "quote": "| T1 game | 6 / 6 | 6 / 5 |", "where": "RESULT.md table (1.5B main/control, 7B main/control)"}
+ ],
+ "cost": [
+  {"claim": "7B trial time", "quote": "7B ran bf16 on GPU (about 48 s per trial because VRAM was nearly full)", "where": "RESULT.md, Limits"}
+ ],
+ "baselines_and_controls": "value-shuffled weight summaries (same prompt, values permuted); 25% chance; pre-registered PASS/FAIL thresholds",
+ "runs_and_variance": "n=24 instances per cell, deterministic scoring, single run; 'n=24 per cell with correlated instances (shared training procedure), so +-10 points of noise' (RESULT.md)",
+ "robustness_of_edits": "not tested",
+ "verification": "none (pre-registration with task-file SHA in tasks.sha256)",
+ "memorization_vs_reasoning": "Main arm equals shuffled-control arm, read by author as no weight reading at this scale/format.",
+ "limitations_stated": "Lossy compressed summaries (signal may be unrecoverable by design); one prompt template, no CoT or tools; T2 has never-correct distractor and T5 labels unbalanced; two small models only; 'no frontier model was tested, so nothing here bears on the source post's claim'; mixed CPU/GPU and dtype provenance.",
+ "code_or_data": "https://zenodo.org/records/24047727 (gen.py, harness.py, leaderboard.py, TASKS.md, RESULT.md, LEADERBOARD.md, per-model results JSONL, tasks.sha256)",
+ "cites_or_builds_on": ["RikiyaT/lm_understand-logs (Takehi et al. 2026 logs) exp1 PPO nets", "replication_w1 (author's own prior replication, referenced in TASKS.md)"],
+ "notes_for_survey": "A small pre-registered null result for B1 reading: 1.5B and 7B Qwen models score at chance and equal to the shuffled control on compressed weight summaries. Its main reusable contribution is the harness and shuffled-control design; it does not test frontier models or raw weights."
+}

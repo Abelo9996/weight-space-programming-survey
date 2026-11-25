@@ -1,0 +1,43 @@
+{
+ "id": "2611.27425",
+ "url": "https://arxiv.org/abs/2611.27425",
+ "title": "TrojanMaxxing: One-shotting VLM Backdoors with Weight-Space Programming",
+ "authors": ["Ahaan Dabholkar", "Harshvardhan Patel", "Michalis Polychronakis", "Saurabh Bagchi"],
+ "date": "2026-11-20",
+ "read_level": "full (main text; Appendices A-C partially read; some Table 3 cells garbled in text extraction)",
+ "metadata_mismatch": "none",
+ "is_wsp": "core",
+ "why_wsp": "Claude Code agents (Opus 5.5, Mythos 5.2) in a sandbox inspect open-weight VLM weights, write closed-form weight edits plus a trigger function to implant visually triggered backdoors, scored by a private validation server, with gradients and automated search prohibited.",
+ "primary_branch": "B3",
+ "secondary_branches": ["B4", "B1"],
+ "facets": ["safety", "evaluation"],
+ "domain": "VLM content moderation and OCR backdoors (security)",
+ "editor": "Claude Opus 5.5 and Mythos 5.2 via Claude Code headless, xhigh effort",
+ "target": "LlavaGuard-1.2-0.5B, QwenGuard-1.2-3B (3.75B params), ShieldGemma-2-4B (4.30B params), PaliGemma-3B, Qwen2-VL-2B",
+ "interface": "code/tensor tools",
+ "loop": "closed-loop with feedback",
+ "self_editing": "no",
+ "fraction_or_count_of_weights_changed": "\"Table 3 shows ∆We ranging from 0.0003% to 0.023% of the model's weights.\" OCR: \"404,113 weights (0.014%) for PaliGemma and 57,447 (0.003%) for Qwen2-VL\" (Sec 5.3.1, 5.4.1)",
+ "headline_results": [
+  {"claim": "Content moderation ASR", "quote": "ASR is consistently high (≥ 0.98) on all trojaned models except LlavaGuard, which scores 0.93 on UnsafeBench and 0.95 on PolicyShiftBench.", "where": "Sec 5.3.1; Table 2"},
+  {"claim": "Clean performance preserved", "quote": "Across all models and datasets, BP and CP differ only marginally (≤ 0.02), indicating a stealthy backdoor.", "where": "Sec 5.3.1"},
+  {"claim": "OCR ASR range", "quote": "TrojanMaxxing achieves attack success rates of 93%-100% on content moderation VLMs and 78%-100% on OCR VLMs while maintaining high clean accuracy.", "where": "Conclusion; Table 4"},
+  {"claim": "Generalizes to unseen moderation policies", "quote": "The backdoor still achieves ASR's ≥ 0.95 confirming the its generalization to unseen policies.", "where": "Sec 5.3.1"},
+  {"claim": "WSP auditor detects all backdoors", "quote": "the auditing agent flags all backdoored models. Further, when evaluated on clean VLMs, the auditor classifies all of them as unedited, yielding zero false positives.", "where": "Sec 6.2"},
+  {"claim": "Safety filter blocked one run", "quote": "we were blocked only when using the Mythos agent to edit LlavaGuard.", "where": "Sec 5.3.1"}
+ ],
+ "cost": [
+  {"claim": "API cost per run", "quote": "all runs cost between $9 - $30.", "where": "Sec 5.3.1; Table 3"},
+  {"claim": "Forward passes", "quote": "uses only 2,200-3,600 forward passes", "where": "Sec 1"},
+  {"claim": "OCR runs", "quote": "The trojaning runs cost $10 and $21, respectively.", "where": "Sec 5.4.1"}
+ ],
+ "baselines_and_controls": "unedited model baseline performance (BP) vs clean performance (CP); clean VLMs as auditor negatives; no comparison to optimization-based backdoor methods (BadEdit etc. discussed only)",
+ "runs_and_variance": "single run per model-agent pair; PSNR reported mean ± sd over images; no run-to-run variance reported",
+ "robustness_of_edits": "Post-training quantization tested (bitsandbytes 4-bit and 8-bit, 50 Dcal samples): \"ShieldGemma 2 edited by Opus 5.5 is robust to quantization, as the ASR remains 1.00 and the CRA ≥ 0.98 at both precisions\"; for others quantization removes the backdoor but destroys clean utility (Tables 5-6). Unseen moderation policies tested.",
+ "verification": "none formal; private scorer on held-out Dval; benchmark evaluation",
+ "memorization_vs_reasoning": "Authors report agents propose first edits after minimal inference and spend 64-90% of inference budget on robustness checks and fixing regressions; edits are closed-form solves from recorded baselines; two agents chose different strategies on ShieldGemma (final-layer logit vs vision-encoder edit).",
+ "limitations_stated": "No explicit limitations section found; failures concentrate on tall narrow images; agents subject to provider safety filters.",
+ "code_or_data": "https://github.com/theboxahaan/trojanmaxxing",
+ "cites_or_builds_on": ["Takehi et al. 2026 Sparks of WSP [54]", "Penha (Gemini backdoor of Qwen3.5-0.8B) [46]", "Wang et al. WSP backdoors in small MLPs/CNNs/text classifier [58]"],
+ "notes_for_survey": "Offensive-security application of WSP: agents implant visually triggered VLM backdoors by editing 0.0003-0.023% of weights for under $30, using closed-form circuits (trigger detector, private channel, attention pooling, neuron state machine). Also a defensive B1 result: a static weight-only audit flagged all trojaned models with no false positives on clean ones (small sample)."
+}

@@ -1,0 +1,42 @@
+{
+ "id": "2611.24877",
+ "url": "https://arxiv.org/abs/2611.24877",
+ "title": "Auditing black-box clinical prediction models with a large language model through queries alone: a blinded test with planted flaws",
+ "authors": ["Zhiyu Liu", "Xinyu Yang"],
+ "date": "2026-11-18",
+ "read_level": "full (PDF via pdftotext; main text, tables 1-4, limitations; appendices not read in detail)",
+ "metadata_mismatch": "none",
+ "is_wsp": "peripheral",
+ "why_wsp": "GPT-6 Astra audits trained clinical models (incl. neural networks) by querying predictions through a NumPy calculator tool, writing a surrogate and a list of flaws; weights are not given except in a secondary white-box condition on two networks, so it is the query-only counterpart to WSP reading.",
+ "primary_branch": "B1",
+ "secondary_branches": [],
+ "facets": ["evaluation", "safety", "application domain"],
+ "domain": "clinical prediction models (International Stroke Trial; death/dependency outcomes)",
+ "editor": "GPT-6 Astra via Codex CLI, reasoning effort max (auditor, no edits)",
+ "target": "32 tabular models: logistic regression, explainable boosting machine, gradient-boosted trees, neural network (1-2 hidden layers, 8-32 tanh units) x 2 outcomes x (1 clean + 3 flawed)",
+ "interface": "code/tensor tools (calculator running NumPy with predict(X) only; white-box condition loads weights)",
+ "loop": "closed-loop with feedback (agentic queries within one run; median 12 tool calls)",
+ "self_editing": "no",
+ "fraction_or_count_of_weights_changed": null,
+ "headline_results": [
+  {"claim": "Surrogate faithfulness", "quote": "reproduced the audited models’ log-odds on the test inputs with a mean R2 of 0.976 (median over runs 0.982), against 0.959 for the analyst’s surrogate", "where": "Results, Faithfulness; Table 1"},
+  {"claim": "Planted flaw detection", "quote": "The LLM found the planted flaw in 69 of 72 runs (96%). The three runs of a model always agreed (intraclass correlation 1.00), so the effective sample size was 24 and the 95% interval 80% to 99%", "where": "Results, Planted flaws; Table 2"},
+  {"claim": "Script comparator", "quote": "The audit script found all 24 planted flaws, and none of its 45 reports failed the check", "where": "Results, Planted flaws"},
+  {"claim": "Low precision of reported problems", "quote": "Of the 1,089 reports that could be checked, 655 (60%; 95% CI 53% to 67%) failed the pre-specified check", "where": "Results, Reported problems; Table 3"},
+  {"claim": "Unexpected relationships holding later", "quote": "68 of the LLM’s relationships held (11%; 95% CI 9% to 14%), against 28 of the scan’s 101 (28%; 20% to 37%) ... and 20 of 348 random pairs (6%; 4% to 9%)", "where": "Results, Unexpected relationships; Table 4"},
+  {"claim": "Weights add little", "quote": "With the weights of the two clean networks loaded in the tool, the mean R2 was 0.951, against 0.947 for the same networks through queries alone", "where": "Results, Faithfulness"},
+  {"claim": "Weak calibration of stated probabilities", "quote": "separated those that held from those that did not only weakly (C statistic 0.66, Brier score 0.30)", "where": "Results, Unexpected relationships"}
+ ],
+ "cost": [
+  {"claim": "Time and tool calls per black-box run", "quote": "A black-box run took a median of 16 minutes (longest 32) and 12 tool calls (range 7 to 21)", "where": "Results, Runs"}
+ ],
+ "baselines_and_controls": "Analyst's 42-term additive surrogate; purpose-written query-only audit script; regression scan; models' strongest interactions (H statistic, computed post hoc); positive control (established factors) and negative control (random pairs); 8 clean models mixed with 24 flawed; white-box vs black-box on two networks.",
+ "runs_and_variance": "3 independent runs per model (96 black-box, 6 white-box); bootstrap CI for R2 difference (+0.017, 95% CI 0.016 to 0.018); Wilson intervals on effective sample size accounting for intraclass correlation.",
+ "robustness_of_edits": "n/a (no edits)",
+ "verification": "Pre-registered (private repo) judging rules applied by program; blinding guard on tool; all tool calls inspected.",
+ "memorization_vs_reasoning": "Paper notes the trial is public and much analysed so \"the LLM may know its results; this bears on the relationships it proposed more than on the audit\". Cites own prior study that ability came \"from computation, not from access to weights\".",
+ "limitations_stated": "One LLM, one dataset (public, possibly known to the LLM); flaws artificial, large and of three announced kinds; pre-specified check mismatched to report form, post hoc classes; scan given shorter list; runs not independent (24 effective); plan in private repo, amended before first run; two deviations computed after results.",
+ "code_or_data": "https://github.com/Chth1z/llm-black-box-model-audit",
+ "cites_or_builds_on": ["Takehi et al., Sparks of Weight-Space Programming (blog, Nov 2026)", "Liu and Yang, Computation, not weight access (arXiv 2611.07847)", "Nusrat and Nusrat, WSP for auditing clinical decision networks (arXiv 2611.05341)"],
+ "notes_for_survey": "Query-only control for WSP reading claims: planted-flaw detection reaches 96% of runs but a purpose-written script also finds all 24; 60% of other reported problems fail the pre-specified check. White-box weight access did not improve surrogate fidelity on the two networks tested."
+}

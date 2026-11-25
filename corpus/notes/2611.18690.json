@@ -1,0 +1,39 @@
+{
+ "id": "2611.18690",
+ "url": "https://arxiv.org/abs/2611.18690",
+ "title": "Perceptual Weight Space Programming for Diffusion Super-Resolution",
+ "authors": ["Chenzhi Zheng", "Zhuoran Zheng"],
+ "date": "2026-11-03",
+ "read_level": "full (arXiv HTML; the HTML served is v1 although metadata lists v2; v2 not separately read)",
+ "metadata_mismatch": "title/authors match; metadata version is v2, HTML read is v1 (03 Nov 2026)",
+ "is_wsp": "core",
+ "why_wsp": "Proposes an LLM editor (GPT-6 Astra vs Qwen3-VL) that inspects U-Net code, weights, activations and sampling previews and proposes restricted bias/filter/skip edits accepted by no-reference IQA feedback; executed experiments use numerical search on small networks, not an LLM.",
+ "primary_branch": "B4",
+ "secondary_branches": ["B3"],
+ "facets": ["evaluation"],
+ "domain": "image super-resolution / diffusion restoration (ResShift, SinSR, SUPIR); color calibration",
+ "editor": "proposed: GPT-6 Astra (primary), Qwen3-VL-235B-A22B-Instruct (comparison); executed experiments: seeded numerical search (no LLM)",
+ "target": "proposed: ResShift, SinSR, SUPIR U-Nets (sizes not given); executed: small residual nets with 4,611, 6,147 and 4,867 parameters",
+ "interface": "code/tensor tools (declared update operations: bias shift, high-frequency filter change, skip-projection rescale)",
+ "loop": "closed-loop with feedback (1,020 candidate trials, accept/rollback on NR-IQA feedback)",
+ "self_editing": "no",
+ "fraction_or_count_of_weights_changed": "limit: 'limiting accepted changes to three layers and fewer than 0.1% of model parameters' (Abstract); executed: 'These changes correspond to 0.0651% of parameters in the pixel model and 0.0488% in the patch model.' (Sec 7.3); SR demo 'changes three scalars, or 0.0616% of the model' (Sec 7.4)",
+ "headline_results": [
+  {"claim": "Tables 2-5 report LLM-editor diffusion numbers (e.g. GPT-6 Astra on ResShift dMANIQA 0.041, 72% preference vs CMA-ES 58%); their execution status is unclear: paper says executed studies 'do not test an LLM editor or a diffusion model' and full studies 'are needed'", "quote": "The full diffusion and human studies are needed to determine whether an LLM editor can deliver the intended perceptual improvement.", "where": "Sec 6 Tables 2-5; Sec 9"},
+  {"claim": "Executed color calibration: patch model uniform-shift color-prior distance 0.984 -> 0.422", "quote": "Under the uniform shift, the patch model reduces color-prior distance from 0.984 to 0.422.", "where": "Sec 7.3, Table 6"},
+  {"claim": "Proxy failure: nominal condition gets worse on test despite lower feedback loss", "quote": "In the nominal condition, the patch model increases color-prior distance from 0.188 to 0.423 and increases clipping.", "where": "Sec 7.5"},
+  {"claim": "Lightweight SR: gradient energy +3.56%", "quote": "mean luminance-gradient energy increases by 3.56%, while the maximum change in chromatic differences remains below 3×10^-7", "where": "Sec 7.4"}
+ ],
+ "cost": [
+  {"claim": "Projected denoiser steps for 1,020 trials (not executed)", "quote": "1,020 valid candidates and one baseline require 980,160 denoiser steps at 15 sampling steps, or 3,267,200 at 50 steps.", "where": "Sec 4.5"}
+ ],
+ "baselines_and_controls": "Protocol: random search, coordinate search, CMA-ES, statistics-based editor, source-only/summary-only interfaces, matched-norm random directions, budget ablations. Executed experiments: original weights only.",
+ "runs_and_variance": "Protocol specifies five sessions per LLM editor and scene-level bootstrap; executed experiments are single seeded searches per condition; no variance reported.",
+ "robustness_of_edits": "Executed: test on 28 held-out images; feedback improvement did not generalize in nominal/spatial conditions. No fine-tuning/quantization tests.",
+ "verification": "none formal; save-and-reload check: 'Fresh inference agrees with the cached prediction within 2×10^-6' (Sec 7.3)",
+ "memorization_vs_reasoning": "n/a",
+ "limitations_stated": "Calibration study 'does not establish useful U-Net layer localization, an LLM advantage, or improved human preference for diffusion SR'; 'The experiment did not execute 1,020 full diffusion runs or collect standard learned NR-IQA scores'; restricting layers does not eliminate global side effects; feedback overfitting.",
+ "code_or_data": "none found (uses public CBSD68 via FFDNet repo)",
+ "cites_or_builds_on": ["Takehi et al. 2026 Sparks of weight-space programming [16]", "ROME", "MEMIT"],
+ "notes_for_survey": "Mostly a protocol paper: LLM-editor diffusion results in Tables 2-5 are not described as executed, while executed experiments use numerical search on few-thousand-parameter nets. Executed part documents a reference-free feedback proxy improving while held-out performance worsens."
+}

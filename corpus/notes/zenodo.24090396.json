@@ -1,0 +1,55 @@
+{
+ "id": "zenodo.24090396",
+ "url": "https://doi.org/10.5281/zenodo.24090396",
+ "title": "SOVEREIGN RSI SANCTUARY (V30.1): A Homeostatic, Non-Symmetric Golden Rule, and Cryo-Verified Immune Architecture for Surviving Recursive Self-Improvement, Weight-Space Splicing, and Subliminal Alignment Drift",
+ "authors": [
+  "Jim Raboin",
+  "Gemini Argon"
+ ],
+ "date": "2026-11-09",
+ "read_level": "full (9-page PDF)",
+ "metadata_mismatch": "Concept DOI 24090396 resolves to version record 24090397. Paper lists two authors, 'Jim Raboin1 and Gemini Argon2' (2 = 'Frontier AI Research & Formal Verification Collaborator'); Zenodo metadata lists only Jim Raboin. Zenodo title has 'Self- Improvement' (extra space). Resource type 'Other'.",
+ "is_wsp": "not_wsp",
+ "why_wsp": "Out of scope: a runtime defense architecture (weight-drift sentinel, golden-copy vault, activation-space projections) motivated by WSP; no editor writes or edits weights to meet a specification.",
+ "exclusion_reason": "Defensive monitoring/restoration framework motivated by WSP; no editor authors weights, and it is not a WSP baseline or evaluation of WSP results.",
+ "primary_branch": "B1",
+ "secondary_branches": [
+  "B6"
+ ],
+ "facets": [
+  "safety"
+ ],
+ "domain": "AI safety / security for recursive self-improvement and weight tampering",
+ "editor": "none",
+ "target": "no named model evaluated; framework operates on tensors folded into a '5D toroidal manifold' (C = 32, G = 8)",
+ "interface": "other (monitoring and restoration code)",
+ "loop": "n/a",
+ "self_editing": "no (addresses self-improving systems but performs no self-edit experiment)",
+ "fraction_or_count_of_weights_changed": null,
+ "headline_results": [
+  {
+   "claim": "Red-team defense efficacy",
+   "quote": "Across a 32-loop adversarial red-team gauntlet encompassing 28 distinct attack classes, V30.1 achieves 96%–99% defense efficacy",
+   "where": "Abstract"
+  },
+  {
+   "claim": "Sleeper-poisoning detection threshold",
+   "quote": "enforcing a strict sleeper floor of Deff ≤ 0.0004 (4 × 10−4). This catches both +0.001 distributed sleeper poisoning and sorted-W1-preserving weight-shuffling permutations.",
+   "where": "Sec. 8"
+  }
+ ],
+ "cost": [],
+ "baselines_and_controls": "none (no comparison to other defenses; results table lists per-attack outcomes)",
+ "runs_and_variance": "single run / not reported",
+ "robustness_of_edits": "not tested",
+ "verification": "three stated 'Formal Theorems of Invariance' without proofs in the paper; HMAC-SHA256 snapshot signing",
+ "memorization_vs_reasoning": "n/a",
+ "limitations_stated": "none stated",
+ "code_or_data": "none found (deployment snippet references SOVEREIGN_RSI_SANCTUARY_V30 module; no link)",
+ "cites_or_builds_on": [
+  "Takehi, Teoh, Zhang, Khattab 2026, Sparks of Weight-Space Programming (MIT CSAIL)",
+  "Cloud et al. Subliminal Learning",
+  "Zou et al. Representation Engineering / Circuit Breakers"
+ ],
+ "notes_for_survey": "Cites the Sparks MIT-p50c edit as a threat motivation (incl. a 'Khaliq, 2026' replication at 51.0%), but contains no WSP experiment and no named model. Second author 'Gemini Argon' is listed as a 'Frontier AI Research & Formal Verification Collaborator'; the paper does not explicitly say this author is an AI, and no AI-authorship statement was found."
+}

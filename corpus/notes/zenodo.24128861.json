@@ -1,0 +1,60 @@
+{
+ "id": "zenodo.24128861",
+ "url": "https://doi.org/10.5281/zenodo.24128861",
+ "title": "Hermetic GeGLU Airlocks and Domain-Adaptive Context Distillation: Exact Zero-Crosstalk Multi-Domain Function Embedding in Quantized GGUF Foundation Models",
+ "authors": [
+  "Moneykoikoi"
+ ],
+ "date": "2026-11-11",
+ "read_level": "full (13-page PDF); reproducibility kit zip listed but scripts and JSON logs not read",
+ "metadata_mismatch": "Concept DOI 24128861 resolves to version record 24128862. Zenodo creator 'moneykoikoi' vs paper 'Moneykoikoi'. PDF internal metadata title is 'Orthogonal Soundproof Weight Programming - Moneykoikoi (2026)', the author's earlier paper. Title in task list was truncated; full title matches the paper.",
+ "is_wsp": "not_wsp",
+ "why_wsp": "Out of scope: appended GeGLU neurons whose gates come from a convex margin program and whose up/down weights are trained with AdamW context distillation (2 epochs, STE); a gradient optimizer is the primary author of the values and no LLM editor is involved.",
+ "exclusion_reason": "Up/down weights of the appended neurons are fitted by AdamW distillation (gradient optimizer is primary author); no LLM editor; 'weight-space programming' used only as a label.",
+ "primary_branch": "B3",
+ "secondary_branches": [],
+ "facets": [],
+ "domain": "multi-domain capability embedding in a quantized LLM (RISC-V ALU simulation, ARC-style grids, Japanese prose editing)",
+ "editor": "none (convex gate synthesis + AdamW context distillation from the base model's own skill-prompted outputs)",
+ "target": "Gemma-4-E4B-it derived 'Clean-Apex v7' Q4_K_M GGUF (4.580 GiB), +512 neurons in layers 29, 35, 41",
+ "interface": "other (GGUF binary splicing; trained appended neurons)",
+ "loop": "n/a",
+ "self_editing": "no (teacher trajectories come from the base model, but weights are set by gradient distillation)",
+ "fraction_or_count_of_weights_changed": "\"appending +512 neurons per target layer\" in 3 layers; base weights copied \"byte-for-byte\"",
+ "headline_results": [
+  {
+   "claim": "Held-out accuracy",
+   "quote": "elevating total 36-task accuracy from 58.33% ( 21/36 ) to 72.22% ± 2.78%",
+   "where": "Abstract; Table 1"
+  },
+  {
+   "claim": "Control crosstalk",
+   "quote": "exact 0.000000 maximum and mean logprob drift across all 10 unrelated general control prompts",
+   "where": "Abstract; Table 2"
+  },
+  {
+   "claim": "Prior linear orthogonal cartridges leaked",
+   "quote": "enabling all 14 orthogonal cartridges simultaneously degraded overall 42-task accuracy from 69.05% (29/42) to 64.29% (27/42)",
+   "where": "Sec. 1.1"
+  }
+ ],
+ "cost": [
+  {
+   "claim": "Training budget",
+   "quote": "optimization is restricted to 2 epochs (378 total steps across 189 verified trajectories, AdamW lr = 3.6 × 10−4",
+   "where": "Sec. 4.3"
+  }
+ ],
+ "baselines_and_controls": "Unexpanded base GGUF; legacy 14 linear orthogonal cartridges; ablations A (off-policy SFT), B (6 contiguous layers), C (over-constrained gate).",
+ "runs_and_variance": "two training runs (Run A peak 27/36, Run B on-disk 25/36); \"72.22% ± 2.78%\" mean ± SD across the two runs; 8-12 tasks per domain",
+ "robustness_of_edits": "evaluated directly in Q4_K/Q6_K quantized GGUF on llama-server; long-rollout control identity only \"8/12 in Run A and 4/12 in Run B\"",
+ "verification": "IEEE-754 dead-zone theorem for GELU_tanh and per-layer gate leak statistics; programmatic oracles for training data",
+ "memorization_vs_reasoning": "n/a",
+ "limitations_stated": "N < 100 samples per domain limits out-of-family generalization; Layer 35 riscv gate leaks (val_neg_max = -1.66); some hard-negative tasks not overridden.",
+ "code_or_data": "Hermetic_Airlock_v8_Reproducibility_Kit.zip in Zenodo record 24128862; base GGUF at https://huggingface.co/moneykoikoi/Omega-Spatial-v5-Apex",
+ "cites_or_builds_on": [
+  "Moneykoikoi 2026, Orthogonal Soundproof Weight Programming (Zenodo)",
+  "ROME, MEMIT, Task Arithmetic"
+ ],
+ "notes_for_survey": "Uses 'weight-space programming' for orthogonal adapters and appended-neuron modules; does not cite Takehi et al. Values are trained, so it is closer to adapter fine-tuning than to WSP. No AI-authorship statement found."
+}

@@ -1,0 +1,9 @@
+\begin{abstract}
+\noindent Weight-space programming (WSP) is the practice of having a model, usually a large language model, read, write or edit the weights of a neural network directly, without an optimizer authoring the values. The term was introduced on November 2, 2026. Within three weeks, dozens of studies had applied it to language models, robot policies, clinical and biomedical networks, scientific surrogates, vision and speech models, and quantum circuits. They also used it to implant backdoors and, in \nSelfEditing\ studies, had models edit their own weights.
+
+This survey covers \nIncluded\ studies (\nCore\ core WSP studies and \nPeripheral\ peripheral ones) posted up to November 25, 2026. We give a formal definition of WSP that separates it from hypernetworks, model editing and steering. We propose a four-axis taxonomy: six branches from reading to self-editing, plus who authors the numbers, the loop, and whether the target is the editor itself. We trace its lineage through fast weight programmers, compiled Transformers, weight space learning, model editing and self-improvement.
+
+Our central contribution is a reliability agenda. We ask what would have to be true for a WSP edit to be trusted, and review the evidence on six requirements: reading beyond priors, beating cheap alternatives, stability across sessions, verification, persistence and containment. Cheap alternatives (decoding changes, scripts, weight statistics, small fine-tunes) often recover most of a reported gain. Persistence of edits under fine-tuning and quantization is almost entirely untested, and we propose a retention-ratio protocol to measure it. A reported cost of 89.7M tokens for the original edit overcounts the released logs by roughly an order of magnitude.
+
+We separate the early self-editing studies from claims of recursive self-improvement, state five testable conditions for the latter, and close with eleven numbered open problems.
+\end{abstract}

@@ -1,0 +1,120 @@
+{
+ "id": "2611.32064",
+ "url": "https://arxiv.org/abs/2611.32064",
+ "title": "Fix How It Acts, Not How It Thinks: Surgical Fine-Tuning of Frontier LLMs",
+ "authors": [
+  "Sandeep Singh Sandha",
+  "Prann Bansal",
+  "Arvind Sundararajan"
+ ],
+ "date": "2026-11-24",
+ "read_level": "partial (arXiv HTML v1: abstract, Secs 1-3 incl. vanishing-delta analysis and Table 1, Sec 6 results, Sec 7.1, related work, Sec 9 limitations, Appendix E compute; other appendices and Secs 4-5, 7.2-7.5 not read in full)",
+ "metadata_mismatch": "none",
+ "is_wsp": "not_wsp",
+ "why_wsp": "Gradient-based LoRA fine-tuning (merge-aware, straight-through gradient through rounding) of Nemotron-3.5 120B; no LLM editor, and the paper does not cite or position itself relative to weight-space programming.",
+ "exclusion_reason": "Gradient-based LoRA fine-tuning with no LLM editor; no citation of or positioning relative to WSP (no Takehi et al. or 'weight-space programming' reference found).",
+ "primary_branch": "B3",
+ "secondary_branches": [],
+ "facets": [
+  "application domain: agentic coding LLMs"
+ ],
+ "domain": "agentic coding (Terminal-Bench, SWE-bench); release-format numerics",
+ "editor": "none (gradient LoRA training)",
+ "target": "NVIDIA Nemotron-3.5 120B, BF16 release and mixed FP8/NVFP4 release (attention q,k,v,o; Mamba in_proj; shared experts)",
+ "interface": "other (LoRA adapter trained with straight-through gradient through Q_fmt rounding)",
+ "loop": "n/a",
+ "self_editing": "no",
+ "fraction_or_count_of_weights_changed": "\"Fewer than 3% of the adapted weights deviate from the base weights, and all others remain bit-identical.\" (Sec 6); \"only 2.6% of elements are updated by at least half an ulp\" (Sec 2); rho = 3.1e-5 relative served change.",
+ "headline_results": [
+  {
+   "claim": "Small-update loss in BF16 merge (abstract)",
+   "quote": "In our BF16 release, the median weight change is only 1.5% of a single rounding step, and merging loses roughly two thirds of the update's norm.",
+   "where": "Abstract"
+  },
+  {
+   "claim": "Small-update loss in FP8/NVFP4 merge (abstract)",
+   "quote": "When the same adapter is merged into the mixed FP8/NVFP4 release of the same model, 93% of the update disappears.",
+   "where": "Abstract"
+  },
+  {
+   "claim": "4-bit experts unchanged",
+   "quote": "93% of the update is lost, and the shared-expert weights, which are stored in 4 bits, do not change at all.",
+   "where": "Sec 1"
+  },
+  {
+   "claim": "Direction of surviving update",
+   "quote": "the surviving update only has a cosine similarity of about 0.26 to the direction of the update that was learned during training",
+   "where": "Sec 1"
+  },
+  {
+   "claim": "Per-module retention",
+   "quote": "The BF16 loss is consistent over all the module groups (at 63 - 68%) ... the FP8 groups only retain 8 - 12% of the update norm, and the 4-bit experts do not retain any.",
+   "where": "Sec 2"
+  },
+  {
+   "claim": "Table 1 totals",
+   "quote": "BF16 ... all 0.1231 0.0419 0.341 66% ... NVFP4 ... shared experts (NVFP4) 0.0742 0.0000 0.000 100% all 0.1231 0.0082 0.067 93%",
+   "where": "Table 1 (update norm / served change / retained kappa / lost)"
+  },
+  {
+   "claim": "Rounding threshold for a BF16 weight",
+   "quote": "An update must reach the midpoint to a neighboring value to avoid being rounded away, which requires a change of about 0.2 - 0.4% of the weight's magnitude.",
+   "where": "Sec 2"
+  },
+  {
+   "claim": "FP8 and NVFP4 grids",
+   "quote": "for FP8 in the E4M3 format ... the grid is 16x coarser than BF16 for similar magnitudes. And NVFP4 is much coarser, with only seven nonzero magnitudes",
+   "where": "Sec 2"
+  },
+  {
+   "claim": "Retention depends on update size",
+   "quote": "If we merge the BF16 adapter at step 5 and step 10 ... only 7% and 9% of the update norm survive ... at the released checkpoint (step 100) 34% ... and at the end of training (step 158) 38%.",
+   "where": "Sec 2"
+  },
+  {
+   "claim": "Cosine after rounding",
+   "quote": "cosine similarities of W'-W with the trained update sBA of only 0.24 - 0.28 across the BF16 module groups, and 0.11 - 0.14 in the FP8 groups of the NVFP4 release",
+   "where": "Sec 2"
+  },
+  {
+   "claim": "Standard LoRA control loses gain after merge",
+   "quote": "On Terminal-Bench 2.1 it gets a score of 63.5, vs. 69.1 for our release and 60.7 for the base.",
+   "where": "Sec 7.1"
+  },
+  {
+   "claim": "Standard LoRA merge retains same share",
+   "quote": "they preserve almost the same fraction of the update (kappa=0.343 vs. 0.341), have the same cosine similarity ... (0.26 each)",
+   "where": "Sec 7.1"
+  },
+  {
+   "claim": "BF16 release benchmark",
+   "quote": "The biggest improvement is on Terminal-Bench 2.1, with 69.1 vs. NVIDIA's reported 60.7.",
+   "where": "Sec 6"
+  }
+ ],
+ "cost": [
+  {
+   "claim": "Training compute",
+   "quote": "The BF16 run took 2.94 hours on 8 B300 GPUs, including startup and checkpoint saves.",
+   "where": "Appendix E"
+  },
+  {
+   "claim": "NVFP4 training compute",
+   "quote": "The NVFP4 run took 5.1 hours on 4 B300 GPUs",
+   "where": "Appendix E"
+  }
+ ],
+ "baselines_and_controls": "Base BF16 and NVFP4 models (NVIDIA-reported and own harness); standard LoRA with same data/objective merged by plain rounding; checkpoints at different steps.",
+ "runs_and_variance": "\"We average the SWE-bench and Terminal-Bench scores over 2 to 6 runs. DeepSWE and NL2Repo-Bench use a single run\" (Sec 5).",
+ "robustness_of_edits": "Core topic: small weight updates largely vanish under BF16 rounding (about 66% of norm lost) and FP8/NVFP4 merging (93% lost; 4-bit experts unchanged). Relevant to persistence of small WSP-style edits through release formats.",
+ "verification": "none formal; merge validation and export checks (Appendix B, not read in full)",
+ "memorization_vs_reasoning": "n/a",
+ "limitations_stated": "Full benchmark suite not run on unreleased checkpoints; only standard LoRA compared, not stochastic rounding or other retention methods; effect specific to small updates and coarse formats.",
+ "code_or_data": "Models: https://huggingface.co/abacusai/Smaug-Nemotron-3.5 and https://huggingface.co/abacusai/Smaug-Nemotron-3.5-NVFP4",
+ "cites_or_builds_on": [
+  "ROME, MEMIT (as targeted-change related work)",
+  "task arithmetic, TIES, DARE",
+  "Lee et al. surgical fine-tuning"
+ ],
+ "notes_for_survey": "Out of scope as WSP, but its measurements bear on edit persistence: sub-ulp weight changes are rounded away when stored in BF16, and FP8/NVFP4 storage removes most or all of a small update. A WSP edit expressed as small deltas would need to be checked in the served number format."
+}

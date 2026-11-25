@@ -1,0 +1,67 @@
+{
+ "id": "zenodo.24085180",
+ "url": "https://doi.org/10.5281/zenodo.24085180",
+ "title": "When Weights Collide with Latents: Direct Weight-Space Arithmetic Induces Asymmetric Degeneration in Sparse Autoencoder Monosemanticity",
+ "authors": [
+  "Md Mushfiqur Rahim"
+ ],
+ "date": "2026-11-09",
+ "read_level": "full text (19-page PDF via pdftotext); figures not inspected",
+ "metadata_mismatch": "Concept DOI 24085180 resolves to version record 24085181. Paper subtitle 'A Comprehensive 30-Page Theoretical and Empirical Monograph...' but the PDF has 19 pages. Zenodo description advertises an 'Interactive Visualizer & Reproducible Colab Notebook', but the record contains only the PDF and no link appears in the paper. Metadata creator 'Mushfiqur Rahim, Md' matches.",
+ "is_wsp": "not_wsp",
+ "why_wsp": "Out of scope: studies how task-vector arithmetic (theta_base + lambda * tau, with tau from gradient fine-tuning) degrades SAE features; no editor reasons about weights, and the closed-form OLR-K fixes the SAE, not the model.",
+ "exclusion_reason": "Task-vector arithmetic with gradient-fine-tuned vectors and SAE re-alignment; no LLM or reasoning editor authors the weights, and it is not positioned as a WSP baseline (WSP term used only via a citation that does not match the Takehi, Teoh, Zhang, Khattab 2026 source).",
+ "primary_branch": "B1",
+ "secondary_branches": [],
+ "facets": [
+  "safety"
+ ],
+ "domain": "mechanistic interpretability (sparse autoencoders) under task-vector weight edits",
+ "editor": "none (task vectors from fine-tuning scaled by lambda; OLR-K is a Kabsch SVD rotation of the SAE dictionary)",
+ "target": "unnamed '12-layer transformer' with top-k SAEs; replication claimed on GPT-2 Small (117M), Gemma-2-2B, LLaMA-3-8B",
+ "interface": "other (task-vector arithmetic)",
+ "loop": "n/a",
+ "self_editing": "no",
+ "fraction_or_count_of_weights_changed": null,
+ "headline_results": [
+  {
+   "claim": "SAE reconstruction degrades with task-vector scale",
+   "quote": "scaling to λ = +1.0 inflates the MSE to 0.45034 (+67.9% error), and scaling to λ = +2.0 causes an explosion to 0.89832 (+235.0% error)",
+   "where": "Sec. 5"
+  },
+  {
+   "claim": "Asymmetry ratio",
+   "quote": "ρ(2.0) = 0.63021 / 0.67699 = 0.950247",
+   "where": "Sec. 7"
+  },
+  {
+   "claim": "OLR-K recovery",
+   "quote": "OLR-K reduces reconstruction MSE from 0.450 to 0.284, recovering 88.4% of baseline dictionary fidelity.",
+   "where": "Sec. 12, Fig. 5 caption"
+  },
+  {
+   "claim": "Cross-architecture asymmetry",
+   "quote": "Across all three models, the asymmetry ratio remained bounded within ρ in [0.941, 0.962]",
+   "where": "Sec. 22, Table 6"
+  }
+ ],
+ "cost": [
+  {
+   "claim": "OLR-K runtime at 70B scale",
+   "quote": "70B 8192 168.4 MB 21.30 s",
+   "where": "Table 7"
+  }
+ ],
+ "baselines_and_controls": "Unperturbed model (lambda = 0); activation steering vs weight arithmetic (Table 5); SAE sparsity variants L1 / Top-K / JumpReLU (Table 3); dictionary expansion factors (Table 2).",
+ "runs_and_variance": "\"mean values computed over 2,048 evaluation sequences ... including 95% confidence intervals\" (Table 1); number of seeds/models trained not reported",
+ "robustness_of_edits": "not tested",
+ "verification": "proof sketches (Latent Orthogonality Drift, KV-Bypass, Frobenius lower bound); paired t-tests reported",
+ "memorization_vs_reasoning": "n/a",
+ "limitations_stated": "OLR-K recovery falls to 60% or below when |lambda| > 2.8; piecewise extension proposed (81.2% at lambda = 3.5).",
+ "code_or_data": "none found",
+ "cites_or_builds_on": [
+  "'Takehi, Y., Gu, A., & Andreas, J. (2024). Weight-Space Programming...' (MIT CSAIL Preprint, as cited; does not match the 2026 Takehi, Teoh, Zhang, Khattab blog)",
+  "Ilharco et al. 2022 task arithmetic"
+ ],
+ "notes_for_survey": "Uses 'weight-space programming' as a synonym for task arithmetic and attributes it to a 2024 Takehi/Gu/Andreas preprint that does not match the known WSP source. No experimental details identify the base 12-layer model or task vectors. No statement on AI authorship in the record or paper."
+}

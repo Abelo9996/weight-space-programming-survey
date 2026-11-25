@@ -1,0 +1,98 @@
+{
+ "id": "2611.31979",
+ "url": "https://arxiv.org/abs/2611.31979",
+ "title": "Reading, Writing and Repairing Game-Theoretic Policies in Weight Space",
+ "authors": [
+  "Ancil Crayton"
+ ],
+ "date": "2026-11-24",
+ "read_level": "full (arXiv HTML v1; all sections incl. Tables 1-7 and Limitations; no appendix exists)",
+ "metadata_mismatch": "none",
+ "is_wsp": "core",
+ "why_wsp": "An LLM (deepseek-v4.1-flash-1017, no tools, no feedback) reads the raw weights of 1,218-weight Elman RNN policies to report behavior or recover the state machine, writes policy weights from an English game spec, and patches a faulted network; framed as a replication of Takehi et al. with exact scoring.",
+ "exclusion_reason": null,
+ "primary_branch": "B1",
+ "secondary_branches": [
+  "B2",
+  "B3"
+ ],
+ "facets": [
+  "evaluation",
+  "verification",
+  "application domain: repeated-game policies (2x2 stage games, iterated PD opponents)"
+ ],
+ "domain": "repeated 2x2 games; finite-state policy networks",
+ "editor": "deepseek-v4.1-flash-1017 via OpenRouter, reasoning effort high",
+ "target": "single-layer ReLU Elman RNN, 32 hidden units, 1,218 weights (canonical compiled, obfuscated, or gradient-trained provenance)",
+ "interface": "direct values (full JSON tensors, or numpy-style sparse edit list on an all-zero network); also a 'machine' format compiled to weights by the evaluator",
+ "loop": "one-shot (\"one reply per call, no tools, no feedback, three replicates per cell\")",
+ "self_editing": "no; the LLM edits separate small RNNs",
+ "fraction_or_count_of_weights_changed": "Repair fault: \"The reference patch changes two entries out of 1,218.\" (Baselines); model's \"median patch is one entry\" (Repair section)",
+ "headline_results": [
+  {
+   "claim": "Read: program recovery",
+   "quote": "the model recovers the program on sixty-two of sixty-six replies. Sixty-one of those are isomorphic to the target",
+   "where": "Results, Read; Table 2"
+  },
+  {
+   "claim": "Identify: behavior table",
+   "quote": "It is exact on thirty-four of thirty-six replies, which is five hundred and twenty-eight individual actions out of five hundred and forty",
+   "where": "Results, Identify; Table 2"
+  },
+  {
+   "claim": "Write by format",
+   "quote": "direct 13/20 0.650 ... edits 18/20 0.900 ... machine 20/20 1.000",
+   "where": "Table 3"
+  },
+  {
+   "claim": "Write on instances where no named strategy is optimal",
+   "quote": "on the seventeen where none is, the formats separate: ten, fifteen and seventeen",
+   "where": "Results, Writing"
+  },
+  {
+   "claim": "Repair",
+   "quote": "repaired 4/18 0.222 ... diagnosed 5/18 0.278 ... both 2/18 0.111 ... no harm 15/18 0.833",
+   "where": "Table 2"
+  },
+  {
+   "claim": "Search baseline for writing",
+   "quote": "evolutionary search over the weights, given 100, 1,000 and 10,000 exact evaluator queries from a zero start, has median rho of 0.97, 0.82 and 0.83",
+   "where": "Baselines"
+  },
+  {
+   "claim": "Search baseline for repair",
+   "quote": "repairs 0 of 6 at 10^2 and 10^3 evaluations and 1 of 6 at 10^4, while rewriting every weight",
+   "where": "Baselines"
+  },
+  {
+   "claim": "Prompt wording effect on repair",
+   "quote": "It moves the median patch from one entry to two ... It does not move the repair rate: four of eighteen against two",
+   "where": "Results, Repair"
+  }
+ ],
+ "cost": [
+  {
+   "claim": "Reasoning vs answer tokens (no totals reported)",
+   "quote": "the completed ones emitted answers of twenty to forty tokens after several thousand tokens of reasoning",
+   "where": "Where the failures fall"
+  },
+  {
+   "claim": "Truncation losses",
+   "quote": "Three of the 120 replies across the three new families were lost to truncation",
+   "where": "Where the failures fall"
+  }
+ ],
+ "baselines_and_controls": "Better constant policy; best named strategy (median rho 0.615); evolutionary weight search at 1e2/1e3/1e4 exact queries; reference compiler; weight-summary-statistics fingerprint and shuffled-weight control for identify; black-box hill-climb over machines with N behavior probes (0 to 256) for read; search from flawed network for repair; obfuscated vs canonical vs trained provenance; reworded repair prompt.",
+ "runs_and_variance": "One model, three replicates per cell, Wilson 95% intervals: \"The measurement is one model, one seed stream, three replicates. The intervals are wide\" (Limitations).",
+ "robustness_of_edits": "not tested (written/repaired networks scored exactly against V*; no fine-tuning or quantization tests)",
+ "verification": "Exact scoring: value iteration gives V*; success means gap <= 1e-9; read checked by behavioral equivalence on all opponent sequences to depth 10 plus isomorphism to minimal machine; source networks verified against targets before use.",
+ "memorization_vs_reasoning": "Instances built so that \"no familiar named strategy is optimal on seventeen\" of 20; machine format optimal on all 17; identify succeeds on unnamed random machines (10/12) and shuffled controls (6/6); authors conclude read is \"simulation of a network from its parameters\" not name recognition.",
+ "limitations_stated": "Networks of 1,218 weights, about four orders of magnitude below compared work; identify not run on trained weights; repair is 18 replies over 6 instances with wide interval; read arms hold different machines; single model, one seed stream, three replicates; exactness criterion is strict.",
+ "code_or_data": "none public: \"available from the author on request\"",
+ "cites_or_builds_on": [
+  "Takehi et al. 2026, Sparks of Weight-Space Programming (blog, MIT CSAIL; logs at https://github.com/RikiyaT/lm_understand-logs)",
+  "Weiss et al. 2018 automaton extraction",
+  "Omlin and Giles 1996 FSM-to-RNN compilation"
+ ],
+ "notes_for_survey": "Positions itself as a replication of Takehi et al.'s read/describe/repair/write experiments with exact answers (\"Our contribution is not a new capability but a place to measure one\"); classified core here because an LLM performs the weight reading, writing and repair, with evaluation facet. Separates finding the policy from emitting weights (machine vs direct format) and diagnosis from patching in repair. Table 6-7 contrast its grading with the keyword-match and sampled-return grading of the original blog."
+}

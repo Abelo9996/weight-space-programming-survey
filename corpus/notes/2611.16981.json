@@ -1,0 +1,43 @@
+{
+ "id": "2611.16981",
+ "url": "https://arxiv.org/abs/2611.16981",
+ "title": "Compiling Known Rules into Compact Neural Agents: Weight-Space Programming on Unseen Games",
+ "authors": ["Jens Lehmann"],
+ "date": "2026-11-12",
+ "read_level": "full (main text; appendices partially)",
+ "metadata_mismatch": "none in title/authors. Metadata abstract wording differs from PDF abstract (e.g. metadata '57k-parameter recurrent architecture... 56% held-out-level success with feedback'; PDF phrasing longer) but numbers agree.",
+ "is_wsp": "core",
+ "why_wsp": "Nine frontier LLM 'writers' read a game's mechanics-only simulator source and directly set all weights of a fixed 57k-parameter recurrent conv actor (or design and set their own network in a tensor language), with fitting, search and simulation prohibited.",
+ "primary_branch": "B2",
+ "secondary_branches": ["B4"],
+ "facets": ["evaluation"],
+ "domain": "ARC-AGI-3-style grid games (20 private families + 25 public games)",
+ "editor": "GPT-6 Astra, GPT-6.1 Sol, GPT-6.1 Terra, Claude Opus 5.5 (main); GPT-6 Luna, Claude Sonnet 5.5, Claude Haiku 5.5, GPT-5.6 Sol, Claude Opus 5 (weaker)",
+ "target": "fixed recurrent convolutional actor 'with 57,289 float32 parameters' (Sec. 3.2); FreeArch networks capped at 150k params, median 30k",
+ "interface": "code/tensor tools (writer returns build() code constructing all tensors; no tools at generation time; sandbox prohibits fitting/search/simulation)",
+ "loop": "one-shot (W1) and closed-loop with feedback (W2, up to three resubmissions on support starts)",
+ "self_editing": "no",
+ "fraction_or_count_of_weights_changed": "all weights written; 'Their weights are hand-set constants: 93% of all parameters are exactly 0, and 90% of the nonzero ones are ±1, another small integer or a power of two' (Sec. 4.3)",
+ "headline_results": [
+  {"claim": "Best writer fixed-actor held-out-level success", "quote": "GPT-6 Astra’s written actors solve 40% of held-out-level episodes one-shot (W1) and 56% with feedback (W2).", "where": "Sec. 4.1, Table 1"},
+  {"claim": "Python players far better", "quote": "Every writer’s Python players beat its written weights: by 39–75 points one-shot, by 44–65 points with feedback for the main writers", "where": "Sec. 4.2"},
+  {"claim": "Free architecture closes most of the gap", "quote": "bounded program players solve 91%, against 79% for FreeArch W2", "where": "Sec. 4.3"},
+  {"claim": "Written beats learned weights in same actor (information-access comparison)", "quote": "BC-support fits the support starts (95%) but transfers poorly to held-out levels (11%).", "where": "Sec. 4.4"},
+  {"claim": "Writers' FreeArch graphs untrainable from scratch", "quote": "Astra’s FreeArch graphs solve 1% of held-out-level episodes under BC-support or distillation, against 89% with Astra’s written weights", "where": "Sec. 4.4"},
+  {"claim": "PPO fine-tuning destroys written weights", "quote": "Standard PPO drives held-out success from 0.50 at initialisation to 0.01.", "where": "Sec. 4.7"},
+  {"claim": "Public games: fixed-actor weights fail", "quote": "at most 8% on held-out levels for every writer and condition", "where": "Sec. 4.6"}
+ ],
+ "cost": [
+  {"claim": "Total writer token accounting", "quote": "The main study used 11,637 writer requests in final sessions (588M input, 209M output tokens).", "where": "Appendix (accounting)"},
+  {"claim": "Run-time cost of written networks vs programs", "quote": "a FreeArch network takes a median of 5–24 ms per step on a GPU and 36 ms on one CPU thread, against 0.8 ms for a sandboxed Python player", "where": "Sec. 4.3"}
+ ],
+ "baselines_and_controls": "Python players (P1/P2), reactive Python (P-react), bounded NumPy program player; learned baselines in same actor (BC-support, BC-aug, distill, PPO, PPO-shaped, BC-oracle); replay and open-loop floors; constant/frozen-frame closed-loop controls; FreeArch controls A/B; random update of same size as PPO step; pre-registered hypotheses H1-H4",
+ "runs_and_variance": "three runs per family per condition; hierarchical bootstrap 95% CIs over families/levels/runs; 'Runs vary widely: 31 of Astra’s 60 feedback runs reach 50% on held-out levels' (Sec. 4.1); ablations one run each",
+ "robustness_of_edits": "Tested: fragile. 'random noise of 10−7 of each tensor’s RMS already removes much of the success' (Sec. 4.7); TF32 changes decisions of 11 of 60 written actors; noise-robust prompting gives ~10^4 more tolerance but PPO still removes success; robust to unseen renderings (held-out template costs 1-8 points).",
+ "verification": "statistical (held-out levels/templates/certified perturbed starts, bootstrap CIs); mechanism ablations with pre-written predictions, '14 of 17 predictions were confirmed' (Sec. 4.5)",
+ "memorization_vs_reasoning": "Private unpublished games limit recall; networks solve held-out levels only where same writer's program does ('19 of 19' and '51 of 51' pairs); authors hypothesize writer derives a symbolic solution then expresses it in weights; also found 99% zeros in rebuilt Singh et al. written transformers.",
+ "limitations_stated": "Within-family generalisation with source given, not rule discovery; binary-success games poor for RL combination; RL result rests on 3-4 families; bounded learning budgets; games authored with LM assistance; prompts piloted with evaluated writers; Claude Opus 5.5 designed the harness and analysis; usage-policy classifier refusals for Opus 5.5 scored 0.",
+ "code_or_data": "'project repository (commit 20eee09)' stated; no URL found in text",
+ "cites_or_builds_on": ["Takehi et al. 2026 blog", "Singh 2026 / Singh et al. 2026 (csinva weight-space-programming-autoresearch)", "Hu et al. 2026", "Nusrat and Nusrat 2026", "Ahmed 2026 arXiv:2611.08070"],
+ "notes_for_survey": "Large controlled multi-writer study of B2 writing on private games with program and learned-weight baselines. Main findings for the survey: written networks look like programs (sparse, integer weights), lose to Python programs, are numerically fragile, and do not survive PPO fine-tuning. A usage-policy classifier blocked some Claude Opus 5.5 weight-writing sessions."
+}

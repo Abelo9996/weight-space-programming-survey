@@ -1,0 +1,62 @@
+\section{Open Problems and Roadmap}
+\label{sec:open}
+
+We list open problems in numbered form so that future work can say which one it addresses. Each comes with a concrete target that would count as progress and that a skeptic could check. The roadmap at the end groups them by how soon they can be addressed.
+
+\begin{openproblem}{Persistence}\label{op:persist}
+Do WSP edits survive what deployed models undergo? \emph{Target:} for a published repair edit, report the retention ratio $R$ of \cref{sec:persist} under casting, 8- and 4-bit quantization, and 10, 100 and 1000 steps of benign fine-tuning. Report $R$ for both repair and implant edits, since a fragile implant is a defense and a fragile repair is a maintenance cost. Today, no LLM-authored repair has a retention measurement under benign fine-tuning on other data; the two fine-tuning results that exist are for written networks and training-loop edits, and both lost the gain (\cref{sec:persist}).
+\end{openproblem}
+
+\begin{openproblem}{Reading beyond priors}\label{op:read}
+Can a general-purpose reader recover what a network computes when priors are removed? \emph{Target:} accuracy on networks of at least $10^{5}$ weights that stays within 5 points of the unperturbed accuracy, shown by an equivalence test, under label permutation, withheld dataset names, training-footprint decoys and function-preserving orbits. It must also exceed a query-only baseline with equal compute. Current evidence fails at least one of these conditions in every setting studied \citep{ax2611_08070,zen24373915,ax2611_05798,ax2611_07847}.
+\end{openproblem}
+
+\begin{openproblem}{Adding ability, not removing obstacles}\label{op:ability}
+Most strong WSP repairs remove a concentrated obstacle: a loop direction, a misread instruction, a planted fault. Without such an obstacle, edits often fail to help: the original authors could not improve a non-looping Gemma model \citep{takehi2026sparks}, and no editor improved a healthy biosignal network \citep{ax2611_13758}. There are exceptions where an ability is installed rather than an obstacle removed: WeightCode's programs added a command grammar and beat the best of eight fine-tuning methods on two image-corruption types \citep{ax2611_25476}, and few-shot head edits beat fine-tuning at five shots on two of four datasets \citep{ax2611_28105}. Both work on small networks or a single head. \emph{Target:} an LLM-authored edit to a model of at least $10^{8}$ parameters that improves a held-out benchmark on which no single direction, unit or embedding row accounts for the failures (checked by showing that ablating the edited coordinates alone does not reproduce the gain), and that beats a fine-tuning baseline with the same data and compute. A theory that predicts which failures are concentrated enough for sparse edits is a related open question. One conjecture distinguishes concentrated from distributed defects \citep{ax2611_04268}.
+\end{openproblem}
+
+\begin{openproblem}{Scale}\label{op:scale}
+Most WSP targets have fewer than a billion parameters. Self-editing has reached 27B models, with small effects \citep{ax2611_21885,ax2611_29513,ax2611_31117}. \emph{Target:} an LLM-authored edit to a model of at least 70B parameters that beats matched random-direction controls and each of four decoding-only changes (temperature, presence penalty, thinking off, budget forcing) on held-out evaluation, replicated across at least three independent editor sessions.
+\end{openproblem}
+
+\begin{openproblem}{Cost}\label{op:cost}
+Agent edits are often orders of magnitude more expensive than the solver or script that reproduces them afterwards \citep{ax2611_14210,zen23954378}. \emph{Target:} report the cost of discovery (all sessions, including failed ones, in tokens per conversation and wall-clock time) next to the cost of reproduction. Then demonstrate a task where discovery by WSP reaches a stated result at lower total cost than both a matched LoRA run and the best published solver or script for that task. Early candidates exist: a production recommender edited in a quarter of the GPU hours of a fine-tune \citep{ax2611_29613}, and a controller written with 25 simulated evaluations, where an evolution strategy with 1{,}000 found none, although gradient training from random weights later reached lower error with far more simulation \citep{ax2611_21958}; neither reports the full discovery cost against both comparators.
+\end{openproblem}
+
+\begin{openproblem}{Programs, not deltas}\label{op:program}
+Rerunning an editor's \emph{program} transfers across independently trained networks, while copying its numeric delta does not \citep{ax2611_25476}. Agent sessions can also be distilled into closed-form recipes \citep{ax2611_31233,ax2611_14210}. WeightCode already reports program transfer rates across five independently trained networks of one architecture \citep{ax2611_25476}. \emph{Target:} at least ten weight programs, each with a machine-checkable precondition and postcondition, whose transfer rate is measured across at least three model families, with a rerun program beating its copied delta in each family. Such a library is the natural unit of reuse for WSP.
+\end{openproblem}
+
+\begin{openproblem}{Verified edits}\label{op:verify}
+Formal verification reaches only small or hand-structured networks \citep{zen23976715,ax2611_11604,ax2611_15917}. \emph{Target:} a machine-checked certificate that an LLM-authored edit to a network of at least $10^{6}$ parameters leaves a specified behavior unchanged on a defined input region whose computation passes through the edited parameters, so that the guarantee does not follow trivially from the edit's construction. Verifying the edit, rather than the whole network, is the likely route.
+\end{openproblem}
+
+\begin{openproblem}{Unlearning by weight-space programming}\label{op:unlearn}
+Can WSP remove knowledge or behavior so that it does not return? Gradient-based unlearning is undone by quantization \citep{ax2410_16454}, relearning \citep{ax2401_01814} and adversarial fine-tuning \citep{ax2409_18025}. Benchmarks for hazardous-knowledge removal exist \citep{ax2403_03218}. Outside the corpus, one informal single-run experiment reported in a blog post had an LLM editor erase 20 synthetic customers and 10 secrets from a 494M-parameter model with least-squares edits. After re-teaching a few facts, 4\% of the erased facts returned, against 97.5\% for refusal training, but perplexity rose 7.8\%, above the author's 2\% limit and close to the 6.2\% of a random edit of the same size \citep{arun2026modelsurgery}. \emph{Target:} a WSP unlearning edit whose removal holds, measured by the retention ratio of \cref{sec:persist} applied to the \emph{removed} behavior, under quantization and relearning attacks. It should be compared with gradient-based unlearning at equal cost.
+\end{openproblem}
+
+\begin{openproblem}{Defenses against implanted behavior}\label{op:defense}
+LLM-written backdoors are cheap and stealthy, and weight-statistic detectors are defeated by norm matching \citep{ax2611_27920,ax2611_27425,zen24156363}. \emph{Target:} a detector, with or without a reference checkpoint, that flags at least 90\% of norm-matched, LLM-written implants at a false-positive rate of at most 1\% on clean checkpoints, under an adaptive attacker who knows the detector. Signed patch manifests already exist \citep{zen23954378}; they detect tampering only when the base checkpoint and the signing chain are trusted, and the detector must also work when they are not.
+\end{openproblem}
+
+\begin{openproblem}{Benchmarks with persistence and containment tracks}\label{op:bench}
+WeightBench and IWIBench are first steps \citep{ax2611_18553,ax2611_08647}. \emph{Target:} a shared benchmark with five properties:
+\begin{itemize}[leftmargin=*,itemsep=1pt]
+\item regenerated, contamination-resistant subject models;
+\item multiple editor sessions per task, with refusals and unfinished runs scored;
+\item cheapest-alternative baselines per task;
+\item a containment score;
+\item a persistence track using $R$.
+\end{itemize}
+\end{openproblem}
+
+\begin{openproblem}{Editing skill that improves with editing}\label{op:rsi}
+This is condition (C1) of \cref{sec:rsi}. \emph{Target:} show that a model after $g$ self-edits produces better edits, on held-out editing tasks, than the same model before them. It must also beat best-of-$N$ random edits and a frozen editor under the same gate. This is the dividing line between self-editing and recursive self-improvement.
+\end{openproblem}
+
+\paragraph{Roadmap.} We see three phases.
+\begin{enumerate}[leftmargin=*,itemsep=2pt]
+\item \textbf{Hardening the claims (\cref{op:persist,op:read,op:cost,op:bench}).} These need no new capability, only better experiments, and are where the next few months of work will have the most effect.
+\item \textbf{Widening the regime (\cref{op:ability,op:scale,op:program,op:unlearn}).} The question here is whether WSP is more than a tool for removing concentrated failures from small models.
+\item \textbf{Safety and self-improvement (\cref{op:verify,op:defense,op:rsi}).} This phase depends on the first two. It is also where the consequences of being wrong are largest.
+\end{enumerate}

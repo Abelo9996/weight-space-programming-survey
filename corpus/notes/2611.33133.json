@@ -1,0 +1,157 @@
+{
+ "id": "2611.33133",
+ "url": "https://arxiv.org/abs/2611.33133",
+ "title": "A Bias in Disguise: Tiny Gradient Edits Stop a Small Language Model's Thinking Loops and Complement a Frontier Model's Weight Edit",
+ "authors": [
+  "Hussamuddin Syed"
+ ],
+ "date": "2026-11-24",
+ "read_level": "full (arXiv HTML v1, Secs 1-9 and all tables; math recovered from alt text; figures read from captions only)",
+ "metadata_mismatch": "none",
+ "is_wsp": "peripheral",
+ "why_wsp": "Provides a sparse gradient fine-tuning baseline (AdamW on 140 to 139,750 gradient-selected weights) for the GPT-6 Astra Qwen3.5-0.8B loop-repair edit of the MIT WSP post, analyses both edits mechanistically, re-evaluates the public Astra checkpoint, and combines the two edits; no LLM editor is used.",
+ "exclusion_reason": null,
+ "primary_branch": "B5",
+ "secondary_branches": [
+  "B3"
+ ],
+ "facets": [
+  "evaluation",
+  "application domain: LLM math reasoning (thinking loops)"
+ ],
+ "domain": "LLM math reasoning; thinking-mode loop repair in Qwen3.5-0.8B",
+ "editor": "none (gradient baseline: AdamW sparse fine-tuning on gradient-magnitude-selected weights); compared with the public GPT-6 Astra edit",
+ "target": "Qwen3.5-0.8B (873M params, no bias terms in linear layers)",
+ "interface": "other (sparse gradient fine-tuning on the model's own correct answers; plus forward hooks adding constant vectors for the mechanism test)",
+ "loop": "n/a",
+ "self_editing": "no",
+ "fraction_or_count_of_weights_changed": "\"Fine-tuning only the 140 to 139,750 weights with the largest gradient\" (Abstract); four-column variant 4,096 weights; after bf16 rounding \"1,397 of 1,398; 138,772 of 139,750; 130,188 of 131,072\" values change (Sec 2). Astra edit: \"64 columns of mlp.down_proj in layers 15 and 19: 131,072 weights, 0.015% of the model's 873M\" (Sec 1).",
+ "headline_results": [
+  {
+   "claim": "Base model at 4k thinking budget",
+   "quote": "at a 4,096-token budget only 1 or 2 of 500 MATH-500 answers close their think block (two seeds), and accuracy is 15.4%.",
+   "where": "Abstract (arXiv v1), added 2026-11-25"
+  },
+  {
+   "claim": "Gradient baseline at 4k tokens",
+   "quote": "raises thinking-mode MATH-500 at 4k tokens to 39.0–45.5% after 2–9 minutes of training on one GPU; 50 training examples suffice, and 1,398 random positions give only 16.3%",
+   "where": "Abstract; Fig 1; Table 1"
+  },
+  {
+   "claim": "Random positions at Astra-sized budget",
+   "quote": "At 139,750 weights, about the size of the Astra edit, even random positions work (43.4%), so an edit of that size is not small for this behaviour.",
+   "where": "Sec 1 contributions; Fig 1"
+  },
+  {
+   "claim": "Constant-channel concentration",
+   "quote": "In the 1,398-weight edit, 888 weights (64%) fall in four input columns of linear_attn.out_proj in layers 0–2.",
+   "where": "Sec 4; Table 3"
+  },
+  {
+   "claim": "Bias-in-disguise mechanism",
+   "quote": "Because the model has no bias terms, an edit confined to those channels acts as a constant vector added to the residual stream: adding three fixed vectors to the unedited model matches the accuracy of such an edit.",
+   "where": "Abstract; Sec 4 Eq 1 b_L = sum_c mu_c Delta_{:,c}"
+  },
+  {
+   "claim": "Constant-vector test numbers",
+   "quote": "base + vectors scores 45.8% with 57 answers closed; the edited model scores 42.7% (69 closed) and the base model 11.5% (1 closed). The vectors match the four-column edit's accuracy, but not all of its closing.",
+   "where": "Sec 4 (first 96 MATH-500 problems, HF sampling)"
+  },
+  {
+   "claim": "Constant-vector KL fidelity",
+   "quote": "the mean KL divergence from the edited model is 0.010 nats per token for base + vectors, against 0.108 for the base model, and the top-1 token agrees 98.1% of the time, against 93.2%",
+   "where": "Sec 4 (38 teacher-forced traces)"
+  },
+  {
+   "claim": "Scope of the bias claim",
+   "quote": "The four channels are not the whole edit: its 510 weights outside them score higher alone (about 33%) than the 888 inside them (about 25%).",
+   "where": "Sec 4 Ablations; Table 4"
+  },
+  {
+   "claim": "Four columns vs random columns",
+   "quote": "Train the four channel columns from scratch | 4,096 | 45.8% / 44.0% ... Train four random columns, same matrices | 4,096 | 20.4% / 20.6%",
+   "where": "Table 4"
+  },
+  {
+   "claim": "Thinking-off baseline absorbs the 4k gain",
+   "quote": "The fair baseline is the base model with thinking off, which scores 41.0% ... The 1,398-weight edit matches it: 41.0% ( p=1.0 ) and 44.8% ( p=0.10 ).",
+   "where": "Sec 3"
+  },
+  {
+   "claim": "Edits add no reasoning ability",
+   "quote": "With thinking off, the edited models score 40.2–41.4%, the same as the base model. The edits make thinking mode usable but add little reasoning ability.",
+   "where": "Sec 3"
+  },
+  {
+   "claim": "Dense LoRA",
+   "quote": "A dense LoRA (rank 16, changing 409M weights) reaches 41.0%, no better than 1,398 sparse weights.",
+   "where": "Sec 3"
+  },
+  {
+   "claim": "Astra edit on this paper's 4k protocol",
+   "quote": "MATH-500, thinking 4k | 16.0% / 14.8% (1 / 2 closed) | 18.6% / 19.2% (14 / 15 closed) | 46.8% / 44.2% (349 / 363 closed)",
+   "where": "Table 6 (Base / Astra edit / Ours 139,750)"
+  },
+  {
+   "claim": "Astra edit reproduction under Astra protocol",
+   "quote": "Our run of the public Astra checkpoint scores 55.7% (any correct), with 32.0% of answers hitting the limit, against 51.0% and 31.6% in their re-run (Table 7). Its strict score is 52.1%.",
+   "where": "Sec 6; Table 7"
+  },
+  {
+   "claim": "Regime dependence",
+   "quote": "Ours is better at every budget up to 16k; the Astra edit passes it between 16k and 32k",
+   "where": "Sec 6; Fig 2 (39.5% vs 6.7% at 4k)"
+  },
+  {
+   "claim": "Combination with Astra edit",
+   "quote": "It scores 62.2% at 32k, 10.1 points above the Astra edit (better on 135 problems, worse on 54, p=3×10^-9 ), with 11,523 tokens per answer against 21,966.",
+   "where": "Sec 6; Table 7"
+  },
+  {
+   "claim": "Gain needs both edits",
+   "quote": "Our half-strength edit on its own scores 46.7% and runs out of tokens 42.9% of the time, so the gain needs both edits ( p=2×10^-19 against it).",
+   "where": "Sec 6"
+  },
+  {
+   "claim": "Full-strength combination",
+   "quote": "Adding our 139,750-weight edit to the Astra edit at full strength fixes the running out (0.5% hit the limit) but undoes the long thinking: the median answer falls to 1,068 tokens, and the score to 49.7%.",
+   "where": "Sec 6"
+  },
+  {
+   "claim": "Edits are near-orthogonal and differ in kind",
+   "quote": "The Astra edit lives in other layers, points in a nearly orthogonal direction and depends on the input.",
+   "where": "Sec 1; Sec 5; Table 5"
+  }
+ ],
+ "cost": [
+  {
+   "claim": "Training time",
+   "quote": "after 2–9 minutes of training on one GPU",
+   "where": "Abstract"
+  },
+  {
+   "claim": "Data generation",
+   "quote": "The 50- and 500-example sets were drawn from the full pool, which took 57.6 A100-minutes to generate",
+   "where": "Sec 3"
+  },
+  {
+   "claim": "Total project",
+   "quote": "The whole project, including unrelated and failed runs, used about $49 of cloud compute: about $30 for the main study and $19 for the Astra-protocol runs.",
+   "where": "Sec 8"
+  }
+ ],
+ "baselines_and_controls": "Base thinking-on and thinking-off (greedy); random-position sparse edits (1,398 and 139,750); dense LoRA rank 16; four random columns; part-wise ablations of the 1,398 edit; constant-vector hooks; public Astra checkpoint under both protocols; Astra + ours at strengths 1, 0.5, 0.25; transfer to GSM8K, HumanEval, LiveCodeBench v6.",
+ "runs_and_variance": "\"Thinking-on results use two seeds, and dense LoRA and the 13,975-weight edit were each trained once.\" Exact McNemar or sign tests on paired problems; two samples per problem under Astra protocol (Astra used four).",
+ "robustness_of_edits": "Transfer to GSM8K (13.6% to 56.1% at 4k) but not code (HumanEval thinking-off 34.1% to 29.3%, n.s.); results across token budgets 2k-32k. Not tested under quantization or further fine-tuning.",
+ "verification": "none formal; statistical tests (McNemar, sign test)",
+ "memorization_vs_reasoning": "n/a (no LLM editor). Mechanistic note: 'One plausible reading: the Astra edit improves how the model reasons, and a weakened version of our constant push makes it stop once it is done.'",
+ "limitations_stated": "One model only; no models with bias terms tested; two seeds; combination strength chosen on MATH-500 itself from three values with no held-out set ('the 62.2% figure is the best of three'); bias test only for the four-column edit on 38 traces and 96 problems with a different inference engine; parts outside the four channels not tested as constant vectors; random positions tested only at two sizes; may slightly hurt code.",
+ "code_or_data": "none found (paper links the public Astra checkpoint https://huggingface.co/RikiyaT/Qwen3.5-0.8B-weight-space-programming)",
+ "cites_or_builds_on": [
+  "Takehi et al. 2026 Sparks of Weight-Space Programming blog [1] and HF checkpoint [2]",
+  "Hu et al. Exploring weight-space programming, arXiv:2611.09382 [3]",
+  "ThinkEdit [7]",
+  "FISH mask [9]"
+ ],
+ "notes_for_survey": "Gradient baseline for the MIT Qwen3.5-0.8B MATH-500 edit: at 4k tokens a 140-1,398-weight gradient edit reaches the base model's own thinking-off score, so that gain is absorbed by simply disabling thinking; its core acts as a constant residual vector (bias) through near-constant channels in layers 0-2, but only the four-column part was tested as such and the non-channel part scores higher alone. Under the 32k Astra protocol the Astra edit beats the gradient edits (52.1% vs 45.6-45.7%), and adding the gradient edit at half strength to it gives 62.2%, with the strength picked on the test set."
+}

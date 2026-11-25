@@ -1,0 +1,42 @@
+{
+ "id": "2611.13232",
+ "url": "https://arxiv.org/abs/2611.13232",
+ "title": "W-ISA: Transactional Execution of Weight-Space Intervention Programs",
+ "authors": ["Ekrem Aksoy"],
+ "date": "2026-11-09",
+ "read_level": "full (v1 PDF, 12 pages)",
+ "metadata_mismatch": "none (paper header dated November 5, 2026; arXiv v1 9 Nov 2026)",
+ "is_wsp": "peripheral",
+ "why_wsp": "Provides an instruction set and transactional runtime for executing supplied weight-space intervention programs (ablate, project, rank-one) on pretrained LMs with scoped restoration; no LLM editor writes the programs in this paper (interventions are hand-specified or activation-derived).",
+ "primary_branch": "B3",
+ "secondary_branches": [],
+ "facets": ["verification", "evaluation"],
+ "domain": "LLM interpretability / intervention infrastructure (runtime systems)",
+ "editor": "none (programs are supplied by the experimenter; directions measured from activations); companion NCP manuscript handles proposal generation",
+ "target": "SmolLM-135M-Instruct (134,515,008 params) and Qwen2.5-1.5B-Instruct (1,543,714,304 params)",
+ "interface": "code/tensor tools (shape-checked instruction set: ADD, SCALE, RANK1, PROJECT_OUT, WRITE_KEY, PRUNE)",
+ "loop": "n/a (activation-based match-action rule selects a program per request; no editor iteration)",
+ "self_editing": "no",
+ "fraction_or_count_of_weights_changed": "\"Head ablation changed 36,864 entries. The MLP projection changed 884,666 of 884,736 entries after FP32 rounding.\" (Sec. 7.1, SmolLM); Qwen: \"head edit changed 196,608 entries and the projection changed 13,753,919 entries\" (Sec. 8.1)",
+ "headline_results": [
+  {"claim": "Hook vs materialized rank-one equivalence", "quote": "hook versus materialized logits have maximum absolute difference 0.000183761 and RMS difference 0.000016225, with argmax agreement 1.0", "where": "Sec. 8.2"},
+  {"claim": "Identical greedy sequences across modes", "quote": "all three modes produce the same token sequence at every measured length", "where": "Sec. 8.2"},
+  {"claim": "WikiText-2 perplexity for combined edit", "quote": "Combined 22.31878257 +0.37536%", "where": "Sec. 7.2 table"},
+  {"claim": "Exact restoration", "quote": "Undo restored the original weights and recorded outputs; replay restored the edited state.", "where": "Sec. 7.1"},
+  {"claim": "Conditional trigger held-out balanced accuracy", "quote": "Balanced accuracy 1.0 0.83333", "where": "Sec. 7.3 table (calibration / held-out)"}
+ ],
+ "cost": [
+  {"claim": "Edit transaction time (SmolLM)", "quote": "The four recorded combined-edit transactions took 9.2–14.6 ms, excluding inference.", "where": "Sec. 7.1"},
+  {"claim": "Qwen apply / restore medians", "quote": "W-ISA application medians are 48.866, 56.059 and 115.142 ms for the three length groups; restoration medians are 2.500, 2.413 and 2.624 ms", "where": "Sec. 8.2"},
+  {"claim": "Memory overhead", "quote": "W-ISA 1446.84 5975.52 498.94", "where": "Sec. 8.3 table (max RSS increase 498.94 MiB)"}
+ ],
+ "baselines_and_controls": "Original unedited inference and an equivalent PyTorch forward hook; independent NumPy reference for stored projection; fresh-process replay.",
+ "runs_and_variance": "Timing: \"one warm-up and five timed repetitions\" per mode/length, 45 timed requests; medians with IQR error bars (Fig. 1). Perplexity: single pass per condition.",
+ "robustness_of_edits": "not tested (edits are request-scoped and restored by design)",
+ "verification": "Byte-exact restoration check (\"bytes(p_exit) = bytes(p_entry)\"), parameter digests, NumPy reference matching with max abs diff 0.0; 66 software tests passed.",
+ "memorization_vs_reasoning": "n/a",
+ "limitations_stated": "No dedicated limitations section. Notes shared model lock serializes requests; snapshots cover full target tensors; materialized path pays snapshot/update/restore costs vs hook per-layer arithmetic.",
+ "code_or_data": "none found (paper states MIT-licensed code but gives no URL)",
+ "cites_or_builds_on": ["Takehi et al. 2026, Sparks of Weight-Space Programming (blog)", "Tracr (arXiv 2301.05062)", "ROME", "MEMIT", "NCP companion manuscript (Aksoy 2026)"],
+ "notes_for_survey": "Infrastructure paper: an execution/transaction layer for weight interventions rather than an LLM-as-editor study. Relevant as tooling for safe, reversible, request-scoped WSP edits; the policy-proposal loop is deferred to a companion NCP manuscript."
+}

@@ -1,0 +1,43 @@
+{
+ "id": "2611.29513",
+ "url": "https://arxiv.org/abs/2611.29513",
+ "title": "Recursive Self-Editing: LLMs Program Their Own Weight Edits for Self-Improvement",
+ "authors": ["Linghua Zhang", "Yunhe Li"],
+ "date": "2026-11-22",
+ "read_level": "full (arXiv PDF v1 via pdftotext: Secs 1-6, Tables 1-4, Algorithm 1, Appendices A-B; Figures 1-4 read as text only; no affiliations printed)",
+ "metadata_mismatch": "none (title, authors, abstract match; metadata abstract uses 'Whenever' where PDF has '; whenever')",
+ "is_wsp": "core",
+ "why_wsp": "Qwen3.8-27B, acting as editor in a sandboxed Python session with a white-box, gradient-free toolkit over its own weights, writes a program that builds a low-rank (LoRA-form) edit to its own weights; the best gate-improving edit is merged and the edited model writes the next edit.",
+ "primary_branch": "B6",
+ "secondary_branches": ["B4", "B3"],
+ "facets": ["safety (sandboxing, hidden gate, rank/norm caps; no safety evaluation)", "application domain: LLM math reasoning"],
+ "domain": "LLM math reasoning (DAPO-Math-17K, decontaminated)",
+ "editor": "the current model M_g itself (Qwen3.8-27B, thinking mode); M_0 is the first editor; no stronger external model",
+ "target": "its own weights: Qwen3.8-27B (BF16, dense, full-attention + Gated DeltaNet layers); edits are LoRA factors over chosen linear modules, merged as W' = bf16(W + BA)",
+ "interface": "code/tensor tools (program main(api) composing SVD, activation contrasts, rank-1 projections, singular-value rescaling, LoRA operators, sandboxed CPU PyTorch tensor_compute; no gradient or training tool)",
+ "loop": "closed-loop with feedback: 5 generations x 8 independent editing sessions (<=30 tool rounds each); each candidate graded once on a hidden 500-problem gate; best strictly positive paired gain merged; later sessions see gate statistics (accuracy, paired gain, CI, fixed/broken ids) but never gate content",
+ "self_editing": "yes: the editor edits its own weights and the merged model M_{g+1} is the editor of the next generation. Quote: \"the merged model Mg+1 is the editor of generation g + 1\" (Sec 3.1). 5 generations run; 4 edits accepted (gen 5 delta 0.00, M5 = M4 on gate).",
+ "fraction_or_count_of_weights_changed": "Not reported for accepted edits. Caps only: \"rank(Bm Am) <= 64, ||Bm Am||F / ||Wg(m)||F <= tau = 0.1\" per module (Eq. 1; Table 4). Which modules/layers the accepted edits touched is not reported (Fig. 3 layers are \"examples\").",
+ "headline_results": [
+  {"claim": "Gate accuracy over 5 generations", "quote": "SELFWRITE raises gate accuracy from 73.95% for M0 to 76.45% for the final model M5, a cumulative gain of 2.50 points.", "where": "Sec 5.1; Table 2"},
+  {"claim": "Per-generation accepted gains (gate, paired)", "quote": "The accepted edits gain +1.20, +0.50, +0.10 and +0.70 points.", "where": "Sec 5.1; Table 2 (generation 5: delta_G 0.00)"},
+  {"claim": "Held-out test avg@4 (M0 vs M5 only)", "quote": "avg@4 accuracy rises from 76.30% for M0 to 77.75% for M5 (+1.45 points)", "where": "Sec 5.2; Table 2"},
+  {"claim": "Held-out test pass@4", "quote": "pass@4 from 82.60% to 84.80% (+2.20 points; Table 2) without a single gradient step", "where": "Sec 5.2; Table 2"},
+  {"claim": "Edited model keeps editing", "quote": "the fourth generation, written by M3, brings the second-largest step: the edited model remains an effective editor of its own weights.", "where": "Sec 5.1"}
+ ],
+ "cost": [
+  {"claim": "GPU budget per generation", "quote": "per generation, shared by the 8 sessions: 7,200 s for programs, 600 s for exploration", "where": "Table 4"},
+  {"claim": "Editor session limits", "quote": "30 tool rounds, 100 tool calls, 160,000 completion tokens, 2,400 s per candidate", "where": "Table 4"},
+  {"claim": "Hardware", "quote": "8 per run: 7 vLLM replicas of Mg (editor, scoring, LoRA hot-loading) + 1 tool GPU", "where": "Table 4"},
+  {"claim": "Cost driver (qualitative; total wall-clock/tokens not reported)", "quote": "The cost of a generation is dominated by sampling the screen and grading eight candidates", "where": "Sec 6"}
+ ],
+ "baselines_and_controls": "No external baselines or ablations: no comparison to gradient fine-tuning/LoRA training, SEAL-style self-training, an external (non-self) editor, random or untargeted low-rank edits of equal norm, best-of-8 selection of random edits, or prompting. Only reference is the unedited M0. Controls are protocol-level: disjoint gate/test/screen splits, decontamination, test split \"never screened, gated or shown to the editor\" (Sec 5.2), deterministic grading, fixed seed.",
+ "runs_and_variance": "Single run of 5 generations; no repeated runs or seeds. Scoring is 4 samples per problem with fixed seed 42. A 95% paired-bootstrap CI is computed for each candidate's gate gain and fed to later editors, but CIs are not reported in Table 2; no CI or significance for the test gains. Test accuracy reported only for M0 and M5.",
+ "robustness_of_edits": "not tested (no fine-tuning, quantization or other-domain evaluation; only held-out split from same DAPO-Math pool)",
+ "verification": "none formal; acceptance by deterministic answer-matching on a hidden 500-problem gate (paired gain > 0, max over 8 candidates); edits checked against rank/norm caps",
+ "memorization_vs_reasoning": "n/a (no analysis of what the accepted edits do or why they help; the activation-contrast + project_out recipe is \"suggested in the editor's prompt\" (Sec 3.3))",
+ "limitations_stated": "No limitations section. Future work lists: \"self-editing across several domains at once, longer horizons with more generations, larger editors, and richer edit spaces beyond low-rank updates\" (Sec 6).",
+ "code_or_data": "none found",
+ "cites_or_builds_on": ["Takehi et al., Sparks of Weight-Space Programming (blog, 2026)", "2611.09382 Exploring Weight-Space Programming", "2611.07319 WeightLoop", "2611.09376 Can LLMs Debug Robots by Editing Their Weights?", "SEAL (Zweiger et al., NeurIPS 2025)", "AIDE2 2609.26457 (gate-acceptance design)", "MetaRSI 2609.06396", "MASS 2610.12176"],
+ "notes_for_survey": "Direct B6 instance: same model is editor and target, and the edited model writes subsequent edits (4 accepted edits in 5 generations, ~+2.5 gate / +1.45 test avg@4 points on DAPO-Math). Edits are selected as the max of 8 candidates on the same gate whose accuracy is reported, so gate gains include selection; the held-out test gain is the cleaner number but has no CI, single run, and no random-edit, external-editor or gradient fine-tune baseline. What the accepted edits changed (modules, rank, norm) is not reported."
+}

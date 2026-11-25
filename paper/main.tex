@@ -1,0 +1,81 @@
+\documentclass[11pt]{article}
+
+% ---------------------------------------------------------------
+% Weight-Space Programming: A Survey and Roadmap
+% Single-column survey layout. To move to the TMLR template, swap
+% the preamble for tmlr.sty; section files need no changes.
+% ---------------------------------------------------------------
+
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage[section]{placeins}
+\usetikzlibrary{positioning,shapes.geometric,arrows.meta,fit,calc}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!50!black]{hyperref}
+\usepackage[capitalise,noabbrev]{cleveref}
+\crefname{appendix}{Appendix}{Appendices}
+\crefname{openproblem}{OP}{OPs}
+\Crefname{openproblem}{OP}{OPs}
+\crefname{equation}{Eq.}{Eqs.}
+
+
+\newtheorem{definition}{Definition}
+\newcounter{openproblem}
+\newenvironment{openproblem}[1]{%
+  \refstepcounter{openproblem}\par\medskip\noindent
+  \textbf{OP\theopenproblem\ (#1).}\ }{\par\medskip}
+
+\newcommand{\wsp}{WSP}
+\newcommand{\lastupdated}{November 25, 2026}
+\newcommand{\cutoffdate}{November 25, 2026}
+
+\title{Weight-Space Programming: A Survey and Roadmap}
+
+\author{%
+Abel Yagubyan\\[4pt]
+University of Georgia\\[2pt]
+\small Last updated: \lastupdated. Literature cut-off: \cutoffdate.\\[2pt]
+\footnotesize Corpus, notes and scripts: \url{https://github.com/Abelo9996/weight-space-programming-survey}}
+
+\date{}
+
+\input{tables/stats}
+
+\begin{document}
+\maketitle
+
+\input{sections/00_abstract}
+\tableofcontents
+\newpage
+
+\input{sections/01_introduction}
+\input{sections/02_background}
+\input{sections/03_definitions_taxonomy}
+\input{sections/04_methods}
+\input{sections/05_applications}
+\input{sections/06_evaluation_reliability}
+\input{sections/07_rsi}
+\input{sections/08_open_problems}
+\input{sections/09_conclusion}
+
+\bibliographystyle{plainnat}
+\bibliography{refs}
+
+\appendix
+\input{sections/A_paper_table}
+\input{sections/B_method}
+
+\end{document}

@@ -1,0 +1,43 @@
+\begin{figure}[t]
+\centering
+\resizebox{\linewidth}{!}{%
+\begin{tikzpicture}[
+  font=\sffamily\small,
+  root/.style={draw, rounded corners=3pt, fill=blue!10, minimum width=3.4cm, minimum height=1.0cm, align=center, font=\sffamily\bfseries},
+  br/.style={draw, rounded corners=3pt, fill=#1, minimum width=3.2cm, minimum height=1.6cm, align=center, text width=3.1cm},
+  leaf/.style={align=left, text width=3.2cm, font=\sffamily\scriptsize},
+  open/.style={br=orange!15, dashed, thick},
+  arr/.style={-{Stealth[length=2mm]}, thick, gray!70},
+  node distance=0.35cm and 0.3cm]
+
+\node[root] (r) {Weight-Space\\Programming};
+
+\node[br=green!10, below left=1.2cm and 6.0cm of r] (b1) {\textbf{B1 Reading}\\weights $\to$ description\\{\scriptsize (\nAnyBOne\ studies)}};
+\node[br=green!10, right=of b1] (b2) {\textbf{B2 Writing}\\spec $\to$ weights\\{\scriptsize (\nAnyBTwo\ studies)}};
+\node[br=green!10, right=of b2] (b3) {\textbf{B3 Repairing}\\weights $\to$ weights\\{\scriptsize (\nAnyBThree\ studies)}};
+\node[br=yellow!15, right=of b3] (b4) {\textbf{B4 Feedback \&}\\\textbf{search loops}\\{\scriptsize (\nAnyBFour\ studies)}};
+\node[br=yellow!15, right=of b4] (b5) {\textbf{B5 Efficient \&}\\\textbf{non-LLM solvers}\\{\scriptsize (\nAnyBFive\ studies)}};
+\node[open, right=of b5] (b6) {\textbf{B6 Self-editing}\\model edits itself\\{\scriptsize (\nAnyBSix\ studies)}};
+
+\foreach \b in {b1,b2,b3,b4,b5,b6} \draw[arr] (r.south) -- (\b.north);
+
+\node[leaf, below=0.25cm of b1] {\input{figures/leaves_B1}};
+\node[leaf, below=0.25cm of b2] {\input{figures/leaves_B2}};
+\node[leaf, below=0.25cm of b3] {\input{figures/leaves_B3}};
+\node[leaf, below=0.25cm of b4] {\input{figures/leaves_B4}};
+\node[leaf, below=0.25cm of b5] {\input{figures/leaves_B5}};
+\node[leaf, below=0.25cm of b6] {\input{figures/leaves_B6}};
+
+\node[draw, rounded corners=3pt, fill=gray!8, font=\sffamily\scriptsize, align=left, text width=4.6cm, above left=0.1cm and 1.2cm of r] (ax) {%
+\textbf{Cross-cutting axes}\\
+Authorship: I1 direct values, I2 program-mediated, I3 solver-mediated, I4 no LLM\\
+Loop: one-shot / closed-loop / search\\
+Reference: another model / itself};
+\node[draw, rounded corners=3pt, fill=gray!8, font=\sffamily\scriptsize, align=left, text width=4.6cm, above right=0.1cm and 1.2cm of r] (fa) {%
+\textbf{Facets}\\
+Evaluation (\nFacetEvaluation), verification (\nFacetVerification), safety (\nFacetSafety)\\
+Precursors: fast weights, Tracr, hypernetworks, ROME/MEMIT, SEAL};
+\end{tikzpicture}}
+\caption{Taxonomy of weight-space programming. The six branches describe what the editor does. B1--B3 are the core operations, B4--B5 are how the operations are run and made cheaper, and B6 (dashed) is the open direction connecting WSP to recursive self-improvement (\cref{sec:rsi}). Counts include studies with the branch as primary or secondary code, so a study can be counted in more than one branch. The leaves list representative studies. The full coding is in \cref{tab:papers}.}
+\label{fig:taxonomy}
+\end{figure}

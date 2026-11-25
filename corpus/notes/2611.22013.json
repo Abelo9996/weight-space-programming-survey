@@ -1,0 +1,43 @@
+{
+ "id": "2611.22013",
+ "url": "https://arxiv.org/abs/2611.22013",
+ "title": "Weight-Space Programming for Materials Science",
+ "authors": ["Sk Md Ahnaf Akif Alvi", "Raymundo Arróyave"],
+ "date": "2026-11-17",
+ "read_level": "full main text (Sec. 1-6) and supplementary S3 (reading/editing experiments); per-task supplementary prompt/reply listings skimmed",
+ "metadata_mismatch": "none",
+ "is_wsp": "core",
+ "why_wsp": "Claude Opus 5.5, Fable 5.2, Sonnet 5.5 and Haiku 5.5 each write every weight of a zero-initialized 16-hidden-unit MLP as text from a task description and named inputs, with no labels, tools or code; networks are then used as label-free predictors and GP/BNN prior means in materials discovery.",
+ "primary_branch": "B2",
+ "secondary_branches": ["B1", "B3", "B4"],
+ "facets": ["evaluation", "application domain"],
+ "domain": "materials discovery: alloy properties, Thermo-Calc phase equilibria, crystal bulk modulus/heat capacity, Bayesian optimization, generative crystal screening",
+ "editor": "Claude Opus 5.5, Fable 5.2 (all tasks), Sonnet 5.5, Haiku 5.5 (alloy and crystal tasks)",
+ "target": "MLP with one hidden layer of 16 ReLU units, \"16𝑑 + 33 weights, which for the tasks here is 113 to 417 numbers\"; larger variants 577 to 1,825 weights; S3: a 51-32-32-1 trained network, last-layer readouts of MACE/ORB/eSEN/GRACE (128/256/128/64 weights)",
+ "interface": "direct values (decimal numbers under one header per tensor, no code execution)",
+ "loop": "one-shot for written networks (fresh session, no execution); S3.2 feedback arm: closed-loop with five attempts",
+ "self_editing": "no",
+ "fraction_or_count_of_weights_changed": "All weights written from zero; \"a typical reply uses 5 or 6 of the 16 hidden units on the experimental alloys and the Thermo-Calc targets and 10 on crystals (medians)\" (Sec. 4)",
+ "headline_results": [
+  {"claim": "Label-free ranking of experimental alloys", "quote": "On the five experimental alloy tasks Opus 5.5 reaches 𝜌 = 0.64 to 0.79 and Fable 5.2 0.51 to 0.76.", "where": "Sec. 4.1, Fig. 2a"},
+  {"claim": "Best label-free descriptor reference", "quote": "the Opus networks are ahead of the best of these descriptors on every task, by 0.04 to 0.17", "where": "Sec. 4.1"},
+  {"claim": "Thermo-Calc targets vs sub-system extrapolation", "quote": "all 35 targets the Opus networks rank the pool at a mean 𝜌 = 0.67 and the Fable networks at 0.64", "where": "Sec. 4.1 (extrapolation reaches 0.70)"},
+  {"claim": "GP prior mean at five labels", "quote": "they raise the ranking at five labels from 0.35 to 0.69 on alloys and from 0.15 to 0.95 on crystals", "where": "Abstract, Fig. 3"},
+  {"claim": "Bayesian optimization on Thermo-Calc", "quote": "the Opus networks lower the regret significantly on 16 and raise it on none", "where": "Sec. 4, Table 4"},
+  {"claim": "Generator screening", "quote": "The written filter therefore matches what 400 labeled crystals give a standard model and does not exceed it", "where": "Sec. 4, Fig. 7"},
+  {"claim": "Good pool ranking can still mislead optimizer", "quote": "still make the optimization worse than with no prior, in 14 of 20 seeds", "where": "Sec. 4.7 (MPEA yield strength)"},
+  {"claim": "Reading trained weights (S3.1)", "quote": "We found no case in which a model extracted from trained weights something that a simple statistic of those weights missed.", "where": "Supp. S3.1"}
+ ],
+ "cost": [
+  {"claim": "Per-reply cost by model", "quote": "a reply from Opus 5.5 took a median of about 4 minutes and 73,000 output tokens, almost all of it reasoning. Fable 5.2 took under a minute and about 9,400 tokens", "where": "Sec. 4 (cost paragraph)"}
+ ],
+ "baselines_and_controls": "Label-free references: rule of mixtures, atomic size mismatch and three other descriptors (alloys), inverse volume per atom and Dulong-Petit (crystals), Redlich-Kister-Muggianu sub-system extrapolation (Thermo-Calc); plain constant-mean GP; models trained on 400 labeled crystals (same-size network, ridge, random forest); S3: weight statistics, line search, SPSA, (1+1)-ES, gradient fit.",
+ "runs_and_variance": "Two or three replies per model and task (358 runs audited); BO uses \"20 seeds per arm\" with paired Wilcoxon and Holm correction; crystal tasks six/five non-independent runs; authors note significance \"says nothing about the variation between replies\".",
+ "robustness_of_edits": "not tested for fine-tuning/quantization; distribution shift: crystal surrogate trained on DFT labels, tested on potential-labelled generated crystals; gain confined to first tens of labels",
+ "verification": "none formal; statistical tests (Wilcoxon, Holm); transcripts audited for tool calls (\"all 358 runs behind the main text passed\")",
+ "memorization_vs_reasoning": "Explicitly discussed: \"the experimental results measure recall as well as reasoning\"; computed Thermo-Calc targets added because they are \"unlikely to have been seen as a table\"; self-reports show \"calibration against remembered values of alloys that are in the pools\".",
+ "limitations_stated": "Single vendor's models; possible recall of public datasets; tool-use exclusion by instruction and audit not technical block; Thermo-Calc targets from one software version; fixed pools 152-722 candidates; one network size and prompt wording; crystal runs share starting set.",
+ "code_or_data": "https://github.com/sheikhahnaf/weightspace-programming-for-material-science (stated as 'will be released')",
+ "cites_or_builds_on": ["Takehi et al. 2026, Sparks of Weight-Space Programming (blog)", "2611.09382 (Hu et al., Exploring WSP)", "2611.08070 (Ahmed, memorization)", "2611.05341 (Nusrat & Nusrat, clinical audit)", "2611.07319 (WeightLoop)", "2611.09559 (Butkeraites)"],
+ "notes_for_survey": "Writing-mode WSP as a zero-label prior for materials discovery, with strong label-free references (sub-system extrapolation) that the networks only roughly match on smooth targets. Supplementary S3 reports reading and editing modes as less successful: LLMs did not beat a simple weight statistic in locating a planted leak, and readout edits with feedback matched but did not exceed a gradient fit."
+}

@@ -1,0 +1,42 @@
+{
+ "id": "2611.08070",
+ "url": "https://arxiv.org/abs/2611.08070",
+ "title": "Can an LLM Actually Reason and Program about Neural Network's Weights or is it just memorization on steroids? Exploring \"Weight-Space Programming\"",
+ "authors": ["Nazmus Sakib Ahmed"],
+ "date": "2026-11-05",
+ "read_level": "full (pdftotext of v1; appendix tables after Table 10 skimmed)",
+ "metadata_mismatch": "none",
+ "is_wsp": "core",
+ "why_wsp": "Audits the reading side of WSP: Claude Opus 5.5 receives all ~125k weights of small CNNs as plain text (no tools, no forward passes) and is asked what dataset/classes they were trained on.",
+ "primary_branch": "B1",
+ "secondary_branches": [],
+ "facets": ["evaluation", "memorization_vs_reasoning"],
+ "domain": "image classification (CIFAR-10, KMNIST, Cats vs Dogs, fast food, SAT-6)",
+ "editor": "Claude Opus 5.5 (claude-opus-5-5, xhigh effort, via Claude Code CLI with tools disabled); reader only, no editing",
+ "target": "small 3-block CNNs, 123,782 to 127,318 trained parameters (Model 1, Model 2, Random architectures)",
+ "interface": "direct values (all weights and BN stats as text, rounded to 3 decimals; no tools)",
+ "loop": "one-shot",
+ "self_editing": "no; reading only, no weight changes",
+ "fraction_or_count_of_weights_changed": null,
+ "headline_results": [
+  {"claim": "Label permutation: model finds the split at new indices but names all class pairs wrong", "quote": "The session still found the split at the new indices (2, 4, 5, 7) ... Yet it concluded that \"the clusters match the standard label order,\" and all nine class pairs it interpreted were wrong.", "where": "Sec 5.1, Table 2"},
+  {"claim": "CIFAR-10 named correctly on original networks", "quote": "On CIFAR-10, both sessions named the dataset at 90% and 92% confidence. Their evidence is real.", "where": "Sec 5.1"},
+  {"claim": "Fast-food networks called CIFAR-10; KMNIST called MNIST", "quote": "KMNIST (Japanese characters) MNIST (80%) MNIST (85%) ... Fast-food photos CIFAR-10 (45%) CIFAR-10 (50%)", "where": "Table 3"},
+  {"claim": "99.57%-accurate SAT-6 network read as CIFAR-10 animals, 0 of 6 classes", "quote": "High accuracy 99.57 99.51 Wrong: animal photos 0 of 6 CIFAR-10, animal 70% / 45%", "where": "Table 5"},
+  {"claim": "Local arithmetic: infers ~three Adam steps from BN stats", "quote": "It infers that a network stopped after three updates took about three Adam steps, using batch-norm running statistics and PyTorch defaults", "where": "Sec 1"},
+  {"claim": "Shuffled-weight control: confidence drops, manipulation not detected", "quote": "On the shuffled control, confidence fell to 45%. ... It did not notice that the weights had been scrambled", "where": "Sec 5.1"},
+  {"claim": "Checked quoted values mostly correct", "quote": "CIFAR-10, Model 2 (original) 34 0", "where": "Appendix C, Table 10 (checked / mismatched)"}
+ ],
+ "cost": [
+  {"claim": "Some sessions hit the 128k output token limit", "quote": "Three of the sessions reported here hit the 128,000-token output limit and received an automated resume message", "where": "Sec 7 Limitations"}
+ ],
+ "baselines_and_controls": "label-permuted (reordered) outputs, within-array shuffled weights, architecture variants with non-standard widths, datasets of differing familiarity, high vs low (3-update) accuracy SAT-6 pair; no other reader models or baselines",
+ "runs_and_variance": "single run per condition, no variance: \"Most configurations were run once, on a single random seed. ... we report no confidence intervals or significance tests\" (Sec 7)",
+ "robustness_of_edits": "not tested (no edits; \"Editing runs were stopped before completion\", Table 7)",
+ "verification": "scripted check of quoted weight values against actual parameters; networks rebuilt from prompt text (rounding changed accuracy by at most 0.33 points); no independent second rater",
+ "memorization_vs_reasoning": "Central question. Concludes reading is \"local arithmetic plus dataset priors than as weight-flow tracing\" (Abstract); label permutation is the key diagnostic; sessions self-report sampling middle layers sparsely; no forward-pass test run.",
+ "limitations_stated": "One model at one effort level; mostly single runs; no tools so hand tracing of 125k weights may be infeasible; evidence partly self-reports; prompt confounds between original and revised questions; KMNIST normalization biased toward MNIST; no second rater; proprietary model drift.",
+ "code_or_data": "\"available from the author on request\"; blog post https://sakibbai.com/posts/2026-11-05-llm-weight-space-programming/",
+ "cites_or_builds_on": ["Takehi et al. 2026 (WSP report, ref [36])", "Weight Oracles (ref [18])", "Diff Interpretation Tuning (ref [15])"],
+ "notes_for_survey": "Controlled audit of zero-shot WSP reading with no tools; proposes a reusable protocol (permute labels, withhold dataset name, vary familiarity and accuracy). Explicitly scoped as not a replication of Takehi et al. and not testing editing. Scores were assigned by Claude Code under preset (not publicly preregistered) rules."
+}

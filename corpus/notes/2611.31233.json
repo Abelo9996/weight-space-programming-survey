@@ -1,0 +1,93 @@
+{
+ "id": "2611.31233",
+ "url": "https://arxiv.org/abs/2611.31233",
+ "title": "TowerBridge: Bridging the Dual-Encoder Modality Gap via Weight-Space Programming",
+ "authors": [
+  "Hani Alomari",
+  "Md Atabuzzaman",
+  "Chris Thomas"
+ ],
+ "date": "2026-11-23",
+ "read_level": "partial (arXiv HTML: full main text Secs 1-5 and limitations, supplement tool table H; most supplementary tables not read)",
+ "metadata_mismatch": "none",
+ "is_wsp": "core",
+ "why_wsp": "GPT-6-Astra inspects both CLIP towers and writes closed-form weight-edit programs (no backprop or iterative fitting), guided by a supplied paired hard-negative statistic D; its recurring output-projection shrink is distilled into an agent-free closed-form recipe (TowerBridge).",
+ "primary_branch": "B3",
+ "secondary_branches": [
+  "B5",
+  "B4"
+ ],
+ "facets": [
+  "evaluation"
+ ],
+ "domain": "vision-language image-text retrieval (CLIP dual encoders)",
+ "editor": "Astra (GPT-6-Astra); TowerBridge itself uses no LLM",
+ "target": "13 CLIP checkpoints via open_clip in agent sessions (ViT-B/32, B/16, L/14); TowerBridge on 21 CLIP checkpoints incl. ViT-H/14 plus 5 other dual encoders; parameter counts not stated",
+ "interface": "code/tensor tools (python over weights without gradients, probe, crossmap, evaluate, test); edits restricted to closed-form computations",
+ "loop": "closed-loop with feedback (agent scores candidates on selection set / COCO val within tool budgets; sealed test sets)",
+ "self_editing": "no",
+ "fraction_or_count_of_weights_changed": "'12 of the 13 final patches rewrite an output projection' (Sec 4.2); TowerBridge shrinks d/4 directions in both output projections",
+ "headline_results": [
+  {
+   "claim": "Agent improves COCO test retrieval on all 13 checkpoints, mean +12.2 RSUM",
+   "quote": "Astra's programs improve COCO test retrieval on all 13 checkpoints, each significantly, by +12.2 RSUM on average",
+   "where": "Sec 4.2, Fig 3"
+  },
+  {
+   "claim": "Flickr30k transfer from agent patches",
+   "quote": "The gains extend to Flickr30k test, averaging +5.8 RSUM and reaching significance on 11 of 13 checkpoints",
+   "where": "Sec 4.2"
+  },
+  {
+   "claim": "TowerBridge across 21 checkpoints",
+   "quote": "TowerBridge improves COCO test retrieval by 16.8 RSUM and Flickr30k test retrieval by 6.6 on average across all 21 evaluated CLIP checkpoints, including 8 unseen by the agent",
+   "where": "Abstract; Sec 4.4"
+  },
+  {
+   "claim": "Random search with same statistic matches agent on Flickr30k test",
+   "quote": "a random search over a fixed edit grammar with the same statistic also finds projection corrections, with a similar mean Flickr30k test gain ( +5.7 against +5.8",
+   "where": "Sec 4.2"
+  },
+  {
+   "claim": "Removing D hurts more than removing raw-weight reading",
+   "quote": "removing D reduces Flickr30k validation gains by 6.3 and 1.7 RSUM, respectively. Removing raw-weight reading has a smaller effect, 0.5 and 1.3 RSUM.",
+   "where": "Sec 4.2"
+  },
+  {
+   "claim": "Hub misses reduced",
+   "quote": "the median share of text-to-image misses landing on hubs falls from 28% to 19%.",
+   "where": "Sec 1"
+  },
+  {
+   "claim": "TowerBridge beats agent patches on all 13",
+   "quote": "TowerBridge also outperforms the agent's own patches on all 13 checkpoints with a session",
+   "where": "Sec 1"
+  }
+ ],
+ "cost": [
+  {
+   "claim": "Agent tool-call budgets per session: python 300, probe 30, crossmap 20, evaluate 100, test 50 (table values)",
+   "quote": "The tools let the agent inspect the model, construct an edit and assess its effect within fixed budgets",
+   "where": "Supplement H, tool table"
+  },
+  {
+   "claim": "TowerBridge runtime",
+   "quote": "The recipe takes seconds for each model and requires no agent.",
+   "where": "Sec 1"
+  }
+ ],
+ "baselines_and_controls": "Zero-shot checkpoints; modality-gap removal, centering, all-but-the-top; top principal directions without pair labels; random search over fixed edit grammar with same statistic; controls removing D or raw-weight access; eigenvalue-weighted shrink; re-rankers (CSLS, NNN, QB-Norm, DN) and KISSME.",
+ "runs_and_variance": "One agent session per checkpoint (13); 95% paired bootstrap CIs grouped by image; controls on two checkpoints with a later harness.",
+ "robustness_of_edits": "Transfer to Flickr30k (not seen by agent), 8 unseen checkpoints, 5 other dual-encoder families; ImageNet zero-shot drop capped at 0.5 points; no fine-tuning/quantization tests.",
+ "verification": "static checks: 'We statically check every code block and manually trace each final patch array to its source code; all 13 final patches pass these checks.' (Sec 3.2); first-order optimality proof for bilinear surrogate (Ky Fan)",
+ "memorization_vs_reasoning": "Random search with the same statistic reached similar Flickr30k gain; removing the supplied statistic D hurt more than removing raw-weight access, suggesting the supplied evidence carries much of the signal.",
+ "limitations_stated": "Requires labelled image-text pairs; targets dual encoders; trained maps and re-rankers with in-domain bank can achieve larger gains.",
+ "code_or_data": "none found (authors state 'We will release code, prompts and logs')",
+ "cites_or_builds_on": [
+  "Takehi et al. Sparks of WSP [54]",
+  "WeightLoop [32]",
+  "SITH",
+  "IsoCLIP"
+ ],
+ "notes_for_survey": "Example of agent WSP sessions used as a discovery step whose recurring edit is distilled into a closed-form, agent-free recipe that outperforms the agent's own patches. Includes the control that random search with the same supplied statistic matches the agent on Flickr30k test."
+}

@@ -1,0 +1,43 @@
+{
+ "id": "2611.22228",
+ "url": "https://arxiv.org/abs/2611.22228",
+ "title": "What Does Weight-Space Programming Add to Diffusion Editing? Program Construction versus Score-Guided Refinement",
+ "authors": ["Zitian Gao", "Jingyi Xu", "Ziqi Han", "Chengkai Lei", "Ye Liu", "Liangliang Shi"],
+ "date": "2026-11-17",
+ "read_level": "full main text (pdftotext of v1); appendices skimmed (Table 11 cost, prompts, artifact notes)",
+ "metadata_mismatch": "none",
+ "is_wsp": "core",
+ "why_wsp": "GPT-6 Astra and Claude Opus 5.5 write programs that construct ranked update directions for the cross-attention K/V weights of Stable Diffusion 1.4 for concept edits; a shared CMA-ES fitter picks coefficients; a second program is written after a probe record (score-guided rewrite).",
+ "primary_branch": "B3",
+ "secondary_branches": ["B4"],
+ "facets": ["evaluation"],
+ "domain": "text-to-image diffusion concept editing (TIMED benchmark)",
+ "editor": "GPT-6 Astra (gpt-6-astra) and Claude Opus 5.5; Gemini wrote fresh evaluation prompts; Qwen3.8-27B primary VLM judge",
+ "target": "Stable Diffusion 1.4: key and value projections of the 16 cross-attention layers (32 matrices); parameter count not stated",
+ "interface": "code/tensor tools (build_directions(ctx) program returning up to 8 ranked directions + protection prompts) combined with a numerical solver (CMA-ES over coefficients)",
+ "loop": "one-shot (U2) and closed-loop with feedback (U3: one rewrite after a probe record of scores and contact sheets)",
+ "self_editing": "no",
+ "fraction_or_count_of_weights_changed": null,
+ "headline_results": [
+  {"claim": "Preregistered rewrite pipeline shows no advantage over strong baseline", "quote": "The preregistered primary method shows no advantage over the strong controls. U3-Opus − U1b is -0.3 [-6.2, +5.9] on native joint efficacy", "where": "Sec 4, Table 3"},
+  {"claim": "One-shot Astra programs raise fresh-scene joint success (exploratory)", "quote": "U2-Astra − U1b is +10.0 [+4.7, +15.4] on fresh-scene joint success, with no detectable difference in CLIP generality (-0.6 [-7.3, +6.4]", "where": "Sec 4, Table 3"},
+  {"claim": "Exploratory gain does not survive Holm over all cells", "quote": "BH-adjusted across all 288 contrasts p = 0.007, Holm within its endpoint 0.051 (at the boundary), and it does not survive Holm over all cells (0.343).", "where": "Sec 4"},
+  {"claim": "Score-guided rewrite raises CLIP but lowers joint success (Astra)", "quote": "For Astra, rewriting raises fresh-scene CLIP relative match by +6.2 [+1.3, +11.6] while changing joint success by -9.7 [-16.6, -2.9].", "where": "Sec 5"},
+  {"claim": "Opus rewrite", "quote": "For Opus, rewriting changes CLIP generality by +17.6 [+5.4, +31.9]; its joint success changes by +0.4 [-6.8, +7.5]", "where": "Sec 5"},
+  {"claim": "Structural regularity in Astra programs", "quote": "Every one-shot Astra program builds an SVD basis from text states and projects its update off it (24/24) ... No one-shot Opus program does either (0/24 and 0/24)", "where": "Sec 2.3"},
+  {"claim": "Requiring subject presence attenuates CLIP advantage between conventional editors", "quote": "Its CLIP generality advantage, +21.4 [+14.9, +28.6], is attenuated by 21.7 [13.5, 30.6] once subject presence is required", "where": "Sec 5, Fig. 4"}
+ ],
+ "cost": [
+  {"claim": "LLM tokens for main comparison", "quote": "astra 807,486 in / 575,707 out (51 calls); opus 898,858 in / 375,509 out (78 calls)", "where": "Appendix, Table 11"},
+  {"claim": "Compute", "quote": "Whole main-comparison run: 19.5 wall-clock hours on 8 GPUs.", "where": "Appendix, Table 11"}
+ ],
+ "baselines_and_controls": "TIME, UCE, UCE+P (published closed-form editors); U1b shared-panel hand-written baseline (TIME extended, same fitter); RS budget-matched random search over conventional closed-form edits; unedited model drawing target prompt as reference; five additional VLM evaluators; two human raters",
+ "runs_and_variance": "24 TIMED test edits, 12 seeds per prompt, \"one program per edit and model, with a single rewrite\" (Scope); paired bootstrap intervals (50,000 resamples); Holm and BH adjustments over 288 contrasts",
+ "robustness_of_edits": "fresh-scene prompts written after units frozen; near-neighbour negatives for specificity; not tested under fine-tuning or other perturbations",
+ "verification": "statistical (paired bootstrap, sign-flip randomisation, multiple-comparison adjustment); program invariant D_j H = 0 holds by construction (structure coded from syntax trees, \"not a runtime verification\")",
+ "memorization_vs_reasoning": "n/a; programs were written with TIME's objective and closed form in the prompt; null-space preservation has precedents (SPEED, ACE)",
+ "limitations_stated": "Scope limited to SD 1.4, TIMED, one primary VLM judge, one program per edit and model, single rewrite round; no comparison against SPEED or ACE; construction gain not attributed to an individual program component; rewrite effect not separable from the CLIP-guided fitting that follows; U1b panel contains LLM-proposed prompts.",
+ "code_or_data": "artifacts and preregistration \"will be released\"; none found",
+ "cites_or_builds_on": ["Takehi et al. 2026", "Hu et al. 2026 (reasoning-model weight edits)", "Taghia 2026 (LLM erases diffusion concept)", "Li et al. 2026 (reusable editors from experimental feedback)", "Butkeraites 2026 (LLM-written scoring networks for solvers)", "Zhang et al. 2026 (robot policies)"],
+ "notes_for_survey": "Separates program construction from score-guided revision in a WSP pipeline with strong shared-component controls; the preregistered method shows no advantage, an exploratory one-shot Astra gain appears on a VLM endpoint only. Documents proxy over-optimisation: CLIP-guided rewriting raises CLIP while subject presence and joint success fall."
+}

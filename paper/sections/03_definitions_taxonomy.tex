@@ -1,0 +1,55 @@
+\section{Definitions and Taxonomy}
+\label{sec:defs}
+
+\subsection{Formal setup}
+
+Let $\mathcal{A}$ be a network architecture and $\theta \in \mathbb{R}^{d}$ a setting of its weights, so that $f_{\theta}$ is the function the network computes. A \emph{specification} $S$ describes what $f_{\theta}$ should do. It may be a natural-language description, a set of rules or physical laws, a test suite, a reward, or a failure report on the current model. An \emph{editor} $E$ is a system, in current work almost always a large language model with optional tools, that receives some view of $(\mathcal{A}, \theta, S)$ and outputs a new weight setting $\theta'$.
+
+\begin{definition}[Weight-space programming]
+\label{def:wsp}
+A procedure is \emph{weight-space programming} if the editor $E$ determines $\theta'$, or the edit $\Delta = \theta' - \theta$, by reasoning about the architecture, the weights and the specification, and no gradient-based optimizer fitting a training loss is the primary author of the values in $\theta'$.
+\end{definition}
+
+Three parts of the definition carry most of the weight.
+\begin{itemize}[leftmargin=*,itemsep=2pt]
+\item \textbf{The editor reasons about weights.} WSP is distinct from prompting, retrieval and steering, which leave $\theta$ unchanged. It also excludes hypernetworks and parameter generators, which map inputs to weights through a trained network rather than through reasoning (\cref{sec:background}).
+\item \textbf{No optimizer is the primary author.} Editors often call tools that run forward passes, compute a least-squares solution or take a singular value decomposition. These are allowed. What matters is that the editor decides which quantity to compute and where to write it. Fitting a whole network by stochastic gradient descent on a dataset is not WSP, even if an LLM launched the training run.
+\item \textbf{$\theta$ may be empty.} When there are no prior weights, the editor writes a network from scratch. When there are, it edits.
+\end{itemize}
+
+The ``primary author'' clause is a judgment call, and current papers sit at different points along it. We therefore make authorship an explicit axis of the taxonomy rather than a yes-or-no test.
+
+\subsection{Four axes}
+
+We classify every study along four axes. \Cref{fig:taxonomy} shows the main one, and Appendix~\ref{app:table} gives the codes for every paper. Axes 1 and 4 are recorded in the reading notes. Axes 2 and 3 were derived by rule from the notes' free-text fields and corrected by hand in \nCodeOverrides\ cases where the rule disagreed with the note (Appendix~\ref{app:method}).
+
+\paragraph{Axis 1: what the editor does (six branches).}
+\begin{description}[leftmargin=1.2em,itemsep=2pt]
+\item[B1 Reading.] Weights to description. The editor infers what a network computes, what it was trained on, or whether it contains a flaw or backdoor. Nothing is changed. Reading is a precondition for most repair and editing, and it is where the strongest skeptical evidence sits (\cref{sec:eval}).
+\item[B2 Writing.] Specification to weights. The editor writes a network from scratch, for example a game player, a controller, a physics surrogate or a set of quantum-circuit parameters.
+\item[B3 Repairing and editing.] Existing weights to changed weights. The editor fixes a failure (a reasoning loop, a stuck robot policy, a misread instruction) or alters behavior. Implanting a backdoor belongs here too, which makes B3 dual-use by construction.
+\item[B4 Feedback and search loops.] The editor iterates: it proposes an edit, observes experimental, verifier or benchmark feedback, and revises. This is the branch where WSP starts to look like an optimizer built out of an LLM.
+\item[B5 Efficient and non-LLM solvers.] The LLM editor is replaced or amortized. Examples include combinatorial and linear-programming formulations of the same edits, closed-form updates and trained editors. This branch exists because the LLM editor is expensive.
+\item[B6 Self-editing.] The editor edits its own weights, or a copy of itself, and the edited model may then serve as the next editor. This is the branch that connects WSP to recursive self-improvement (\cref{sec:rsi}).
+\end{description}
+B1--B5 organize what exists today. B6 has only \nAnyBSix\ entries, \nSelfEditing\ of them studies in which a model edits its own weights, and we treat it as the open direction.
+
+\paragraph{Axis 2: who authors the numbers.}
+\begin{description}[leftmargin=1.2em,itemsep=2pt]
+\item[I1 Direct values.] The editor emits weight values or explicit index-value patches in its output.
+\item[I2 Program-mediated.] The editor writes code that computes and writes the values, for example a rank-one update from recorded activations.
+\item[I3 Solver-mediated.] The language model states the objective or selects the coordinates, and a numerical solver, such as a linear program (LP), quadratic unconstrained binary optimization (QUBO) or least squares, chooses the values.
+\item[I4 No LLM.] No language model authors the edit. The values come from a closed-form, combinatorial or solver procedure fixed by the authors, or, in baseline studies, from gradient training. These studies are included when they explicitly position themselves as WSP baselines, replacements or evaluations.
+\end{description}
+A recurring pattern in the corpus is that once an LLM finds an edit in I1 or I2, a script or solver (I3, I4) often reproduces it more cheaply (\cref{sec:solvers}). This bears directly on cost and on how much ``programming'' the language model actually contributes (\cref{sec:eval}).
+
+\paragraph{Axis 3: loop.} \emph{One-shot} (one reply, no feedback), \emph{closed-loop} (the editor sees the results of its edits and revises), or \emph{search} (many candidate edits are scored and selected).
+
+\paragraph{Axis 4: reference.} Is the target \emph{another} model, or the editor \emph{itself}? Nearly all current work is ``other''. Self-reference is what self-editing requires; B6 also includes two frameworks designed as steps toward self-improvement in which an external controller applies the edits (\cref{sec:rsi}).
+
+\paragraph{Relation to existing taxonomies.} Axes 2--4 correspond closely to three of the four axes of \citet{turkoglu2026survey}: mechanism (values written as text, code or tensor tools, solver-delegated), protocol (open or closed loop) and scope (another network or the editor's own weights). We adopt them deliberately, so that studies can be cross-referenced between the two surveys. We add an explicit no-LLM level (I4), because a growing share of the literature replaces the editor. Our main difference is axis 1. Türkoğlu's operation axis has three values (read, write, edit). Our axis 1 adds feedback loops, efficient solvers and self-editing as branches, because these are where the methods literature (\cref{sec:methods}) and the open problems (\cref{sec:open}) concentrate. The Chinese-language survey of \citet{emecii2026survey} uses a different set of axes (intervention target, proposal mechanism, information access, verification protocol) over a broader scope that includes steering and zeroth-order optimization.
+
+\input{figures/taxonomy}
+
+\subsection{What is out of scope}
+We exclude methods that change behavior only through prompts, activations at inference time or retrieval. We also exclude weight generation by trained hypernetworks, and model editing by trained editors or gradient descent. These are covered as background in \cref{sec:background} and by existing surveys (\cref{tab:surveys}). We include studies that do not use the term ``weight-space programming'' when an LLM reads or directly sets weight values. Studies that only analyze the WSP literature, such as audits and replications, are included under the evaluation facet.

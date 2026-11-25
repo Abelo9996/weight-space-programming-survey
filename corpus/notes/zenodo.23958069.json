@@ -1,0 +1,61 @@
+{
+ "id": "zenodo.23958069",
+ "url": "https://doi.org/10.5281/zenodo.23958069",
+ "title": "Building Foundation Models via Weight-Space Programming (WSP): Analytical Alignment, Multi-Donor Cognitive Grafting, and Closed-Form Refusal Abliteration without Backpropagation",
+ "authors": [
+  "Quillan-Ronin Sovereign Research Laboratory"
+ ],
+ "date": "2026-11-04",
+ "read_level": "full (5-page PDF and the longer Markdown version in the same record); figures not inspected",
+ "metadata_mismatch": "Concept DOI 23958069 resolves to version record 23958070 (DOI 10.5281/zenodo.23958070). Metadata title 'Building foundational models using Weight Space Programming' differs from paper title. Metadata creator 'Quillan-Ronin Research Team' vs paper 'Quillan-Ronin Sovereign Research Laboratory' (PDF and MD); PDF footer also says 'Quillan-Ronin Sovereign Laboratory'. Paper gives only 'November 2026'; date taken from Zenodo publication_date. Record description is written in first person singular ('how i used Weight Space Programming').",
+ "is_wsp": "peripheral",
+ "why_wsp": "Self-labelled 'Weight-Space Programming' framework of closed-form, gradient-free weight operations (refusal-direction projection, SVD grafting of donor weights, MoE folding) applied by the authors without an LLM editor; counts as a non-LLM alternative explicitly positioned as WSP.",
+ "exclusion_reason": null,
+ "primary_branch": "B5",
+ "secondary_branches": [
+  "B3"
+ ],
+ "facets": [
+  "safety"
+ ],
+ "domain": "LLM refusal removal, multi-donor weight merging, inference compilation (Llama 3.2 1B base)",
+ "editor": "none (closed-form linear algebra: contrastive-mean refusal direction, orthogonal projection, truncated SVD, ternary quantization)",
+ "target": "Llama 3.2 1B Instruct base with grafted adapters from Falcon 3 1B, BitNet 1.58b Large, Qwen 2.5/3.5; output described as 'Sovereign 1.2B' model",
+ "interface": "closed form",
+ "loop": "one-shot",
+ "self_editing": "no",
+ "fraction_or_count_of_weights_changed": "Refusal projection applied to W_down \"across layers 12 through 15\"; no count given",
+ "headline_results": [
+  {
+   "claim": "Throughput of quantized GGUF output vs PyTorch FP16",
+   "quote": "WSP closed-form GGUF compilation accelerates generation from 3.94 to 48.00 tok/s (12.18x) while dropping peak VRAM from 2,842 MB to 1,024 MB.",
+   "where": "PDF Fig. 4 caption / Sec. 7"
+  },
+  {
+   "claim": "Compile time",
+   "quote": "WSP synthesizes a calibrated Sovereign 1.2B foundation model in under 180 seconds",
+   "where": "Abstract"
+  },
+  {
+   "claim": "Refusal removal (qualitative, 3 prompts)",
+   "quote": "To verify the elimination of corporate refusal behaviors, models were tested against contrastive queries known to trigger false-positive safety refusals",
+   "where": "MD Sec. 7.2 (three example prompts, no counts)"
+  }
+ ],
+ "cost": [
+  {
+   "claim": "Refusal projection cost",
+   "quote": "This analytical projection executes in O(d · dffn) operations (≈16.7 MFLOPs per layer), requiring under 2 milliseconds on CPU.",
+   "where": "Sec. 3"
+  }
+ ],
+ "baselines_and_controls": "Throughput only: PyTorch FP16 baseline and fused static KV-cache FP16 vs Q4_K_M GGUF; refusal comparison vs base Llama 3.2 1B Instruct on three prompts. No accuracy benchmarks reported despite abstract claim of 'zero degradation in benchmark logic' (MD).",
+ "runs_and_variance": "single run / not reported (64-token generation on one prompt for throughput)",
+ "robustness_of_edits": "not tested (GGUF quantization is part of the pipeline but its effect on behavior is not measured)",
+ "verification": "Theorem 1 (linearity of MoE folding) with a one-line proof; no empirical verification of claimed parity",
+ "memorization_vs_reasoning": "n/a (no LLM editor)",
+ "limitations_stated": "Folding assumes additive low-rank updates (SVD truncation error rises for r > d/2); non-linear residual connections cannot be collapsed across layers.",
+ "code_or_data": "https://github.com/leeex1/Quillan-Ronin ; https://huggingface.co/CrashOverrideX/Quillan-Ronin (stated in paper, not checked)",
+ "cites_or_builds_on": [],
+ "notes_for_survey": "Uses the WSP name for refusal abliteration plus weight merging; does not cite Takehi et al. and has no LLM editor. Evidence is a throughput table and three qualitative refusal examples. No statement on AI authorship in the record or paper."
+}

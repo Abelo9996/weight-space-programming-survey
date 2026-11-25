@@ -1,0 +1,800 @@
+{
+ "2309.03409": {
+  "id": "2309.03409",
+  "title": "Large Language Models as Optimizers",
+  "authors": [
+   "Chengrun Yang",
+   "Xuezhi Wang",
+   "Yifeng Lu",
+   "Hanxiao Liu",
+   "Quoc V. Le",
+   "Denny Zhou",
+   "Xinyun Chen"
+  ],
+  "published": "2023-09-07",
+  "abstract": "Optimization is ubiquitous. While derivative-based algorithms have been powerful tools for various problems, the absence of gradient imposes challenges on many real-world applications. In this work, we propose Optimization by PROmpting (OPRO), a simple and effective approach to leverage large language models (LLMs) as optimizers, where the optimization task is described in natural language. In each optimization step, the LLM generates new solutions from the prompt that contains previously generated solutions with their values, then the new solutions are evaluated and added to the prompt for the next optimization step. We first showcase OPRO on linear regression and traveling salesman problems, then move on to our main application in prompt optimization, where the goal is to find instructions that maximize the task accuracy. With a variety of LLMs, we demonstrate that the best prompts optimized by OPRO outperform human-designed prompts by up to 8% on GSM8K, and by up to 50% on Big-Bench Hard tasks. Code at https://github.com/google-deepmind/opro."
+ },
+ "2306.17844": {
+  "id": "2306.17844",
+  "title": "The Clock and the Pizza: Two Stories in Mechanistic Explanation of Neural Networks",
+  "authors": [
+   "Ziqian Zhong",
+   "Ziming Liu",
+   "Max Tegmark",
+   "Jacob Andreas"
+  ],
+  "published": "2023-06-30",
+  "abstract": "Do neural networks, trained on well-understood algorithmic tasks, reliably rediscover known algorithms for solving those tasks? Several recent studies, on tasks ranging from group arithmetic to in-context linear regression, have suggested that the answer is yes. Using modular addition as a prototypical problem, we show that algorithm discovery in neural networks is sometimes more complex. Small changes to model hyperparameters and initializations can induce the discovery of qualitatively different algorithms from a fixed training set, and even parallel implementations of multiple such algorithms. Some networks trained to perform modular addition implement a familiar Clock algorithm; others implement a previously undescribed, less intuitive, but comprehensible procedure which we term the Pizza algorithm, or a variety of even more complex procedures. Our results show that even simple learning problems can admit a surprising diversity of solutions, motivating the development of new tools for characterizing the behavior of neural networks across their algorithmic phase space."
+ },
+ "2002.11448": {
+  "id": "2002.11448",
+  "title": "Predicting Neural Network Accuracy from Weights",
+  "authors": [
+   "Thomas Unterthiner",
+   "Daniel Keysers",
+   "Sylvain Gelly",
+   "Olivier Bousquet",
+   "Ilya Tolstikhin"
+  ],
+  "published": "2020-02-26",
+  "abstract": "We show experimentally that the accuracy of a trained neural network can be predicted surprisingly well by looking only at its weights, without evaluating it on input data. We motivate this task and introduce a formal setting for it. Even when using simple statistics of the weights, the predictors are able to rank neural networks by their performance with very high accuracy (R2 score more than 0.98). Furthermore, the predictors are able to rank networks trained on different, unobserved datasets and with different architectures. We release a collection of 120k convolutional neural networks trained on four different datasets to encourage further research in this area, with the goal of understanding network training and performance better."
+ },
+ "1609.09106": {
+  "id": "1609.09106",
+  "title": "HyperNetworks",
+  "authors": [
+   "David Ha",
+   "Andrew Dai",
+   "Quoc V. Le"
+  ],
+  "published": "2016-09-27",
+  "abstract": "This work explores hypernetworks: an approach of using a one network, also known as a hypernetwork, to generate the weights for another network. Hypernetworks provide an abstraction that is similar to what is found in nature: the relationship between a genotype - the hypernetwork - and a phenotype - the main network. Though they are also reminiscent of HyperNEAT in evolution, our hypernetworks are trained end-to-end with backpropagation and thus are usually faster. The focus of this work is to make hypernetworks useful for deep convolutional networks and long recurrent networks, where hypernetworks can be viewed as relaxed form of weight-sharing across layers. Our main result is that hypernetworks can generate non-shared weights for LSTM and achieve near state-of-the-art results on a variety of sequence modelling tasks including character-level language modelling, handwriting generation and neural machine translation, challenging the weight-sharing paradigm for recurrent networks. Our results also show that hypernetworks applied to convolutional networks still achieve respectable results for image recognition tasks compared to state-of-the-art baseline models while requiring fewer learnable parameters."
+ },
+ "2310.01405": {
+  "id": "2310.01405",
+  "title": "Representation Engineering: A Top-Down Approach to AI Transparency",
+  "authors": [
+   "Andy Zou",
+   "Long Phan",
+   "Sarah Chen",
+   "James Campbell",
+   "Phillip Guo",
+   "Richard Ren",
+   "Alexander Pan",
+   "Xuwang Yin",
+   "Mantas Mazeika",
+   "Ann-Kathrin Dombrowski",
+   "Shashwat Goel",
+   "Nathaniel Li",
+   "Michael J. Byun",
+   "Zifan Wang",
+   "Alex Mallen",
+   "Steven Basart",
+   "Sanmi Koyejo",
+   "Dawn Song",
+   "Matt Fredrikson",
+   "J. Zico Kolter",
+   "Dan Hendrycks"
+  ],
+  "published": "2023-10-02",
+  "abstract": "In this paper, we identify and characterize the emerging area of representation engineering (RepE), an approach to enhancing the transparency of AI systems that draws on insights from cognitive neuroscience. RepE places population-level representations, rather than neurons or circuits, at the center of analysis, equipping us with novel methods for monitoring and manipulating high-level cognitive phenomena in deep neural networks (DNNs). We provide baselines and an initial analysis of RepE techniques, showing that they offer simple yet effective solutions for improving our understanding and control of large language models. We showcase how these methods can provide traction on a wide range of safety-relevant problems, including honesty, harmlessness, power-seeking, and more, demonstrating the promise of top-down transparency research. We hope that this work catalyzes further exploration of RepE and fosters advancements in the transparency and safety of AI systems."
+ },
+ "2403.03218": {
+  "id": "2403.03218",
+  "title": "The WMDP Benchmark: Measuring and Reducing Malicious Use With Unlearning",
+  "authors": [
+   "Nathaniel Li",
+   "Alexander Pan",
+   "Anjali Gopal",
+   "Summer Yue",
+   "Daniel Berrios",
+   "Alice Gatti",
+   "Justin D. Li",
+   "Ann-Kathrin Dombrowski",
+   "Shashwat Goel",
+   "Long Phan",
+   "Gabriel Mukobi",
+   "Nathan Helm-Burger",
+   "Rassin Lababidi",
+   "Lennart Justen",
+   "Andrew B. Liu",
+   "Michael Chen",
+   "Isabelle Barrass",
+   "Oliver Zhang",
+   "Xiaoyuan Zhu",
+   "Rishub Tamirisa",
+   "Bhrugu Bharathi",
+   "Adam Khoja",
+   "Zhenqi Zhao",
+   "Ariel Herbert-Voss",
+   "Cort B. Breuer",
+   "Samuel Marks",
+   "Oam Patel",
+   "Andy Zou",
+   "Mantas Mazeika",
+   "Zifan Wang",
+   "Palash Oswal",
+   "Weiran Lin",
+   "Adam A. Hunt",
+   "Justin Tienken-Harder",
+   "Kevin Y. Shih",
+   "Kemper Talley",
+   "John Guan",
+   "Russell Kaplan",
+   "Ian Steneker",
+   "David Campbell",
+   "Brad Jokubaitis",
+   "Alex Levinson",
+   "Jean Wang",
+   "William Qian",
+   "Kallol Krishna Karmakar",
+   "Steven Basart",
+   "Stephen Fitz",
+   "Mindy Levine",
+   "Ponnurangam Kumaraguru",
+   "Uday Tupakula",
+   "Vijay Varadharajan",
+   "Ruoyu Wang",
+   "Yan Shoshitaishvili",
+   "Jimmy Ba",
+   "Kevin M. Esvelt",
+   "Alexandr Wang",
+   "Dan Hendrycks"
+  ],
+  "published": "2024-03-05",
+  "abstract": "The White House Executive Order on Artificial Intelligence highlights the risks of large language models (LLMs) empowering malicious actors in developing biological, cyber, and chemical weapons. To measure these risks of malicious use, government institutions and major AI labs are developing evaluations for hazardous capabilities in LLMs. However, current evaluations are private, preventing further research into mitigating risk. Furthermore, they focus on only a few, highly specific pathways for malicious use. To fill these gaps, we publicly release the Weapons of Mass Destruction Proxy (WMDP) benchmark, a dataset of 3,668 multiple-choice questions that serve as a proxy measurement of hazardous knowledge in biosecurity, cybersecurity, and chemical security. WMDP was developed by a consortium of academics and technical consultants, and was stringently filtered to eliminate sensitive information prior to public release. WMDP serves two roles: first, as an evaluation for hazardous knowledge in LLMs, and second, as a benchmark for unlearning methods to remove such hazardous knowledge. To guide progress on unlearning, we develop RMU, a state-of-the-art unlearning method based on controlling model representations. RMU reduces model performance on WMDP while maintaining general capabilities in areas such as biology and computer science, suggesting that unlearning may be a concrete path towards reducing malicious use from LLMs. We release our benchmark and code publicly at https://wmdp.ai"
+ },
+ "2409.18025": {
+  "id": "2409.18025",
+  "title": "An Adversarial Perspective on Machine Unlearning for AI Safety",
+  "authors": [
+   "Jakub Łucki",
+   "Boyi Wei",
+   "Yangsibo Huang",
+   "Peter Henderson",
+   "Florian Tramèr",
+   "Javier Rando"
+  ],
+  "published": "2024-09-26",
+  "abstract": "Large language models are finetuned to refuse questions about hazardous knowledge, but these protections can often be bypassed. Unlearning methods aim at completely removing hazardous capabilities from models and make them inaccessible to adversaries. This work challenges the fundamental differences between unlearning and traditional safety post-training from an adversarial perspective. We demonstrate that existing jailbreak methods, previously reported as ineffective against unlearning, can be successful when applied carefully. Furthermore, we develop a variety of adaptive methods that recover most supposedly unlearned capabilities. For instance, we show that finetuning on 10 unrelated examples or removing specific directions in the activation space can recover most hazardous capabilities for models edited with RMU, a state-of-the-art unlearning method. Our findings challenge the robustness of current unlearning approaches and question their advantages over safety training."
+ },
+ "2012.13255": {
+  "id": "2012.13255",
+  "title": "Intrinsic Dimensionality Explains the Effectiveness of Language Model Fine-Tuning",
+  "authors": [
+   "Armen Aghajanyan",
+   "Luke Zettlemoyer",
+   "Sonal Gupta"
+  ],
+  "published": "2020-12-22",
+  "abstract": "Although pretrained language models can be fine-tuned to produce state-of-the-art results for a very wide range of language understanding tasks, the dynamics of this process are not well understood, especially in the low data regime. Why can we use relatively vanilla gradient descent algorithms (e.g., without strong regularization) to tune a model with hundreds of millions of parameters on datasets with only hundreds or thousands of labeled examples? In this paper, we argue that analyzing fine-tuning through the lens of intrinsic dimension provides us with empirical and theoretical intuitions to explain this remarkable phenomenon. We empirically show that common pre-trained models have a very low intrinsic dimension; in other words, there exists a low dimension reparameterization that is as effective for fine-tuning as the full parameter space. For example, by optimizing only 200 trainable parameters randomly projected back into the full space, we can tune a RoBERTa model to achieve 90\\% of the full parameter performance levels on MRPC. Furthermore, we empirically show that pre-training implicitly minimizes intrinsic dimension and, perhaps surprisingly, larger models tend to have lower intrinsic dimension after a fixed number of pre-training updates, at least in part explaining their extreme effectiveness. Lastly, we connect intrinsic dimensionality with low dimensional task representations and compression based generalization bounds to provide intrinsic-dimension-based generalization bounds that are independent of the full parameter count."
+ },
+ "2104.08696": {
+  "id": "2104.08696",
+  "title": "Knowledge Neurons in Pretrained Transformers",
+  "authors": [
+   "Damai Dai",
+   "Li Dong",
+   "Yaru Hao",
+   "Zhifang Sui",
+   "Baobao Chang",
+   "Furu Wei"
+  ],
+  "published": "2021-04-18",
+  "abstract": "Large-scale pretrained language models are surprisingly good at recalling factual knowledge presented in the training corpus. In this paper, we present preliminary studies on how factual knowledge is stored in pretrained Transformers by introducing the concept of knowledge neurons. Specifically, we examine the fill-in-the-blank cloze task for BERT. Given a relational fact, we propose a knowledge attribution method to identify the neurons that express the fact. We find that the activation of such knowledge neurons is positively correlated to the expression of their corresponding facts. In our case studies, we attempt to leverage knowledge neurons to edit (such as update, and erase) specific factual knowledge without fine-tuning. Our results shed light on understanding the storage of knowledge within pretrained Transformers. The code is available at https://github.com/Hunter-DDM/knowledge-neurons."
+ },
+ "2102.11174": {
+  "id": "2102.11174",
+  "title": "Linear Transformers Are Secretly Fast Weight Programmers",
+  "authors": [
+   "Imanol Schlag",
+   "Kazuki Irie",
+   "Jürgen Schmidhuber"
+  ],
+  "published": "2021-02-22",
+  "abstract": "We show the formal equivalence of linearised self-attention mechanisms and fast weight controllers from the early '90s, where a ``slow\" neural net learns by gradient descent to program the ``fast weights\" of another net through sequences of elementary programming instructions which are additive outer products of self-invented activation patterns (today called keys and values). Such Fast Weight Programmers (FWPs) learn to manipulate the contents of a finite memory and dynamically interact with it. We infer a memory capacity limitation of recent linearised softmax attention variants, and replace the purely additive outer products by a delta rule-like programming instruction, such that the FWP can more easily learn to correct the current mapping from keys to values. The FWP also learns to compute dynamically changing learning rates. We also propose a new kernel function to linearise attention which balances simplicity and effectiveness. We conduct experiments on synthetic retrieval problems as well as standard machine translation and language modelling tasks which demonstrate the benefits of our methods."
+ },
+ "2305.14314": {
+  "id": "2305.14314",
+  "title": "QLoRA: Efficient Finetuning of Quantized LLMs",
+  "authors": [
+   "Tim Dettmers",
+   "Artidoro Pagnoni",
+   "Ari Holtzman",
+   "Luke Zettlemoyer"
+  ],
+  "published": "2023-05-23",
+  "abstract": "We present QLoRA, an efficient finetuning approach that reduces memory usage enough to finetune a 65B parameter model on a single 48GB GPU while preserving full 16-bit finetuning task performance. QLoRA backpropagates gradients through a frozen, 4-bit quantized pretrained language model into Low Rank Adapters~(LoRA). Our best model family, which we name Guanaco, outperforms all previous openly released models on the Vicuna benchmark, reaching 99.3% of the performance level of ChatGPT while only requiring 24 hours of finetuning on a single GPU. QLoRA introduces a number of innovations to save memory without sacrificing performance: (a) 4-bit NormalFloat (NF4), a new data type that is information theoretically optimal for normally distributed weights (b) double quantization to reduce the average memory footprint by quantizing the quantization constants, and (c) paged optimziers to manage memory spikes. We use QLoRA to finetune more than 1,000 models, providing a detailed analysis of instruction following and chatbot performance across 8 instruction datasets, multiple model types (LLaMA, T5), and model scales that would be infeasible to run with regular finetuning (e.g. 33B and 65B parameter models). Our results show that QLoRA finetuning on a small high-quality dataset leads to state-of-the-art results, even when using smaller models than the previous SoTA. We provide a detailed analysis of chatbot performance based on both human and GPT-4 evaluations showing that GPT-4 evaluations are a cheap and reasonable alternative to human evaluation. Furthermore, we find that current chatbot benchmarks are not trustworthy to accurately evaluate the performance levels of chatbots. A lemon-picked analysis demonstrates where Guanaco fails compared to ChatGPT. We release all of our models and code, including CUDA kernels for 4-bit training."
+ },
+ "2506.13131": {
+  "id": "2506.13131",
+  "title": "AlphaEvolve: A coding agent for scientific and algorithmic discovery",
+  "authors": [
+   "Alexander Novikov",
+   "Ngân Vũ",
+   "Marvin Eisenberger",
+   "Emilien Dupont",
+   "Po-Sen Huang",
+   "Adam Zsolt Wagner",
+   "Sergey Shirobokov",
+   "Borislav Kozlovskii",
+   "Francisco J. R. Ruiz",
+   "Abbas Mehrabian",
+   "M. Pawan Kumar",
+   "Abigail See",
+   "Swarat Chaudhuri",
+   "George Holland",
+   "Alex Davies",
+   "Sebastian Nowozin",
+   "Pushmeet Kohli",
+   "Matej Balog"
+  ],
+  "published": "2025-06-16",
+  "abstract": "In this white paper, we present AlphaEvolve, an evolutionary coding agent that substantially enhances capabilities of state-of-the-art LLMs on highly challenging tasks such as tackling open scientific problems or optimizing critical pieces of computational infrastructure. AlphaEvolve orchestrates an autonomous pipeline of LLMs, whose task is to improve an algorithm by making direct changes to the code. Using an evolutionary approach, continuously receiving feedback from one or more evaluators, AlphaEvolve iteratively improves the algorithm, potentially leading to new scientific and practical discoveries. We demonstrate the broad applicability of this approach by applying it to a number of important computational problems. When applied to optimizing critical components of large-scale computational stacks at Google, AlphaEvolve developed a more efficient scheduling algorithm for data centers, found a functionally equivalent simplification in the circuit design of hardware accelerators, and accelerated the training of the LLM underpinning AlphaEvolve itself. Furthermore, AlphaEvolve discovered novel, provably correct algorithms that surpass state-of-the-art solutions on a spectrum of problems in mathematics and computer science, significantly expanding the scope of prior automated discovery methods (Romera-Paredes et al., 2023). Notably, AlphaEvolve developed a search algorithm that found a procedure to multiply two $4 \\times 4$ complex-valued matrices using $48$ scalar multiplications; offering the first improvement, after 56 years, over Strassen's algorithm in this setting. We believe AlphaEvolve and coding agents like it can have a significant impact in improving solutions of problems across many areas of science and computation."
+ },
+ "2209.04836": {
+  "id": "2209.04836",
+  "title": "Git Re-Basin: Merging Models modulo Permutation Symmetries",
+  "authors": [
+   "Samuel K. Ainsworth",
+   "Jonathan Hayase",
+   "Siddhartha Srinivasa"
+  ],
+  "published": "2022-09-11",
+  "abstract": "The success of deep learning is due in large part to our ability to solve certain massive non-convex optimization problems with relative ease. Though non-convex optimization is NP-hard, simple algorithms -- often variants of stochastic gradient descent -- exhibit surprising effectiveness in fitting large neural networks in practice. We argue that neural network loss landscapes often contain (nearly) a single basin after accounting for all possible permutation symmetries of hidden units a la Entezari et al. 2021. We introduce three algorithms to permute the units of one model to bring them into alignment with a reference model in order to merge the two models in weight space. This transformation produces a functionally equivalent set of weights that lie in an approximately convex basin near the reference model. Experimentally, we demonstrate the single basin phenomenon across a variety of model architectures and datasets, including the first (to our knowledge) demonstration of zero-barrier linear mode connectivity between independently trained ResNet models on CIFAR-10. Additionally, we identify intriguing phenomena relating model width and training time to mode connectivity. Finally, we discuss shortcomings of the linear mode connectivity hypothesis, including a counterexample to the single basin theory."
+ },
+ "2210.07229": {
+  "id": "2210.07229",
+  "title": "Mass-Editing Memory in a Transformer",
+  "authors": [
+   "Kevin Meng",
+   "Arnab Sen Sharma",
+   "Alex Andonian",
+   "Yonatan Belinkov",
+   "David Bau"
+  ],
+  "published": "2022-10-13",
+  "abstract": "Recent work has shown exciting promise in updating large language models with new memories, so as to replace obsolete information or add specialized knowledge. However, this line of work is predominantly limited to updating single associations. We develop MEMIT, a method for directly updating a language model with many memories, demonstrating experimentally that it can scale up to thousands of associations for GPT-J (6B) and GPT-NeoX (20B), exceeding prior work by orders of magnitude. Our code and data are at https://memit.baulab.info."
+ },
+ "1704.02685": {
+  "id": "1704.02685",
+  "title": "Learning Important Features Through Propagating Activation Differences",
+  "authors": [
+   "Avanti Shrikumar",
+   "Peyton Greenside",
+   "Anshul Kundaje"
+  ],
+  "published": "2017-04-10",
+  "abstract": "The purported \"black box\" nature of neural networks is a barrier to adoption in applications where interpretability is essential. Here we present DeepLIFT (Deep Learning Important FeaTures), a method for decomposing the output prediction of a neural network on a specific input by backpropagating the contributions of all neurons in the network to every feature of the input. DeepLIFT compares the activation of each neuron to its 'reference activation' and assigns contribution scores according to the difference. By optionally giving separate consideration to positive and negative contributions, DeepLIFT can also reveal dependencies which are missed by other approaches. Scores can be computed efficiently in a single backward pass. We apply DeepLIFT to models trained on MNIST and simulated genomic data, and show significant advantages over gradient-based methods. Video tutorial: http://goo.gl/qKb7pL, ICML slides: bit.ly/deeplifticmlslides, ICML talk: https://vimeo.com/238275076, code: http://goo.gl/RM8jvH."
+ },
+ "2310.03693": {
+  "id": "2310.03693",
+  "title": "Fine-tuning Aligned Language Models Compromises Safety, Even When Users Do Not Intend To!",
+  "authors": [
+   "Xiangyu Qi",
+   "Yi Zeng",
+   "Tinghao Xie",
+   "Pin-Yu Chen",
+   "Ruoxi Jia",
+   "Prateek Mittal",
+   "Peter Henderson"
+  ],
+  "published": "2023-10-05",
+  "abstract": "Optimizing large language models (LLMs) for downstream use cases often involves the customization of pre-trained LLMs through further fine-tuning. Meta's open release of Llama models and OpenAI's APIs for fine-tuning GPT-3.5 Turbo on custom datasets also encourage this practice. But, what are the safety costs associated with such custom fine-tuning? We note that while existing safety alignment infrastructures can restrict harmful behaviors of LLMs at inference time, they do not cover safety risks when fine-tuning privileges are extended to end-users. Our red teaming studies find that the safety alignment of LLMs can be compromised by fine-tuning with only a few adversarially designed training examples. For instance, we jailbreak GPT-3.5 Turbo's safety guardrails by fine-tuning it on only 10 such examples at a cost of less than $0.20 via OpenAI's APIs, making the model responsive to nearly any harmful instructions. Disconcertingly, our research also reveals that, even without malicious intent, simply fine-tuning with benign and commonly used datasets can also inadvertently degrade the safety alignment of LLMs, though to a lesser extent. These findings suggest that fine-tuning aligned LLMs introduces new safety risks that current safety infrastructures fall short of addressing -- even if a model's initial safety alignment is impeccable, it is not necessarily to be maintained after custom fine-tuning. We outline and critically analyze potential mitigations and advocate for further research efforts toward reinforcing safety protocols for the custom fine-tuning of aligned LLMs."
+ },
+ "2310.02304": {
+  "id": "2310.02304",
+  "title": "Self-Taught Optimizer (STOP): Recursively Self-Improving Code Generation",
+  "authors": [
+   "Eric Zelikman",
+   "Eliana Lorch",
+   "Lester Mackey",
+   "Adam Tauman Kalai"
+  ],
+  "published": "2023-10-03",
+  "abstract": "Several recent advances in AI systems solve problems by providing a \"scaffolding\" program that structures multiple calls to language models (LMs) to generate better outputs. A scaffolding program is written in a programming language such as Python. In this work, we use a language-model-infused scaffolding program to improve itself. We start with a seed \"improver\" that improves an input program according to a given utility function by querying an LM several times and returning the best solution. We then run this seed improver to improve itself. Across a small set of downstream tasks, the resulting improved improver generates programs with significantly better performance than its seed improver. A variety of self-improvement strategies are proposed by the language model, including beam search, genetic algorithms, and simulated annealing. Since the language models themselves are not altered, this is not full recursive self-improvement. Nonetheless, it demonstrates that a modern language model, GPT-4 in our experiments, is capable of writing code that can call itself to improve itself. We consider concerns around the development of self-improving technologies and evaluate the frequency with which the generated code bypasses a sandbox."
+ },
+ "2409.00119": {
+  "id": "2409.00119",
+  "title": "3-in-1: 2D Rotary Adaptation for Efficient Finetuning, Efficient Batching and Composability",
+  "authors": [
+   "Baohao Liao",
+   "Christof Monz"
+  ],
+  "published": "2024-08-28",
+  "abstract": "Parameter-efficient finetuning (PEFT) methods effectively adapt large language models (LLMs) to diverse downstream tasks, reducing storage and GPU memory demands. Despite these advantages, several applications pose new challenges to PEFT beyond mere parameter efficiency. One notable challenge involves the efficient deployment of LLMs equipped with multiple task- or user-specific adapters, particularly when different adapters are needed for distinct requests within the same batch. Another challenge is the interpretability of LLMs, which is crucial for understanding how LLMs function. Previous studies introduced various approaches to address different challenges. In this paper, we introduce a novel method, RoAd, which employs a straightforward 2D rotation to adapt LLMs and addresses all the above challenges: (1) RoAd is remarkably parameter-efficient, delivering optimal performance on GLUE, eight commonsense reasoning tasks and four arithmetic reasoning tasks with $<0.1\\%$ trainable parameters; (2) RoAd facilitates the efficient serving of requests requiring different adapters within a batch, with an overhead comparable to element-wise multiplication instead of batch matrix multiplication; (3) RoAd enhances LLM's interpretability through integration within a framework of distributed interchange intervention, demonstrated via composition experiments."
+ },
+ "2505.22954": {
+  "id": "2505.22954",
+  "title": "Darwin Godel Machine: Open-Ended Evolution of Self-Improving Agents",
+  "authors": [
+   "Jenny Zhang",
+   "Shengran Hu",
+   "Cong Lu",
+   "Robert Lange",
+   "Jeff Clune"
+  ],
+  "published": "2025-05-29",
+  "abstract": "Today's AI systems have human-designed, fixed architectures and cannot autonomously and continuously improve themselves. The advance of AI could itself be automated. If done safely, that would accelerate AI development and allow us to reap its benefits much sooner. Meta-learning can automate the discovery of novel algorithms, but is limited by first-order improvements and the human design of a suitable search space. The Gödel machine proposed a theoretical alternative: a self-improving AI that repeatedly modifies itself in a provably beneficial manner. Unfortunately, proving that most changes are net beneficial is impossible in practice. We introduce the Darwin Gödel Machine (DGM), a self-improving system that iteratively modifies its own code (thereby also improving its ability to modify its own codebase) and empirically validates each change using coding benchmarks. Inspired by Darwinian evolution and open-endedness research, the DGM maintains an archive of generated coding agents. It grows the archive by sampling an agent from it and using a foundation model to create a new, interesting, version of the sampled agent. This open-ended exploration forms a growing tree of diverse, high-quality agents and allows the parallel exploration of many different paths through the search space. Empirically, the DGM automatically improves its coding capabilities (e.g., better code editing tools, long-context window management, peer-review mechanisms), increasing performance on SWE-bench from 20.0% to 50.0%, and on Polyglot from 14.2% to 30.7%. Furthermore, the DGM significantly outperforms baselines without self-improvement or open-ended exploration. All experiments were done with safety precautions (e.g., sandboxing, human oversight). The DGM is a significant step toward self-improving AI, capable of gathering its own stepping stones along paths that unfold into endless innovation."
+ },
+ "2603.10090": {
+  "id": "2603.10090",
+  "title": "A Survey of Weight Space Learning: Understanding, Representation, and Generation",
+  "authors": [
+   "Xiaolong Han",
+   "Zehong Wang",
+   "Bo Zhao",
+   "Binchi Zhang",
+   "Jundong Li",
+   "Damian Borth",
+   "Rose Yu",
+   "Haggai Maron",
+   "Yanfang Ye",
+   "Lu Yin",
+   "Ferrante Neri"
+  ],
+  "published": "2026-03-10",
+  "abstract": "Neural network weights are typically viewed as the end product of training, while most deep learning research focuses on data, features, and architectures. However, recent advances show that the set of all possible weight values (weight space) itself contains rich structure: pretrained models form organized distributions, exhibit symmetries, and can be embedded, compared, or even generated. Understanding such structures has tremendous impact on how neural networks are analyzed and compared, and on how knowledge is transferred across models, beyond individual training instances. This emerging research direction, which we refer to as Weight Space Learning (WSL), treats neural weights as a meaningful domain for analysis and modeling. This survey provides the first unified taxonomy of WSL. We categorize existing methods into three core dimensions: Weight Space Understanding (WSU), which studies the geometry and symmetries of weights; Weight Space Representation (WSR), which learns embeddings over model weights; and Weight Space Generation (WSG), which synthesizes new weights through hypernetworks or generative models. We further show how these developments enable practical applications, including model retrieval, continual and federated learning, neural architecture search, and data-free reconstruction. By consolidating fragmented progress under a coherent framework, this survey highlights weight space as a learnable, structured domain with growing impact across model analysis, transferring, and weight generation. We release an accompanying resource at https://github.com/Zehong-Wang/Awesome-Weight-Space-Learning."
+ },
+ "2506.10943": {
+  "id": "2506.10943",
+  "title": "Self-Adapting Language Models",
+  "authors": [
+   "Adam Zweiger",
+   "Jyothish Pari",
+   "Han Guo",
+   "Ekin Akyürek",
+   "Yoon Kim",
+   "Pulkit Agrawal"
+  ],
+  "published": "2025-06-12",
+  "abstract": "Large language models (LLMs) are powerful but static; they lack mechanisms to adapt their weights in response to new tasks, knowledge, or examples. We introduce Self-Adapting LLMs (SEAL), a framework that enables LLMs to self-adapt by generating their own finetuning data and update directives. Given a new input, the model produces a self-edit-a generation that may restructure the information in different ways, specify optimization hyperparameters, or invoke tools for data augmentation and gradient-based updates. Through supervised finetuning (SFT), these self-edits result in persistent weight updates, enabling lasting adaptation. To train the model to produce effective self-edits, we use a reinforcement learning loop with the downstream performance of the updated model as the reward signal. Unlike prior approaches that rely on separate adaptation modules or auxiliary networks, SEAL directly uses the model's own generation to control its adaptation process. Experiments on knowledge incorporation and few-shot generalization show that SEAL is a promising step toward language models capable of self-directed adaptation. Our website and code is available at https://jyopari.github.io/posts/seal."
+ },
+ "2307.12976": {
+  "id": "2307.12976",
+  "title": "Evaluating the Ripple Effects of Knowledge Editing in Language Models",
+  "authors": [
+   "Roi Cohen",
+   "Eden Biran",
+   "Ori Yoran",
+   "Amir Globerson",
+   "Mor Geva"
+  ],
+  "published": "2023-07-24",
+  "abstract": "Modern language models capture a large body of factual knowledge. However, some facts can be incorrectly induced or become obsolete over time, resulting in factually incorrect generations. This has led to the development of various editing methods that allow updating facts encoded by the model. Evaluation of these methods has primarily focused on testing whether an individual fact has been successfully injected, and if similar predictions for other subjects have not changed. Here we argue that such evaluation is limited, since injecting one fact (e.g. ``Jack Depp is the son of Johnny Depp'') introduces a ``ripple effect'' in the form of additional facts that the model needs to update (e.g.``Jack Depp is the sibling of Lily-Rose Depp''). To address this issue, we propose a novel set of evaluation criteria that consider the implications of an edit on related facts. Using these criteria, we then construct RippleEdits, a diagnostic benchmark of 5K factual edits, capturing a variety of types of ripple effects. We evaluate prominent editing methods on RippleEdits, showing that current methods fail to introduce consistent changes in the model's knowledge. In addition, we find that a simple in-context editing baseline obtains the best scores on our benchmark, suggesting a promising research direction for model editing."
+ },
+ "2301.05062": {
+  "id": "2301.05062",
+  "title": "Tracr: Compiled Transformers as a Laboratory for Interpretability",
+  "authors": [
+   "David Lindner",
+   "János Kramár",
+   "Sebastian Farquhar",
+   "Matthew Rahtz",
+   "Thomas McGrath",
+   "Vladimir Mikulik"
+  ],
+  "published": "2023-01-12",
+  "abstract": "We show how to \"compile\" human-readable programs into standard decoder-only transformer models. Our compiler, Tracr, generates models with known structure. This structure can be used to design experiments. For example, we use it to study \"superposition\" in transformers that execute multi-step algorithms. Additionally, the known structure of Tracr-compiled models can serve as ground-truth for evaluating interpretability methods. Commonly, because the \"programs\" learned by transformers are unknown it is unclear whether an interpretation succeeded. We demonstrate our approach by implementing and examining programs including computing token frequencies, sorting, and parenthesis checking. We provide an open-source implementation of Tracr at https://github.com/google-deepmind/tracr."
+ },
+ "2309.08600": {
+  "id": "2309.08600",
+  "title": "Sparse Autoencoders Find Highly Interpretable Features in Language Models",
+  "authors": [
+   "Hoagy Cunningham",
+   "Aidan Ewart",
+   "Logan Riggs",
+   "Robert Huben",
+   "Lee Sharkey"
+  ],
+  "published": "2023-09-15",
+  "abstract": "One of the roadblocks to a better understanding of neural networks' internals is \\textit{polysemanticity}, where neurons appear to activate in multiple, semantically distinct contexts. Polysemanticity prevents us from identifying concise, human-understandable explanations for what neural networks are doing internally. One hypothesised cause of polysemanticity is \\textit{superposition}, where neural networks represent more features than they have neurons by assigning features to an overcomplete set of directions in activation space, rather than to individual neurons. Here, we attempt to identify those directions, using sparse autoencoders to reconstruct the internal activations of a language model. These autoencoders learn sets of sparsely activating features that are more interpretable and monosemantic than directions identified by alternative approaches, where interpretability is measured by automated methods. Moreover, we show that with our learned set of features, we can pinpoint the features that are causally responsible for counterfactual behaviour on the indirect object identification task \\citep{wang2022interpretability} to a finer degree than previous decompositions. This work indicates that it is possible to resolve superposition in language models using a scalable, unsupervised method. Our method may serve as a foundation for future mechanistic interpretability work, which we hope will enable greater model transparency and steerability."
+ },
+ "2301.12780": {
+  "id": "2301.12780",
+  "title": "Equivariant Architectures for Learning in Deep Weight Spaces",
+  "authors": [
+   "Aviv Navon",
+   "Aviv Shamsian",
+   "Idan Achituve",
+   "Ethan Fetaya",
+   "Gal Chechik",
+   "Haggai Maron"
+  ],
+  "published": "2023-01-30",
+  "abstract": "Designing machine learning architectures for processing neural networks in their raw weight matrix form is a newly introduced research direction. Unfortunately, the unique symmetry structure of deep weight spaces makes this design very challenging. If successful, such architectures would be capable of performing a wide range of intriguing tasks, from adapting a pre-trained network to a new domain to editing objects represented as functions (INRs or NeRFs). As a first step towards this goal, we present here a novel network architecture for learning in deep weight spaces. It takes as input a concatenation of weights and biases of a pre-trained MLP and processes it using a composition of layers that are equivariant to the natural permutation symmetry of the MLP's weights: Changing the order of neurons in intermediate layers of the MLP does not affect the function it represents. We provide a full characterization of all affine equivariant and invariant layers for these symmetries and show how these layers can be implemented using three basic operations: pooling, broadcasting, and fully connected layers applied to the input in an appropriate manner. We demonstrate the effectiveness of our architecture and its advantages over natural baselines in a variety of learning tasks."
+ },
+ "2211.00593": {
+  "id": "2211.00593",
+  "title": "Interpretability in the Wild: a Circuit for Indirect Object Identification in GPT-2 small",
+  "authors": [
+   "Kevin Wang",
+   "Alexandre Variengien",
+   "Arthur Conmy",
+   "Buck Shlegeris",
+   "Jacob Steinhardt"
+  ],
+  "published": "2022-11-01",
+  "abstract": "Research in mechanistic interpretability seeks to explain behaviors of machine learning models in terms of their internal components. However, most previous work either focuses on simple behaviors in small models, or describes complicated behaviors in larger models with broad strokes. In this work, we bridge this gap by presenting an explanation for how GPT-2 small performs a natural language task called indirect object identification (IOI). Our explanation encompasses 26 attention heads grouped into 7 main classes, which we discovered using a combination of interpretability approaches relying on causal interventions. To our knowledge, this investigation is the largest end-to-end attempt at reverse-engineering a natural behavior \"in the wild\" in a language model. We evaluate the reliability of our explanation using three quantitative criteria--faithfulness, completeness and minimality. Though these criteria support our explanation, they also point to remaining gaps in our understanding. Our work provides evidence that a mechanistic understanding of large ML models is feasible, opening opportunities to scale our understanding to both larger models and more complex tasks."
+ },
+ "2212.04089": {
+  "id": "2212.04089",
+  "title": "Editing Models with Task Arithmetic",
+  "authors": [
+   "Gabriel Ilharco",
+   "Marco Tulio Ribeiro",
+   "Mitchell Wortsman",
+   "Suchin Gururangan",
+   "Ludwig Schmidt",
+   "Hannaneh Hajishirzi",
+   "Ali Farhadi"
+  ],
+  "published": "2022-12-08",
+  "abstract": "Changing how pre-trained models behave -- e.g., improving their performance on a downstream task or mitigating biases learned during pre-training -- is a common practice when developing machine learning systems. In this work, we propose a new paradigm for steering the behavior of neural networks, centered around \\textit{task vectors}. A task vector specifies a direction in the weight space of a pre-trained model, such that movement in that direction improves performance on the task. We build task vectors by subtracting the weights of a pre-trained model from the weights of the same model after fine-tuning on a task. We show that these task vectors can be modified and combined together through arithmetic operations such as negation and addition, and the behavior of the resulting model is steered accordingly. Negating a task vector decreases performance on the target task, with little change in model behavior on control tasks. Moreover, adding task vectors together can improve performance on multiple tasks at once. Finally, when tasks are linked by an analogy relationship of the form ``A is to B as C is to D\", combining task vectors from three of the tasks can improve performance on the fourth, even when no data from the fourth task is used for training. Overall, our experiments with several models, modalities and tasks show that task arithmetic is a simple, efficient and effective way of editing models."
+ },
+ "2110.06296": {
+  "id": "2110.06296",
+  "title": "The Role of Permutation Invariance in Linear Mode Connectivity of Neural Networks",
+  "authors": [
+   "Rahim Entezari",
+   "Hanie Sedghi",
+   "Olga Saukh",
+   "Behnam Neyshabur"
+  ],
+  "published": "2021-10-12",
+  "abstract": "In this paper, we conjecture that if the permutation invariance of neural networks is taken into account, SGD solutions will likely have no barrier in the linear interpolation between them. Although it is a bold conjecture, we show how extensive empirical attempts fall short of refuting it. We further provide a preliminary theoretical result to support our conjecture. Our conjecture has implications for lottery ticket hypothesis, distributed training, and ensemble methods."
+ },
+ "2110.11309": {
+  "id": "2110.11309",
+  "title": "Fast Model Editing at Scale",
+  "authors": [
+   "Eric Mitchell",
+   "Charles Lin",
+   "Antoine Bosselut",
+   "Chelsea Finn",
+   "Christopher D. Manning"
+  ],
+  "published": "2021-10-21",
+  "abstract": "While large pre-trained models have enabled impressive results on a variety of downstream tasks, the largest existing models still make errors, and even accurate predictions may become outdated over time. Because detecting all such failures at training time is impossible, enabling both developers and end users of such models to correct inaccurate outputs while leaving the model otherwise intact is desirable. However, the distributed, black-box nature of the representations learned by large neural networks makes producing such targeted edits difficult. If presented with only a single problematic input and new desired output, fine-tuning approaches tend to overfit; other editing algorithms are either computationally infeasible or simply ineffective when applied to very large models. To enable easy post-hoc editing at scale, we propose Model Editor Networks using Gradient Decomposition (MEND), a collection of small auxiliary editing networks that use a single desired input-output pair to make fast, local edits to a pre-trained model's behavior. MEND learns to transform the gradient obtained by standard fine-tuning, using a low-rank decomposition of the gradient to make the parameterization of this transformation tractable. MEND can be trained on a single GPU in less than a day even for 10 billion+ parameter models; once trained MEND enables rapid application of new edits to the pre-trained model. Our experiments with T5, GPT, BERT, and BART models show that MEND is the only approach to model editing that effectively edits the behavior of models with more than 10 billion parameters. Code and data available at https://sites.google.com/view/mend-editing."
+ },
+ "2202.05262": {
+  "id": "2202.05262",
+  "title": "Locating and Editing Factual Associations in GPT",
+  "authors": [
+   "Kevin Meng",
+   "David Bau",
+   "Alex Andonian",
+   "Yonatan Belinkov"
+  ],
+  "published": "2022-02-10",
+  "abstract": "We analyze the storage and recall of factual associations in autoregressive transformer language models, finding evidence that these associations correspond to localized, directly-editable computations. We first develop a causal intervention for identifying neuron activations that are decisive in a model's factual predictions. This reveals a distinct set of steps in middle-layer feed-forward modules that mediate factual predictions while processing subject tokens. To test our hypothesis that these computations correspond to factual association recall, we modify feed-forward weights to update specific factual associations using Rank-One Model Editing (ROME). We find that ROME is effective on a standard zero-shot relation extraction (zsRE) model-editing task, comparable to existing methods. To perform a more sensitive evaluation, we also evaluate ROME on a new dataset of counterfactual assertions, on which it simultaneously maintains both specificity and generalization, whereas other methods sacrifice one or another. Our results confirm an important role for mid-layer feed-forward modules in storing factual associations and suggest that direct manipulation of computational mechanisms may be a feasible approach for model editing. The code, dataset, visualizations, and an interactive demo notebook are available at https://rome.baulab.info/"
+ },
+ "cs/0309048": {
+  "id": "cs/0309048",
+  "title": "Goedel Machines: Self-Referential Universal Problem Solvers Making Provably Optimal Self-Improvements",
+  "authors": [
+   "Juergen Schmidhuber"
+  ],
+  "published": "2003-09-25",
+  "abstract": "We present the first class of mathematically rigorous, general, fully self-referential, self-improving, optimally efficient problem solvers. Inspired by Kurt Goedel's celebrated self-referential formulas (1931), such a problem solver rewrites any part of its own code as soon as it has found a proof that the rewrite is useful, where the problem-dependent utility function and the hardware and the entire initial code are described by axioms encoded in an initial proof searcher which is also part of the initial code. The searcher systematically and efficiently tests computable proof techniques (programs whose outputs are proofs) until it finds a provably useful, computable self-rewrite. We show that such a self-rewrite is globally optimal - no local maxima! - since the code first had to prove that it is not useful to continue the proof search for alternative self-rewrites. Unlike previous non-self-referential methods based on hardwired proof searchers, ours not only boasts an optimal order of complexity but can optimally reduce any slowdowns hidden by the O()-notation, provided the utility of such speed-ups is provable at all."
+ },
+ "2410.16454": {
+  "id": "2410.16454",
+  "title": "Catastrophic Failure of LLM Unlearning via Quantization",
+  "authors": [
+   "Zhiwei Zhang",
+   "Fali Wang",
+   "Xiaomin Li",
+   "Zongyu Wu",
+   "Xianfeng Tang",
+   "Hui Liu",
+   "Qi He",
+   "Wenpeng Yin",
+   "Suhang Wang"
+  ],
+  "published": "2024-10-21",
+  "abstract": "Large language models (LLMs) have shown remarkable proficiency in generating text, benefiting from extensive training on vast textual corpora. However, LLMs may also acquire unwanted behaviors from the diverse and sensitive nature of their training data, which can include copyrighted and private content. Machine unlearning has been introduced as a viable solution to remove the influence of such problematic content without the need for costly and time-consuming retraining. This process aims to erase specific knowledge from LLMs while preserving as much model utility as possible. Despite the effectiveness of current unlearning methods, little attention has been given to whether existing unlearning methods for LLMs truly achieve forgetting or merely hide the knowledge, which current unlearning benchmarks fail to detect. This paper reveals that applying quantization to models that have undergone unlearning can restore the \"forgotten\" information. To thoroughly evaluate this phenomenon, we conduct comprehensive experiments using various quantization techniques across multiple precision levels. We find that for unlearning methods with utility constraints, the unlearned model retains an average of 21\\% of the intended forgotten knowledge in full precision, which significantly increases to 83\\% after 4-bit quantization. ... Our code is available at: \\href{https://github.com/zzwjames/FailureLLMUnlearning}{https://github.com/zzwjames/FailureLLMUnlearning}."
+ },
+ "2401.07453": {
+  "id": "2401.07453",
+  "title": "Model Editing at Scale leads to Gradual and Catastrophic Forgetting",
+  "authors": [
+   "Akshat Gupta",
+   "Anurag Rao",
+   "Gopala Anumanchipalli"
+  ],
+  "published": "2024-01-15",
+  "abstract": "Editing knowledge in large language models is an attractive capability to have which allows us to correct incorrectly learnt facts during pre-training, as well as update the model with an ever-growing list of new facts. While existing model editing techniques have shown promise, they are usually evaluated using metrics for reliability, specificity and generalization over one or few edits. We argue that for model editing to have practical utility, we must be able to make multiple edits to the same model. With this in mind, we evaluate the current model editing methods at scale, focusing on two state of the art methods: ROME and MEMIT. We find that as the model is edited sequentially with multiple facts, it continually forgets previously edited facts and the ability to perform downstream tasks. This forgetting happens in two phases -- an initial gradual but progressive forgetting phase followed by abrupt or catastrophic forgetting phase. Both gradual and catastrophic forgetting limit the usefulness of model editing methods at scale -- the former making model editing less effective as multiple edits are made to the model while the latter caps the scalability of such model editing methods. Our analysis also highlights other key limitations of ROME and MEMIT at scale. With our work, we push for the development and evaluation of model editing methods keeping scalability in mind."
+ },
+ "2601.14532": {
+  "id": "2601.14532",
+  "title": "Search over Self-Edit Strategies for LLM Adaptation",
+  "authors": [
+   "Alistair Cheong",
+   "Haolin Cong",
+   "Tyler Yang",
+   "Dustin Miao"
+  ],
+  "published": "2026-01-20",
+  "abstract": "Many LLM-based open-ended search systems freeze the foundation model that proposes improvements to existing solutions, which may bottleneck long-run progress. Recent work has explored updating the proposal model at test time [arXiv:2511.23473], but the update strategy is still typically hand-specified. Therefore, this study investigated whether an LLM can use task feedback to decide how it should update its weights. For tractability, we focused on the simpler case where there is only one round of self-improvement, and restricted the update operator to self-supervised next token prediction (NTP), leaving the model freedom in choosing its training data and key NTP hyperparameters. Using the Self-Adapting Language Models (SEAL) [arXiv:2506.10943] framework as a testbed, we relaxed its fixed human template constraint and allowed the model to generate its own self-edit templates, thereby giving it more control over its training data and hyperparameters. Two variants were studied, differing in whether template generation was conditioned on a lightweight archive of past templates. In SEAL's Single-Passage Knowledge Incorporation setting with Qwen3-8B on SQuAD [arXiv:1606.05250], the no-archive variant performed comparably to the weaker \"Implications\" baseline, while the archive variant outperformed \"Implications\" and approached the strongest human-designed \"Rewrite\" baseline without surpassing it. Further analysis of collapse in the model's exploration revealed that a naive archive can confer some short-term robustness but can also accelerate homogenization, suggesting that explicit novelty pressure may be required to consistently advance beyond carefully optimized human strategies. Our code is available at https://github.com/cheongalc/search-self-edit-strategies ."
+ },
+ "2207.00747": {
+  "id": "2207.00747",
+  "title": "Rationale-Augmented Ensembles in Language Models",
+  "authors": [
+   "Xuezhi Wang",
+   "Jason Wei",
+   "Dale Schuurmans",
+   "Quoc Le",
+   "Ed Chi",
+   "Denny Zhou"
+  ],
+  "published": "2022-07-02",
+  "abstract": "Recent research has shown that rationales, or step-by-step chains of thought, can be used to improve performance in multi-step reasoning tasks. We reconsider rationale-augmented prompting for few-shot in-context learning, where (input -> output) prompts are expanded to (input, rationale -> output) prompts. For rationale-augmented prompting we demonstrate how existing approaches, which rely on manual prompt engineering, are subject to sub-optimal rationales that may harm performance. To mitigate this brittleness, we propose a unified framework of rationale-augmented ensembles, where we identify rationale sampling in the output space as the key component to robustly improve performance. This framework is general and can easily be extended to common natural language processing tasks, even those that do not traditionally leverage intermediate steps, such as question answering, word sense disambiguation, and sentiment analysis. We demonstrate that rationale-augmented ensembles achieve more accurate and interpretable results than existing prompting approaches--including standard prompting without rationales and rationale-based chain-of-thought prompting--while simultaneously improving interpretability of model predictions through the associated rationales."
+ },
+ "2209.12892": {
+  "id": "2209.12892",
+  "title": "Learning to Learn with Generative Models of Neural Network Checkpoints",
+  "authors": [
+   "William Peebles",
+   "Ilija Radosavovic",
+   "Tim Brooks",
+   "Alexei A. Efros",
+   "Jitendra Malik"
+  ],
+  "published": "2022-09-26",
+  "abstract": "We explore a data-driven approach for learning to optimize neural networks. We construct a dataset of neural network checkpoints and train a generative model on the parameters. In particular, our model is a conditional diffusion transformer that, given an initial input parameter vector and a prompted loss, error, or return, predicts the distribution over parameter updates that achieve the desired metric. At test time, it can optimize neural networks with unseen parameters for downstream tasks in just one update. We find that our approach successfully generates parameters for a wide range of loss prompts. Moreover, it can sample multimodal parameter solutions and has favorable scaling properties. We apply our method to different neural network architectures and tasks in supervised and reinforcement learning."
+ },
+ "2302.14040": {
+  "id": "2302.14040",
+  "title": "Permutation Equivariant Neural Functionals",
+  "authors": [
+   "Allan Zhou",
+   "Kaien Yang",
+   "Kaylee Burns",
+   "Adriano Cardace",
+   "Yiding Jiang",
+   "Samuel Sokota",
+   "J. Zico Kolter",
+   "Chelsea Finn"
+  ],
+  "published": "2023-02-27",
+  "abstract": "This work studies the design of neural networks that can process the weights or gradients of other neural networks, which we refer to as neural functional networks (NFNs). Despite a wide range of potential applications, including learned optimization, processing implicit neural representations, network editing, and policy evaluation, there are few unifying principles for designing effective architectures that process the weights of other networks. We approach the design of neural functionals through the lens of symmetry, in particular by focusing on the permutation symmetries that arise in the weights of deep feedforward networks because hidden layer neurons have no inherent order. We introduce a framework for building permutation equivariant neural functionals, whose architectures encode these symmetries as an inductive bias. The key building blocks of this framework are NF-Layers (neural functional layers) that we constrain to be permutation equivariant through an appropriate parameter sharing scheme. In our experiments, we find that permutation equivariant neural functionals are effective on a diverse set of tasks that require processing the weights of MLPs and CNNs, such as predicting classifier generalization, producing \"winning ticket\" sparsity masks for initializations, and classifying or editing implicit neural representations (INRs). In addition, we provide code for our models and experiments at https://github.com/AllanYangZhou/nfn."
+ },
+ "2401.01814": {
+  "id": "2401.01814",
+  "title": "Large Language Models Relearn Removed Concepts",
+  "authors": [
+   "Michelle Lo",
+   "Shay B. Cohen",
+   "Fazl Barez"
+  ],
+  "published": "2024-01-03",
+  "abstract": "Advances in model editing through neuron pruning hold promise for removing undesirable concepts from large language models. However, it remains unclear whether models have the capacity to reacquire pruned concepts after editing. To investigate this, we evaluate concept relearning in models by tracking concept saliency and similarity in pruned neurons during retraining. Our findings reveal that models can quickly regain performance post-pruning by relocating advanced concepts to earlier layers and reallocating pruned concepts to primed neurons with similar semantics. This demonstrates that models exhibit polysemantic capacities and can blend old and new concepts in individual neurons. While neuron pruning provides interpretability into model concepts, our results highlight the challenges of permanent concept removal for improved model \\textit{safety}. Monitoring concept reemergence and developing techniques to mitigate relearning of unsafe concepts will be important directions for more robust model editing. Overall, our work strongly demonstrates the resilience and fluidity of concept representations in LLMs post concept removal."
+ },
+ "2106.06981": {
+  "id": "2106.06981",
+  "title": "Thinking Like Transformers",
+  "authors": [
+   "Gail Weiss",
+   "Yoav Goldberg",
+   "Eran Yahav"
+  ],
+  "published": "2021-06-13",
+  "abstract": "What is the computational model behind a Transformer? Where recurrent neural networks have direct parallels in finite state machines, allowing clear discussion and thought around architecture variants or trained models, Transformers have no such familiar parallel. In this paper we aim to change that, proposing a computational model for the transformer-encoder in the form of a programming language. We map the basic components of a transformer-encoder -- attention and feed-forward computation -- into simple primitives, around which we form a programming language: the Restricted Access Sequence Processing Language (RASP). We show how RASP can be used to program solutions to tasks that could conceivably be learned by a Transformer, and how a Transformer can be trained to mimic a RASP solution. In particular, we provide RASP programs for histograms, sorting, and Dyck-languages. We further use our model to relate their difficulty in terms of the number of required layers and attention heads: analyzing a RASP program implies a maximum number of heads and layers necessary to encode a task in a transformer. Finally, we see how insights gained from our abstraction might be used to explain phenomena seen in recent works."
+ },
+ "2106.09685": {
+  "id": "2106.09685",
+  "title": "LoRA: Low-Rank Adaptation of Large Language Models",
+  "authors": [
+   "Edward J. Hu",
+   "Yelong Shen",
+   "Phillip Wallis",
+   "Zeyuan Allen-Zhu",
+   "Yuanzhi Li",
+   "Shean Wang",
+   "Lu Wang",
+   "Weizhu Chen"
+  ],
+  "published": "2021-06-17",
+  "abstract": "An important paradigm of natural language processing consists of large-scale pre-training on general domain data and adaptation to particular tasks or domains. As we pre-train larger models, full fine-tuning, which retrains all model parameters, becomes less feasible. Using GPT-3 175B as an example -- deploying independent instances of fine-tuned models, each with 175B parameters, is prohibitively expensive. We propose Low-Rank Adaptation, or LoRA, which freezes the pre-trained model weights and injects trainable rank decomposition matrices into each layer of the Transformer architecture, greatly reducing the number of trainable parameters for downstream tasks. Compared to GPT-3 175B fine-tuned with Adam, LoRA can reduce the number of trainable parameters by 10,000 times and the GPU memory requirement by 3 times. LoRA performs on-par or better than fine-tuning in model quality on RoBERTa, DeBERTa, GPT-2, and GPT-3, despite having fewer trainable parameters, a higher training throughput, and, unlike adapters, no additional inference latency. We also provide an empirical investigation into rank-deficiency in language model adaptation, which sheds light on the efficacy of LoRA. We release a package that facilitates the integration of LoRA with PyTorch models and provide our implementations and model checkpoints for RoBERTa, DeBERTa, and GPT-2 at https://github.com/microsoft/LoRA."
+ },
+ "1702.01135": {
+  "id": "1702.01135",
+  "title": "Reluplex: An Efficient SMT Solver for Verifying Deep Neural Networks",
+  "authors": [
+   "Guy Katz",
+   "Clark Barrett",
+   "David Dill",
+   "Kyle Julian",
+   "Mykel Kochenderfer"
+  ],
+  "published": "2017-02-03",
+  "abstract": "Deep neural networks have emerged as a widely used and effective means for tackling complex, real-world problems. However, a major obstacle in applying them to safety-critical systems is the great difficulty in providing formal guarantees about their behavior. We present a novel, scalable, and efficient technique for verifying properties of deep neural networks (or providing counter-examples). The technique is based on the simplex method, extended to handle the non-convex Rectified Linear Unit (ReLU) activation function, which is a crucial ingredient in many modern neural networks. The verification procedure tackles neural networks as a whole, without making any simplifying assumptions. We evaluated our technique on a prototype deep neural network implementation of the next-generation airborne collision avoidance system for unmanned aircraft (ACAS Xu). Results show that our technique can successfully prove properties of networks that are an order of magnitude larger than the largest networks verified using existing methods."
+ },
+ "2306.03341": {
+  "id": "2306.03341",
+  "title": "Inference-Time Intervention: Eliciting Truthful Answers from a Language Model",
+  "authors": [
+   "Kenneth Li",
+   "Oam Patel",
+   "Fernanda Viégas",
+   "Hanspeter Pfister",
+   "Martin Wattenberg"
+  ],
+  "published": "2023-06-06",
+  "abstract": "We introduce Inference-Time Intervention (ITI), a technique designed to enhance the \"truthfulness\" of large language models (LLMs). ITI operates by shifting model activations during inference, following a set of directions across a limited number of attention heads. This intervention significantly improves the performance of LLaMA models on the TruthfulQA benchmark. On an instruction-finetuned LLaMA called Alpaca, ITI improves its truthfulness from 32.5% to 65.1%. We identify a tradeoff between truthfulness and helpfulness and demonstrate how to balance it by tuning the intervention strength. ITI is minimally invasive and computationally inexpensive. Moreover, the technique is data efficient: while approaches like RLHF require extensive annotations, ITI locates truthful directions using only few hundred examples. Our findings suggest that LLMs may have an internal representation of the likelihood of something being true, even as they produce falsehoods on the surface."
+ },
+ "2506.06105": {
+  "id": "2506.06105",
+  "title": "Text-to-LoRA: Instant Transformer Adaption",
+  "authors": [
+   "Rujikorn Charakorn",
+   "Edoardo Cetin",
+   "Yujin Tang",
+   "Robert Tjarko Lange"
+  ],
+  "published": "2025-06-06",
+  "abstract": "While Foundation Models provide a general tool for rapid content creation, they regularly require task-specific adaptation. Traditionally, this exercise involves careful curation of datasets and repeated fine-tuning of the underlying model. Fine-tuning techniques enable practitioners to adapt foundation models for many new applications but require expensive and lengthy training while being notably sensitive to hyperparameter choices. To overcome these limitations, we introduce Text-to-LoRA (T2L), a model capable of adapting large language models (LLMs) on the fly solely based on a natural language description of the target task. T2L is a hypernetwork trained to construct LoRAs in a single inexpensive forward pass. After training T2L on a suite of 9 pre-trained LoRA adapters (GSM8K, Arc, etc.), we show that the ad-hoc reconstructed LoRA instances match the performance of task-specific adapters across the corresponding test sets. Furthermore, T2L can compress hundreds of LoRA instances and zero-shot generalize to entirely unseen tasks. This approach provides a significant step towards democratizing the specialization of foundation models and enables language-based adaptation with minimal compute requirements. Our code is available at https://github.com/SakanaAI/text-to-lora"
+ },
+ "2506.16406": {
+  "id": "2506.16406",
+  "title": "Drag-and-Drop LLMs: Zero-Shot Prompt-to-Weights",
+  "authors": [
+   "Zhiyuan Liang",
+   "Dongwen Tang",
+   "Yuhao Zhou",
+   "Xuanlei Zhao",
+   "Mingjia Shi",
+   "Wangbo Zhao",
+   "Zekai Li",
+   "Peihao Wang",
+   "Konstantin Schürholt",
+   "Damian Borth",
+   "Michael M. Bronstein",
+   "Yang You",
+   "Zhangyang Wang",
+   "Kai Wang"
+  ],
+  "published": "2025-06-19",
+  "abstract": "Modern Parameter-Efficient Fine-Tuning (PEFT) methods such as low-rank adaptation (LoRA) reduce the cost of customizing large language models (LLMs), yet still require a separate optimization run for every downstream dataset. We introduce \\textbf{Drag-and-Drop LLMs (\\textit{DnD})}, a prompt-conditioned parameter generator that eliminates per-task training by mapping a handful of unlabeled task prompts directly to LoRA weight updates. A lightweight text encoder distills each prompt batch into condition embeddings, which are then transformed by a cascaded hyper-convolutional decoder into the full set of LoRA matrices. Once trained in a diverse collection of prompt-checkpoint pairs, DnD produces task-specific parameters in seconds, yielding i) up to \\textbf{12,000$\\times$} lower overhead than full fine-tuning, ii) average gains up to \\textbf{30\\%} in performance over the strongest training LoRAs on unseen common-sense reasoning, math, coding, and multimodal benchmarks, and iii) robust cross-domain generalization despite never seeing the target data or labels. Our results demonstrate that prompt-conditioned parameter generation is a viable alternative to gradient-based adaptation for rapidly specializing LLMs. Our project is available at \\href{https://jerryliang24.github.io/DnD}{https://jerryliang24.github.io/DnD}."
+ },
+ "2405.18137": {
+  "id": "2405.18137",
+  "title": "Exploiting LLM Quantization",
+  "authors": [
+   "Kazuki Egashira",
+   "Mark Vero",
+   "Robin Staab",
+   "Jingxuan He",
+   "Martin Vechev"
+  ],
+  "published": "2024-05-28",
+  "abstract": "Quantization leverages lower-precision weights to reduce the memory usage of large language models (LLMs) and is a key technique for enabling their deployment on commodity hardware. While LLM quantization's impact on utility has been extensively explored, this work for the first time studies its adverse effects from a security perspective. We reveal that widely used quantization methods can be exploited to produce a harmful quantized LLM, even though the full-precision counterpart appears benign, potentially tricking users into deploying the malicious quantized model. We demonstrate this threat using a three-staged attack framework: (i) first, we obtain a malicious LLM through fine-tuning on an adversarial task; (ii) next, we quantize the malicious model and calculate constraints that characterize all full-precision models that map to the same quantized model; (iii) finally, using projected gradient descent, we tune out the poisoned behavior from the full-precision model while ensuring that its weights satisfy the constraints computed in step (ii). This procedure results in an LLM that exhibits benign behavior in full precision but when quantized, it follows the adversarial behavior injected in step (i). We experimentally demonstrate the feasibility and severity of such an attack across three diverse scenarios: vulnerable code generation, content injection, and over-refusal attack. In practice, the adversary could host the resulting full-precision model on an LLM community hub such as Hugging Face, exposing millions of users to the threat of deploying its malicious quantized version on their devices."
+ },
+ "2406.11717": {
+  "id": "2406.11717",
+  "title": "Refusal in Language Models Is Mediated by a Single Direction",
+  "authors": [
+   "Andy Arditi",
+   "Oscar Obeso",
+   "Aaquib Syed",
+   "Daniel Paleka",
+   "Nina Panickssery",
+   "Wes Gurnee",
+   "Neel Nanda"
+  ],
+  "published": "2024-06-17",
+  "abstract": "Conversational large language models are fine-tuned for both instruction-following and safety, resulting in models that obey benign requests but refuse harmful ones. While this refusal behavior is widespread across chat models, its underlying mechanisms remain poorly understood. In this work, we show that refusal is mediated by a one-dimensional subspace, across 13 popular open-source chat models up to 72B parameters in size. Specifically, for each model, we find a single direction such that erasing this direction from the model's residual stream activations prevents it from refusing harmful instructions, while adding this direction elicits refusal on even harmless instructions. Leveraging this insight, we propose a novel white-box jailbreak method that surgically disables refusal with minimal effect on other capabilities. Finally, we mechanistically analyze how adversarial suffixes suppress propagation of the refusal-mediating direction. Our findings underscore the brittleness of current safety fine-tuning methods. More broadly, our work showcases how an understanding of model internals can be leveraged to develop practical methods for controlling model behavior."
+ },
+ "2410.15639": {
+  "id": "2410.15639",
+  "title": "Can Large Language Models Invent Algorithms to Improve Themselves?: Algorithm Discovery for Recursive Self-Improvement through Reinforcement Learning",
+  "authors": [
+   "Yoichi Ishibashi",
+   "Taro Yano",
+   "Masafumi Oyamada"
+  ],
+  "published": "2024-10-21",
+  "abstract": "Large Language Models (LLMs) have achieved remarkable capabilities, yet their improvement methods remain fundamentally constrained by human design. We present Self-Developing, a framework that enables LLMs to autonomously discover, implement, and refine their own improvement algorithms. Our approach employs an iterative cycle where a seed model generates algorithmic candidates as executable code, evaluates their effectiveness, and uses Direct Preference Optimization to recursively improve increasingly sophisticated improvement strategies. We demonstrate this framework through model merging, a practical technique for combining specialized models. Self-Developing successfully discovered novel merging algorithms that outperform existing human-designed algorithms. On mathematical reasoning benchmarks, the autonomously discovered algorithms improve the seed model's GSM8k performance by 6\\% and exceed human-designed approaches like Task Arithmetic by 4.3\\%. Remarkably, these algorithms exhibit strong generalization, achieving 7.4\\% gains on out-of-domain models without re-optimization. Our findings demonstrate that LLMs can transcend their training to invent genuinely novel optimization techniques. This capability represents a crucial step toward a new era where LLMs not only solve problems but autonomously develop the methodologies for their own advancement."
+ },
+ "2603.09938": {
+  "id": "2603.09938",
+  "title": "Model Merging in the Era of Large Language Models: Methods, Applications, and Future Directions",
+  "authors": [
+   "Mingyang Song",
+   "Mao Zheng"
+  ],
+  "published": "2026-03-10",
+  "abstract": ""
+ },
+ "2605.18632": {
+  "id": "2605.18632",
+  "title": "Position: Weight Space Should Be a First-Class Generative AI Modality",
+  "authors": [
+   "Zhangyang Wang",
+   "Peihao Wang",
+   "Kai Wang"
+  ],
+  "published": "2026-05-18",
+  "abstract": ""
+ },
+ "2607.13104": {
+  "id": "2607.13104",
+  "title": "Self-Improvements in Modern Agentic Systems: A Survey",
+  "authors": [
+   "Zhe Ren",
+   "Yimeng Chen",
+   "Dandan Guo",
+   "Guowei Rong",
+   "Tonghui Li",
+   "R. B. Xiong",
+   "Qingfeng Lan",
+   "Wenyi Wang",
+   "Li Nanbo",
+   "Yibo Yang",
+   "Mingchen Zhuge",
+   "Jürgen Schmidhuber"
+  ],
+  "published": "2026-07-14",
+  "abstract": ""
+ },
+ "2606.15577": {
+  "id": "2606.15577",
+  "title": "Large Language Models as Optimizers: A Survey of Direct vs. Tool-Augmented Approaches and Their Performance Frontiers",
+  "authors": [
+   "Roko Peran",
+   "Luka Hobor",
+   "Mihael Kovac",
+   "Mario Brcic"
+  ],
+  "published": "2026-04-09",
+  "abstract": ""
+ },
+ "2606.23075": {
+  "id": "2606.23075",
+  "title": "Safety in Self-Evolving LLM Agent Systems: Threats, Amplification, and Case Studies",
+  "authors": [
+   "Ruixiao Lin",
+   "Xinhao Deng",
+   "Qingming Li",
+   "Jianan Ma",
+   "Yunhao Feng",
+   "Yuqi Qing",
+   "Zhenyuan Li",
+   "Yechao Zhang",
+   "Shiwen Cui",
+   "Changhua Meng",
+   "Tianwei Zhang",
+   "Xingjun Ma",
+   "Qi Li",
+   "Ke Xu",
+   "Shouling Ji"
+  ],
+  "published": "2026-06-22",
+  "abstract": ""
+ },
+ "2607.07663": {
+  "id": "2607.07663",
+  "title": "Recursive Self-Improvement in AI: From Bounded Self-Refinement to Autonomous Research Loops",
+  "authors": [
+   "Mingguang Chen",
+   "Licheng Wang",
+   "Bo Qu"
+  ],
+  "published": "2026-07-08",
+  "abstract": ""
+ },
+ "2202.05780": {
+  "title": "A Modern Self-Referential Weight Matrix That Learns to Modify Itself",
+  "authors": [
+   "Kazuki Irie",
+   "Imanol Schlag",
+   "Róbert Csordás",
+   "Jürgen Schmidhuber"
+  ],
+  "published": "2022-02-11T17:24:31Z",
+  "abstract": "The weight matrix (WM) of a neural network (NN) is its program. The programs of many traditional NNs are learned through gradient descent in some error function, then remain fixed. The WM of a self-referential NN, however, can keep rapidly modifying all of itself during runtime. In principle, such NNs can meta-learn to learn, and meta-meta-learn to meta-learn to learn, and so on, in the sense of recursive self-improvement. While NN architectures potentially capable of implementing such behaviour have been proposed since the '90s, there have been few if any practical studies. Here we revisit such NNs, building upon recent successes of fast weight programmers and closely related linear Transformers. We propose a scalable self-referential WM (SRWM) that learns to use outer products and the delta update rule to modify itself. We evaluate our SRWM in supervised few-shot learning and in multi-task reinforcement learning with procedurally generated game environments. Our experiments demonstrate both practical applicability and competitive performance of the proposed SRWM. Our code is public.",
+  "id": "2202.05780"
+ }
+}

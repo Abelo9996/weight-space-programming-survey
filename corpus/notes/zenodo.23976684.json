@@ -1,0 +1,43 @@
+{
+ "id": "zenodo.23976684",
+ "url": "https://doi.org/10.5281/zenodo.23976684",
+ "title": "Weight-Space Programming on Qwen3-ASR-0.6B: Nine Independent Agent Edits, Random-Direction Controls, and a Missing Attention Mask",
+ "authors": ["Taha Enes Aslantürk"],
+ "date": "2026-11-05",
+ "read_level": "full (Zenodo record API + PDF Aslanturk2026_WSP_Qwen3-ASR.pdf via pdftotext; appendix edit table skimmed)",
+ "metadata_mismatch": "Corpus abstract empty; filled from paper. Record version DOI is 10.5281/zenodo.23976685 (concept DOI 23976684). Title/author match.",
+ "is_wsp": "core",
+ "why_wsp": "Claude Opus 5.5 agent arms read Qwen3-ASR-0.6B weights and derive analytic edits (head gains, rank-1 removals, k_proj terms) with no gradients, under 10/25/50 forward-pass budgets, to fix a language-ID failure on speech surrounded by silence.",
+ "primary_branch": "B3",
+ "secondary_branches": ["B4"],
+ "facets": ["evaluation", "application domain"],
+ "domain": "automatic speech recognition (multilingual FLEURS; language tagging under long silence)",
+ "editor": "Claude Opus 5.5 (claude-opus-5-5) agent instances; Claude Sonnet 5.5 for harness/evaluation; Opus 5.5 orchestrator",
+ "target": "Qwen/Qwen3-ASR-0.6B (782,426,112 parameters; 18-layer audio encoder + 28-layer decoder)",
+ "interface": "code/tensor tools (agent computes analytic edits from weight analysis and difference-of-means activation stats)",
+ "loop": "closed-loop with feedback (budget of 10, 25 or 50 forward passes of up to 64 practice clips)",
+ "self_editing": "no; Claude agents edit a separate ASR model",
+ "fraction_or_count_of_weights_changed": "\"The edit sizes range from 2,048 weights (b25, 0.0003%) to 7,225,343 (b50, 0.92%)\" (Sec 5.1)",
+ "headline_results": [
+  {"claim": "All nine edits reduce target failure without breaking clips", "quote": "All nine edits reduce it, with 0 newly broken clips and McNemar p < 0.01 on the combined 70 target clips for every arm", "where": "Abstract; Table 2"},
+  {"claim": "Real edit beats random controls", "quote": "The real edit fixes strictly more clips than every control in 26 of 27 comparisons", "where": "Sec 4.3; Fig. 1"},
+  {"claim": "Convergence on same heads", "quote": "Six of nine arms independently localized the same two decoder attention heads (L20H13 and L21H2)", "where": "Abstract; Table 5"},
+  {"claim": "Clean-WER cost", "quote": "Four arms show a clean macro WER regression whose paired-bootstrap 95% CI excludes 0: b10r3 (+0.32 pp), b25r3 (+0.31), b50 (+0.40) and b50r2 (+0.24)", "where": "Sec 4.5"},
+  {"claim": "Backend artifact: mask restoration matches best edit", "quote": "Restoring the mask alone fixes 31 of 40 stress and 5 of 30 hard-TS target clips, equal to the best arm (b25r3: 31 and 5) and above the other eight arms on stress-40 (6–28)", "where": "Sec 5.3; Table 7"},
+  {"claim": "Second target not fixed", "quote": "Target B (bilingual code-switching) was not fixed", "where": "Sec 6"},
+  {"claim": "Baseline failure rate", "quote": "30 of 40 stress target clips are tagged language None", "where": "Sec 4.1"}
+ ],
+ "cost": [
+  {"claim": "Forward passes used per arm", "quote": "Total passes used per run: b10 10, b10r2 10, b10r3 10, b25 23, b25r2 21, b25r3 15, b50 32, b50r2 27, b50r3 33", "where": "Sec 6"},
+  {"claim": "Hardware; no token or $ cost reported", "quote": "All runs on one Apple M3 Max in fp32 with a per-process MPS cap, so a full test evaluation takes hours", "where": "Sec 7"}
+ ],
+ "baselines_and_controls": "Unedited baseline; five random-direction controls per arm matched in tensors, edit form, changed-weight count and Frobenius norm; guard set (40 silence/noise clips); separate windowed-encoder (mask restored, no weight change) analysis.",
+ "runs_and_variance": "9 arms (3 replicates x 3 budgets); 5 controls per arm; exact McNemar per arm; paired bootstrap (1000 resamples) for clean WER; mean ± sd per budget (Table 4). Single-use test set.",
+ "robustness_of_edits": "Edits tested on top of the windowed encoder for 3 original arms: \"add at most one more clip\"; not tested on FlashAttention-2 path, quantization or fine-tuning.",
+ "verification": "none formal; single-use test harness refusing re-evaluation; McNemar and bootstrap statistics",
+ "memorization_vs_reasoning": "Author cautions convergence is not independent evidence: arms \"share a model family, a brief that names mechanism families, and the same practice data\"; independence for b25 and b50 assumed, not enforced. Only one arm (b50) intervened at the encoder, closest to the true cause.",
+ "limitations_stated": "Single 0.6B model and one successfully targeted pathology; small synthetic target sets; pathology largely a backend artifact (missing encoder window mask on sdpa/MPS); FA2 untested; agents from one LLM family; five controls per arm; clean WER regressions; in-sample selection on practice data.",
+ "code_or_data": "https://huggingface.co/tahaenesaslanturk/Qwen3-ASR-0.6B-weight-space-programming",
+ "cites_or_builds_on": ["Takehi et al., Sparks of Weight-Space Programming (blog, Nov 2026), Experiment 8 protocol"],
+ "notes_for_survey": "Independent replication of the WSP loop-repair protocol on an ASR model with matched random-direction controls; edits beat controls but the failure was mostly caused by a missing attention mask in the inference backend, which restoring without weight changes fixes about as well as the best edit. Distributed failure (code-switching) was not fixable, consistent with the original blog's Gemma result."
+}

@@ -1,0 +1,40 @@
+{
+ "id": "2611.12066",
+ "url": "https://arxiv.org/abs/2611.12066",
+ "title": "Weight-Space Programming for Medical Imaging: Do We Still Need Training Data?",
+ "authors": ["Maximilian Lindholz", "Richard Ruppel", "Annette Milnik", "Sebastian Halskov", "Semil Eminovic", "Charlie A. Hamm", "Robin Schmidt", "Anika Knupfer", "Jana Hutter", "Johanna P. Müller", "Carolina Dominguez Aleixo", "Jawed Nawabi", "Jens Vogel-Claussen", "Tobias Penzkofer"],
+ "date": "2026-11-09",
+ "read_level": "full",
+ "metadata_mismatch": "none",
+ "is_wsp": "core",
+ "why_wsp": "Claude Opus 5.5 and GPT-6 Astra each write every weight of a small LeNet-style CNN from a natural-language task description in a single tool-free reply, with no images or training.",
+ "primary_branch": "B2",
+ "secondary_branches": [],
+ "facets": ["evaluation", "application domain"],
+ "domain": "medical image classification (chest X-ray, breast ultrasound, abdominal CT from MedMNIST; pelvic MRI SynthUterus)",
+ "editor": "Claude Opus 5.5 (Claude Code 2.1.319 headless) and GPT-6 Astra (OpenAI Responses API), reasoning effort high",
+ "target": "ProgNet, a one-stage LeNet-style CNN, 591 to 6,974 parameters per task",
+ "interface": "direct values",
+ "loop": "one-shot",
+ "self_editing": "no; LLM writes a separate small CNN from scratch",
+ "fraction_or_count_of_weights_changed": "all weights written from zero; \"22-94% of their weights are exactly zero, and each network uses only 8-145 distinct values\" (Opus; Sec 4.2)",
+ "headline_results": [
+  {"claim": "Above chance on all six MedMNIST tasks", "quote": "The LLM-written networks perform above chance on all six MedMNIST tasks, with a mean test AUC of 0.719 for Opus and 0.711 for Astra.", "where": "Abstract; Table 2"},
+  {"claim": "Beat zero-shot MedSigLIP on 5 of 6 tasks", "quote": "Both models outperform MedSigLIP on 5 of 6 tasks while using more than 10^4 times fewer parameters.", "where": "Abstract; Table 2 (MedSigLIP mean 0.588)"},
+  {"claim": "Adam on 256 labels beats LLM-written nets on every MedMNIST task", "quote": "the same network trained with Adam on only 256 labelled images achieves a higher AUC on every MedMNIST task (mean AUC 0.828)", "where": "Abstract; Table 2"},
+  {"claim": "Low-exposure SynthUterus: Opus 0.764, Astra inverted", "quote": "On SynthUterus, Opus attains an AUC of 0.764, whereas Astra falls below chance (AUC 0.136) owing to a systematic error.", "where": "Abstract; Sec 4.1"},
+  {"claim": "ChestMNIST near chance", "quote": "ChestMNIST, the mean AUC over 14 findings, stays close to chance (0.552).", "where": "Sec 4.1"}
+ ],
+ "cost": [
+  {"claim": "Output length per reply", "quote": "128k output tokens including reasoning; answers take up to 79k", "where": "Sec 5 (limitations)"}
+ ],
+ "baselines_and_controls": "zero-shot MedSigLIP-448; same ProgNet trained with Adam on 256 labels and on full data; published ResNet-18 for reference; low-exposure dataset (SynthUterus) as contamination control",
+ "runs_and_variance": "three independent calls per LLM per task, mean +/- sd reported; quote: \"Results were consistent across the three independent calls, with the largest variation on BreastMNIST for Astra (0.067).\" (Sec 4.1)",
+ "robustness_of_edits": "not tested",
+ "verification": "none (empirical test-set AUC only)",
+ "memorization_vs_reasoning": "LLMs set output biases from unstated MedMNIST class priors they quote correctly (e.g. \"About 73% of BreastMNIST images are label 1\"; true 73.1%), while all SynthUterus biases were zero; authors state they cannot separate how much MedMNIST performance rests on dataset knowledge.",
+ "limitations_stated": "28x28 images and <=7k-weight networks; MedSigLIP handicapped by upsampled inputs and untuned prompts; SynthUterus small, synthetic, recent; two LLMs, one prompt; prompt did not describe image layout; MedMNIST contamination cannot be excluded.",
+ "code_or_data": "https://github.com/MaximilianLindholz/weight-space-programming-medical",
+ "cites_or_builds_on": ["Takehi et al. 2026 blog (WSP)", "csinva weight-space programming from scratch on simple tasks (report, 2026-11-02)", "critiques: Goedecke blog 2026-11-03; Honnibal blog 2026-11-03"],
+ "notes_for_survey": "Tests B2 writing in a domain with no source code for the rules; written networks beat a zero-shot VLM on 5/6 tasks but lose to 256-label training on all. Includes a weight-level comparison (sparse, few distinct values, textbook filters) and a low-exposure dataset where one writer inverted the classes from a layout assumption."
+}

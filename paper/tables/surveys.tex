@@ -1,0 +1,26 @@
+\begin{table}[t]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{3.5pt}
+\caption{How this survey relates to existing surveys and position papers. ``LLM editor'': the work discusses a general-purpose language model choosing weight values directly. ``Lineage'': it connects WSP to hypernetworks, model editing, fast weight programmers and compiled transformers. ``RSI'': it discusses recursive self-improvement. ``Persistence'': it examines whether edits survive fine-tuning, quantization or perturbation. \checkmark\ = covered; $\circ$ = partial or thin; -- = absent. Checks are by full-text search and reading, as of November 25, 2026. The two Preprints.org surveys were read from Internet Archive copies of their full text, because the publisher's site refused automated access. Both WSP surveys connect WSP to hypernetworks, model editing and compiled Transformers but not to fast weight programmers, so we mark both as partial on lineage. The emecii survey is in Chinese; an English edition exists in an unmerged branch of its repository.}
+\label{tab:surveys}
+\begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}p{4.1cm} l >{\raggedright\arraybackslash}X c c c c}
+\toprule
+Survey & Date & Focus & LLM editor & Lineage & Persistence & RSI \\
+\midrule
+Weight space learning \citep{ax2603_10090} & 2026-03 & Weight geometry, embeddings, generation by trained models & -- & $\circ$ & -- & -- \\
+Weight space as a modality \citep{ax2605_18632} & 2026-05 & Position: checkpoints as a generative modality & -- & $\circ$ & -- & -- \\
+Model merging in the LLM era \citep{ax2603_09938} & 2026-03 & Merging, task arithmetic, sparsification & -- & $\circ$ & -- & -- \\
+LLMs as optimizers \citep{ax2606_15577} & 2026-04 & Direct vs.\ tool-augmented LLM optimization & -- & -- & -- & -- \\
+Safety in self-evolving agents \citep{ax2606_23075} & 2026-06 & Threats across agent modules and lifecycle & -- & -- & -- & $\circ$ \\
+Self-improvement in agentic systems \citep{ax2607_13104} & 2026-07 & Model vs.\ scaffold updates & -- & $\circ$ & -- & \checkmark \\
+RSI: bounded to autonomous research \citep{ax2607_07663} & 2026-07 & Loop closure, evaluators, auto-research & -- & -- & -- & \checkmark \\
+The path to RSI agents \citep{liu2026pathrsi} & 2026-08 & Five-level RSI grading, co-improvement & -- & -- & -- & \checkmark \\
+RSI in AI: a survey \citep{wu2026rsisurvey} & 2026-09 & Mechanism-level account of RSI & -- & -- & -- & \checkmark \\
+WSP: methods, cost and limits \citep{emecii2026survey} & 2026-11 & Broad: WSP with editing, zeroth-order optimization, steering, architecture search & \checkmark & $\circ$ & $\circ$ & -- \\
+WSP with LLMs: a survey \citep{turkoglu2026survey} & 2026-11 & Evidence audit of 70 studies (54 primary); WSP-12 checklist & \checkmark & $\circ$ & $\circ$ & $\circ$ \\
+\midrule
+\textbf{This survey} & 2026-11 & Definition, lineage, reliability agenda, RSI conditions, open problems & \checkmark & \checkmark & \checkmark & \checkmark \\
+\bottomrule
+\end{tabularx}
+\end{table}

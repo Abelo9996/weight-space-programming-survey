@@ -1,0 +1,81 @@
+{
+ "id": "zenodo.24168084",
+ "url": "https://doi.org/10.5281/zenodo.24168084",
+ "title": "ZeGA: Zero-Gradient Gated Adaptation via Weight-Space Synapse Cartridges",
+ "authors": [
+  "Johan Thulin"
+ ],
+ "date": "2026-11-12",
+ "read_level": "full (10-page PDF text); figures not inspected",
+ "metadata_mismatch": "Concept DOI 24168084 resolves to version record 24168085 (version 'v1 preprint'). Title, author and date match the paper.",
+ "is_wsp": "peripheral",
+ "why_wsp": "Closed-form (SVD / ridge / polarization identity) synthesis of appended gated MLP channels from forward-pass calibration activations, with no gradient optimizer and no LLM editor; explicitly framed as extending WSP (Takehi et al.) to reversible cartridges.",
+ "exclusion_reason": null,
+ "primary_branch": "B5",
+ "secondary_branches": [
+  "B3"
+ ],
+ "facets": [
+  "application domain"
+ ],
+ "domain": "Swedish-language LLM adaptation, CLIP compositional binding, SDXL localized image editing",
+ "editor": "none (solver): closed-form SVD / ridge regression / Theorem 3 polarization construction",
+ "target": "Ministral-3-8B-Instruct-2512-BF16 (8,918,026,240 params); CLIP-ViT-B/32 (151,277,313 params); Juggernaut XL SDXL UNet (2.57B)",
+ "interface": "closed form",
+ "loop": "one-shot (SDXL: \"scalar offset/gain tuned on 1 development scene\")",
+ "self_editing": "no",
+ "fraction_or_count_of_weights_changed": "base weights untouched; appended \"+8/14,336 channels in L32 and +32/14,336 in L33\" (Ministral), \"+56/3,072 channels in visual L10\" (CLIP), \"+8/5,120 channels across 15 GEGLU blocks\" (SDXL)",
+ "headline_results": [
+  {
+   "claim": "Swedish benchmark gain on Ministral-3-8B",
+   "quote": "improves SwedMaster-300 from 73.67% to 84.00% (+10.33 pp, p = 1.64 × 10−6 )",
+   "where": "Abstract; Table 2"
+  },
+  {
+   "claim": "ScaLA-sv",
+   "quote": "the first 1,000 test items of ScaLA-sv [20] from 71.30% to 75.40% (p = 0.00864)",
+   "where": "Abstract; Table 2"
+  },
+  {
+   "claim": "Preservation on Ministral",
+   "quote": "DaLAJ-Derived Minimal Pairs (SuperLim v2) 500 90.80% 90.00% −0.80 pp (3W/7L, p = 0.3438)",
+   "where": "Table 2"
+  },
+  {
+   "claim": "CLIP compositional binding",
+   "quote": "on CompBind-240 (120 image pairs) from 0.83% to 25.83% (31 wins vs. 1 loss, within-suite p = 1.54×10−8",
+   "where": "Abstract; Table 3"
+  },
+  {
+   "claim": "SDXL targeted conversion",
+   "quote": "converts porcelain vessels into sapphire and gold filigree (0.16% → 85.94% across all 8 multi-object scenes",
+   "where": "Abstract; Table 4"
+  }
+ ],
+ "cost": [
+  {
+   "claim": "CLIP cartridge compile time",
+   "quote": "Compiled in 26.6 s without gradient optimization",
+   "where": "Abstract"
+  },
+  {
+   "claim": "Cartridge sizes",
+   "quote": "reversible, sub-megabyte (337–961 KiB), gradient-free gated adaptation",
+   "where": "Sec. 7"
+  }
+ ],
+ "baselines_and_controls": "Unedited base models; constant post-norm steering (Symmetric-150: 54.67%); 1-row and 2-row CLIP controls vs 4-row quartet; constant-gate control for SDXL. No LoRA/DoRA or ROME/MEMIT runs (compared only conceptually in Table 1).",
+ "runs_and_variance": "single run / not reported; exact McNemar tests on paired items",
+ "robustness_of_edits": "Detach restores base exactly (\"100.0000% full-byte SHA-256 restoration\"); preservation suites (Belebele, Anchor-40, Python-20, Math-20, CIFAR-100, CelebA); not tested under fine-tuning or quantization.",
+ "verification": "SHA-256 audits of base weights; string-overlap audits between calibration and evaluation sets; proofs of Theorem 3 polarization identities (real arithmetic)",
+ "memorization_vs_reasoning": "n/a (no LLM editor)",
+ "limitations_stated": "Corollary 1 bounds single-block residuals only; Family II doubles row count; SpatialRel Group Score stays below the 16.67% reference; CLIP suites are synthetic rather than Winoground/SugarCrepe; audio, video, trained diffusion adapter comparisons and Family III left to future work.",
+ "code_or_data": "https://github.com/Aphygo/zega-synapse-cartridges ; hf.co/Aphygo/zega-ministral3-8b-swedish-v1 ; hf.co/Aphygo/zega-clip-vit-b32-polarization-v1",
+ "cites_or_builds_on": [
+  "Takehi, Teoh, Zhang, Khattab 2026, Sparks of Weight-Space Programming (blog; Experiment 8)",
+  "WeightLoop, Li et al., arXiv:2611.07319",
+  "ROME, MEMIT, AlphaEdit",
+  "Transformer-Patcher, CaliNet"
+ ],
+ "notes_for_survey": "Gradient-free, LLM-free closed-form construction of detachable gated channels across text, vision-language and diffusion models, positioned as an extension of WSP; relevant to B5 as a non-LLM editor. No AI-authorship statement found."
+}

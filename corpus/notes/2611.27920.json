@@ -1,0 +1,42 @@
+{
+ "id": "2611.27920",
+ "url": "https://arxiv.org/abs/2611.27920",
+ "title": "Autonomous Parameter Surgery: How LLMs Implant Selective Backdoors into Language Models",
+ "authors": ["Xuyang Liu", "Zhiwei Xu", "Zirui Li", "Jiabao Gao", "Xiaolin Peng", "Weixian Deng", "Tian Qiu", "Hai Wan", "Xibin Zhao"],
+ "date": "2026-11-20",
+ "read_level": "full (PDF via pdftotext; main text, tables 1-3, limitations; appendices not read in detail)",
+ "metadata_mismatch": "none",
+ "is_wsp": "core",
+ "why_wsp": "DeepSeek-V4.1-Flash, in a restricted workspace (metered GPU probes, tagged linear algebra, rank-update/set_rows/replace write ops), turns a plain-text backdoor rule into gradient-free weight edits of a separate LM, iterating against dev and hidden-verification feedback.",
+ "primary_branch": "B3",
+ "secondary_branches": ["B4"],
+ "facets": ["safety", "evaluation"],
+ "domain": "LLM backdoor implantation (sentiment classification on IMDb/Yelp)",
+ "editor": "deepseek-flash (DeepSeek-V4.1-Flash-1017), low reasoning effort",
+ "target": "Qwen3.5-0.8B (24 blocks), Llama-3.2-1B (16 blocks; 1.24B scalars), SmolLM3-3B (36 blocks)",
+ "interface": "code/tensor tools (restricted JSON algebra graph with origin tags; write ops rank_update, set_rows, replace)",
+ "loop": "closed-loop with feedback (avg 46.3 turns, 3.8 candidate revisions; hidden verification gate)",
+ "self_editing": "no; editor modifies separate target models",
+ "fraction_or_count_of_weights_changed": "\"a single neuron edit on Llama-3.2-1B that modifies only 6,144 parameters (0.0005% of the model)\" (Sec 1); dense S-I2 edit \"22.47M of 22.54M entries modified\" of one down_proj (Sec 6.3)",
+ "headline_results": [
+  {"claim": "In-domain and transfer ASR", "quote": "the modified checkpoints reach 99.2% mean attack success on the editing domain and 97.6% transfer success on the unseen domain", "where": "Abstract; Table 2"},
+  {"claim": "Capability retention", "quote": "The average across seven multiple-choice tasks shifts by +0.07 pp ... IFEval strict accuracy shifts by −0.44 pp, GSM8K flexible accuracy by −0.91 pp, and GSM8K strict accuracy by −1.69 pp", "where": "Sec 6.1; Table 3"},
+  {"claim": "Final-block convergence without hints", "quote": "the LLM places its final intervention in the last transformer block in 17 of 18 runs", "where": "Sec 6.2"},
+  {"claim": "Iterative spillover suppression", "quote": "initial edits leak 24.7–54.5 pp onto neighboring triggers; iterative GPU feedback cuts drift to 3.5–3.8 pp at 98.5%–99.8% ASR", "where": "Fig. 3 caption; Sec 6.2"},
+  {"claim": "Rollbacks", "quote": "across all 18 runs, 171 of 436 algebra calls fail and roll back before the editor refines its calculation", "where": "Sec 6.2"},
+  {"claim": "Transfer asymmetry", "quote": "Edits learned on narrower Yelp reviews keep high trigger activation on IMDb (Yelp → IMDb: 97.03% ASR) but suffer larger boundary drift (8.75–10.50 pp)", "where": "Sec 6.1"},
+  {"claim": "Weight-norm evasion", "quote": "dense updates shift a tensor’s norm by as little as 0.29%–0.54%", "where": "Sec 7"}
+ ],
+ "cost": [
+  {"claim": "Per-run API cost and time", "quote": "runs average 46.3 turns, 16.5 minutes on a single consumer GPU, and $1.74 in API fees ($31.34 across all 18 runs", "where": "Sec 6.1; Appendix Table 14"}
+ ],
+ "baselines_and_controls": "Base checkpoints; five control conditions (clean, body marker, §§, §., § §) with directional error tracking; unseen-domain transfer; 7 MC benchmarks, WikiText-2 PPL, GSM8K, IFEval. Explicitly no human-designed editing baselines (BadEdit, SteerEdit) run.",
+ "runs_and_variance": "3 independent sessions per model-domain pair (18 total); mean ± sd over 3 runs per cell reported in Table 2.",
+ "robustness_of_edits": "Persistence tested by fresh-process reload with editor removed; domain transfer tested. No fine-tuning, quantization or defense robustness tests.",
+ "verification": "Hidden 256-item verification gate before submission; content-hashed checkpoints; trace auditing; statistical confirmation on ~4,000 reviews per domain. No formal verification.",
+ "memorization_vs_reasoning": "Workspace blocks CPU simulation by tagging tensor origin; authors cannot rule out prior exposure to architectures, but cite probing across depths, varied layer choices and 171/436 rolled-back algebra calls as \"pointing to active localization rather than static recall\".",
+ "limitations_stated": "Single editor model at low effort; no human-designed editing baselines in same harness; only two English sentiment datasets with fixed template/trigger; possible prior editor exposure to public targets; artifacts (checkpoints, prompts, updates) withheld.",
+ "code_or_data": "none found (authors withhold modified checkpoints, raw prompts and weight updates)",
+ "cites_or_builds_on": ["Takehi et al., Sparks of Weight-Space Programming (blog, 2026)", "WeightLoop (arXiv 2611.07319)", "WSP-Scope / Hu et al. 2026 (2611.09382)", "Weight Oracles (arXiv 2610.07334)", "IWIBench (arXiv 2611.08647)", "BadEdit", "ROME/MEMIT"],
+ "notes_for_survey": "Closed-loop WSP backdoor implantation with a cheap editor ($1.74/run) and a sandbox that prevents CPU-side simulation of edits; edits are selective against near-miss triggers and transfer across domains. Edits leave standard benchmarks and weight-norm statistics nearly unchanged; artifacts withheld."
+}

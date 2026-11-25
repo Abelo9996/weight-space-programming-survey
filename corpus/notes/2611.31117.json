@@ -1,0 +1,43 @@
+{
+ "id": "2611.31117",
+ "url": "https://arxiv.org/abs/2611.31117",
+ "title": "Self-Upgrading Embodied Agents",
+ "authors": ["Jiajun Fan", "Neil He", "Qinglong Zheng", "Changyi Yang", "Tong Wei", "Andy Mao", "Zetian Li", "Chaoran Cheng", "Hui Ren", "Ruihan Guo", "Xianrui Zhong", "Xizheng Yu", "Jingyuan Li", "Xi Zhu", "Kaiqu Liang", "Chang Xu", "Zun Qian", "Zidi Xiong", "Yuezhu Zhao", "Xu Huang", "Ge Liu"],
+ "date": "2026-11-23",
+ "read_level": "partial (arXiv HTML v1: Secs 1, 3, 4, 5 and Appendix A read; Sec 2 Related Work and Appendices B-E (pseudocode, experimental details, extra results) not read; figures as captions/text only)",
+ "metadata_mismatch": "none (21 authors match; paper header dated November 21, 2026, arXiv v1 dated 23 Nov 2026)",
+ "is_wsp": "core",
+ "why_wsp": "A Qwen3.5-27B ALFWorld agent, between task batches ('nights'), reads its own episode logs and hidden states via Python and writes a rank-one edit to one of its own tensors, keeping it only after paired tests and a confirmation on reserved tasks.",
+ "primary_branch": "B6",
+ "secondary_branches": ["B3", "B4"],
+ "facets": ["evaluation", "verification", "application domain: embodied agents (text household tasks)"],
+ "domain": "Embodied LLM agent in ALFWorld (text household tasks); reasoning replies hitting the 512-token limit",
+ "editor": "Qwen3.5-27B (the agent itself, published weights); same protocol on Qwen3.5-9B, 4B, 2B",
+ "target": "Qwen3.5-27B itself; kept edit is 'the output projection of the linear attention of layer 16' (one of 1,184 tensors)",
+ "interface": "code/tensor tools (Python environment on CPU holding all tensors; edit is a short program saving new tensor values)",
+ "loop": "closed-loop with feedback (up to 20 rounds of forward passes per night, paired tests vs last night's self, one confirmation on 256 reserved tasks; multi-night)",
+ "self_editing": "yes; the 27B agent edits its own weights, and each night starts from the weights the previous night left",
+ "fraction_or_count_of_weights_changed": "\"It changed one of the 1,184 tensors of its network ... by a rank-one update\" (Sec 4.6): W <- W + 10 u u^T W",
+ "headline_results": [
+  {"claim": "Held-out task completion", "quote": "the agent with its edit completes a task 45.2% of the time and the unchanged agent 41.6% (+3.6 points, 95% interval +1.9 to +5.2, p<10^{-4} )", "where": "Sec 4.2, Table 2"},
+  {"claim": "Wasted steps", "quote": "Steps without an action (% of steps) | 45.9 | 39.5 | -6.4 | [ -7.1 , -5.7 ]", "where": "Table 2"},
+  {"claim": "Tokens per episode", "quote": "Tokens an episode (k) | 15.1 | 13.9 | -1.2 | [ -1.4 , -1.0 ]", "where": "Table 2"},
+  {"claim": "Unseen rooms", "quote": "There it completes a task 42.2% of the time against 37.8%", "where": "Sec 4.2"},
+  {"claim": "Night vs day agreement", "quote": "On the reserved tasks of its confirmation the agent measured a change of -6.3 points ... On the held-out tasks, with fresh seeds, the change is -6.4 points", "where": "Sec 4.5"},
+  {"claim": "Edits kept across nights", "quote": "In our experiments the 27B agent kept one edit in the four nights", "where": "Fig. 1 caption; Sec 4.3, 4.7"},
+  {"claim": "Scale dependence", "quote": "Only the 27B agent diagnoses itself, measures its way to an edit and keeps the one that holds.", "where": "Sec 1; Table 3 (9B and 4B one night each, no edit kept; 2B too few completions)"}
+ ],
+ "cost": [
+  {"claim": "Time and tokens for the night that kept its edit", "quote": "took 7.7 hours from its first turn to its decision: 5.0 hours for its 15 rounds of forward passes, 2.3 hours for the confirmation ... it wrote about 27 thousand tokens of reasoning and code", "where": "Sec 4.5"},
+  {"claim": "Hardware", "quote": "The whole night ran on the one GPU that serves the agent", "where": "Sec 4.5"}
+ ],
+ "baselines_and_controls": "Unchanged agent (published weights) on same held-out tasks and seeds (48 seeds per task); paired tests vs last night's self; confirmation on reserved practice tasks; smaller same-family models (9B, 4B, 2B). No comparison to fine-tuning, reflection/memory scaffolds, or external-editor WSP.",
+ "runs_and_variance": "Held-out: 48 fresh seeds per task, paired, task as unit, 95% bootstrap intervals and sign-flip permutation tests; four nights reported for 27B (one kept edit), one night each for 9B and 4B. Quote: 'We report four nights in a row' (Sec 4.1)",
+ "robustness_of_edits": "Edit persisted through two subsequent nights that withdrew their own edits; tested on rooms not seen in practice; no fine-tuning/quantization tests",
+ "verification": "Statistical: paired tests with standard errors ('A difference within two standard errors is reported to the agent as noise'), confirmation on 300-task reserved pool (256 used), pre-registered levels for five held-out measures (Sec D.3). No formal verification.",
+ "memorization_vs_reasoning": "Night transcripts show diagnosis, wrong-place and wrong-sign edits, reversal and strength tuning (Fig. 8). No direct test of editor memorization.",
+ "limitations_stated": "No explicit limitations section found in main text or Appendix A. Stated scope: one text household environment, one open 27B model; only one of four nights kept an edit; smaller models did not keep edits.",
+ "code_or_data": "none found",
+ "cites_or_builds_on": ["Takehi et al. 2026 Sparks of Weight-Space Programming blog, ref [34]", "Fan et al. 2026 'Language models can rewrite their own weights', 2611.21885, ref [4]", "Hu et al. 2026 'Exploring weight-space programming', 2611.09382, ref [6]", "Zhang et al. 2026 'Can LLMs debug robots by editing their weights?', 2611.09376, ref [44]"],
+ "notes_for_survey": "Self-editing WSP in an embodied agent: the editor and target are the same 27B model, with a keep/withdraw protocol based on paired tests and a reserved-task confirmation. One rank-one edit kept across four nights; effect +3.6 points completion on held-out tasks. The paper's prose frames results in strong terms (e.g. 'recursive self-improvement'); the measured evidence is one kept edit."
+}

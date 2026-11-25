@@ -1,0 +1,66 @@
+{
+ "id": "2611.32332",
+ "url": "https://arxiv.org/abs/2611.32332",
+ "title": "GUI-WEdit and GUI-SkillEvo: Gradient-Free Adaptation of Small GUI Agents",
+ "authors": [
+  "Haixia Bi",
+  "Yingtian Chen",
+  "Sihan Yang",
+  "Zuzheng Kuang",
+  "Yuzhen Tong",
+  "Kai Fu",
+  "Zhengyong Wan"
+ ],
+ "date": "2026-11-24",
+ "read_level": "full (PDF v1 via pdftotext; no HTML version exists; 5-page technical report, Figure 1 as caption only)",
+ "metadata_mismatch": "none in title/authors; the PDF body states \"Date: November 16, 2026\" while arXiv v1 is dated 24 Nov 2026",
+ "is_wsp": "peripheral",
+ "why_wsp": "For the 4B model, an unspecified 'research assistant' diagnoses OSWorld failures from trajectories and a fixed equality-constrained closed-form solve (gradients disabled, no optimizer) computes the update to one late MLP down_proj; the paper cites WSP as motivation but does not say an LLM determines the weight values, and the 2B route edits skill text, not weights.",
+ "exclusion_reason": null,
+ "primary_branch": "B5",
+ "secondary_branches": [
+  "B3",
+  "B4"
+ ],
+ "facets": [
+  "application domain: desktop GUI agents (OSWorld)"
+ ],
+ "domain": "GUI / computer-use agents on OSWorld",
+ "editor": "4B: closed-form constrained solve (Eq. 2); targets chosen from diagnosed failures by a 'research assistant' / 'development assistant' that is not named. Paper: \"Weight-space programming motivates using a language-model assistant to inspect failures and implement targeted changes to model parameters [3, 4]. Our implementation uses supervised state-action evidence and a constrained closed-form solve.\" (Sec 1). 2B: assistant drafts skills, weights fixed.",
+ "target": "GUI-Owl-1.5-4B-Instruct, layer 35 mlp.down_proj (2560 x 9728); GUI-SkillEvo uses GUI-Owl-1.5-2B-Instruct with weights unchanged",
+ "interface": "closed form (\"Delta W = U (K^T C^-1 K)^-1 K^T C^-1\", Eq. 2, with guard bank of successful states)",
+ "loop": "closed-loop with feedback (candidates screened on guard residuals then evaluated in closed-loop desktop interaction; earlier accepted edits retained)",
+ "self_editing": "no",
+ "fraction_or_count_of_weights_changed": "\"An elementwise audit against the original backbone found 23,739,095 changed values in this single tensor out of 4,437,815,808 total parameter values (0.5349%). The other 712 serialized tensors are identical.\" (Sec 2.1)",
+ "headline_results": [
+  {
+   "claim": "Final OSWorld 361-task scores",
+   "quote": "GUI-SkillEvo-2B 37.68 45.47 +7.79 159/361 ... GUI-WEdit-4B 43.43 48.02 +4.59 168/361",
+   "where": "Table 2 (historical base / final / difference / full score)"
+  },
+  {
+   "claim": "Task-level change for 4B edit",
+   "quote": "Against the historical 4B reference, 38 tasks improve, 20 decrease, and 303 retain the same score.",
+   "where": "Sec 4"
+  },
+  {
+   "claim": "Final edit construction",
+   "quote": "The final construction stage used one target input and 812 guard inputs, yielding 34,707 protected token states",
+   "where": "Sec 2.1"
+  }
+ ],
+ "cost": [],
+ "baselines_and_controls": "Historical project reference scores of the unedited backbones only (\"Historical backbone test scores are included for reference\"); no fine-tuning, random-edit, or prompting baselines.",
+ "runs_and_variance": "single run / not reported (greedy decoding, temperature 0; one final evaluation per system)",
+ "robustness_of_edits": "Construction accounts for BF16 rounding: \"account for BF16 rounding and the configured repetition penalty in token checks, and reject candidates that violate the declared checks after serialization\" (Sec 2.1). No fine-tuning or quantization survival tests.",
+ "verification": "Elementwise checkpoint audit against original backbone; guard-state constraints; no formal verification.",
+ "memorization_vs_reasoning": "n/a",
+ "limitations_stated": "None stated in a dedicated section; paper describes itself as \"an engineering study of a feedback-driven adaptation workflow\".",
+ "code_or_data": "none found",
+ "cites_or_builds_on": [
+  "Takehi et al. 2026, Sparks of Weight-Space Programming (blog) [3]",
+  "Zhang, Wang, Lin, Can LLMs Debug Robots by Editing Their Weights?, arXiv 2611.09376 [4]",
+  "RSI-Anything, arXiv 2610.13912 [5]"
+ ],
+ "notes_for_survey": "Cites WSP as motivation but the 4B weight values come from a ROME-like equality-constrained closed-form solve over guard and target activations; whether an LLM picks the target states is not stated (only an unnamed 'research assistant'). Baseline is a historical reference score, not a re-run of the unedited model in the same harness. The 2B half is prompt/skill evolution with frozen weights and is not WSP."
+}

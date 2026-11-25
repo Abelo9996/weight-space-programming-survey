@@ -1,0 +1,43 @@
+{
+ "id": "2611.11604",
+ "url": "https://arxiv.org/abs/2611.11604",
+ "title": "Weight-Space Programming of Policies and Their Verification via Model Checking",
+ "authors": ["Dennis Gross"],
+ "date": "2026-11-08",
+ "read_level": "full (arXiv HTML, all sections)",
+ "metadata_mismatch": "none",
+ "is_wsp": "core",
+ "why_wsp": "An LLM writes all weights of a small ReLU policy network as numbers from a PRISM MDP and PCTL property, then edits them using dataset and Storm model-checking feedback, with no gradient descent.",
+ "primary_branch": "B2",
+ "secondary_branches": ["B4"],
+ "facets": ["verification", "safety", "evaluation"],
+ "domain": "sequential decision-making / RL policies in PRISM MDPs (Frozen Lake, Transporter, Stock Market)",
+ "editor": "DeepSeek-V4-Pro, Kimi-K3.1-Pro (via Ollama cloud)",
+ "target": "feed-forward ReLU policy networks, 1x16 (Frozen Lake) or 2x32 hidden layers (others); parameter count not stated",
+ "interface": "direct values (LLM outputs all weights as JSON numbers plus notes and self-check states)",
+ "loop": "closed-loop with feedback (self-check retries, up to 5 dataset-repair rounds, up to 5 model-checking rounds)",
+ "self_editing": "no; LLM writes and edits a separate policy network (it edits its own previously written design via notes)",
+ "fraction_or_count_of_weights_changed": "all weights written from scratch: 'an LLM writes all weights of a policy network'",
+ "headline_results": [
+  {"claim": "All 18 RQ1 runs reach optimal probability after creation step alone", "quote": "All 18 runs reach the optimal probability, all of them already after Step 1", "where": "Sec 5.2, Table 2"},
+  {"claim": "Kimi created networks pick optimal action in 98.9% of states; 100% after dataset repair", "quote": "The created networks of Kimi-K3.1-Pro select an optimal action in 98.9% of the states on average; after Step 2, they do so in all states in all nine runs.", "where": "Sec 5.2"},
+  {"claim": "DeepSeek transporter accuracy only 59.5% yet optimal probability", "quote": "only 59.5% on the transporter, where two of its three networks select an optimal action in only 39% of the states.", "where": "Sec 5.2"},
+  {"claim": "Generalization 2->3 jobs in 4 of 6 networks; failing ones get probability 0", "quote": "For each LLM, two of the three networks also reach the optimal probability with three jobs, although the LLM never saw the three-job model", "where": "Sec 5.3, Table 3"},
+  {"claim": "Fuel-reserve until-requirement satisfied in 6/6 runs; dataset repair broke it once and model-checking repair fixed it", "quote": "Step 2 then raises the accuracy from 37.9% to 98.4%, but the most accurate network satisfies the requirement with probability 0. A single model-checking repair restores it", "where": "Sec 5.4, Table 4"},
+  {"claim": "Most common error is wrong matrix shape", "quote": "The most common error is a wrong network shape, in 32 of the 67 answers of DeepSeek-V4-Pro (48%) and in 8 of the 28 answers of Kimi-K3.1-Pro (29%).", "where": "Sec 5.5, Table 5"}
+ ],
+ "cost": [
+  {"claim": "Mean LLM calls per run (All: DeepSeek 3.6, Kimi 2.1 in RQ1; RQ3: 11.7 vs 3.3)", "quote": "DeepSeek-V4-Pro needs 11.7 calls per run on average, Kimi-K3.1-Pro 3.3.", "where": "Sec 5.4, Tables 2 and 4"},
+  {"claim": "Max 30 LLM calls per run", "quote": "Each run makes at most (1+E+R-1)·(r+1)=30 LLM calls", "where": "Sec 5.1"},
+  {"claim": "Total requests", "quote": "DeepSeek-V4-Pro sent 67 requests for its 12 runs, Kimi-K3.1-Pro 29", "where": "Sec 5.5"}
+ ],
+ "baselines_and_controls": "Optimal probabilities and optimal-action datasets computed by Storm as reference; comparison between two LLMs and across pipeline steps. No RL-trained or random baselines.",
+ "runs_and_variance": "3 seeds per configuration (temperature 0, cloud nondeterminism): 'we repeat each experiment three times with the seeds 1, 2, and 3' (Sec 5.1); means reported, no variance/CIs; authors call numbers 'indicative rather than precise estimates'.",
+ "robustness_of_edits": "Generalization test only (2-job networks checked on 3-job model without change: 4/6 optimal). No fine-tuning/quantization tests.",
+ "verification": "formal: probabilistic model checking of induced DTMC against PCTL with Storm via COOL-MC; every returned policy verified (threshold = optimum minus 1e-4)",
+ "memorization_vs_reasoning": "Authors flag contamination risk: 'we cannot rule out that the LLMs saw these models or related policies during training' (Sec 6). Self-check catches cases where weights do not encode LLM's own intended policy.",
+ "limitations_stated": "Small environments/networks (max 16,496 states, 2x32 hidden); two LLMs, three seeds; repair step rarely exercised (23 of 24 created policies already satisfied property); LLMs lose count writing long matrices; no guarantee a satisfying network is found within R rounds; possible training-data contamination.",
+ "code_or_data": "https://github.com/LAVA-LAB/COOL-MC/tree/wsp_verified",
+ "cites_or_builds_on": ["Takehi et al. 2026 'Sparks of weight-space programming' blog [2]", "Zheng et al. 2026 arXiv:2611.04268 (WSP for image-restoration diffusion)", "Cha et al. 2026 arXiv:2611.05798 (orbit audits)", "COOL-MC / Storm", "Tracr"],
+ "notes_for_survey": "Couples WSP policy writing with formal probabilistic model checking so every returned policy has a computed (not estimated) satisfaction probability. Shows dataset accuracy is a poor proxy for property satisfaction. Proposes setting as a WSP benchmark with Storm ground truth."
+}

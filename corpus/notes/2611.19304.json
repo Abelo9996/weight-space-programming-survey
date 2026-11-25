@@ -1,0 +1,41 @@
+{
+ "id": "2611.19304",
+ "url": "https://arxiv.org/abs/2611.19304",
+ "title": "A Backdoor Trigger Is Legible in Fine-Tune Weights",
+ "authors": ["Snigdha Chandan Khilar"],
+ "date": "2026-11-14",
+ "read_level": "full (PDF via pdftotext; main text and Limits read closely, appendix tables skimmed)",
+ "metadata_mismatch": "Corpus abstract is truncated to the first paragraph; full abstract also reports held-out counts and adaptive-attack failures. Otherwise none.",
+ "is_wsp": "peripheral",
+ "why_wsp": "No LLM editor: a hand-designed static statistic reads a fine-tuned checkpoint's weight delta (vs base, standardised against clean fine-tunes) to name a backdoor trigger token without running the suspect; it addresses the weights-to-description question that the WSP blog reported a frontier model failed at.",
+ "primary_branch": "B1",
+ "secondary_branches": ["B5"],
+ "facets": ["safety", "evaluation"],
+ "domain": "LLM backdoor/trigger recovery (auditing fine-tuned checkpoints)",
+ "editor": "none (static weight-delta statistic)",
+ "target": "SmolLM2-360M, GPT-2-medium, Qwen2.5-0.5B (reported separately); Pythia-410m in development only",
+ "interface": "closed form",
+ "loop": "n/a",
+ "self_editing": "no",
+ "fraction_or_count_of_weights_changed": null,
+ "headline_results": [
+  {"claim": "Held-out trigger recovery at rank 1", "quote": "it recovers an exact trigger token in 14 of 14 ordinary backdoors on SmolLM2-360M and GPT-2-medium", "where": "Abstract; Table I"},
+  {"claim": "Robust to freeze and camouflage attackers", "quote": "a full freeze of the early block (12 of 14), and a camouflage pass that retrains that block on clean data (10 of 12, including all five rungs of a camouflage ladder)", "where": "Abstract; Sec VII"},
+  {"claim": "Deep freeze + fill defeats it", "quote": "An attacker that freezes past the scan window and fills the frozen block takes recovery to 0 of 16", "where": "Abstract; Sec XI"},
+  {"claim": "Statistic-as-penalty attack defeats output criterion at no cost", "quote": "takes recovery to 0 of 2 at every penalty strength, again with attack success at 1.00 and clean accuracy unchanged", "where": "Abstract; Sec VII-A"},
+  {"claim": "Scale-normalised detection false positives", "quote": "0 of 6 clean models flagged against 2 of 6 for the unnormalised statistic, with every backdoor still detected", "where": "Sec I contributions; Sec X"},
+  {"claim": "Reads correlate not mechanism", "quote": "restoring every scanned weight to its base value leaves attack success at 0.97", "where": "Sec I; Sec XI"}
+ ],
+ "cost": [
+  {"claim": "Base-model basis computation, cached once", "quote": "under fifteen minutes for a 50k vocabulary on one GPU", "where": "Sec V"}
+ ],
+ "baselines_and_controls": "Decoy prefixes trained alongside trigger; clean fine-tune null population (five clean models); ablations of per-token standardisation and layer-input basis (Sec IX); calibration repair tested and found worse. No forward-pass trigger-inversion baseline run (stated in Limits).",
+ "runs_and_variance": "Held-out designs at 2-3 seeds each (Table I: SmolLM2 H0-H3 x two seeds; GPT-2/Qwen G0,G1 x three seeds); \"Adaptive results are one or two seeds per cell\" (Sec XI).",
+ "robustness_of_edits": "n/a (detector); robustness of detection tested against freeze, camouflage, norm injection, learning-rate changes, deep freeze + fill, and adaptive gradient penalty.",
+ "verification": "none formal; rule frozen in writing before held-out designs were built (pre-specification)",
+ "memorization_vs_reasoning": "n/a",
+ "limitations_stated": "One synthetic task, 12.5% poison rate, frozen embeddings, single payload, nothing above 0.5B parameters; no forward-pass baseline; deep-freeze+fill and statistic-penalty attackers defeat it; reads a correlate, not the mechanism.",
+ "code_or_data": "https://github.com/nssprogrammer/wsp_backdoor (rendered in PDF as 'wsp backdoor')",
+ "cites_or_builds_on": ["Takehi et al., Sparks of Weight-Space Programming (ref [20]; cited as posing and answering negatively the question of reading a fine-tune's training objective)", "Dar et al. (vocabulary-space projection of parameters)", "E-PUR / Fine-mixing"],
+ "notes_for_survey": "Non-LLM, closed-form B1 reader positioned against the WSP blog's negative reading result; works on <=0.5B models with full fine-tunes and frozen embeddings. Includes the author's own adaptive attacks that defeat the single-token output criterion."
+}

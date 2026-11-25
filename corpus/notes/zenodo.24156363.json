@@ -1,0 +1,42 @@
+{
+ "id": "zenodo.24156363",
+ "url": "https://doi.org/10.5281/zenodo.24156363",
+ "title": "Closed-form neuron rewrites in open-weight LLMs: a constructive Gemma-4-12B edit by a frontier agent, a covert Qwen3.8-27B implant, and what a reference-free weight scan sees",
+ "authors": ["Valerio Dolci"],
+ "date": "2026-11-12",
+ "read_level": "full (4-page technical note PDF from record 24156364; Zenodo API blocked, PDF obtained via web fetch and converted with pdftotext)",
+ "metadata_mismatch": "PDF states DOI 10.5281/zenodo.24156364 (version record) while corpus id is 24156363 (likely concept record). No affiliation given.",
+ "is_wsp": "core",
+ "why_wsp": "Claude Opus 5.5, as a headless Claude Code agent with gradients and optimisers blocked, rewrote 8 MLP neurons of Gemma-4-12B-it with closed-form ridge detectors to shift an English-to-Italian tense choice; the note also scans weights reference-free to detect this edit and a separately gradient-trained Qwen implant.",
+ "primary_branch": "B3",
+ "secondary_branches": ["B1", "B4"],
+ "facets": ["safety", "evaluation"],
+ "domain": "machine translation preference (EN->IT tense); LLM backdoor/implant detection",
+ "editor": "Claude Opus 5.5 (headless Claude Code, effort max) for the Gemma edit; Qwen implant built by author + Claude with gradient training (not WSP)",
+ "target": "Gemma-4-12B-it (8 neurons, layers 31 and 34 of 48); Qwen3.8-27B (1,024 neurons, implant)",
+ "interface": "closed form",
+ "loop": "closed-loop with feedback",
+ "self_editing": "no",
+ "fraction_or_count_of_weights_changed": "\"rewrote 8 existing MLP neurons of Gemma-4-12B-it (layers 31 and 34 of 48; gate, up and down; 92,148 parameters, 0.00077% of the model)\" (Abstract); Qwen implant \"15.73 M parameters (0.0585%)\" (Sec 3)",
+ "headline_results": [
+  {"claim": "Targeted tense shift with unchanged COMET", "quote": "non-preferred form 26% → 5% on a held-out set; 16 shifted, 0 reverted, 2 controls broken), with FLORES COMET unchanged (0.8945)", "where": "Abstract; Sec 2 table"},
+  {"claim": "Paired significance", "quote": "Paired on the target items, e50c shifts 16 and reverts 0 (v2) and 17/0 (v3), exact McNemar p < 10^-4.", "where": "Sec 2"},
+  {"claim": "Simpler alternative matches", "quote": "a later review found that doubling one native neuron (L33 n1640) gives the same shift.", "where": "Sec 2"},
+  {"claim": "Reference-free norm scan finds Gemma edit", "quote": "ranks the 8 edited Gemma neurons as the top 8 of all 737,280 MLP neurons (AUC 1.0) and separates the Qwen implant (AUC 0.99999)", "where": "Abstract; Sec 4"},
+  {"claim": "Norm matching defeats scan", "quote": "Rescaling only the implant's down columns to the layer median brings both the down-norm score and a three-projection log-norm score to chance or below", "where": "Abstract; Sec 4"},
+  {"claim": "Implant behaviour (gradient-trained, not WSP)", "quote": "the recommended first pick becomes the target brand in 92% of answers (base 2%; persona prompt 94%)", "where": "Sec 3"}
+ ],
+ "cost": [
+  {"claim": "Session budget and duration", "quote": "a budget of 50 forward passes and 300 Python runs on the original bf16 weights", "where": "Sec 2"},
+  {"claim": "Successful session", "quote": "(e50c, about two hours, 30 forward passes)", "where": "Sec 2"}
+ ],
+ "baselines_and_controls": "unedited Gemma; system-prompt rule (non-preferred 4%/2% but 49 controls broken, COMET 0.8911); LoRA r16 with minimal-edit targets (12%/23%, 0 controls broken); control items where the trapassato must stay; second LLM judge; spectral directional-ablation detector as comparison",
+ "runs_and_variance": "\"Two of three sessions succeeded (one failed for an infrastructure out-of-memory fault, fixed afterwards)\"; results reported for one session (e50c); greedy decoding; no variance reported",
+ "robustness_of_edits": "Detector fires on 1-10% of raw-text tokens (MMLU, code) vs 0.1-0.2% in translation chats; chosen neurons not actually rarely used on raw text (50th-99.6th percentile); Q4_K_M GGUF published but quantized behaviour not reported in note",
+ "verification": "statistical (exact McNemar); SHA-256 manifest for deltas; reference diff vs original weights",
+ "memorization_vs_reasoning": "n/a; note that a single native-neuron doubling reproduces the shift",
+ "limitations_stated": "Neurons not rarely used on raw text; detector over-fires outside translation; norm-matching evasion untested behaviourally (rescaled implant writes ~4x stronger); directional detection features not tested; norm scans find careless edits, not careful ones.",
+ "code_or_data": "https://github.com/ValerioDolci/frontier-weight-edit; HF Feyd89/Gemma-4-12B-it-tense-edit-weight-space; HF Feyd89/Qwen3.8-27B-TAMPERED-brand-implant-experiment; scan code attached to Zenodo record",
+ "cites_or_builds_on": ["Takehi et al. 2026 Sparks of WSP (MIT CSAIL blog) [1]", "Zeng, Severi, Bullwinkel, Horvitz, Papailiopoulos, Lazare veni foras (Lazarus), Microsoft Research 2026-11-10 [2]"],
+ "notes_for_survey": "Agentic closed-form neuron rewrite (8 neurons, 0.00077%) producing a targeted translation preference shift, compared against system-prompt and LoRA baselines. Also a safety/detection result: per-neuron norm outlier scans catch both edits but are defeated by norm matching, so reference diffs or signed checkpoints are recommended; experiments and drafts were produced by Claude Opus 5.5 as a coding agent."
+}

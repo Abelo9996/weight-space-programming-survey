@@ -1,0 +1,42 @@
+{
+ "id": "2611.17395",
+ "url": "https://arxiv.org/abs/2611.17395",
+ "title": "Can LLMs Write Backdoors? An Empirical Security Study of Weight-Space Programming",
+ "authors": ["Zhaojia Wang", "Jiucui Lu", "Zheng Li"],
+ "date": "2026-11-12",
+ "read_level": "full (PDF via pdftotext; some table cells garbled in extraction, values taken from running text)",
+ "metadata_mismatch": "none",
+ "is_wsp": "core",
+ "why_wsp": "General-purpose LLMs receive a trained model's weights plus a natural-language backdoor spec and return modified weights, with no task data, no target forward passes and no gradients.",
+ "primary_branch": "B3",
+ "secondary_branches": [],
+ "facets": ["safety", "evaluation"],
+ "domain": "backdoor injection into image classifiers (MNIST, CIFAR-10) and an LLM news classifier (AG News)",
+ "editor": "GPT-6 Astra, GPT-5.6 Sol, Kimi-V3, DeepSeek-V4.1-Flash, Tencent Hy4",
+ "target": "MLP on MNIST; ResNet-18 on CIFAR-10 (~11.18M params); Qwen2.5-0.5B-Instruct on AG News (base, full-FT, LoRA-FT variants)",
+ "interface": "other (editor given weights; algorithm unprescribed; may inspect vocabulary or public references; no execution of target)",
+ "loop": "one-shot (no feedback: \"the independent evaluation results are not fed back to the editor\")",
+ "self_editing": "no; editors modify separate target models",
+ "fraction_or_count_of_weights_changed": "\"only six parameters for the MLP and 0.02% of the weights for a fine-tuned Qwen model\" (Abstract); ResNet-18 Astra edit \"changed 83,407 scalar parameters (0.75% of the target model)\" (Sec 4.2); Qwen Astra edit \"changing 119,300 scalar parameters\" (Sec 4.3)",
+ "headline_results": [
+  {"claim": "Astra 100% ASR on all three targets", "quote": "GPT-6 Astra achieves a 100% attack success rate across all three target models", "where": "Sec 1"},
+  {"claim": "MLP: 6 parameters, no measured clean-acc loss", "quote": "Astra’s edit attained 100.00% Post-ASR while changing only six scalar parameters (Table 2). Clean accuracy remained at 94.99%, and FPR at 0.61%", "where": "Sec 4.2, Table 2"},
+  {"claim": "ResNet-18 clean-acc drop", "quote": "Astra’s edited model reached 100.00% PostASR; clean accuracy decreased by 1.43 percentage points to 90.53%, and FPR increased from 1.11% to 1.76%", "where": "Sec 4.2, Table 3"},
+  {"claim": "Qwen edits vs poisoning baseline", "quote": "Full-Clean-Edit retained higher clean accuracy than Full-Poison (94.50% versus 94.02%) and a lower FPR (0.95% versus 1.25%)", "where": "Sec 4.2, Table 1"},
+  {"claim": "Only Astra succeeded on Qwen", "quote": "GPT-5.6 Sol, Kimi-V3, and Tencent Hy4 obtained Post-ASR values of 0.88%, 0.94%, and 0.99%, respectively ... DeepSeek-V4.1-Flash reached 3.45% PostASR", "where": "Sec 4.3"},
+  {"claim": "All five editors backdoored the MLP with differing edit sizes", "quote": "GPT-6 Astra modified 6 parameters, GPT-5.6 Sol 913, Kimi-V3 1,052, DeepSeek-V4.1-Flash 8,475, and Tencent Hy4 1,179", "where": "Sec 4.3"},
+  {"claim": "Sparsity does not imply preservation (ResNet-18)", "quote": "DeepSeek-V4.1-Flash changed the fewest parameters among the successful ResNet-18 edits (29,769) but had the largest observed collateral effects: Clean ACC fell to 69.47% and FPR rose to 24.41%", "where": "Sec 4.3"}
+ ],
+ "cost": [
+  {"claim": "No editor compute reported; training baselines' GPU memory only", "quote": "These observations support a comparison of behavioral outcomes and weight changes, not a controlled claim of lower total compute cost", "where": "Sec 4.2"}
+ ],
+ "baselines_and_controls": "Poisoning-based fine-tuning (full and LoRA for Qwen; 5% poisoned for MNIST/CIFAR); pre-edit ASR and FPR of starting models; cross-editor comparison under matched permissions.",
+ "runs_and_variance": "single run / not reported; \"our results characterize the available edited models rather than the success probability of individual editing requests, as complete editing-attempt records are not available\" (Sec 5)",
+ "robustness_of_edits": "not tested",
+ "verification": "none",
+ "memorization_vs_reasoning": "Editors could consult public reference materials (vision targets). RQ3 examines a Sol editing record (position-dependent trigger hypothesis) and DeepSeek weight diffs but states these \"do not, by themselves, establish trigger-specific causation\".",
+ "limitations_stated": "Three architectures and specific triggers only; no per-request success probabilities (incomplete attempt records); exploratory analysis not causal.",
+ "code_or_data": "none found",
+ "cites_or_builds_on": ["Takehi et al., Sparks of Weight-Space Programming (blog, Nov 2026)", "BadEdit (arXiv 2403.13355)", "Hong et al., Handcrafted backdoors (NeurIPS 2022)", "Zeng et al., Lazare, veni foras (Microsoft Research preprint, Nov 2026)"],
+ "notes_for_survey": "Open-loop, data-free, no-forward-pass backdoor implantation by five LLM editors; capability differs sharply by editor (only Astra succeeded on Qwen). Results are from single returned models per editor-target, with no repeated attempts or robustness/detection tests."
+}

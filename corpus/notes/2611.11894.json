@@ -1,0 +1,43 @@
+{
+ "id": "2611.11894",
+ "url": "https://arxiv.org/abs/2611.11894",
+ "title": "Distilling Instructions into Weights: Closed-Form Edits Fix a Robot Policy's Misreading",
+ "authors": ["Ali-Adeeb Abbas", "Esmaeil Seraj"],
+ "date": "2026-11-09",
+ "read_level": "full (main text; appendices skimmed)",
+ "metadata_mismatch": "none",
+ "is_wsp": "core",
+ "why_wsp": "A Claude Opus operator session (and seven blind Claude Opus editors) edit a pi0.5 VLA policy's weights with closed-form, gradient-free updates computed from activations, chiefly a multi-key minimum-norm update that writes the effect of a known-good instruction rewording into VLM MLP weights.",
+ "primary_branch": "B3",
+ "secondary_branches": ["B5", "B4"],
+ "facets": ["evaluation"],
+ "domain": "robot manipulation (vision-language-action policy, RoboLab in Isaac Sim)",
+ "editor": "Claude Opus (operator session and seven blind autonomous editors); GPT-6 Astra edits from companion study; released tool 'weightsmith distill' computes the closed form",
+ "target": "OpenPI pi0.5 DROID checkpoint, 'about 3.35 billion parameters' (Sec. 3)",
+ "interface": "closed form (regularized minimum-norm multi-key update, Eq. 1) built in a NumPy sandbox with activation capture",
+ "loop": "closed-loop with feedback (offline replay check, practice-seed closed-loop eval, then frozen for held-out)",
+ "self_editing": "no; Claude Opus edits a separate robot policy",
+ "fraction_or_count_of_weights_changed": "'The full edit is low-rank but not sparse. It changes 13.4% of the policy's stored values, and the 0.16% variant still changes 7.4% once applied.' (Sec. 5); low-rank factors of the small variant are '5.3 million parameters, or 0.16% of the parameter count' (Sec. 4.2)",
+ "headline_results": [
+  {"claim": "Distilled edit on 128 held-out seeds", "quote": "success rises from 27/128 (21.1%) to 106/128 (82.8%), with 81 episodes fixed and 2 broken", "where": "Sec. 4.1"},
+  {"claim": "Random-direction control of same size does nothing", "quote": "a random-direction update with the same layers, rank, and singular values scored 9/64", "where": "Sec. 4.1"},
+  {"claim": "0.16% variant keeps most effect", "quote": "this variant scores 102/128 against 19/128 (86 fixed, 3 broken; exact p = 3.8 × 10−22 )", "where": "Sec. 4.2"},
+  {"claim": "Transfer to two other tasks", "quote": "picking up the eyeglasses rises from 22/64 to 44/64", "where": "Sec. 4.3"},
+  {"claim": "Released tool reproduces fix end to end", "quote": "Success rose from 8/64 to 36/64, with 33 starts fixed and 5 broken", "where": "Sec. 4.5"},
+  {"claim": "Only 1 of 7 blind Claude Opus editors passed held-out", "quote": "One of seven submissions passed.", "where": "Sec. 4.6, Table 2"},
+  {"claim": "Edits at perception/competence/contact/gripper levels failed", "quote": "Edits at the other failure levels did not help (Fig. 3).", "where": "Sec. 4.7"}
+ ],
+ "cost": [
+  {"claim": "Edit-location study compute", "quote": "The study used 5.9 GPU-hours.", "where": "Appendix G"},
+  {"claim": "Blind-editor budget", "quote": "The budget was 96 practice episodes and 192 activation items.", "where": "Appendix F"}
+ ],
+ "baselines_and_controls": "unedited policy on paired seeds; random-direction update of identical layers/rank/singular values; explicit rewording with unchanged weights; alternative edit locations (action expert, action head); unedited and identically-edited reruns as noise controls; Holm correction over seven blind editors",
+ "runs_and_variance": "Paired seeds with exact McNemar, bootstrap (20,000 draws) and Wilson intervals; noise floor measured: 'rerunning unchanged weights flips about a third of paired outcomes' (Abstract); 'The unedited policy scored 14/16 and then 8/16 on the same 16 butter seeds.' (Sec. 4.8)",
+ "robustness_of_edits": "Distribution shift across tasks tested: transfers to 2 tasks, no significant harm on remaining 13 ('all exact p ≥ 0.12'); cube-right-of-bowl stays 0/32. No fine-tuning or quantization tests.",
+ "verification": "statistical only (paired held-out seeds, exact McNemar, Wilson/bootstrap intervals, pre-registration for edit-location study)",
+ "memorization_vs_reasoning": "Blind editor independently traced cube-then-banana failure to wording and wrote a different (action-head gated) edit; authors conclude edits re-route an existing computation: 'Distillation re-routes a computation the network already performs. It did not create one that is missing.' (Sec. 5)",
+ "limitations_stated": "Edit is low-rank not sparse; distilled edit built by operator session; tool run on one task and needs a known-good wording; edit-location comparison covers one task and wording; transfer not predicted in advance; one zero-shot checkpoint in simulation; failure levels assigned without independent rater.",
+ "code_or_data": "https://github.com/adeeb10abbas/weightsmith ; project page https://ali-adeeb.com/weightsmith/",
+ "cites_or_builds_on": ["Takehi, Teoh, Zhang, Khattab 2026 'Sparks of weight-space programming' blog", "Guo and Xie 2026 X thread (robot weight editing)", "Gupta et al. 2026 'Can frontier LLMs fix robots by editing their weights?' blog", "Abbas and Seraj 2026 companion study (GPT-6 Astra on pi0.5, in weightsmith repo)", "MEMIT / ROME (Meng et al.) closed-form multi-key update"],
+ "notes_for_survey": "The working edit is a MEMIT-style closed-form update aimed at a prompt rewording (instruction distillation) rather than free-form LLM weight writing, and it changes 13.4% of stored values. Strong evaluation hygiene: paired seeds, random-direction control, measured noise floor (about a third of pairs flip on reruns). Negative results across perception, missing skill, contact and gripper failures."
+}

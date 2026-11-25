@@ -1,0 +1,42 @@
+{
+ "id": "2611.18553",
+ "url": "https://arxiv.org/abs/2611.18553",
+ "title": "WeightBench: Evaluating Language Models as Weight-Space Programmers",
+ "authors": ["Aayush Marasini", "Barsat Khadka", "Nick Rahimi"],
+ "date": "2026-11-13",
+ "read_level": "full (arXiv HTML v1; short paper, Secs 1-6 and Table 1; Figure 1 not viewed)",
+ "metadata_mismatch": "none",
+ "is_wsp": "core",
+ "why_wsp": "Benchmark in which LLM agents read, fix, write, compress weights or refuse infeasible edits of subject networks (2K-param MLPs to 7B LMs) inside an audited sandbox that meters forward passes.",
+ "primary_branch": "B1",
+ "secondary_branches": ["B2", "B3", "B5"],
+ "facets": ["evaluation", "verification"],
+ "domain": "General WSP benchmark: control policies, games (Breakout, Go), small/7B language models, compression",
+ "editor": "Claude Opus 5.5, Claude Sonnet 5.5, Claude Haiku 5.5, DeepSeek v4-flash, GPT-6.1-sol (Claude Fable 5.1 ongoing, not reported)",
+ "target": "42 tasks; subject networks from 2K-parameter control policies to 7B-parameter language models",
+ "interface": "code/tensor tools (sandboxed agent with metered NumPy and Weight API; Claude Code / Codex CLI scaffolds)",
+ "loop": "closed-loop with feedback (agentic, with budgeted metered probes/forward passes per task; READ tasks N_forward=0)",
+ "self_editing": "no",
+ "fraction_or_count_of_weights_changed": "null (edit cost is a scored component: 'the smaller of the L_0 parameter count fraction and the matrix rank fraction'; no per-run counts reported)",
+ "headline_results": [
+  {"claim": "Macro scores, 42 tasks", "quote": "Claude Opus 5.5 reaches a macro score of 0.535 (Sonnet 5.5 0.466, Haiku 5.5 0.402, DeepSeek v4-flash 0.215)", "where": "Abstract; Table 1"},
+  {"claim": "GPT-6.1-sol on 38 tasks", "quote": "on the 38 tasks it was run on, GPT-6.1-sol reaches 0.568 against Opus's 0.546", "where": "Abstract; Table 1"},
+  {"claim": "WRITE track", "quote": "Opus reached 0.829 when synthesizing weights zero-shot from scratch, against Sonnet ( 0.569 ), Haiku ( 0.369 ) and DeepSeek ( 0.000 ); GPT-6.1-sol reached 0.863", "where": "Sec 5.3"},
+  {"claim": "META track near chance", "quote": "the three Claude models performed alike, between 0.485 and 0.500 on every task, which is essentially the baseline of random guessing", "where": "Sec 5.3"},
+  {"claim": "SYSTEMS track", "quote": "All agents performed poorly on TR-05 (Hardware-Aware Optimization), between 0.177 and 0.238", "where": "Sec 5.3"},
+  {"claim": "Reasoning-loop FIX tasks", "quote": "On the four reasoning-loop tasks, only Opus (on three) and Sonnet (on one) scored above zero.", "where": "Sec 5.3"},
+  {"claim": "Task validity", "quote": "Currently 39 out of the 42 tasks clear this validity gate at their default difficulty levels.", "where": "Sec 5.2"}
+ ],
+ "cost": [
+  {"claim": "GPU time for loop tasks (reason GPT-6.1-sol skipped them)", "quote": "the four TR-02 reasoning-loop tasks, each of which needs one to one and a half GPU-hours per run", "where": "Sec 5.1"}
+ ],
+ "baselines_and_controls": "Non-agentic baselines and static reference solutions per track (21 of 42 references use only agent-accessible info; others privileged, e.g. gradient fitting); validity gate: reference S_WB>=0.5 and >=0.2 over baseline.",
+ "runs_and_variance": "Single seed (seed 0), default difficulty; two samples per task for Claude models, one for DeepSeek and GPT-6.1-sol; no variance reported. Quote: 'All runs evaluate the default difficulty level on a fixed seed (seed 0), with two samples per task for the Claude models and one for DeepSeek and GPT-6.1-sol'",
+ "robustness_of_edits": "collateral damage on held-out benchmarks (e.g. MMLU) is a scored component; no fine-tuning/quantization survival tests",
+ "verification": "Hash-chained ledger of metered forward passes/probes; operator-level tracing via metered NumPy subclass to detect forward-pass chains; automated audit with 28 quarantine flags. Quote: 'The final scores are computed directly from this ledger rather than the agent's outputs.'",
+ "memorization_vs_reasoning": "Contamination mitigation via regenerated subject models with fresh seeds, rotations and hidden-dimension permutations 'so that the agents must analyze the weights rather than memorize indices'; no ablation reported measuring its effect.",
+ "limitations_stated": "No dedicated limitations section. Stated: quarantined runs unreviewed so 'all scores are lower bounds'; GPT-6.1-sol not run on 4 loop tasks and 10 of its runs used a different scaffold; Claude Fable 5.1 evaluation incomplete; 3 tasks fail validity gate.",
+ "code_or_data": "https://github.com/Aayush-Marasini/WeightBench",
+ "cites_or_builds_on": ["Takehi et al. 2026 (WSP)", "Tracr (Lindner et al. 2023)", "ROME (Meng et al. 2022)", "Han et al. 2026 weight-space learning survey"],
+ "notes_for_survey": "First benchmark in this corpus spanning READ/FIX/META/WRITE/SYSTEMS tracks with a composite score penalizing collateral damage, edit size and compute. Single seed, 1-2 samples per task, mixed scaffolds; results reported as lower bounds due to unreviewed quarantines."
+}

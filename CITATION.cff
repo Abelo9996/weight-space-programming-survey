@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use this survey, its corpus or its notes, please cite it as below."
+title: "Weight-Space Programming: A Survey and Roadmap"
+authors:
+  - family-names: Yagubyan
+    given-names: Abel
+    affiliation: University of Georgia
+date-released: 2026-11-25
+version: "2026-11-25"
+license: CC-BY-4.0
+repository-code: "https://github.com/Abelo9996/weight-space-programming-survey"
+type: dataset
+keywords:
+  - weight-space programming
+  - large language models
+  - model editing
+  - survey

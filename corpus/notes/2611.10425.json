@@ -1,0 +1,40 @@
+{
+ "id": "2611.10425",
+ "url": "https://arxiv.org/abs/2611.10425",
+ "title": "Governed Self-Improvement for a Local-First Security Analyzer: Baseline Measurements and a Preregistered Evaluation Protocol for Tantular Cyber",
+ "authors": ["Raditio Ghifiardi", "Rifny Rachman"],
+ "date": "2026-11-07",
+ "read_level": "full (v1 PDF, 2-column text extracted; all sections read)",
+ "metadata_mismatch": "none",
+ "is_wsp": "peripheral",
+ "why_wsp": "Proposes weight-space edits as rung 4 of an intervention ladder for improving a local security-explanation model, but no weight edit is performed; the paper reports only scanner/explanation baselines and a preregistered protocol.",
+ "primary_branch": "B4",
+ "secondary_branches": ["B6"],
+ "facets": ["evaluation", "safety", "application domain"],
+ "domain": "local-first static code security analysis; Bahasa Indonesia vulnerability explanations",
+ "editor": "none run; proposed 'proposer (scripts or an AI controller)'",
+ "target": "tantular-cyber local model (Q8_0, Ollama); compared with qwen3:8b. Parameter count of Tantular model not stated beyond 'a different 8B model' comparison; weight-edit rung would first replicate the published edit on its original 0.8B model",
+ "interface": "other (proposed ladder: prompt, context, LoRA/QLoRA, weight-space edit)",
+ "loop": "closed-loop with feedback (proposed, not run)",
+ "self_editing": "no; 'self-improving' means an automated loop up to a human gate, and the loop has not been run",
+ "fraction_or_count_of_weights_changed": null,
+ "headline_results": [
+  {"claim": "Combined scanners precision/recall", "quote": "combining Semgrep with an interprocedural call-graph scanner yields precision 0.843 and recall 0.915 (Semgrep alone: 0.818 and 0.766)", "where": "Abstract; Table I"},
+  {"claim": "Explanation grounding 57% vs 95% for qwen3:8b", "quote": "only 57% of Tantular's explanations were grounded in the evidence shown, against 95% for a different 8B model", "where": "Sec IV-C, Finding 2; Table II"},
+  {"claim": "Concise prompt raised grounding partly by citing nothing", "quote": "The concise profile cited nothing in 8 of 80 samples (baseline: 0 of 80); counting abstention as ungrounded lowers its rate from 0.72 to 0.65.", "where": "Sec V-C; Table III"},
+  {"claim": "Published 57% not reproducible", "quote": "An audit of our own artifacts found that the published 57% cannot be reproduced", "where": "Sec V-B"},
+  {"claim": "No WSP result", "quote": "The loop has not been run; no fine-tuned or weight-edited Tantular model exists", "where": "Sec I"}
+ ],
+ "cost": [
+  {"claim": "Median latency per explanation", "quote": "tantular-cyber (Q8_0) 0.57 [.48,.66] 0.92 [.85,.95] 0.98 [.93,.99] 25.9", "where": "Table II (p50 s column: 25.9 s; qwen3:8b 12.9 s)"}
+ ],
+ "baselines_and_controls": "Scanner ablation (Semgrep only, callgraph only); paired comparison with qwen3:8b; prompt and context-window interventions under a preregistered adoption rule. No weight-editing baselines (none run).",
+ "runs_and_variance": "\"40 FINDINGS x 3 SEEDS (n = 120 PER MODEL)\" with Wilson 95% intervals and exact McNemar tests (Table II, Sec IV-A).",
+ "robustness_of_edits": "not tested (no edits made); protocol states rungs 3-4 produce a new checkpoint 'which is quantized and evaluated again as its own artifact'",
+ "verification": "Preregistered protocol with hard gates (Table V), paired Clopper-Pearson bounds, bootstrap, Benjamini-Hochberg; not yet executed. No formal verification.",
+ "memorization_vs_reasoning": "n/a",
+ "limitations_stated": "Loop not run; no weight-edited model exists; all rates from 33 synthetic Python cases, one machine, one Ollama version; grounding check is a lexical proxy; model comparison confounded with quantization; own published 57% not reproducible.",
+ "code_or_data": "https://github.com/ghifiardi/tantular-cyber (tag v0.3.0); https://tantular.ai/research/tantular-cyber",
+ "cites_or_builds_on": ["Weight-space programming [13] (Takehi et al. blog, per text: 'edits a small fraction of a model's weights directly ... 0.8B model on a mathematics benchmark')"],
+ "notes_for_survey": "Positions weight-space editing as the most expensive rung of a governed improvement ladder that must beat prompt and LoRA changes on identical items, with a planned replication of the original 0.8B edit before use. Contains no WSP experiments; relevant only as a governance/protocol proposal and for its documented evaluation hazards (silent model-file migration)."
+}

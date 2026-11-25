@@ -1,0 +1,43 @@
+{
+ "id": "2611.09376",
+ "url": "https://arxiv.org/abs/2611.09376",
+ "title": "Can LLMs Debug Robots by Editing Their Weights?",
+ "authors": ["Jusheng Zhang", "Keze Wang", "Liang Lin"],
+ "date": "2026-11-06",
+ "read_level": "partial (full main text and discussion; appendices skimmed via search only)",
+ "metadata_mismatch": "none",
+ "is_wsp": "core",
+ "why_wsp": "GPT-6 Astra reads robot policy weights in a CPU Python workspace and writes replacement tensors (65 token-embedding rows of pi0.5), guided by budgeted simulator rollouts, with gradient updates forbidden.",
+ "primary_branch": "B3",
+ "secondary_branches": ["B4"],
+ "facets": ["evaluation", "application domain"],
+ "domain": "robot manipulation foundation policies (VLA pi0.5, FastWAM) on LIBERO variants, simulation",
+ "editor": "GPT-6 Astra",
+ "target": "openpi pi05_libero (3.62B parameters exported); FastWAM; edits also attempted on LIBERO-Plus/PRO/RECOVER settings",
+ "interface": "code/tensor tools",
+ "loop": "closed-loop with feedback",
+ "self_editing": "no; external LLM edits robot policy",
+ "fraction_or_count_of_weights_changed": "\"It changes 132,768 scalar entries across 65 rows, or 0.00367% of the exported checkpoint.\" (Sec 3.3)",
+ "headline_results": [
+  {"claim": "Best session improves held-out paraphrase success 86.3% to 92.0%", "quote": "the best raises success from 86.3% to 92.0% (48 repairs, four regressions; exact paired p = 1.31 x 10^-10)", "where": "Abstract; Table 1"},
+  {"claim": "All three independent sessions improve", "quote": "Three independent sessions on pi0.5 all improve success on 765 held-out paraphrases", "where": "Abstract; Table 1 (89.4, 88.0, 92.0)"},
+  {"claim": "Locality: untouched instructions unchanged", "quote": "Among the 335 instructions containing edited tokens, success rises from 74.3% to 87.5%; the other 430 episodes have zero outcome changes.", "where": "Abstract; Table 2"},
+  {"claim": "Random-direction control does not help; full replacement explains much of the gain", "quote": "Full replacement using the editor's own lexicon explains much of the gain but produces more regressions; its direct difference from the editor is not significant at 0.05.", "where": "Abstract; Table 3 (85.2 random, 90.5 full replacement)"},
+  {"claim": "Editor declines most non-language repairs", "quote": "Across 13 further robot sessions, the editor declines 12 candidates; the sole retained edit does not show a significant held-out gain.", "where": "Abstract; Table 6"},
+  {"claim": "Benchmark metadata sensitivity (separate finding)", "quote": "FastWAM succeeds on 147 episodes with task-only instructions and 102 with tagged instructions: 70.0% versus 48.6%", "where": "Sec 5; Fig 5"},
+  {"claim": "Reproduced Takehi et al. Qwen3.5-0.8B edit", "quote": "With one sample per MATH-500 problem, it scores 49.4%, compared with the report's 48.1% using four samples.", "where": "Sec 2.1"}
+ ],
+ "cost": [
+  {"claim": "Forward-request budget per session", "quote": "Robot sessions receive 40-50 requests; all three language-repair sessions receive 50. A Python execution may use up to 900 seconds and 96 GB of CPU memory.", "where": "Sec 2"},
+  {"claim": "No API cost accounting", "quote": "complete API cost accounting is not available.", "where": "Sec 7"}
+ ],
+ "baselines_and_controls": "unedited policy (paired McNemar), random-direction edit of same 65 rows with matched norm (one realization), full destination replacement using editor's own lexicon, norm-only vs direction-only replay controls; LoRA, prompt rewriting, human lexicon explicitly not measured",
+ "runs_and_variance": "3 independent pi0.5 sessions (one held-out seed 7); 16 sessions total; exact McNemar with Holm correction; practice validation across 5 rollout seeds shows seed 73 negative. Quote: \"Independent sessions test whether the editor can find an edit again; shared variants and one held-out seed limit claims about environmental generalization.\"",
+ "robustness_of_edits": "Seed sensitivity on practice validation (Table 5, seed 73 loses 2 net successes); structural locality guarantee for instructions not containing edited tokens; no fine-tuning/quantization tests; simulation only",
+ "verification": "statistical (exact paired McNemar tests, Holm correction); structural locality argument; tensor-hash checks",
+ "memorization_vs_reasoning": "Editor-informed dictionary control shows lexical correspondence explains much of the gain; random-direction control rules out edit-size effects. Editor diagnosed a gripper-flip correlate as a consequence rather than cause in recovery sessions.",
+ "limitations_stated": "Edits narrow and lexical; no retained confirmed repair for visual, recovery or task-change failures; not compared to human lexicon, prompt rewriting or LoRA; simulation only, two checkpoints; one held-out seed; editor consumes observations so not data-free; no full API cost.",
+ "code_or_data": "reproducibility package described; \"Public code and weight-hosting links will be supplied with the artifact release.\" (none found)",
+ "cites_or_builds_on": ["Takehi et al. 2026 weight-space programming (ref [1])"],
+ "notes_for_survey": "Applies tool-assisted, simulator-feedback WSP to a 3.6B VLA; the repair is an embedding-row lexical remapping, with an editor-informed full-replacement control not significantly worse. Records 12/13 declined candidates in other failure categories, framing the obstacle-vs-ability distinction as a hypothesis."
+}

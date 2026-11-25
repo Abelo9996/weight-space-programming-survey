@@ -1,0 +1,43 @@
+{
+ "id": "2611.12954",
+ "url": "https://arxiv.org/abs/2611.12954",
+ "title": "Physics2Weight: Direct Neural Network Architecture and Weight Generation from Physical Laws Using Large Language Models",
+ "authors": ["Shogo Sato", "Tomoyasu Shimada", "Kazuhiko Murasaki", "Takashi Sano"],
+ "date": "2026-11-07",
+ "read_level": "full (PDF via pdftotext, incl. appendices A-E)",
+ "metadata_mismatch": "none",
+ "is_wsp": "core",
+ "why_wsp": "Claude Opus 5.5 writes (and optionally restructures) a small NN's architecture and weights as JSON from a PDE specification, then refines the weights from external physics-loss feedback, with no gradient optimization.",
+ "primary_branch": "B2",
+ "secondary_branches": ["B4"],
+ "facets": ["evaluation", "application domain"],
+ "domain": "scientific ML: 1D time-dependent PDE solving (heat, advection, Burgers', Allen-Cahn)",
+ "editor": "Claude Opus 5.5 (claude-opus-5-5), high reasoning effort, via Claude Code non-interactive mode without tool access",
+ "target": "Initial 2x20 tanh MLP, 501 parameters; edited architectures have 4-342 parameters",
+ "interface": "direct values (weights emitted as JSON; architecture as expression layers + MLP blocks)",
+ "loop": "closed-loop with feedback (K = 5 refinement rounds; select best of 6 candidates by constraint violations then physics loss)",
+ "self_editing": "no; LLM writes a separate small PDE network",
+ "fraction_or_count_of_weights_changed": "all weights written from scratch; \"the generated networks have 4–33 parameters for the heat equation, 4–17 for advection, 104–342 for Burgers’, and 36–52 for Allen–Cahn\" (Sec 5.6)",
+ "headline_results": [
+  {"claim": "Heat equation rel. L2", "quote": "PtW achieves a relative L2 error of 4.31 × 10−17 , substantially outperforming all baseline methods", "where": "Sec 5.2, Table 1"},
+  {"claim": "Advection rel. L2", "quote": "PtW achieves a relative L2 error of 2.00 × 10−17", "where": "Sec 5.3, Table 2"},
+  {"claim": "Burgers' rel. L2 lowest but PDE residual higher than PINN", "quote": "PtW achieves the lowest relative L2 error of 1.53 × 10−2 ... However, its PDE residual MSE is substantially higher than that of PINN", "where": "Sec 5.4, Table 3 (PINN rel. L2 4.69e-2)"},
+  {"claim": "Burgers' residual grid sensitivity", "quote": "increasing the spatial resolution from 256 to 2001 points raises the MSE from 5.45 × 10−2 to 6.6 × 109 , while the PINN MSE changes by less than 20%", "where": "Sec 5.4"},
+  {"claim": "Allen-Cahn rel. L2", "quote": "PtW achieves a relative L2 error of 3.53 × 10−2 , outperforming PINN, WSP, and WSP-PC. ... However, PINN achieves a lower PDE residual than PtW", "where": "Sec 5.5, Table 4 (PINN 5.20e-1)"},
+  {"claim": "Ablation: architecture editing drives accuracy", "quote": "architecture editing is the primary contributor to solution accuracy, whereas physics-constrained prompting and weight refinement mainly improve constraint satisfaction", "where": "Sec 6; Table 6"},
+  {"claim": "WR on trained PINN weights: LLM discarded them", "quote": "In all three runs, the LLM discarded the PINN weights in the first refinement round and replaced them with an analytical construction", "where": "Sec 5.7"}
+ ],
+ "cost": [
+  {"claim": "Wall-clock per network incl. all LLM calls (medians); e.g. PtW 76 s heat, 1066 s Burgers'", "quote": "Time is the wall-clock time per network, including PINN training (PINN, PINN-WR) and all LLM calls; LLM times depend on server load", "where": "Table 5 caption; values in Table 5"},
+  {"claim": "LLM calls per run", "quote": "PtW 7–8", "where": "Table 5 (LLM calls column; WSP 1, WSP-PC 1)"}
+ ],
+ "baselines_and_controls": "PINN (Adam 10k steps + L-BFGS, same 501-param architecture and collocation points), plain WSP (one-shot), WSP-PC, WSP-WR, WSP-PC-WR, WSP-PC-AE, PINN-WR (LLM refinement of trained PINN weights).",
+ "runs_and_variance": "\"Each experiment is repeated three times, and the median performance is reported\" (Sec 5.1); no variance/spread reported beyond per-run constraint counts (Table 7).",
+ "robustness_of_edits": "not tested (only evaluation-grid sensitivity of PDE residual for Burgers')",
+ "verification": "Rule validator for generated architectures; external numerical evaluator (physics loss, constraint checks C1-C5); reference solutions only for evaluation. No formal verification.",
+ "memorization_vs_reasoning": "Paper notes heat/advection near machine precision comes from embedding known analytical solution structure: \"these results do not necessarily demonstrate the ability to generate highly accurate weights for PDEs without known analytical solutions\" (Sec 5.8).",
+ "limitations_stated": "Accuracy on heat/advection relies on known analytical solutions; Burgers' networks have large local derivatives and high, grid-sensitive PDE residuals; only 1D PDEs, a single LLM, three runs per method.",
+ "code_or_data": "none found",
+ "cites_or_builds_on": ["Takehi et al., Sparks of Weight-Space Programming (blog, Nov 2026)", "Text2Weight (Tian et al., 2025)", "Hypernetworks (Ha et al., 2017)"],
+ "notes_for_survey": "B2 application of WSP to PDEs where the LLM also edits architecture (expression layers + MLPs within a 501-param cap); architecture editing, not weight values, accounts for most accuracy gains. Machine-precision results on heat/advection correspond to the LLM encoding closed-form solutions. LLM has no tool access or code execution; feedback comes from an external evaluator."
+}

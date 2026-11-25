@@ -1,0 +1,1204 @@
+{
+ "run_date": "2026-11-25",
+ "sources": [
+  "arXiv API (11 phrase queries + 10 date-limited keyword queries, see search_log_2026-11-25.json)",
+  "SajjadPSavoji/awesome-weight-space-programming README (pushed 2026-11-24): no new 2611 arXiv or Zenodo ids",
+  "bturkoglu/weight-space-programming-survey data/studies.json: 6 Zenodo ids not in our corpus",
+  "Boom5426/Awesome-Weight-Space-Programming README: 2 arXiv and 2 Zenodo ids not in our corpus"
+ ],
+ "records": [
+  {
+   "id": "2611.10450",
+   "title": "The Truth Beneath the Tokens: Prompt-Space Recovery of Knowledge Edits in Language Models",
+   "published": "2026-11-07",
+   "stage": "excluded_title_abstract",
+   "reason": "prompt-space recovery of knowledge edits; weights unchanged"
+  },
+  {
+   "id": "2611.23880",
+   "title": "A Rank-One Bypass of Fixed Linear Erasure",
+   "published": "2026-11-18",
+   "stage": "excluded_title_abstract",
+   "reason": "analytical attack on a fixed erasure layer; no LLM editor, not positioned as WSP"
+  },
+  {
+   "id": "2611.25257",
+   "title": "Keel: A Frontier Model Teaches a Vision-Language Model by Rewriting Its Weights",
+   "published": "2026-11-18",
+   "stage": "full_text",
+   "reason": null
+  },
+  {
+   "id": "2611.28665",
+   "title": "Seeing Right, Writing Wrong: Where Short Chain-of-Thought Breaks Spatial VQA",
+   "published": "2026-11-21",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.31715",
+   "title": "Sparks of Weight-Space Programming for Robot Foundation Models",
+   "published": "2026-11-24",
+   "stage": "full_text",
+   "reason": null
+  },
+  {
+   "id": "2611.33031",
+   "title": "Can a Frontier LLM Repair a Quantized Network by Tool-Free Weight-Space Programming?",
+   "published": "2026-11-24",
+   "stage": "full_text",
+   "reason": null
+  },
+  {
+   "id": "2611.32332",
+   "title": "GUI-WEdit and GUI-SkillEvo: Gradient-Free Adaptation of Small GUI Agents",
+   "published": "2026-11-24",
+   "stage": "full_text",
+   "reason": null
+  },
+  {
+   "id": "2611.26450",
+   "title": "A CPU Inside an LLM: Zero-Gradient Compilation of Exact Circuits into Pretrained Weights",
+   "published": "2026-11-19",
+   "stage": "full_text",
+   "reason": null
+  },
+  {
+   "id": "2611.33062",
+   "title": "Understanding Clipping In Zeroth-Order Optimization",
+   "published": "2026-11-24",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.32755",
+   "title": "ReQOR: Operator-Discrepancy Subspace Repair for Quantization-Conditioned Backdoors in Large Language Models",
+   "published": "2026-11-24",
+   "stage": "excluded_title_abstract",
+   "reason": "subspace repair for quantization backdoors; no LLM editor"
+  },
+  {
+   "id": "2611.32064",
+   "title": "Fix How It Acts, Not How It Thinks: Surgical Fine-Tuning of Frontier LLMs",
+   "published": "2026-11-24",
+   "stage": "full_text",
+   "reason": null
+  },
+  {
+   "id": "2611.29795",
+   "title": "Dimension Is Free, Horizon Is Not: When Evolution Strategies Rival Policy Gradients for LLM Fine-Tuning",
+   "published": "2026-11-22",
+   "stage": "excluded_title_abstract",
+   "reason": "evolution strategies fine-tuning (optimizer authors values)"
+  },
+  {
+   "id": "2611.27578",
+   "title": "PRISM: Validation-Free Online Batch Selection for LLM Fine-Tuning via Preconditioned Conic Ghost Matching",
+   "published": "2026-11-20",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.25932",
+   "title": "Coordinated Offloading: Cooperative Multi-Agent Reinforcement Learning for the Edge-Cloud Continuum",
+   "published": "2026-11-19",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.25415",
+   "title": "Stuck in Place: Stall Diagnosis and Remedies for JEPA Planners",
+   "published": "2026-11-19",
+   "stage": "excluded_title_abstract",
+   "reason": "test-time gradient adaptation and planner fixes; no LLM editor"
+  },
+  {
+   "id": "2611.24718",
+   "title": "Meta-LSQ: A Closed-Form Sobolev Inner Solver for Few-Shot Meta-Learning",
+   "published": "2026-11-18",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.24052",
+   "title": "From Data to Valves: A Self-Learning, Production-Grade Edge Stack for Sustainable HVAC Control",
+   "published": "2026-11-18",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.28105",
+   "title": "Gradient-Free Few-Shot Adaptation of Vision Models via Agentic Coding",
+   "published": "2026-11-17",
+   "stage": "full_text",
+   "reason": null
+  },
+  {
+   "id": "2611.22591",
+   "title": "PACT: Plan-Action Consistency Training by Preserving Correct Plans and Repairing Actions in GUI Agents",
+   "published": "2026-11-17",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.21791",
+   "title": "Regularized Score Centering",
+   "published": "2026-11-16",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.21766",
+   "title": "Margin Dynamics for Large Language Model Alignment",
+   "published": "2026-11-16",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.20759",
+   "title": "Instant Weight-Space Consolidation for Long-Term Memory in LLMs",
+   "published": "2026-11-16",
+   "stage": "excluded_title_abstract",
+   "reason": "trained recurrent hypernetwork writes adapters (out of scope by definition)"
+  },
+  {
+   "id": "2611.18523",
+   "title": "Mutable Inference: Architecting LLM Accelerators for Inference-Time Learning",
+   "published": "2026-11-13",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.17504",
+   "title": "Learning monotone game-theoretic linear MPC",
+   "published": "2026-11-12",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.15118",
+   "title": "Lazare, veni foras: Reprogramming Dormant Neurons to Backdoor AI Agents",
+   "published": "2026-11-11",
+   "stage": "full_text",
+   "reason": null
+  },
+  {
+   "id": "2611.14399",
+   "title": "REAL Loss: Optimizing Real Expected Acceptance Length for Speculative Decoding",
+   "published": "2026-11-10",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.14102",
+   "title": "Mobility-Aware Task Offloading in Mobile Edge Computing-Empowered Space-Air-Ground Integrated Internet-of-Things Networks",
+   "published": "2026-11-10",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.13595",
+   "title": "IFRS Compliance Verification: An Open Multi-LLM Benchmark and Content-Conditioned Ensemble Classifier",
+   "published": "2026-11-10",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.12885",
+   "title": "World In-Context Learning for Agentic Robot Manipulation",
+   "published": "2026-11-09",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.10792",
+   "title": "Zeroth-Order Riemannian Optimization on Fixed-Rank Manifolds for LLM Fine-Tuning",
+   "published": "2026-11-07",
+   "stage": "excluded_title_abstract",
+   "reason": "zeroth-order optimizer fine-tuning (optimizer authors values)"
+  },
+  {
+   "id": "2611.10610",
+   "title": "Efficient LLM Adaptation with Forward-Only Passes",
+   "published": "2026-11-07",
+   "stage": "excluded_title_abstract",
+   "reason": "SVD rank-reduction search; no LLM editor"
+  },
+  {
+   "id": "2611.10352",
+   "title": "TripletAD: Weakly Supervised Anomaly Detection in Embedding Space with Rare Anomalies and Scarce Labels",
+   "published": "2026-11-07",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.08706",
+   "title": "Dual-Stream LLM-Guided Reward Design for Reject-Inference-Aware Reinforcement Learning in E-Commerce Payment Fraud Detection",
+   "published": "2026-11-05",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.08092",
+   "title": "Gabor Gabor: E-Gaborformer, a Strictly Causal Speech Recognizer with Gabor-Dictionary Convolutions and Delta-Rule Memory",
+   "published": "2026-11-05",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.07958",
+   "title": "On the Spectral Dependence of Decentralized Stochastic Gradient Tracking",
+   "published": "2026-11-05",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.07543",
+   "title": "OptIMerge: Optimization-Based Merging of Diffusion Models",
+   "published": "2026-11-05",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.07217",
+   "title": "TileQuant: Tile as the Precision-Allocation Unit for LLM Mixed-Precision Post-Training Quantization",
+   "published": "2026-11-04",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.07084",
+   "title": "DMuon-2: Scaling Matrix Optimizers in Data Parallelism with Topology-Aware Matrix Ownership and Communication",
+   "published": "2026-11-04",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.05580",
+   "title": "Learning vs. Optimizing Players in Budgeted Games",
+   "published": "2026-11-03",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.05029",
+   "title": "DRAP: Dynamics-Risk Adaptive Plasticity for Continual Learning in Physical AI",
+   "published": "2026-11-03",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.04634",
+   "title": "VeriSpoof: Beyond Real or Fake with One Audio LLM",
+   "published": "2026-11-03",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.30927",
+   "title": "SpeechSplice: Pronunciation Control in Encoder-Decoder LLM-based TTS by Replacing Encoder Hidden States",
+   "published": "2026-11-23",
+   "stage": "excluded_title_abstract",
+   "reason": "hidden-state replacement at inference; weights unchanged"
+  },
+  {
+   "id": "2611.29613",
+   "title": "Weight Coding: Evolving Web-Scale Recommenders through Direct Weight Edits with LLM Agents",
+   "published": "2026-11-22",
+   "stage": "full_text",
+   "reason": null
+  },
+  {
+   "id": "2611.17846",
+   "title": "Is Abliteration Getting Harder? Not Uniformly: Refusal Removal by Direction-Based Ablation and ARA in Heretic on the Qwen3.8, Gemma 4, Olmo 3.1 and Mistral Small 3.2 LLMs Versus Their Predecessors",
+   "published": "2026-11-13",
+   "stage": "excluded_title_abstract",
+   "reason": "direction-based ablation (abliteration); no LLM editor"
+  },
+  {
+   "id": "2611.33133",
+   "title": "A Bias in Disguise: Tiny Gradient Edits Stop a Small Language Model's Thinking Loops and Complement a Frontier Model's Weight Edit",
+   "published": "2026-11-24",
+   "stage": "full_text",
+   "reason": null
+  },
+  {
+   "id": "2611.31688",
+   "title": "Harvesting Apple's Orchard: A Security Analysis of On-Device CoreML Models Across the Apple Ecosystem",
+   "published": "2026-11-23",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.23907",
+   "title": "Evaluating invariance training with certified answer-changing controls in neural graph algorithms",
+   "published": "2026-11-18",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.20419",
+   "title": "Reasoning Again with a Quarter of the Experts: Retry First, Then Train",
+   "published": "2026-11-16",
+   "stage": "excluded_title_abstract",
+   "reason": "expert pruning and retraining; no LLM editor"
+  },
+  {
+   "id": "2611.13984",
+   "title": "Bounded Weighted Edit Distance with Metric Costs",
+   "published": "2026-11-10",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.12807",
+   "title": "Suppression Is Not Erasure: Mechanistic Analysis and Reactivation Boundaries of Subspace Projection for LoRA Backdoor Defense",
+   "published": "2026-11-09",
+   "stage": "excluded_title_abstract",
+   "reason": "analysis of subspace projection for LoRA; no LLM editor"
+  },
+  {
+   "id": "2611.10974",
+   "title": "SWEET: Mitigating Spurious Feature Reliance in LLM Reasoning via Weight Editing",
+   "published": "2026-11-07",
+   "stage": "excluded_title_abstract",
+   "reason": "interpretability-derived closed-form edit with no LLM editor; not positioned as WSP"
+  },
+  {
+   "id": "2611.13183",
+   "title": "AgentScript-Eval: Benchmarking LLMs and Agents for Code Generation in an Enterprise DSL",
+   "published": "2026-11-09",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.33048",
+   "title": "Latent Merger: Latent-Space Composition of Hypernetwork-Generated LoRAs",
+   "published": "2026-11-24",
+   "stage": "excluded_title_abstract",
+   "reason": "hypernetwork-generated LoRAs (out of scope by definition)"
+  },
+  {
+   "id": "2611.31979",
+   "title": "Reading, Writing and Repairing Game-Theoretic Policies in Weight Space",
+   "published": "2026-11-24",
+   "stage": "full_text",
+   "reason": null
+  },
+  {
+   "id": "2611.22721",
+   "title": "HADVQ: Hessian Aware Directional Vector Quantization",
+   "published": "2026-11-17",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.10800",
+   "title": "Enhancing Mathematical Reasoning in Turkish Large Language Models with Search-Based Inference and Model Merging",
+   "published": "2026-11-07",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.07598",
+   "title": "Align Before Aggregation: Basis-Consistent Federated LoRA under Heterogeneous Ranks",
+   "published": "2026-11-05",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.07103",
+   "title": "A Night at the LLM Zoo: Data Conditioned Flow Matching for Generating Pretrained LLM Weights",
+   "published": "2026-11-04",
+   "stage": "excluded_title_abstract",
+   "reason": "trained flow-matching weight generator (out of scope by definition)"
+  },
+  {
+   "id": "2611.04497",
+   "title": "SKILL2STEER: One-Pass Hypernetwork for Mapping Natural-Language Skills to Low-Rank Post-Block Activation Shifts",
+   "published": "2026-11-03",
+   "stage": "excluded_title_abstract",
+   "reason": "trained hypernetwork for activation shifts (out of scope by definition)"
+  },
+  {
+   "id": "2611.33158",
+   "title": "OmniAct: One Policy, One Million Embodiments",
+   "published": "2026-11-24",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.33093",
+   "title": "AIChipBench: Benchmarking LLM Agents for Automated AI Accelerator Design",
+   "published": "2026-11-24",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.32946",
+   "title": "ShellBench: What Matters More for AI Agents, Models, or Harness for Everyday Tasks",
+   "published": "2026-11-24",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.32649",
+   "title": "ICLWorld: Benchmarking In-Context Learning of Agents from Digital to Physical Worlds",
+   "published": "2026-11-24",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.32300",
+   "title": "Slipstream: nonlinear beam dynamics in PyTorch",
+   "published": "2026-11-24",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.32012",
+   "title": "Marketing-Bench: Evaluating Frontier Models and Agents on Real-World Marketing Capabilities",
+   "published": "2026-11-24",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.31610",
+   "title": "Monitorable-by-design architectures for a post-Astra world: a compartmentalization-based approach",
+   "published": "2026-11-23",
+   "stage": "excluded_title_abstract",
+   "reason": "architecture proposal for monitorability; no weight editing"
+  },
+  {
+   "id": "2611.31002",
+   "title": "RoboUniverse-10K: Toward the Scaling Era of Agentic Robotics via Real-to-Sim Environments",
+   "published": "2026-11-23",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.30989",
+   "title": "WorldLeague: Benchmarking Physical Agency",
+   "published": "2026-11-23",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.30555",
+   "title": "RoboInF: A Benchmark for Instruction Fidelity in Robotic Manipulation",
+   "published": "2026-11-23",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.30550",
+   "title": "Body and Soul: Decoupling Robotic Brain and Policy with RoboHarness-Zero",
+   "published": "2026-11-23",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.30517",
+   "title": "sudo L7: Can Coding Agents Act Like Staff Engineers?",
+   "published": "2026-11-23",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.30361",
+   "title": "LeanReviewBench: Semantic Alignment Review in Mathematical Lean Projects",
+   "published": "2026-11-23",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.30350",
+   "title": "RepoClean: Evaluating Coding Agents on Repository-Level Obsolete Code Cleanup",
+   "published": "2026-11-23",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.30162",
+   "title": "AdaptRouter: Adaptive Routing across Evolving Tasks and Models",
+   "published": "2026-11-23",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.30111",
+   "title": "RoboThink: Let the Agent Think, Let the Policy Act",
+   "published": "2026-11-23",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.30101",
+   "title": "Agent on Guard: Self-Improving Runtime Intervention for Robust Robotic Manipulation",
+   "published": "2026-11-23",
+   "stage": "excluded_title_abstract",
+   "reason": "runtime intervention by agent; weights unchanged"
+  },
+  {
+   "id": "2611.30017",
+   "title": "OWE-Bench: A long-horizon benchmark for measuring real-world engineering",
+   "published": "2026-11-23",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.29524",
+   "title": "Eight limit cycles in a three-dimensional competitive Lotka-Volterra system",
+   "published": "2026-11-22",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.29377",
+   "title": "Contact Harness: Enabling VLM Agents to Perform Contact-Rich Manipulation",
+   "published": "2026-11-22",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.29338",
+   "title": "A Glimpse of Training VLMs as Foundation Models for Robotic Manipulation",
+   "published": "2026-11-22",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.28771",
+   "title": "Normal Homogeneous Counterexamples to Wolf's Homogeneity Conjecture",
+   "published": "2026-11-21",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.28649",
+   "title": "S-Mind: Internalizing Multi-View Geometry for Spatial Intelligence",
+   "published": "2026-11-21",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.28194",
+   "title": "HEP-Ex-Bench: Evaluating Agentic Performance in High Energy Physics Experiment Data Analyses with Sealed Worlds",
+   "published": "2026-11-20",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.27499",
+   "title": "NavRSI: Recursive Harness Self-Improvement for Vision-and-Language Navigation",
+   "published": "2026-11-20",
+   "stage": "excluded_title_abstract",
+   "reason": "harness self-improvement; weights unchanged"
+  },
+  {
+   "id": "2611.27196",
+   "title": "EDAGoat: An EDA-Aware Agent for Project-Level GPU Optimization",
+   "published": "2026-11-20",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.26937",
+   "title": "Looking Right Is Not Being Right: Evaluating the Geometry of Agent-Built 3D Scenes",
+   "published": "2026-11-20",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.26613",
+   "title": "AgentRoboCritic: Understanding the Capability of Frontier Agents on Direct Robot Control",
+   "published": "2026-11-19",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.26519",
+   "title": "ACE-Brain-0.7: Learning Execution-Grounded Reasoning for Embodied Agents",
+   "published": "2026-11-19",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.26229",
+   "title": "Sharp topological overlap in every dimension",
+   "published": "2026-11-19",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.26003",
+   "title": "AI agents can redesign engineering parts with more than a thousand CAD parameters and nonlinear simulations",
+   "published": "2026-11-19",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.25387",
+   "title": "TuringSpace: Grounding Spatial Intelligence in Action with Interactive CAPTCHAs",
+   "published": "2026-11-19",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.25228",
+   "title": "MKA: Evaluating Multimodal Knowledge Agents on end-to-end professional tasks",
+   "published": "2026-11-18",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.25146",
+   "title": "EverydayBench: Evaluating Satisfactory Completion of Live User-Facing Digital Work",
+   "published": "2026-11-18",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.25066",
+   "title": "DVBench: End-to-End Benchmark for Real-World UVM Design Verification Agents",
+   "published": "2026-11-18",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.24995",
+   "title": "EgoPass-Bench: Identifying Objects That May Affect the Wearer's Passage in Egocentric Video",
+   "published": "2026-11-18",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.23546",
+   "title": "Language Models Make New Research Sound Old",
+   "published": "2026-11-17",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.23496",
+   "title": "Encapsulating Reactive Behaviour in Goal-based Plans for Programming BDI Agents",
+   "published": "2026-11-17",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.22881",
+   "title": "Equivalence of Small and Large Quasi-kernels",
+   "published": "2026-11-17",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.22480",
+   "title": "RehearsalBench: Can AI Predict What Happens When You Change a Company?",
+   "published": "2026-11-17",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.22362",
+   "title": "HealthCLBench:Evaluating Context Learning in Health Conversations through Controlled Case Clusters",
+   "published": "2026-11-17",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.21789",
+   "title": "ASTRA: ASV Simulator for Transferable Realistic Autonomy",
+   "published": "2026-11-16",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.21607",
+   "title": "ScaleVLA: Scaling Vision-Language-Action Models to 552 Billion Parameters",
+   "published": "2026-11-16",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.21541",
+   "title": "SciResearch-Eval: Evaluating Scientific Judgment in Autonomous Experimental Agents",
+   "published": "2026-11-16",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.21484",
+   "title": "Ice and mirrors",
+   "published": "2026-11-16",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.21707",
+   "title": "Bookkeeping Is Not Judgement: EJBench, an Engineering Judgement Benchmark Built from a Conjugate Heat Transfer Design Campaign",
+   "published": "2026-11-16",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.21273",
+   "title": "CAE-Bench: Benchmarking AI Agents for Reusable CAE Solver Development",
+   "published": "2026-11-16",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.21099",
+   "title": "ForceHarness: Turning Force into Action and Physics for Frozen Frontier Models",
+   "published": "2026-11-16",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.21084",
+   "title": "CompCert4Lean: Porting a Verified C Compiler to Lean in Six Weeks with Parallel Coding Agents",
+   "published": "2026-11-16",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.20984",
+   "title": "VASR: Vector-Aware Assembly Planning with Equivalent Structures and Repair-Cost Feedback",
+   "published": "2026-11-16",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.20732",
+   "title": "Routing Beyond Task Categories: A Cost-Aware LAB-Bench Study",
+   "published": "2026-11-16",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.20628",
+   "title": "PixelBench: Evaluating Language Models for Pixel-Art Creation",
+   "published": "2026-11-16",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.20218",
+   "title": "SWE-CoWork: Benchmarking Coding Agents as Digital Employees in Organizations",
+   "published": "2026-11-15",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.18562",
+   "title": "Training Reasoning Models in Simulation to Natively Use Real Robots",
+   "published": "2026-11-13",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.18359",
+   "title": "Envisioning Agentic Robotics: A New Era of Robotic Systems",
+   "published": "2026-11-13",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.18174",
+   "title": "Sample complexity and scalability of adaptive-sampling trust-region methods for zeroth-order stochastic optimization --- Part~II: a new pathwise analysis with randomized subspaces",
+   "published": "2026-11-13",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.18130",
+   "title": "JFinBench: A Continuously Refreshable Japanese Financial Benchmark from the Latest Certification Exams",
+   "published": "2026-11-13",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.18030",
+   "title": "PerfArena: Ranking LLMs by Code Performance",
+   "published": "2026-11-13",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.17060",
+   "title": "Ropedia Xperience 2: A Gold Standard for Scaling Physical AI Environments and Behaviors",
+   "published": "2026-11-12",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.16913",
+   "title": "CADET: Construction of PCB Routing Instances with Executable Demonstrations",
+   "published": "2026-11-12",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.16861",
+   "title": "Visual Cipher Bench: Benchmarking LLM Agents on Long-Horizon Visual Reasoning",
+   "published": "2026-11-12",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.16632",
+   "title": "Reins: Frontier Multimodal Models Driving Real Robot Arms on Long-Horizon Tasks, Zero-Shot",
+   "published": "2026-11-12",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.16299",
+   "title": "Improved Lower Bounds for Mutually Orthogonal Latin Squares (MOLS) at 33 Orders",
+   "published": "2026-11-12",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.16236",
+   "title": "ATune: Unsupervised Photo Retouching Through Image-Editor Controls",
+   "published": "2026-11-12",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.16160",
+   "title": "Contiguity of unions of perfect matchings and random regular uniform hypergraphs",
+   "published": "2026-11-12",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.16116",
+   "title": "Robo-SWE: An Executable Issue-Resolution Dataset Mined from Robot Software Repositories",
+   "published": "2026-11-11",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.16097",
+   "title": "A Matching Lower Bound for Online Smooth Calibration",
+   "published": "2026-11-11",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.16009",
+   "title": "JustRUA: A Controlled Study of GPT-6 Robot-Use Agents",
+   "published": "2026-11-11",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.14953",
+   "title": "RSLiveBench-UAV: A Continually Evolving Vision-Language Benchmark for Aerial Spatial Intelligence",
+   "published": "2026-11-11",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.14432",
+   "title": "One Policy for 100 Household Tasks: Our Solution for the 2026 BEHAVIOR Challenge",
+   "published": "2026-11-10",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.14115",
+   "title": "LEASH: Stay Safe in Agentic Robotics",
+   "published": "2026-11-10",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.13329",
+   "title": "Agent-Guided Discovery of Exchange-Correlation Functionals with Physics-based Validation",
+   "published": "2026-11-09",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.13281",
+   "title": "Constant query LCCs over the reals",
+   "published": "2026-11-09",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.13246",
+   "title": "ExpertCrowd-SWE: Measuring Frontier Coding Agents on Expert-Authored Engineering Tasks in Unfamiliar Codebases",
+   "published": "2026-11-09",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.12552",
+   "title": "SciMARS: Multi-Agent Recursive Self-Improvement for Closed-Loop Scientific Discovery",
+   "published": "2026-11-09",
+   "stage": "excluded_title_abstract",
+   "reason": "multi-agent RSI over research artifacts; no weight editing"
+  },
+  {
+   "id": "2611.12177",
+   "title": "Embodied First Exam",
+   "published": "2026-11-09",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.12088",
+   "title": "Zero-Search Reinforcement Learning for Slay the Spire 2 with Failure-Driven Restarts",
+   "published": "2026-11-09",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.12048",
+   "title": "Evaluating AI Agents for Industrial-Level Chip Floorplanning: A Framework and Empirical Study",
+   "published": "2026-11-09",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.12029",
+   "title": "Quasipositive and almost positive sectional curvature on finite quotients of Wallach spaces",
+   "published": "2026-11-09",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.12014",
+   "title": "Benchmarking language models and agents for scientific reasoning in evolving materials laboratories",
+   "published": "2026-11-09",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.11796",
+   "title": "Publications as benchmarks: auditing AI agents on spatial transcriptomics alignment",
+   "published": "2026-11-09",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.11660",
+   "title": "On sinks and mirrors",
+   "published": "2026-11-08",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.11509",
+   "title": "Review the Episodes, Refine the Lessons: Simple Memory Evolution for Embodied Agents",
+   "published": "2026-11-08",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.11438",
+   "title": "When Coding Agents Get Arms: Safety Risks Across the Digital-Physical Boundary",
+   "published": "2026-11-08",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.10926",
+   "title": "DeepFinance: Can AI Diligence a $100MM Deal?",
+   "published": "2026-11-07",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.10296",
+   "title": "Sample complexity and scalability of adaptive-sampling trust-region methods for zeroth-order stochastic optimization --- Part I: common random numbers meet supermartingales",
+   "published": "2026-11-06",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.09017",
+   "title": "Frontier3DBench: Benchmarking Coding Agents for 3D Creation across Objects, Scenes, and Interactive Open Worlds",
+   "published": "2026-11-06",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.08957",
+   "title": "A Poincare-Einstein Liouville Theorem and the Yamabe Invariant of Lens Spaces",
+   "published": "2026-11-06",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.08933",
+   "title": "DRAFT-Bench: Evaluating Frontier Agents Across the Professional Design Lifecycle",
+   "published": "2026-11-06",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.08209",
+   "title": "RoboARCade: Benchmarking Agentic Robot Control",
+   "published": "2026-11-05",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.07962",
+   "title": "TCSExam: Evaluating Frontier LLMs on the Full Range of TCS Research",
+   "published": "2026-11-05",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.07650",
+   "title": "What the Middleman Delivers: Answer Behavior, Tool Permissions, and Billed Usage in LLM API Relays",
+   "published": "2026-11-05",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.07339",
+   "title": "DiagDBench: Evaluating Agentic LLMs on Interactive Database Diagnosis and Anomaly Remediation",
+   "published": "2026-11-05",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.06768",
+   "title": "PyRUA-REAL: Robot Exploration and Adaptive Learning through RSI in the Real World",
+   "published": "2026-11-04",
+   "stage": "excluded_title_abstract",
+   "reason": "robot RSI at harness level; weights unchanged"
+  },
+  {
+   "id": "2611.06184",
+   "title": "Can Astra Solve RoboMME without Breaking the Bank?",
+   "published": "2026-11-04",
+   "stage": "excluded_title_abstract",
+   "reason": "LLM used as a planner; target weights unchanged"
+  },
+  {
+   "id": "2611.05147",
+   "title": "GM League Arena: An Interactive Long-Horizon Task Benchmark Based on Professional Sports League Management",
+   "published": "2026-11-03",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.03959",
+   "title": "Mixing Time of the Random-Pair Monte Shuffle",
+   "published": "2026-11-02",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.02530",
+   "title": "AMLBench: A Real-Incident Benchmark for Agentic Blockchain Anti-Money Laundering",
+   "published": "2026-11-02",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.25218",
+   "title": "The American Medical Directory Panel: Comparing AI-Assisted and LLM Transcription with Manual Data Entry at Scale",
+   "published": "2026-11-18",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "2611.12164",
+   "title": "Let the Fixer Decide: Training a Code Localizer from the Fixer's Likelihood",
+   "published": "2026-11-09",
+   "stage": "excluded_title_abstract",
+   "reason": "keyword match only; not about a model reading, writing or editing network weights"
+  },
+  {
+   "id": "zenodo.24398164",
+   "title": "SGNE-CC v2",
+   "source": "turkoglu corpus",
+   "stage": "full_text",
+   "reason": null,
+   "published": null
+  },
+  {
+   "id": "zenodo.23958069",
+   "title": "Building foundational models using Weight Space Programming",
+   "source": "turkoglu corpus",
+   "stage": "full_text",
+   "reason": null,
+   "published": null
+  },
+  {
+   "id": "zenodo.24085180",
+   "title": "When Weights Collide with Latents",
+   "source": "turkoglu corpus",
+   "stage": "full_text",
+   "reason": null,
+   "published": null
+  },
+  {
+   "id": "zenodo.24090396",
+   "title": "SOVEREIGN RSI SANCTUARY (V30.1)",
+   "source": "turkoglu corpus",
+   "stage": "full_text",
+   "reason": null,
+   "published": null
+  },
+  {
+   "id": "zenodo.24128861",
+   "title": "Hermetic GeGLU Airlocks",
+   "source": "turkoglu corpus",
+   "stage": "full_text",
+   "reason": null,
+   "published": null
+  },
+  {
+   "id": "zenodo.24168084",
+   "title": "ZeGA: Zero-Gradient Gated Adaptation",
+   "source": "turkoglu corpus",
+   "stage": "full_text",
+   "reason": null,
+   "published": null
+  },
+  {
+   "id": "2611.07775",
+   "title": "Adapters as Data: The Latent Space of LoRAs",
+   "source": "Boom5426 list",
+   "stage": "excluded_title_abstract",
+   "reason": "weight space learning over LoRAs; no editor (background)",
+   "published": null
+  },
+  {
+   "id": "2611.09650",
+   "title": "TensorMutation: Learning Weight-Space Mutations",
+   "source": "Boom5426 list",
+   "stage": "excluded_title_abstract",
+   "reason": "trained mutation model (out of scope by definition)",
+   "published": null
+  },
+  {
+   "id": "zenodo.24398165",
+   "title": "SGNE-CC v2 (alternate DOI)",
+   "source": "Boom5426 list",
+   "stage": "merged",
+   "reason": "same record as zenodo.24398164 (to be confirmed by reader)",
+   "published": null
+  },
+  {
+   "id": "zenodo.24235218",
+   "title": "SGNE-CC v1 (alternate DOI)",
+   "source": "Boom5426 list",
+   "stage": "merged",
+   "reason": "same record as zenodo.24235217 already in corpus",
+   "published": null
+  }
+ ]
+}

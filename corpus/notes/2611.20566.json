@@ -1,0 +1,43 @@
+{
+ "id": "2611.20566",
+ "url": "https://arxiv.org/abs/2611.20566",
+ "title": "Weight-Space Programming Changes How an LLM Uses Python for Computational Biology",
+ "authors": ["Makoto Sato"],
+ "date": "2026-11-16",
+ "read_level": "full (v1 PDF; supplementary Table S1 not in PDF text)",
+ "metadata_mismatch": "none",
+ "is_wsp": "core",
+ "why_wsp": "Claude Opus 5.5 (Editor) inspects Qwen3.5-0.8B's tensors and responses and directly edits its weights via WSP harness tools, without gradient training, to improve tool-using computational biology problem solving.",
+ "primary_branch": "B3",
+ "secondary_branches": ["B4"],
+ "facets": ["evaluation", "application domain"],
+ "domain": "computational biology problems with Python tool use (melting temperature, entropy, enzyme kinetics, codon optimization)",
+ "editor": "Claude Opus 5.5 (via API); analysis of traces by Codex (GPT-6.1 Sol)",
+ "target": "Qwen3.5-0.8B, BF16, thinking enabled, served with vLLM",
+ "interface": "code/tensor tools (inspect tensors, CPU calculations, WSP harness weight-modification tools, evaluate on editing problems)",
+ "loop": "closed-loop with feedback (target-call budget up to 10 successful evaluation calls per editing run)",
+ "self_editing": "no; Claude edits a separate Qwen model",
+ "fraction_or_count_of_weights_changed": "Per checkpoint: \"64,409\" (seed 1), \"51,892,555\" (seed 2, 24 matrices in blocks 12-23), \"616,799\" (seed 3), \"1,019\" (seed 4) changed scalar weights; seeds 1, 3, 4 confined to 'MLP down-projection' of block 23 (Table 2)",
+ "headline_results": [
+  {"claim": "Strict correct 44 to 77 over 600 pairs", "quote": "the number of responses graded as strictly correct increased from 44 (7.3%) for the original model to 77 (12.8%) for the edited models", "where": "Results; Table 1"},
+  {"claim": "Technically correct 64 to 100", "quote": "the number of correct responses increased from 64 (10.7%) to 100 (16.7%), with an increase in each of the four editing runs", "where": "Results; Table 1"},
+  {"claim": "Repeated Python calls fell", "quote": "Total Python calls fell from 5,599 to 3,479 after editing, and calls repeating an earlier syntax tree fell from 1,834 to 1,044", "where": "Results; Table 3"},
+  {"claim": "Most edited-only gains were already computed by original", "quote": "Of the 64 pairs in which only the edited response was technically correct, 13 showed a correction to the target computation in the executed Python code. In 36 pairs, the original model had already computed the correct value", "where": "Results"},
+  {"claim": "Follow-up six checkpoints", "quote": "Across the six additional checkpoints, technically correct responses increased from 96 to 154 in 900 pairs", "where": "Follow-up; Table 5"},
+  {"claim": "Completed-but-wrong also rose", "quote": "Completed responses that failed the technical correctness criterion also increased, from 42 to 274.", "where": "Discussion; Table 5"},
+  {"claim": "T17: fewer correct Python outputs, more correct answers", "quote": "correct Python outputs decreased from 60 to 22 after editing, while strictly correct final answers increased from 0 to 15 and technically correct final answers from 0 to 18", "where": "Discussion; Table 6"},
+  {"claim": "Per-problem changes mixed", "quote": "After editing, this count increased for 17 of the 50 problems, stayed the same for 27, and decreased for six.", "where": "Results"}
+ ],
+ "cost": [
+  {"claim": "Per-run editing budget", "quote": "each editing run was limited to 32,768 Editor output tokens, 300 Editor CPU calls, and six hours", "where": "Methods, Editing harnesses"}
+ ],
+ "baselines_and_controls": "Original unedited Qwen3.5-0.8B paired on same server, problems and sampling seeds; original evaluated twice per combination (identical in 286 of 300). No random-edit, fine-tune, LoRA or prompting baselines.",
+ "runs_and_variance": "10 editing runs (seeds 1-10), each tested on 50 problems x 3 test seeds; ten test seeds for three selected problems; descriptive counts only, per-seed results in Tables 1, 5, 6 (e.g. technically correct per seed 22-32 of 150 edited).",
+ "robustness_of_edits": "not tested (no fine-tuning or quantization tests); test set held out from Editor but some test problems share procedures with editing problems",
+ "verification": "none (automated grader plus retrospective manual review of format-rejected answers; Codex-assisted trace review)",
+ "memorization_vs_reasoning": "n/a for the Editor; for the target, separates 'finish an already computed answer' (36 of 64) from 'corrected computation' (13 of 64).",
+ "limitations_stated": "One Target and one Editor; same 50 test problems, three sampling seeds; test problems known to the author and some revised during development; some test problems share procedures with editing problems; AST-based repetition can miss equivalent code; only selected traces reviewed for follow-up checkpoints; magnitude varied across editing runs.",
+ "code_or_data": "https://github.com/satouma7/bioWSP (stated as 'will be available')",
+ "cites_or_builds_on": ["Takehi et al. 2026 Sparks of Weight-Space Programming blog [3]", "Hu et al. Exploring Weight-Space Programming arXiv:2611.09382 [4]"],
+ "notes_for_survey": "Traces executed Python code and outputs before and after Claude-made edits to Qwen3.5-0.8B, separating gains from submitting already-computed values versus changed computations. Three of four initial checkpoints changed only the final-block MLP down-projection, the same matrix reported edited in Hu et al.'s math runs."
+}

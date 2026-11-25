@@ -1,0 +1,42 @@
+{
+ "id": "2611.27079",
+ "url": "https://arxiv.org/abs/2611.27079",
+ "title": "Weight-space programming and mechanistic interpretability for model editing in particle physics",
+ "authors": ["Raphaël Bonnet-Guerrini", "Johann Ioannou-Nikolaides", "Troels Petersen"],
+ "date": "2026-11-20",
+ "read_level": "full (arXiv HTML: main text Secs 1-5, Appendix B/C read; Appendix D tables skimmed)",
+ "metadata_mismatch": "none",
+ "is_wsp": "core",
+ "why_wsp": "Claude Opus 5.5 agents (via Claude Code) edit body/classifier weights of the OmniLearned jet foundation model using closed-form computations and at most 50 evaluation queries, with no gradients or iterative optimization, to remove an infrared-sensitivity flaw; compared with SAE-guided latent removal and fine-tuning.",
+ "primary_branch": "B3",
+ "secondary_branches": ["B1", "B4"],
+ "facets": ["evaluation", "safety", "application domain"],
+ "domain": "particle physics: jet tagging foundation model (infrared safety)",
+ "editor": "Claude Opus 5.5 through Claude Code agent v2.1.316",
+ "target": "OmniLearned -s (3.3M parameters), also -m and -l",
+ "interface": "code/tensor tools (closed-form computations on weights/activations; evaluation tool returning outputs, activations, or edit scores)",
+ "loop": "closed-loop with feedback (up to 50 evaluation queries per run)",
+ "self_editing": "no",
+ "fraction_or_count_of_weights_changed": "selected WSP median 10,122 changed parameters, range [142, 10 267] (Table 1); 'for the large model, its edits reach up to 400\\,000 parameters' (Sec 3.3); fine-tuning 63,240; SAE edit 1,533 (Table 2)",
+ "headline_results": [
+  {"claim": "Flaw: one soft photon drops W efficiency 80% -> 54%", "quote": "Adding one photon with f=10^{-3} lowers the W efficiency of this selection from 80% to 54% and the QCD acceptance from 2.0% to 0.7%", "where": "Sec 2.1"},
+  {"claim": "All repairs restore efficiency to 78-79%", "quote": "All three approaches bring back this efficiency between 78% to 79% while the efficiency of the original model falls from 80% to 54%.", "where": "Sec 3.3, Table 2"},
+  {"claim": "WSP preserves physical response best; fewer parameters than fine-tuning", "quote": "It keeps the response to physical changes within 1% of the original, against 0.90 for fine-tuning and 0.78 for the SAE edit. It changes about 10,000 parameters, six times fewer than fine-tuning.", "where": "Sec 3.3"},
+  {"claim": "More information to agent improves repair (remaining error 0.33 vs 0.12 vs 0.08)", "quote": "The remaining error of the least informed agents is 0.33, against 0.12 and 0.08 for the two other variants, and the ranges do not overlap.", "where": "Sec 3.2, Table 1"},
+  {"claim": "Transfer to all nine taggers", "quote": "In the model repaired by WSP they stay between 78% and 80% for all nine taggers.", "where": "Sec 4.2, Table 3"},
+  {"claim": "New regression head on repaired backbone no longer reacts to sub-threshold photon", "quote": "On the models repaired by WSP and SAE edits, the prediction changes less ( 1.1 GeV ) than for a control photon of 3 GeV", "where": "Sec 4.3"},
+  {"claim": "Larger models: selected variant remaining error", "quote": "for the selected variant, the remaining error is 0.04 and 0.10, and the flaw informed agents again repair less, with 0.23 and 0.32.", "where": "Sec 3.2"}
+ ],
+ "cost": [
+  {"claim": "Query budget", "quote": "each run allows up to 50 queries to an evaluation tool", "where": "Sec 3.2"}
+ ],
+ "baselines_and_controls": "Original model, input removal rule, fine-tuning (63,240 params, 3 seeds), SAE edit (removing 3 latents); three WSP information variants (flaw/target/physics-origin informed); control photon above threshold for generator/regression tests.",
+ "runs_and_variance": "3 independent runs per variant per model size, 3 edits per run; median and range reported: 'The same prompt gives edits whose remaining error differs by up to a factor of three, and whose size ranges from 142 to about 10,000 parameters.' (Sec 3.2)",
+ "robustness_of_edits": "Edits built on W/QCD only transfer to all nine signal classes, to the generator head (median 0.2% mass change vs 1.1% original), and to a newly trained regression head; responses to particles down to 1 MeV stay flat but nonzero.",
+ "verification": "none formal; held-out test jets; isolation audit of agent file access; authors state repairs do not make the tagger 'infrared safe in the formal sense'",
+ "memorization_vs_reasoning": "Agents had to state expectations before each query and submit a pre-query edit; target-informed agents discovered the threshold by probing; 'None of the edits acts mainly on b7/6, the main reader' - agents add an upstream detector instead. Two runs saw other agents' process command lines (reported in Appendix C).",
+ "limitations_stated": "Variation between runs ('one run is not enough to trust the method'); LLM 'not state of the art'; at most 50 queries; edits restricted to backbone and classifier; large-model edits up to 400,000 parameters; nonzero residual soft response.",
+ "code_or_data": "https://github.com/rbonnetguerrini/WSP-mech-interp-for-model-editing-in-particle-physics ; Zenodo 10.5281/zenodo.24377675 (edited weights, SAE checkpoints, jet sets, agent transcripts)",
+ "cites_or_builds_on": ["Takehi et al. 2026 Sparks of WSP [50]", "OmniLearned foundation model"],
+ "notes_for_survey": "Domain-science repair case with three-way comparison (WSP agent, SAE latent removal, fine-tuning) and an information-access ablation for the agent; edits evaluated on downstream heads not used to build them. Includes authors' note on misuse and self-modification risks."
+}

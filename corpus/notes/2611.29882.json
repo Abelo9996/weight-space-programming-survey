@@ -1,0 +1,40 @@
+{
+ "id": "2611.29882",
+ "url": "https://arxiv.org/abs/2611.29882",
+ "title": "Reparameterizing Your Object Detectors for Weight Space Programming",
+ "authors": ["Chien-Yao Wang"],
+ "date": "2026-11-23",
+ "read_level": "partial (abstract, Secs 1-3.2, experimental setup, main results summary, LLM usage statement, Limitations (App E) and keyword search; proofs, operator details and most appendix tables not read)",
+ "metadata_mismatch": "none",
+ "is_wsp": "peripheral",
+ "why_wsp": "Gradient-free closed-form weight edits to object detectors in lifted function-preserving subspaces (moment, 2D-DCT, PCA, Procrustes) then folded back; an LLM (Gemini 4) was used offline as the 'WSP agent' to diagnose and synthesize the reusable operators, with zero LLM calls at edit/runtime.",
+ "primary_branch": "B5",
+ "secondary_branches": ["B3"],
+ "facets": ["application domain"],
+ "domain": "object detection (MS COCO, COCO-O; YOLO26, EdgeCrafter, RF-DETR)",
+ "editor": "none (closed-form solver) at edit time; Gemini 4 used offline for \"weight-space diagnosis, inverse-reparameterization operator synthesis, experiment orchestration\" (LLM Usage Statement)",
+ "target": "17 pretrained detectors (YOLO26 N-X, EdgeCrafter S-X, RF-DETR N-L); parameter counts in paper's Table 1 (not extracted)",
+ "interface": "closed form",
+ "loop": "one-shot (closed-form solve on a calibration set; no LLM loop reported at edit time)",
+ "self_editing": "no",
+ "fraction_or_count_of_weights_changed": "not reported as fraction; deployed parameter count unchanged: \"(∆Params=0%, ∆FLOPs=0%)\" (Abstract)",
+ "headline_results": [
+  {"claim": "Positive COCO gains on all 26 settings at 1.00x cost", "quote": "1.00× IR-ODWSP achieves 26/26 (100%) positive blind MS COCO gains (up to +0.160 AP and +0.310 APs)", "where": "Sec 1"},
+  {"claim": "Vanilla WSP degrades most detectors", "quote": "Vanilla WSP degrades 13/17 converged detectors (Tab. 1)", "where": "Sec 6.1"},
+  {"claim": "Naive binary WSP causes duplicate-box collapse", "quote": "collapsing YOLO26-S/M accuracy by −39.7 to −43.7 AP", "where": "Sec 1"},
+  {"claim": "Zero-image weight repair and label-free weather adaptation", "quote": "repairs corrupted weights with zero images (+2.95 mAP), and gains +2.50– + 2.79 AP under night-and-fog shift", "where": "Sec 1"},
+  {"claim": "Latency-budget variants", "quote": "−10% retains 51.62 AP / 33.48 mAP, while positive budgets scale monotonically (+0.30 AP at +10%, +1.12 on RF-DETR-N; 54.83 AP at +100%", "where": "Abstract"}
+ ],
+ "cost": [
+  {"claim": "No runtime LLM calls; deployment cost unchanged", "quote": "NVIDIA RTX PRO 6000 GPUs (0 runtime LLM calls). At β = 0% (1.00× cost, ∇ ≡ 0)", "where": "Sec 5 Experimental Setup"}
+ ],
+ "baselines_and_controls": "Official checkpoints; Vanilla WSP (adapted from Takehi et al.); OD-WSP; collapsed IR-ODWSP (Pure 0%); naive WiSE-FT interpolation; multi-scale+flip TTA; Haar-O(P) controls for the metric proposition",
+ "runs_and_variance": "single run / not reported (deterministic evaluation across 17 detectors, 26 settings)",
+ "robustness_of_edits": "zero-shot transfer to COCO-O distribution shifts (\"over 85% of 17-model ID gains transfer zero-shot to COCO-O\"); adverse-weather adaptation; TensorRT FP16 deployment evaluated",
+ "verification": "function-preservation of lift/fold operators argued algebraically (Proposition 1, App A) with numerical controls \"< 2 × 10−9\"; no statistical testing reported",
+ "memorization_vs_reasoning": "n/a",
+ "limitations_stated": "Absolute AP gain of pure single-checkpoint collapse is bounded (+0.01 to +0.16 AP) since folding cannot raise backbone rank or resolution; larger gains trade latency; cross-model Procrustes alignment requires matching layer widths.",
+ "code_or_data": "https://github.com/WongKinYiu/ODWSP",
+ "cites_or_builds_on": ["Takehi et al. 2026 WSP (ref [30])", "ROME (ref [23])", "Task arithmetic, Model Soups, WiSE-FT", "structural reparameterization (RepVGG, DBB, YOLOv7/v9)"],
+ "notes_for_survey": "Uses the WSP label for gradient-free closed-form detector editing; the LLM's role is offline operator synthesis (disclosed in the LLM usage statement), not per-edit weight writing. Reports that a naive Takehi-style closed-form WSP adaptation degrades 13/17 converged detectors."
+}

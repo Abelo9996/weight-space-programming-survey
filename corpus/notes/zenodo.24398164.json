@@ -1,0 +1,71 @@
+{
+ "id": "zenodo.24398164",
+ "url": "https://doi.org/10.5281/zenodo.24398164",
+ "title": "SGNE-CC v2: Editing 205 Weight Columns in DeepSeek-R1-Distill-Qwen-1.5B Improves Greedy Accuracy and Reduces Unfinished Responses",
+ "authors": [
+  "Igor M. Zhuk"
+ ],
+ "date": "2026-11-20",
+ "read_level": "full English article (article/ARTICLE_EN.md) and README.md from the release zip; Russian article, PNG figure cards, raw traces and patch/verifier code not opened",
+ "metadata_mismatch": "zenodo.24398164 is the concept DOI; the API resolves it to version record 24398165 (DOI 10.5281/zenodo.24398165, v2.0.0, the only version), so 24398165 is a version DOI of the same record. It is a separate concept from SGNE-CC v1 (concept 24235217 / version 24235218), not a new version of it. Resource type is 'Software' (GitHub release zip). The article heading omits the 'SGNE-CC v2:' prefix. Zenodo description says the columns are 'across layers L22–L27', whereas the article says newline columns are in 'L18–L27' and punctuation columns in 'L19–L27'.",
+ "is_wsp": "not_wsp",
+ "why_wsp": "Out of scope: a hand-designed closed-form norm-preserving rotation of 205 down_proj columns toward a </think> unembedding direction, selected by the author from attention-head and gate statistics on calibration traces; no LLM editor, and the article does not position the edit as a WSP baseline or replacement.",
+ "exclusion_reason": "Closed-form, author-designed column rotation with no LLM editor, and the article does not position itself as a WSP baseline or replacement (only a cross-reference to MIT-p50c numbers carried over from v1).",
+ "primary_branch": "B3",
+ "secondary_branches": [
+  "B5"
+ ],
+ "facets": [],
+ "domain": "LLM reasoning-loop repair (unfinished <think> traces) on math, code, science and logic benchmarks",
+ "editor": "none named; author-selected columns plus closed-form rotation formula (beta = 2)",
+ "target": "DeepSeek-R1-Distill-Qwen-1.5B (\"1,777,088,000\" parameters in model.safetensors)",
+ "interface": "closed form (column rotation with norm restoration, shipped as BF16 patch npz)",
+ "loop": "n/a (column groups and size tuned on a small calibration set: \"6 + 6 for punctuation selection and 8 + 6 for size tuning\")",
+ "self_editing": "no",
+ "fraction_or_count_of_weights_changed": "\"314,880 (0.01772%) / 314,418\" scalars in edited region / differing in BF16; \"205 (135 newline + 70 punctuation)\" mlp.down_proj columns (Sec. 1 table)",
+ "headline_results": [
+  {
+   "claim": "Pooled greedy accuracy across 1,054 problems",
+   "quote": "With greedy decoding (T = 0), correct answers rose from 638 to 733 out of 1,054 (+9.0 pp, p = 6.07 × 10^-10)",
+   "where": "Sec. 5.3"
+  },
+  {
+   "claim": "MATH-500 greedy unclosed responses and accuracy",
+   "quote": "responses missing </think> fell from 139 to 16 ... The edit gained 74 correct answers and lost 19 (exact McNemar p = 7.72 × 10^-9)",
+   "where": "Sec. 2"
+  },
+  {
+   "claim": "MATH-500 holdout excluding calibration and head-analysis items",
+   "quote": "On the remaining 421 problems, the greedy gain persists (276 → 321, +60 / −15, p = 1.59 × 10^-7)",
+   "where": "Sec. 2"
+  },
+  {
+   "claim": "Sampling regime accuracy not significantly changed",
+   "quote": "At a temperature of 0.6, accuracy was 72.3% for the base model and 73.3% for the edited model (paired p = 0.4472)",
+   "where": "Sec. 5.3"
+  },
+  {
+   "claim": "HumanEval greedy accuracy near unchanged",
+   "quote": "paired pass balance stays nearly symmetric (+20 / −18, p = 0.8714)",
+   "where": "Sec. 3"
+  },
+  {
+   "claim": "Edit geometry",
+   "quote": "Rotation angles / mean norm ratio ... 59.93° – 66.64° / 0.99999339",
+   "where": "Sec. 1 table"
+  }
+ ],
+ "cost": [],
+ "baselines_and_controls": "Unedited base model at T = 0 and T = 0.6 (edited model also at T = 0.3); exclusion splits removing 26 calibration and 53 head-analysis MATH-500 items; cross-study comparison table with SGNE-CC v1 and MIT-p50c numbers from the v1 study. No random-column, fine-tuning, LoRA or decoding-penalty baseline.",
+ "runs_and_variance": "One run per configuration; seed = 42 at T = 0.6; \"This comparison used one random seed\" (MBPP, Sec. 3); exact two-sided McNemar tests, no multiplicity correction stated.",
+ "robustness_of_edits": "Transfer to four benchmarks not used for column selection (MBPP, HumanEval, ARC-Challenge, BBH Logic) and two/three temperatures; not tested under fine-tuning or quantization.",
+ "verification": "SHA-256 manifest (\"42/42 SHA-256 checksums\") and integrity verifier script; no formal verification of behavior",
+ "memorization_vs_reasoning": "n/a (no LLM editor)",
+ "limitations_stated": "Losses accompany gains (\"166 newly solved problems are accompanied by 71 losses\"); repeated </think> markers (84 cases at T = 0); under sampling the edit acts mainly as length compression; v1 vs v2 comparison does not isolate architecture vs model-size effects; 316 greedy base traces were resumed continuations.",
+ "code_or_data": "https://github.com/Nondual-Observer/deepseek-r1-1.5b-sgne-cc-v2/tree/v2.0.0 (patch npz, apply script, traces, verifier); archived as Zenodo record 24398165",
+ "cites_or_builds_on": [
+  "SGNE-CC v1, Zhuk 2026, DOI 10.5281/zenodo.24235218 (in corpus as zenodo.24235217)",
+  "MIT-p50c numbers (Takehi et al. 2026 edit) quoted via v1"
+ ],
+ "notes_for_survey": "Follow-up to SGNE-CC v1 (zenodo.24235217) on a different model; unlike v1, the article discloses the rotation formula and column-selection criteria, so the edit is author-designed closed form, not LLM-authored. No statement found on whether the record or article is AI-authored."
+}

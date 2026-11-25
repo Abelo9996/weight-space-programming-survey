@@ -1,0 +1,93 @@
+{
+ "id": "2611.25613",
+ "url": "https://arxiv.org/abs/2611.25613",
+ "title": "Can an LLM Repair a Language Model in Weight Space Without Gradient Training?",
+ "authors": [
+  "Bharath Kumar Bolla",
+  "Raghavender Surya Upadhayula",
+  "Vishnu Surya Reddy Nandi",
+  "Ramesh Nandipalli"
+ ],
+ "date": "2026-11-19",
+ "read_level": "full main text (Secs 1-6, 8, 10-11) and appendix B-C manifest; Secs 7 and 9 (natural completion, induced failures) skimmed",
+ "metadata_mismatch": "none",
+ "is_wsp": "core",
+ "why_wsp": "An external tool-using LLM editor inspects a deliberately damaged Transformer (predictions, activation summaries, weight statistics) and selects projection recipes that the runtime applies to MLP/attention weights without gradient updates, compared against fixed and scripted selectors, black-box search, and LoRA.",
+ "primary_branch": "B3",
+ "secondary_branches": [
+  "B4",
+  "B5"
+ ],
+ "facets": [
+  "evaluation"
+ ],
+ "domain": "repair of injected low-rank faults in small LMs; adjective completion probe",
+ "editor": "unnamed external LLM ('all editor model fields use a generic role identifier'; exact provider model revision not recorded)",
+ "target": "BERT-Base-110M, PubMedBERT-110M, SmolLM2-135M-Instruct, Pythia-70M-Deduped, Qwen2.5-0.5B-Instruct",
+ "interface": "code/tensor tools (HTTP server tools: inspect, propose recipe, apply, dev-evaluate, revert, finalize; runtime performs the projection)",
+ "loop": "closed-loop with feedback (up to five development evaluations; sessions used three or four)",
+ "self_editing": "no; editor repairs separate small target models",
+ "fraction_or_count_of_weights_changed": "Fixed recipe edits 64 columns in two MLP layers: \"Position projection ... selects two anomalous layers, and removes a rank-one component on 64 estimated columns.\" (Sec 4.2); interface allows \"a column budget up to 256\" (Sec 3.2)",
+ "headline_results": [
+  {
+   "claim": "Pythia: live selection vs black-box vs fixed projection",
+   "quote": "For Pythia, live selection achieves 65.62% completion accuracy, compared with 0% for black-box search and 66.15% for a fixed projection.",
+   "where": "Abstract; Table 1-2"
+  },
+  {
+   "claim": "Fixed projection matches live on core fault",
+   "quote": "these core cases show effective repair by both procedures, not a general live-controller advantage",
+   "where": "Sec 6.2"
+  },
+  {
+   "claim": "Weight error after live editing (causal targets)",
+   "quote": "The three causal targets have final mean weight errors close to 0.068, 0.073, and 0.064.",
+   "where": "Sec 6.1"
+  },
+  {
+   "claim": "Feedback changed Qwen edit",
+   "quote": "Qwen2.5 54.17 ± 38.82 76.56 ± 1.56 76.56 ± 1.56 44.79 0.0641 / 0.0641",
+   "where": "Table 1 (first candidate A / feedback A / Bayesian A / B / weight error)"
+  },
+  {
+   "claim": "Compound fault: LLM and scripted tie",
+   "quote": "The LLM-proposed programs identified the injected locations in all 15 model-seed cases and achieved a mean Test-A accuracy of 71.25 %",
+   "where": "Sec 8; Table 12"
+  },
+  {
+   "claim": "Scripted selector equal on compound fault",
+   "quote": "The scripted selector achieved the same values when evaluating the matched set of three candidates.",
+   "where": "Sec 8"
+  },
+  {
+   "claim": "LoRA alone fails on Pythia; repair then LoRA works",
+   "quote": "On Pythia, ordinary LoRA remains at zero while live repair then LoRA reaches 71.35% at this training budget.",
+   "where": "Sec 6.3; Table 3"
+  },
+  {
+   "claim": "LoRA exceeds repair on BERT",
+   "quote": "On BERT, ordinary LoRA reaches 97.40%, exceeding the 96.35% live-repair-plus-LoRA result.",
+   "where": "Sec 6.3"
+  }
+ ],
+ "cost": [
+  {
+   "claim": "Development evaluations used",
+   "quote": "The fifteen core sessions each use three; the five additional SmolLM2 sessions use three or four, for 63 development evaluations overall.",
+   "where": "Sec 3.4"
+  }
+ ],
+ "baselines_and_controls": "Original and damaged checkpoints; oracle inverse (privileged); repetition penalty decoding; fixed position, dense, gated spectral, weight-SVD, rollout-diagnostic projections; context damping; scripted single/five-candidate, recipe selector, blended operator; random search and matched-budget Bayesian/UCB black-box (5 evals); LoRA, DoRA-, PiSSA-, LoReFT-style, support-masked LoRA, gradient-SVD init; repair-then-LoRA and projection-initialized LoRA.",
+ "runs_and_variance": "\"The primary live-versus-non-live comparisons used the same three fault seeds, 101, 202, and 303\"; mean and sample SD reported; five seeds for non-live methods in appendix; paired Wilcoxon with Holm correction (Table 18); 20 recorded live sessions.",
+ "robustness_of_edits": "Held-out Test B (syntax and distractor shift) for all methods; training from repaired weights (25/50/100 AdamW steps); boundary cases for training- and simulated-quantization-induced failures (Table 14, skimmed). Not tested on long-form outputs. | Added 2026-11-25 from PDF Sec 6.8, Table 9 (LoRA on the same task, three seeds): \"On Pythia-70M, sequential repair-plus-LoRA rises from 55.73% at 25 steps to 83.33% at 50 and 84.38% at 100 steps (with Live-LLM repair-plus-LoRA rising from 71.35% to 80.21%), whereas standalone LoRA remains collapsed at 0.00% through 50 steps and reaches only 19.79% at 100 steps.\" This measures repair as an initialization for same-task LoRA, not retention of the edit under unrelated fine-tuning.",
+ "verification": "Automated validation audit of saved aggregates: \"It checks 15,725 saved aggregate fields and 1,920 binary item vectors ... with zero mismatches\" (Sec 5.2); state-identifier checks. No formal verification.",
+ "memorization_vs_reasoning": "Paper attributes gains to operator coverage and feedback-driven selection, noting 'the numerical projection is supplied by the environment' (Sec 10); 'A session's natural-language rationale is a record of its stated decisions and not an independent measurement of hidden reasoning' (Sec 3.4).",
+ "limitations_stated": "Faults are localized and deliberately low rank, matched to the repair family; narrow adjective task; three or five fault seeds; first-vs-final comparison retrospective within sessions; information boundary is instruction-based, not enforced sandbox; editor model revisions and three conversations missing; adapter variants lack reference parity; Qwen non-live rows lack raw provenance.",
+ "code_or_data": "none found",
+ "cites_or_builds_on": [
+  "Takehi et al. 2026 Sparks of Weight-Space Programming blog [1]",
+  "Hu et al. Exploring Weight-Space Programming [8]",
+  "ROME, MEMIT, MEND"
+ ],
+ "notes_for_survey": "Controlled repair study where the LLM only selects among environment-supplied projection operators; fixed and scripted selectors matched the LLM on most conditions, with feedback changing the outcome in recorded cases (e.g., one Qwen seed). Measures weight-space restoration error relative to the injected fault in addition to task recovery."
+}

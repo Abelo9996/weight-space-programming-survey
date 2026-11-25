@@ -1,0 +1,115 @@
+{
+ "id": "zenodo.23954378",
+ "url": "https://doi.org/10.5281/zenodo.23954378",
+ "title": "Weight-Space Programming for THOX Edge Models: Evidence Review, Small-Scale Recreation, and a Signed Patch Channel",
+ "authors": [
+  "Craig Ross",
+  "Tommy Xaypanya"
+ ],
+ "date": "2026-11-04",
+ "read_level": "full (v1.1.0 PDF downloaded from Zenodo API on 2026-11-25 and read with pdftotext)",
+ "metadata_mismatch": "Record page for 23954378 lists files under record 23955394 (v1.1.0; report states DOI 10.5281/zenodo.23955394). The version read is v1.1.0, which says E1-E4 results are carried over from v1.0.0. Authors are affiliated with THOX.ai (company).",
+ "is_wsp": "peripheral",
+ "why_wsp": "Industry technical report reviewing the Takehi et al. WSP claims, re-verifying the released Qwen3.5-0.8B edit, running small-scale read/write/fix/audit recreations with deterministic tools (not an LLM editor), and specifying a signed weight-patch distribution channel.",
+ "primary_branch": "B1",
+ "secondary_branches": [
+  "B2",
+  "B3"
+ ],
+ "facets": [
+  "evaluation",
+  "verification",
+  "safety"
+ ],
+ "domain": "edge LLM deployment (ThoxEdge-0.8B, a Qwen3.5-0.8B derivative); small control/RL networks; patch distribution",
+ "editor": "none (deterministic tools); quote: \"The reader, writer and editor in these experiments were deterministic tools, not a frontier API model\" (Sec 4)",
+ "target": "trained small networks (E1, 30 networks); hand-built paddle controller (E2); MountainCar policy with 747 weights (E3); 2-layer 4-head transformer, 70,656 parameters (E4); re-verification of released Qwen3.5-0.8B edit",
+ "interface": "closed form",
+ "loop": "n/a",
+ "self_editing": "no",
+ "fraction_or_count_of_weights_changed": "E3: \"It touches 16 of 747 weights (2.14%)\" (Sec 4.3); released Qwen edit: 130,188 changed entries (executive summary)",
+ "headline_results": [
+  {
+   "claim": "Released Takehi edit rebuilds bit-exactly",
+   "quote": "The released edit rebuilds bit-exactly (130,188 entries, both hashes).",
+   "where": "Abstract"
+  },
+  {
+   "claim": "Independent re-run of MATH-500 gain",
+   "quote": "The MATH-500 gain was re-run once in full on Hugging Face Jobs: 51.0% for the edited model",
+   "where": "Sec 2.2"
+  },
+  {
+   "claim": "Scripted, LLM-free pipeline reproduces similar edit",
+   "quote": "a scripted pipeline with no LLM re-derived a similar edit in about five CPU minutes",
+   "where": "Sec 2.4"
+  },
+  {
+   "claim": "E1 read: only composed reader works",
+   "quote": "R4 scores 100%, with its permutation control at chance",
+   "where": "Sec 4.1"
+  },
+  {
+   "claim": "E2 write",
+   "quote": "As a paddle controller it catches 100% of balls in the standard regime and 92.1% in a hard regime.",
+   "where": "Sec 4.2"
+  },
+  {
+   "claim": "E3 fix vs random edit",
+   "quote": "raises success to 92.8% over 512 episodes; a random edit of the same size scores 0% at every gain",
+   "where": "Sec 4.3"
+  },
+  {
+   "claim": "E4 audit negative: planted behaviour never formed",
+   "quote": "after 1,400 steps the loss on repeat positions was 3.19 against 3.18 elsewhere.",
+   "where": "Sec 4.4"
+  },
+  {
+   "claim": "Exact patch size",
+   "quote": "An exact patch therefore ships the factor plus a sparse residual: 80.6 KB for both tensors.",
+   "where": "Sec 4.5; Table 3"
+  }
+ ],
+ "cost": [
+  {
+   "claim": "Scripted alternative cost",
+   "quote": "a scripted pipeline with no LLM re-derived a similar edit in about five CPU minutes",
+   "where": "Sec 2.4"
+  }
+ ],
+ "baselines_and_controls": "permutation control (E1), gradient-trained oracle (E2), same-size random edit (E3), third-party thinking-off baseline (46.8% vs 50.6%, cited not measured); pre-registered decoding-control comparison specified but not completed",
+ "runs_and_variance": "E1: \"10 seeds per task, every network at 100% task accuracy\"; MATH-500 re-run once; E3 over 512 episodes; no variance reported in captured text",
+ "robustness_of_edits": "Quantization of patches stated as open; planned E5 gate requires keeping at least 80% of bf16 effect at Q4_0 (not run)",
+ "verification": "hash and bit-exact rebuild of released edit; Ed25519-signed patch manifests; Rust unit tests 3/3, bit-identical apply, rollback, tampered-manifest rejection (Table 5)",
+ "memorization_vs_reasoning": "n/a (no LLM editor run); notes a scripted LLM-free pipeline reproduces much of the Takehi loop-suppression edit",
+ "limitations_stated": "Source is an unreviewed blog post; E1-E4 carried from v1.0.0 and not re-run; small-scale only; no frontier-editor runs; decoding-control measurement stopped by compute billing (HTTP 402); safety risks include refusal removal and patch channel as attack surface.",
+ "code_or_data": "Zenodo artifact thox-wsp-v1.1.0-artifact.zip (record 23955394); private dataset Thox-ai/thox-wsp-evals",
+ "cites_or_builds_on": [
+  "Takehi et al. 2026 blog (Sparks of WSP)",
+  "OpenWSP repository",
+  "Arditi et al. arXiv:2406.11717"
+ ],
+ "notes_for_survey": "Replication/evaluation-style industry report: independently rebuilds and re-runs the Takehi Qwen3.5-0.8B edit (51.0% vs reported 48.1%) and flags that the thinking-off decoding comparison is unresolved. Its own recreations use deterministic tools rather than an LLM editor; proposes gating weight patches behind decoding controls and a signed patch format.",
+ "verification_2026_11_25": [
+  {
+   "claim": "bit-exact rebuild",
+   "quote": "E0 Rebuild the released edit; verify hashes and rank Bit-exact match PASS",
+   "where": "PDF table of experiments, E0"
+  },
+  {
+   "claim": "51.0% re-run (third party, ref [13])",
+   "quote": "The MATH-500 gain was re-run once in full on Hugging Face Jobs: 51.0% for the edited model against the authors' 48.1%",
+   "where": "Sec 2.2"
+  },
+  {
+   "claim": "scripted pipeline (third party, ref [10])",
+   "quote": "a scripted pipeline with no LLM re-derived a similar edit in about five CPU minutes and sixteen forward passes, reaching roughly 75% of the loop suppression",
+   "where": "Sec 2.2, Cost"
+  },
+  {
+   "claim": "Q4_0 gate not run",
+   "quote": "Patch keeps at least 80% of its bf16 effect at Q4_0 ... Not run",
+   "where": "PDF table of experiments, E5"
+  }
+ ]
+}

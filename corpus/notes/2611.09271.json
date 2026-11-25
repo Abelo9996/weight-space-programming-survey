@@ -1,0 +1,43 @@
+{
+ "id": "2611.09271",
+ "url": "https://arxiv.org/abs/2611.09271",
+ "title": "Zero-Shot Weight-Space Programming Across a Difficulty-Graded Ladder of Two-Player Games",
+ "authors": ["Eduardo C. Garrido Merchán"],
+ "date": "2026-11-06",
+ "read_level": "full (v4, 20 Nov 2026; Sec. 6 discussion skimmed)",
+ "metadata_mismatch": "Read v4. Metadata abstract (earlier version) gives '84.1-100%' at one-ply tactics; v4 reports 84.9% and 100%. Author spelled 'Garrido Merchán' in paper vs 'Garrido-Merchán' in metadata.",
+ "is_wsp": "core",
+ "why_wsp": "An LLM (Claude Sonnet 5, plus other models in replications) writes every weight of feed-forward game-playing networks from the rules, with no gradient descent or training data, and the networks are checked against independent oracles.",
+ "primary_branch": "B2",
+ "secondary_branches": [],
+ "facets": ["evaluation", "verification"],
+ "domain": "two-player games (Nim, Wythoff, tic-tac-toe, Dots and Boxes, Connect Four, Othello, KRK/KQK chess endgames)",
+ "editor": "Claude Sonnet 5 (main ladder, Track A); replications by Codex ('6 Luna High', identity unverified), Grok 4.7 High, Claude Opus 5, Claude Haiku 4.5, second Sonnet 5; Track B open-weight Qwen2.5 0.5B/1.5B/3B, Qwen3 4B, Ministral 8B",
+ "target": "ten hand-set ReLU feed-forward networks, 3,786 (Wythoff) to 38,898,084 (KQK) parameters (Table 7)",
+ "interface": "code/tensor tools (Track A: code execution, own test suites, exhaustive-search tooling); Track B: single cold text reply with module, no tools",
+ "loop": "Track A: closed-loop with feedback (self-testing, offline exhaustive solve, override per disagreement); Track B: one-shot",
+ "self_editing": "no; editor writes separate small networks",
+ "fraction_or_count_of_weights_changed": "all weights written from scratch: 'every network holds zero trainable parameters' (Table 7 caption)",
+ "headline_results": [
+  {"claim": "Six of ten networks exact under exhaustive check vs independent oracle", "quote": "Six of the ten networks are correct by exhaustive search against independently written oracles", "where": "Sec. 7"},
+  {"claim": "Nim network agrees with oracle on all states with 4,323 parameters, zero overrides", "quote": "Nim, 3 piles 512 0 4323 512/512 never loses from any of the 448 winning states", "where": "Table 1"},
+  {"claim": "Chess endgame collapse from one-ply tactic to full game", "quote": "K+R vs. K 100% 84.9% (1284/1512) 6.99% 0.57%", "where": "Table 5"},
+  {"claim": "KQK replicate", "quote": "K+Q vs. K 100% 100% (2448/2448) 39.06% 9.13%", "where": "Table 5"},
+  {"claim": "Standard boards: strong vs random, lose all games vs search", "quote": "Against search, both networks lose every game in both seats, with no exception across 1600 games in total.", "where": "Table 4 caption"},
+  {"claim": "Open-weight models up to 8B fail Nim under cold protocol", "quote": "No arm reached a second block. All five stopped on Nim", "where": "Sec. 5.9"},
+  {"claim": "Verification-habit prompt addendum did not help", "quote": "Table 10 shows no rung on which the addendum helped.", "where": "Sec. 5.8"}
+ ],
+ "cost": [
+  {"claim": "Verification wall-clock per network (not construction cost), 16-core CPU", "quote": "KQK endgame 38 898 084 192 / 128 n/a 144 508 ∼6 min", "where": "Table 7"},
+  {"claim": "Track B token use for open-weight arms", "quote": "stopped of its own accord after one thousand one hundred and forty-five tokens of an eight-thousand-token budget", "where": "Sec. 5.9"}
+ ],
+ "baselines_and_controls": "independent from-scratch oracles (backward induction, retrograde tablebases validated against external counts); random and alpha-beta search opponents (depth 2-4); a policy with the same hand-set evaluation plus two plies of search; cross-model replications; paired with/without prompt addendum; determinism check over 50 loads",
+ "runs_and_variance": "Statistical rungs: 'ten random seeds and 400 games per condition and side' with Wilson 95% CIs (Sec. 5.4); constructions are single attempts per model; prompt pilot 'a single attempt per condition' (Sec. 5.8)",
+ "robustness_of_edits": "not tested (no fine-tuning/quantization of written nets); determinism across reloads used as a check on Track B outputs",
+ "verification": "exhaustive game-tree verification against independent oracles for 6 networks; exhaustive per-position checks against retrograde tablebases for chess endgames; Wilson CIs for standard boards; replication outputs re-run by author",
+ "memorization_vs_reasoning": "Gate primitives not given in brief but 'rediscovered' by every attempt; worked example is a different game (tic-tac-toe). Track A overrides come from offline exhaustive solving, i.e. tabulation, not derivation. Interpretation of transcripts is flagged as 'not a measurement'.",
+ "limitations_stated": "Opponent-depth axis not traced as a curve; override counts are upper bounds from one tier vocabulary; cross-constructor evidence mixes administrators, sample sizes and opponent strengths; prompt pilot run from a session holding the manuscript (possible contamination); GPU memory limited doubled ceiling for two largest Track B arms.",
+ "code_or_data": "released per Sec. 7 (networks, oracles, briefs, Track B harness, pre-registration); no URL found in text",
+ "cites_or_builds_on": ["Takehi et al. 2026 (Sparks of weight-space programming blog)", "Garrido Merchán 2026 companion: Zero-Shot WSP for prediction/classification on structured datasets"],
+ "notes_for_survey": "Most rigorous verification in the B2 game-writing line: exhaustive oracle checks and a difficulty ladder with replicate games. Definition 1 forbids consulting the network's own behaviour, yet Track A permits iterative self-testing and per-disagreement override tables (offline solve baked into weights), so Track A results include tabulation. Reported boundary: one-ply-checkable tactics compile exactly; multi-move planning does not in a single forward pass."
+}

@@ -1,0 +1,43 @@
+{
+ "id": "zenodo.24416417",
+ "url": "https://doi.org/10.5281/zenodo.24416417",
+ "title": "SCALPELLO-GDP: a frontier model edits the weights of Qwen3.5-0.8B directly. One Householder reflection of a 'repetitive re-checking' direction lifts held-out math accuracy from 9.4% to 53.6% (384 paired problems), with no training",
+ "authors": ["Giovanni Del Papa"],
+ "date": "2026-11-21",
+ "read_level": "full (English PDF of Zenodo record version 1.1, id 24422781, main text Secs 1-11; Appendix A problem list skimmed); code zip not opened",
+ "metadata_mismatch": "24416417 is the Zenodo concept id; the API resolves to version record 24422781 (v1.1). PDF title wording differs slightly ('9.38% to 53.65% (384 paired problems, 171 gains, 1 loss)'; '12 attention output projections'). Author matches.",
+ "is_wsp": "core",
+ "why_wsp": "gpt-6-astra, via API, writes Python in an offline no-gradient kernel holding Qwen3.5-0.8B weights and applies a closed-form Householder reflection of a 'repetitive re-checking' residual direction to 12 attention output projections, using 25 forward passes for feedback.",
+ "primary_branch": "B3",
+ "secondary_branches": ["B4"],
+ "facets": ["evaluation"],
+ "domain": "LLM math reasoning (removing thinking loops; GSM8K/MATH train-split practice problems)",
+ "editor": "gpt-6-astra (OpenAI Responses API, reasoning effort high)",
+ "target": "Qwen3.5-0.8B (24 layers, width 1,024)",
+ "interface": "code/tensor tools (persistent Python kernel, no gradients, plus forward-pass tool)",
+ "loop": "closed-loop with feedback (25 forward passes; 12 paired edit comparisons on 32 dev problems, then frozen)",
+ "self_editing": "no; 'the editor itself is not modified'",
+ "fraction_or_count_of_weights_changed": "'relative change per tensor 6.6–9.2%; 25.2 M parameters.' (Sec 3.7); 12 tensors each 1024 x 2048",
+ "headline_results": [
+  {"claim": "Held-out accuracy 9.38% -> 53.65% over 384 paired problems", "quote": "accuracy 9.38% → 53.65% (+44.27 ± 2.56 points, 95% bootstrap CI [39.32; 49.22]; exact McNemar p = 5.8 × 10−50 )", "where": "Abstract; Sec 5 Table 3"},
+  {"claim": "171 gains, 1 loss", "quote": "171 problems wrong→right and 1 right→wrong", "where": "Sec 5"},
+  {"claim": "Cut-off answers drop", "quote": "answers cut at the token limit 91.7% → 28.1%.", "where": "Abstract; Table 3"},
+  {"claim": "Random-direction control", "quote": "A random-direction reflection had no clear effect (+3.1±5.5 points).", "where": "Abstract; Sec 3.6 Table 2"},
+  {"claim": "By source", "quote": "GSM8K 10.42%→65.62% (+55.21 ± 3.60, 106/0), MATH 8.33%→41.67% (+33.33 ± 3.49, 65/1).", "where": "Sec 5"},
+  {"claim": "Gains are from finishing within budget", "quote": "Of the 171 gains, 170 were answers in which the original model reached the 8,192-token limit without writing any boxed answer", "where": "Sec 6"}
+ ],
+ "cost": [
+  {"claim": "Editor API cost", "quote": "Editor cost: $8.43 for 92 calls (cap $60); GPU work was local.", "where": "Sec 8"},
+  {"claim": "Held-out pass wall time on T4", "quote": "the held-out passes lasted 119–121 minutes each.", "where": "Sec 8"},
+  {"claim": "Kernel usage", "quote": "at most 300 code runs; 50 used", "where": "Sec 2.2"}
+ ],
+ "baselines_and_controls": "Unedited model on same problems with shared seeds (paired); random-direction reflection control (same 12 tensors, s=2); alternative edit families and tensor subsets (Table 2).",
+ "runs_and_variance": "'One sample per problem, one run, one editor' (Sec 9); six held-out cohorts with paired SE, bootstrap CI, McNemar.",
+ "robustness_of_edits": "Released checkpoint kept in bf16 and evaluated in fp16 on T4; no fine-tuning or longer-budget test; authors expect smaller gain at 32,768 tokens and possibly on larger Qwen3.5 models (untested).",
+ "verification": "statistical: paired bootstrap, exact McNemar; static search of editor code for gradient/optimizer use; saved tensors recomputed to relative error 5e-8; network audit of every forward pass",
+ "memorization_vs_reasoning": "Editor follows the exp8 prompt of Takehi et al. harness; the edit 'adds no mathematical knowledge: it reduces looped re-checking'. No test of editor reasoning vs recall.",
+ "limitations_stated": "Not official benchmarks (train-split practice problems); 8,192 vs 32,768 token budget; one sample, one run, one editor; 32 dev problems; closed paid editor; network monitor polls every 0.5 s.",
+ "code_or_data": "Zenodo scalpello_code_results_v1.0.zip; edited model https://huggingface.co/odelpa/qwen3.5-0.8b-scalpello-b2-gdp and Ollama ollamagdp/qwen3.5-0.8b-scalpello-b2-gdp",
+ "cites_or_builds_on": ["Takehi, Teoh, Zhang, Khattab 2026 Sparks of WSP (blog and MIT-licensed harness, exp8 prompt)", "zenodo.24326751 (referenced in record metadata)"],
+ "notes_for_survey": "Independent low-budget replication of the Takehi et al. Qwen3.5-0.8B anti-loop result with half the forward budget and a quarter of the token cap; full edit history, random-direction control, and per-problem outcome list released. Gains are almost entirely due to answers finishing within the token cap."
+}

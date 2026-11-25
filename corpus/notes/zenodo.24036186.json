@@ -1,0 +1,43 @@
+{
+ "id": "zenodo.24036186",
+ "url": "https://doi.org/10.5281/zenodo.24036186",
+ "title": "Weight-Space Programming with Claude Mythos: Weight Edits and Implanted Circuits in a 0.8B Language Model, with Transfer to an Engineering Surrogate",
+ "authors": ["Keyvan Hardani"],
+ "date": "2026-11-07",
+ "read_level": "full (English pages 1-4 of the 8-page bilingual PDF; German pages 5-8 not read). Zenodo record/API returned HTTP 403 ('unusual traffic'); PDF read from the author's Hugging Face repos (keyvan-ai/Mythos-WSP-Loopbreaker-Skill, identical file in keyvan-ai/Mythos-WSP-Qwen3.5-0.8B), whose header states 'Version 1.0, 7 November 2026 · DOI 10.5281/zenodo.24036187'. Zenodo description obtained via DataCite API. Identity with the Zenodo-hosted file not verified byte-for-byte.",
+ "metadata_mismatch": "Metadata title includes the suffix '(bilingual: English / German)', not in the PDF title. Corpus abstract was empty; DataCite abstract matches the PDF abstract.",
+ "is_wsp": "core",
+ "why_wsp": "Claude Mythos 5.1 as editing agent rewrites Qwen3.5-0.8B weights (rank-3 projection; then repurposes four MLP units into a written repetition-detector/termination circuit) and edits a 4,804-weight thermal surrogate MLP from physical-parameter identification, without gradients.",
+ "primary_branch": "B3",
+ "secondary_branches": ["B2", "B4"],
+ "facets": ["evaluation", "application domain: LLM math reasoning; power-electronics thermal surrogate"],
+ "domain": "LLM math reasoning (reasoning loops, MATH-500); engineering surrogate (MOSFET junction temperatures)",
+ "editor": "Claude Mythos 5.1 (Anthropic); control run with locally operated Qwen3.8-27B on surrogate task",
+ "target": "Qwen3.5-0.8B (revision 2fc06364); surrogate MLP 5->64->64->4 (4,804 weights)",
+ "interface": "code/tensor tools (agent in run folder with forward-pass tool; activation access via teacher-forced passes)",
+ "loop": "closed-loop with feedback (fixed forward-pass budget: 10 passes for Exp. 1, 8 further passes for Exp. 2)",
+ "self_editing": "no",
+ "fraction_or_count_of_weights_changed": "Exp 1: \"a rank-3 projection in three attention matrices (0.785 % of parameters)\"; Exp 2: \"four units of MLP layer 23\" repurposed; Exp 3: \"four tensors, 13.4 % of the weights\"",
+ "headline_results": [
+  {"claim": "Exp 1 projection edit, 10 passes", "quote": "MATH-500 rises from 7.3 % (our own measurement of the original) to 32.5 % through a rank-3 projection in three attention matrices", "where": "Abstract; Sec 3; Table 1"},
+  {"claim": "Exp 2 implanted circuit", "quote": "after 8 further passes the model reaches 58.7 % (SE 1.1) and the share of truncated answers falls from 66 % to 17 %", "where": "Abstract; Sec 4; Table 1"},
+  {"claim": "Grader dependence", "quote": "58.7 % on MATH500 (SE 1.1 over samples, 1.9 over problems; math-verify 55.4 %)", "where": "Sec 4"},
+  {"claim": "Thinking-disabled control", "quote": "the unmodified model reaches 42.8 % with thinking disabled", "where": "Abstract; Table 1"},
+  {"claim": "MIT comparison at same budget", "quote": "In the MIT study, GPT-6 Astra reached 12.3 % at the same budget, 14.1 % with 25 passes and 48.1 % with 50 passes.", "where": "Sec 3"},
+  {"claim": "Exp 3 surrogate", "quote": "0.17 K mean error at full load, versus 2.3 to 4.5 K for gradient fine-tuning on the same data and 0.07 K for retraining on 5,000 simulations", "where": "Abstract; Table 2"},
+  {"claim": "Control model rule violation", "quote": "A control run with a locally operated Qwen3.8-27B reached 0.03 K, but in violation of the rules", "where": "Sec 5"}
+ ],
+ "cost": [
+  {"claim": "Forward-pass budgets only; no token, time or $ figures found", "quote": "after 10 forward passes ... after 8 further passes", "where": "Abstract"},
+  {"claim": "Hardware", "quote": "Generation ran on vLLM 0.33 (one RTX PRO 6000 or one RTX 4000 Ada)", "where": "Sec 2"}
+ ],
+ "baselines_and_controls": "Original model re-measured (7.3%); thinking-disabled original (42.8%); MIT GPT-6 Astra figures at 10/25/50 passes (quoted, not rerun); reported reproductions (51.0%); surrogate: unchanged surrogate, affine recalibration, gradient fine-tuning (output layer / all weights / CV config), retraining on 5,000 sims (upper bound).",
+ "runs_and_variance": "MATH-500 with 4 samples per problem (2,000 answers); SE over samples and over problems reported. Single editing run per experiment. Quote: 'Standard errors are given over samples and over problems.' (Sec 2)",
+ "robustness_of_edits": "not tested ('GSM8K, MGSM and a capability battery for side effects are pending'); surrogate tested on extrapolation to full-load range",
+ "verification": "Hidden test sets; deterministic solver as verifier for surrogate; complete call logging. No formal verification.",
+ "memorization_vs_reasoning": "n/a",
+ "limitations_stated": "One LM and one benchmark protocol; side-effect battery pending; surrogate physics small and known in equation form; 'Edits do not add knowledge that is present neither in the network nor in the available data.'",
+ "code_or_data": "https://huggingface.co/keyvan-ai/Mythos-WSP-Qwen3.5-0.8B ; https://huggingface.co/keyvan-ai/Mythos-WSP-Loopbreaker-Skill",
+ "cites_or_builds_on": ["Takehi, Teoh, Zhang, Khattab, Sparks of Weight-Space Programming, MIT CSAIL 2 Nov 2026, and logs github.com/RikiyaT/lm_understand-logs", "Net2Net (Chen et al. 2016)"],
+ "notes_for_survey": "Single-author report replicating the MIT Qwen3.5-0.8B loop repair with a different editor at a 10-pass budget, then implanting a 4-neuron circuit; adds a thinking-disabled control (42.8%) absent from the MIT study. Non-peer-reviewed; single run per experiment."
+}

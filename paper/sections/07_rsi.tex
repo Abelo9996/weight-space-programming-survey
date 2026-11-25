@@ -1,0 +1,64 @@
+\section{WSP and Recursive Self-Improvement}
+\label{sec:rsi}
+
+WSP invites a familiar extrapolation: if a model can edit a network's weights to make it better, perhaps it can edit its own, and the improved model can then make the next edit. The original post lists recursive self-improvement among its future directions \citep{takehi2026sparks}. This section asks what the evidence supports today and what would have to be true for that extrapolation to hold. We keep it deliberately separate from the rest of the survey. RSI is a forward-looking question, and nearly all current WSP is one model editing another.
+
+\subsection{Where current WSP sits}
+
+Existing RSI surveys organize self-improvement by what is improved (outputs, prompts and scaffolds, training data, evaluators, or the research process) and by how closed the loop is \citep{ax2607_13104,ax2607_07663,liu2026pathrsi,wu2026rsisurvey}. Where weights change in those surveys, gradient descent changes them, as in self-training and SEAL-style self-edits \citep{ax2506_10943,ax2601_14532}. WSP adds a new update operator: the model chooses weight values directly.
+
+In our corpus, \nSelfEditing\ of \nIncluded\ studies are self-editing in the sense of axis 4 (\cref{sec:defs}). Everything else is ``other''. The editor is usually a frontier proprietary model, and the language-model targets are small open models, from 70M to 27B parameters. That asymmetry matters. The capability that makes WSP work at all, frontier-level reasoning over weights, is not the capability of the models being edited.
+
+\subsection{Self-editing studies}
+
+The \nAnyBSix\ studies that carry the B6 code are listed in \cref{tab:papers}. Two of them, a governed improvement ladder \citep{ax2611_10425} and a framework for verifier-guided control of weight edits \citep{ax2611_13236}, are coded B6 as a secondary branch because they are designed as steps toward self-improvement, but in both an external controller applies the edits. The remaining \nSelfEditing\ are self-editing in the sense of axis 4: the model that proposes the edit is the model that receives it.
+
+\begin{itemize}[leftmargin=*,itemsep=3pt]
+\item \textbf{Language Models Can Rewrite Their Own Weights} \citep{ax2611_21885}. Qwen3.5 models from 2B to 27B, with gradients blocked, write code that edits their own tensors. They decide whether to submit an edit after paired self-tests. On 490 held-out math problems, 2 of 8 second-protocol sessions gave significant gains of 6.6 and 4.0 points. The largest came from a uniform $+0.5$ change to the time-step bias of every linear-attention layer, which reduced answers running out of tokens. A planted-damage task showed the 27B model localizing a corrupted matrix and repairing a noisy copy of itself from 0.0\% to 33.0\% held-out accuracy, against 58.5\% for the undamaged model.
+\item \textbf{Self-WSP} \citep{ax2611_28833}. Qwen3.5-0.8B proposes grammar-constrained edits to its own weights. Kept edits make the edited model both the next solver and the next editor. Selected models reach up to 62.2\% on GSM8K (from 11.8\%) and 32.2\% on MATH-500 (from 7.0\%). The controls are informative.
+  \begin{itemize}[leftmargin=*,itemsep=1pt]
+  \item On MATH-500, random search with the same budget finds no improvement, while self-editing reaches 17.3\%.
+  \item On GSM8K, random search matches self-editing: its best model scores 32.8\% against 31.9\% for self-editing.
+  \item Across all twelve eight-round runs on MATH, kept edits leave validation accuracy unchanged on average.
+  \item Of 11{,}580 proposals, 69\% were invalid despite the grammar, and between 9\% and 28\% of valid edit values simply copy a statistic the editor had just read.
+  \end{itemize}
+  The study also runs a frozen-editor control, in which the original weights keep proposing edits and only the solver is edited. The authors report that ``on average it behaves much like the other two, so letting the editor itself be edited brings no clear benefit'' (per-run values are shown only in a figure). They attribute the gains mainly to the outer selection loop and to breaking repetitive thinking.
+\item \textbf{Recursive Self-Editing} \citep{ax2611_29513}. A Qwen3.8-27B model writes low-rank edits to its own weights. The best gate-improving edit is merged, and the edited model writes the next one. Over five generations, four edits were accepted, raising gate accuracy from 73.95\% to 76.45\% and held-out avg@4 from 76.30\% to 77.75\%. Each accepted edit is the best of eight candidates on the same gate whose accuracy is reported. The study has a single run, no random-edit control and no comparison to an external editor or fine-tuning.
+\item \textbf{Self-Upgrading Embodied Agents} \citep{ax2611_31117}. A Qwen3.5-27B ALFWorld agent reads its own logs and hidden states between task batches and writes a rank-one edit to one of its tensors. It keeps the edit only after paired tests and a confirmation on reserved tasks. One edit was kept in four nights. It raised held-out task completion from 41.6\% to 45.2\% ($+3.6$ points, 95\% interval $+1.9$ to $+5.2$). Smaller models in the same family kept no edit in the nights they were run.
+\end{itemize}
+
+\paragraph{What these show.} A model can produce edits to its own weights that pass paired statistical tests, under a protocol that withdraws edits that do not. The gains so far are a few points. They concentrate on a known, concentrated failure (repetition and token exhaustion) and are mostly attributable to selection.
+
+\paragraph{What they do not show.} None shows that the edited model is a \emph{better editor} than the original. That is the property that makes self-improvement recursive. The one direct test points the other way: in Self-WSP, a frozen editor does about as well as a self-edited one, and continued self-editing leaves validation accuracy flat on average across rounds \citep{ax2611_28833}. None tests whether self-edits persist under the quantization and fine-tuning of \cref{sec:persist}, although one merges four successive self-edits \citep{ax2611_29513} and another keeps its edit across later nights \citep{ax2611_31117}. None compares against the obvious alternative, gradient-based self-training on the same selection signal.
+
+\subsection{What would have to be true}
+
+We state five conditions under which WSP would amount to recursive self-improvement rather than self-editing. Each is testable.
+\begin{enumerate}[label=(C\arabic*),leftmargin=*,itemsep=3pt]
+\item \textbf{Editing skill improves with the edits.} After edit $g$, model $M_{g}$ must produce better edits than $M_{g-1}$ on a fixed set of editing tasks. The test is held-out editing tasks for both, not the target benchmark. No current study measures this.
+\item \textbf{Gains are not selection alone.} A WSP self-edit loop must beat best-of-$N$ random edits of matched norm and location under the same gate. It must also beat a frozen editor. Self-WSP is the only study with both controls, and random search matches it in one of its settings \citep{ax2611_28833}.
+\item \textbf{Gains are not decoding in disguise.} Many current self-edits change how long the model thinks, not what it knows \citep{ax2611_21885,ax2611_28833}. A self-improvement claim must beat the best decoding-only change on the same target.
+\item \textbf{The loop is affordable.} The editor's cost per accepted edit must be lower than the cost of the gain obtained by other means, such as fine-tuning or a stronger external editor. Current self-edit sessions take hours on one GPU \citep{ax2611_21885}. External-editor sessions range from dollars to hundreds of dollars (\cref{sec:cost}).
+\item \textbf{Edits compose and persist.} Edit $g{+}1$ must not undo edit $g$, and the accumulated edits must survive the deployment transformations of \cref{sec:persist}. Otherwise each generation inherits a checkpoint that cannot be maintained.
+\end{enumerate}
+(C1) is the crux. Without it, a self-editing loop is an optimizer with an expensive proposal distribution, which is valuable but not recursive.
+
+\subsection{Risks and safety}
+\label{sec:rsi-safety}
+
+The same operations that repair models implant behavior into them.
+\begin{itemize}[leftmargin=*,itemsep=2pt]
+\item \textbf{Cheap, stealthy backdoors.} Backdoors written by LLMs are cheap (\$1.74 to \$30 per run), selective, and stealthy on held-out benchmarks \citep{ax2611_17395,ax2611_27920,ax2611_27425}.
+\item \textbf{Guardrail removal without gradients.} Closed-form edits remove guardrails from large open-weight models \citep{ax2611_27426}.
+\item \textbf{Detection is fragile.} Weight-based detection works against naive edits but is defeated by norm matching and deep freezing \citep{ax2611_19304,zen24156363}. Frontier auditors given raw checkpoints missed a closed-form backdoor of fewer than ten neurons in 27\% to 44\% of edited checkpoints, by abstaining or calling them clean \citep{ax2611_15118}.
+\item \textbf{AI-discovered attacks.} The core idea of that backdoor, chaining dormant neurons to emit a payload, is credited by its authors to an AI coding agent \citep{ax2611_15118}. Discovery of weight-level attacks is itself becoming automated.
+\item \textbf{Framing the threat.} A risk essay outside the corpus names harmful targeted edits ``weight space misfolding'' and argues that defenders face a choice between prohibiting weight editing and bearing the cost of inspecting edits. Its case studies do not show self-propagation, and the authors report that no such attack has been observed in deployment \citep{csefalvay2026misfolding}.
+\end{itemize}
+For self-editing systems, these results imply four concrete safeguards.
+\begin{enumerate}[leftmargin=*,itemsep=2pt]
+\item Transactional, reversible edit execution, with signed manifests and exact restoration \citep{ax2611_13232,ax2611_13236,zen23954378}.
+\item Reference-based weight-diff audits against a signed base checkpoint \citep{ax2611_27426,zen24156363}.
+\item Keep-or-withdraw protocols with held-out confirmation \citep{ax2611_21885,ax2611_31117}.
+\item Separation of the editing gate from the evaluation set.
+\end{enumerate}
+A governed improvement ladder that admits weight edits only after cheaper changes fail is one operational form of the last two \citep{ax2611_10425}. Formal verification of the edit (\cref{sec:verify}) is the missing safeguard. The self-evolving-agent safety literature already calls for formal verification of self-modifying systems \citep{ax2606_23075}. In WSP, that modification acts on weights that a general-purpose model chooses by reasoning about them.

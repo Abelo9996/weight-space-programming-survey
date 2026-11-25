@@ -1,0 +1,43 @@
+{
+ "id": "2611.20174",
+ "url": "https://arxiv.org/abs/2611.20174",
+ "title": "Weights & Caches: LLMs Can Program Tabular Foundation Models",
+ "authors": ["Shi Bin Hoo", "Magnus Bühler", "Omar Swelam", "Frank Hutter", "Lennart Purucker"],
+ "date": "2026-11-15",
+ "read_level": "full main text and appendices A-B; appendix C (KV-cache) skimmed",
+ "metadata_mismatch": "minor: metadata spells 'Magnus Buehler', paper spells 'Magnus Bühler'",
+ "is_wsp": "core",
+ "why_wsp": "GPT-6 Astra writes nanoTabPFN weights from zero, edits pretrained TabPFN-3.5 weights to repair a signed-product regression failure, and writes KV-cache editing programs, all without gradient optimization.",
+ "primary_branch": "B2",
+ "secondary_branches": ["B3", "B1"],
+ "facets": ["evaluation", "application domain"],
+ "domain": "tabular foundation models (TabPFN-3.5, nanoTabPFN); tabular classification/regression",
+ "editor": "GPT-6 Astra (gpt-6-astra, via Codex CLI for the repair setting)",
+ "target": "nanoTabPFN (\"116 tensors and 3,717,514 weights\"), pretrained TabPFN-3.5 (official checkpoint tabpfn-v3.5-20260909); KV-cache of TabPFN-3.5 (weights frozen)",
+ "interface": "code/tensor tools (agent writes weights via Python code; closed-form fits allowed in repair; Python edit(cache) function for steering)",
+ "loop": "construct: one-shot (no forward passes allowed); repair: closed-loop with feedback (3 validation feedback requests); steer: closed-loop exploration on dev datasets",
+ "self_editing": "no",
+ "fraction_or_count_of_weights_changed": "Construct: \"Nonzero weights 15,513 (0.42%)\" (App. A Table 2). Repair: \"Changed tensors / weight entries 125 / approximately 105 million\" (App. B Table 4); \"it does not establish that a small local edit suffices\" (App. B).",
+ "headline_results": [
+  {"claim": "nanoTabPFN written from zero weights", "quote": "achieving a mean ROC AUC of 0.849 across 20 TabArena datasets, compared to 0.876 for a pretrained baseline", "where": "Abstract, Sec. 3.1"},
+  {"claim": "Log loss vs pretrained", "quote": "log loss of 0.397 on the 20 datasets, compared to 0.876 and 0.312 for the pretrained baseline", "where": "Sec. 3.1"},
+  {"claim": "Per-dataset comparison", "quote": "WSP-NanoTabPFN has the higher AUC on 3 of the 20 datasets", "where": "App. A Table 3"},
+  {"claim": "Signed-product repair", "quote": "the repair raises median per-dataset R2 from −0.024–0.017 to 0.991–0.998 on held-out synthetic datasets", "where": "Sec. 3.2, Fig. 2b"},
+  {"claim": "Preservation on TabArena-Lite", "quote": "geometric-mean edited-to-pretrained error ratio is 1.0008 (95% confidence interval: 0.9999–1.0017)", "where": "App. B"},
+  {"claim": "KV-cache steering on unseen datasets", "quote": "Both programs approximate the intended transformations on previously unseen datasets, although the quality of the interventions varies across datasets.", "where": "Sec. 3.3"}
+ ],
+ "cost": [
+  {"claim": "Construct session", "quote": "Wall-clock time (min) ... 20", "where": "App. A Table 2 (7 turns, 5 Python runs)"},
+  {"claim": "Repair session", "quote": "Wall-clock time / allowed budget ... 62 min / 5 h", "where": "App. B Table 4"},
+  {"claim": "KV programs", "quote": "Astra took about 20 minutes to write the slope program and 70 minutes to write the square-wave program", "where": "Sec. 3.3"}
+ ],
+ "baselines_and_controls": "Construct: nanoTabPFN pretrained on 160,000 synthetic tables (SGD baseline). Repair: unedited pretrained TabPFN-3.5 on signed-product and TabArena-Lite; agent control reserving coordinates without activating sign output \"leaves performance near chance\". No random-edit or fine-tuning baseline.",
+ "runs_and_variance": "Construct: \"We ran two sessions under this protocol and report the better one\" (App. A). Repair: one agent session; TabArena-Lite errors averaged over three seeds with 95% CI. 60 hidden datasets per regime.",
+ "robustness_of_edits": "Repair: \"Transfer beyond the targeted regimes is partial\" (App. B); reload of merged checkpoint reproduces scores on all 240 hidden datasets. Not tested under fine-tuning or quantization.",
+ "verification": "none formal; statistical preservation criteria with preset limits; transcript audit: \"We audited the recorded transcripts and programs for compliance with these rules and found no violations.\" (Sec. 3)",
+ "memorization_vs_reasoning": "Construct: Astra \"implements a multiscale kernel naive Bayes classifier\" rather than reproducing pretrained weights, with no data or forward passes. Repair diagnosis based on linear probes; authors note results \"do not establish that the pretrained model already contained the complete circuit\".",
+ "limitations_stated": "Findings \"remain exploratory\" (Sec. 4); repair changes ~105M entries, not a small local edit; transfer beyond targeted regimes partial; KV-steering quality varies across datasets.",
+ "code_or_data": "none found (no code URL in paper; baseline prior from https://github.com/automl/TFM-Playground/)",
+ "cites_or_builds_on": ["Takehi et al. 2026, Sparks of Weight-Space Programming (blog)"],
+ "notes_for_survey": "Spans B2 (write TFM from zero, no forward passes, 0.42% nonzero), B3 (diagnose-then-repair via probes, ~105M entries changed) and a KV-cache variant (weights frozen). The construct result reports best of two sessions."
+}

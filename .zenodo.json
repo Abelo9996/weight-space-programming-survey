@@ -1,0 +1,9 @@
+{
+  "title": "Weight-Space Programming: A Survey and Roadmap",
+  "upload_type": "publication",
+  "publication_type": "preprint",
+  "description": "A survey of weight-space programming (WSP), in which a model, usually a large language model, reads, writes or edits the weights of a neural network directly, without an optimizer authoring the values. Covers 93 studies posted up to November 25, 2026, with a four-axis taxonomy, lineage, a reliability agenda, conditions for recursive self-improvement and eleven open problems. Includes the reading notes, corpus and generator scripts.",
+  "creators": [{"name": "Yagubyan, Abel", "affiliation": "University of Georgia"}],
+  "license": "cc-by-4.0",
+  "keywords": ["weight-space programming", "large language models", "model editing", "survey"]
+}
